@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>[% title %]</title>
+  </head>
+  <body>
+    [% content %]
+    <hr>
+    <p>Copyright &copy; 2018 Graham Ollis, Joel Berger et al.</p>
+  </body>
+</html>
