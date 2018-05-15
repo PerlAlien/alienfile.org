@@ -1,0 +1,11 @@
+language: perl
+sudo: false
+
+install:
+  - cpanm --installdeps .
+
+perl:
+  - "5.26"
+
+script:
+  - ./build.pl
