@@ -1,0 +1,14 @@
+[% USE Markdown %]
+
+[% markdown %]
+
+<ul>
+[% FOREACH md IN directory.children.grep('\.md$') %]
+  [% SET html_filename = md.basename.replace('(\..*)?\.md$','.html') %]
+  [% NEXT IF html_filename == 'index.html' %]
+  <li>
+    <a href="[%  html_filename %]"</a>[% html_filename %]</a>
+    [% md.slurp | markdown %]
+  </li>
+[% END %]
+</ul>

@@ -26,19 +26,26 @@ $root->child('docs')->visit(
     $template_name ||= 'simple';
     $html_path = $md_path->sibling($html_path . '.html');
     
-    say $md_path;
     my $out = '';
     
     my @lines = $md_path->lines_utf8;
     
     my($title) = $lines[0] =~ /^#+\s(.*)$/;
     $title ||= 'alienfile.org';
-    
+
+    my $template_path = $root->child("templates/$template_name.html.tt");
+    say "$md_path ($template_path)";
+    die "no such tempalte $template_path" unless -f $template_path;
+
     my $html = $tt->process(
-      "$template_name.html.tt",
-      { title => $title, markdown => markdown(join '', @lines) },
+      $template_path->basename,
+      {
+        title     => $title,
+        markdown  => markdown(join '', @lines),
+        directory => $md_path->parent,
+      },
       \$out,
-    );
+    ) || die $tt->error;
     
     say "  -> $html_path";
     

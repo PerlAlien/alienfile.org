@@ -1,4 +1,4 @@
-## libdontpanic
+# libdontpanic
 
 libdontpanic was created to test Alien::Base.  Its name was inspired
 by <i>The Hitchhiker's Guide to the Galaxy</i> by Douglas Adams.
