@@ -1,6 +1,6 @@
 requires 'Template';
 requires 'Path::Tiny';
-requires 'Text::Markdown';
+requires 'Text::Markdown::PerlExtensions';
 requires 'Plack';
 requires 'Plack::Middleware::DirIndex';
 requires 'Test2::V0';

@@ -2,10 +2,12 @@
 
 use strict;
 use warnings;
+use FindBin ();
+use lib "$FindBin::Bin/lib";
 use 5.026;
 use Template;
 use Path::Tiny qw( path );
-use Text::Markdown qw( markdown );
+use Text::Markdown::Custom qw( markdown );
 
 my $root = path(__FILE__)->parent;
 
@@ -43,6 +45,7 @@ $root->child('docs')->visit(
         title     => $title,
         markdown  => markdown(join '', @lines),
         directory => $md_path->parent,
+        shjs      => "https://shjs.wdlabs.com",
       },
       \$out,
     ) || die $tt->error;

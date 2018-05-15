@@ -3,8 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <title>The Perl/Alien Blog</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <style>
+      pre {
+        margin-left: 8px;
+        margin-right: 8px;
+        padding: 10px 5px;
+      }
+      code {
+        background-color: #eeeeee;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
   </head>
-  <body>
+  <body onload="sh_highlightDocument();">
     
 
 <h1>The Perl/Alien Blog</h1>
@@ -12,305 +28,202 @@
 <p>Here are some blog entries related to Perl and Alien.</p>
 
 
-<ul>
 
   
   
-  <li>
-    <a href="2015-07-15-alien-base-0-020-and-native.html"</a>2015-07-15-alien-base-0-020-and-native.html</a>
-    <h2>Alien::Base 0.020 and #native</h2>
+  
+  
+  <article>
+    <h2>Alien::Base and Module::Build</h2>
+
+<p></h2></p>
+
+<p>By <b>Graham Ollis</b> on 1 March 2016</p>
+
+<p>TL;DR - if you have an <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> module, please 
+update configure_requires so that it depends on 
+<a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> instead of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>, and (this part is 
+key) make a release.</p>
+
+<p>This is technically more correct, and it will also future proof your 
+module in the event that <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> 
+gets spun off from the rest of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.  There are 
+a number of motivations making such a move.  Please join us on 
+<a href="https://github.com/Perl5-Alien/Alien-Base/issues/157">GitHub</a>
+or the
+<a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native IRC channel</a>
+if are interested in working on the next generation of of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.</p>
+
+    <hr>
+    <p><a href="2016-03-01-alien-base-and-module-build.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
+    <h2>Improved reliability with <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> and <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a></h2>
+
+<p>By <b>Graham Ollis</b> on 20 January 2016</p>
+
+<p>The one major platform that didn’t work on the initial switch was of 
+course Strawberry Perl, but after some debugging and patches I got 
+<a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even 
+submitted patches to upstream to the hunspell project, which were 
+accepted, so that in the future less patching will be required.  This is 
+what is great about Open Source when it works.</p>
+
+<p>The results as recorded in the cpantesters matrix are stark:</p>
+
+<ul>
+<li><a href="http://matrix.cpantesters.org/?dist=Text-Hunspell%202.14">2.14 - the first version to insist in its Makefile.PL on a version of Alien::Hunspell that works on Windows</a></li>
+<li><a href="http://matrix.cpantesters.org/?dist=Text-Hunspell%202.11">2.11 - the last version to use ExtUtils::PkgConfig</a></li>
+</ul>
+
+<p>...</p>
+
+    <hr>
+    <p><a href="2016-01-20-improved-reliability-with-alien-and-test-alien.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
+    <h2>Making Alien::Base more reliable</h2>
+
+<p>By <b>Graham Ollis</b> on 29 July 2015</p>
+
+<p>The <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> (AB) team has done a number of things over the past 
+year with AB to make the installing packages more reliable.  For AB 
+based Alien developers who have created their own Alien::Libfoo this is 
+great because they get the benefit of more reliable installs when users 
+upgrade their version of AB without having to release a new version of 
+Alien::Libfoo.  Though largely backward compatible with version 0.005 
+(or perhaps further), modern versions of AB have also been given a few 
+interface enhancements that require changes in Alien::Libfoo in order to 
+benefit.  So if you are an AB based Alien developer, please consider a 
+couple of simple changes that you can make to make your distribution 
+more reliable.</p>
+
+<h3>Use <code>%c</code> instead of <code>%pconfigure</code>.</h3>
+
+<p>Long story short, the <code>%p</code> directive was intended to handle the 
+portability problem when running a command in the current directly.  On 
+Unix this requires a <code>./</code> prefix.  That won’t work on Windows. <br />
+Unfortunately, configure is usually a shell script and on Windows you 
+need MSYS (or something similar) to provide sh and friends.  Even if you 
+had MSYS, <code>%pconfigure</code> won’t correctly invoke configure on Windows, 
+because that isn’t how you run a shell script on Windows.  So back in 
+version 0.005 we added the <code>%c</code> directive to mean “run configure however 
+that works on this platform”.  If AB sees that you are using <code>%c</code> it 
+will also make sure that <a href="https://metacpan.org/pod/Alien::MSYS" class="module">Alien::MSYS</a> gets added as a build 
+requirement, if it is needed.  In many cases, adding Windows support for 
+your AB based Alien distribution may be as simple replacing 
+<code>%pconfigure</code> with <code>%c</code> and making AB 0.005 a prerequisite.</p>
+
+<p>...</p>
+
+    <hr>
+    <p><a href="2015-07-29-making-alien-base-more-reliable.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
+    <h2><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>: System Integrators vs. CPAN Authors</h2>
+
+<p>By <b>Graham Ollis</b> on 22 July 2015</p>
+
+<p>Last week I promised (or threatened depending on your outlook) to talk 
+about <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> in the context of system integration and 
+distribution packagers.</p>
+
+<h3>Philosophy:</h3>
+
+<p>The philosophy for <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> has always been that the system 
+library should be used when it is available, and if not, the source code 
+for that library can be downloaded and installed for you.  My own 
+<a href="https://metacpan.org/pod/Alien::FFI" class="module">Alien::FFI</a> (isa <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>) which provides 
+<a href="https://sourceware.org/libffi/">libffi</a>, and <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> which 
+uses it is a good example of the success of this approach as you can see 
+from their respective 
+<a href="http://matrix.cpantesters.org/?dist=Alien-FFI+0.12">test</a> 
+<a href="http://matrix.cpantesters.org/?dist=FFI-Platypus+0.3">matrices</a></p>
+
+<p>...</p>
+
+    <hr>
+    <p><a href="2015-07-22-alien-base-system-integrators-vs-cpan-authors.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
+    <h2><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> 0.020 and #native</h2>
 
 <p>By <b>Graham Ollis</b> on 15 July 2015</p>
 
-<p>This week we rolled out the latest version of <a 
-href="https://metacpan.org/pod/Alien::Base">Alien::Base</a> which 
+<p>This week we rolled out the latest version of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> which 
 includes a new feature and a bug fix.  The most important change in this 
 version are the two new avenues of communication that we have adopted, 
 so I will discuss that first.</p>
 
-<p>The first is that we have established the <a 
-href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native</a> 
+<p>The first is that we have established the 
+<a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native</a> 
 channel on irc.perl.org to discuss interactions with native interfaces. <br />
-This includes <a href="https://metacpan.org/pod/Alien">Alien</a> in 
-general, <a href="https://metacpan.org/pod/Alien::Base">Alien::Base</a> 
-specifically, and we also intend it to be a place to discuss <a 
-href="https://metacpan.org/pod/FFI::Platypus">FFI</a> (Foreign Function 
-Interface or NativeCall), as there is a degree of overlap for the people 
-involved.  You can now click on a big red button from the metacpan page 
-for the project that will log you into IRC and allow you to start asking 
-questions (or complain at us if that is what needs doing).</p>
+This includes <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> in general, <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> specifically, and we 
+also intend it to be a place to discuss <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> (Foreign 
+Function Interface or <a href="https://metacpan.org/pod/NativeCall" class="module">NativeCall</a>), as there is a degree of overlap 
+for the people involved.  You can now click on a big red button from the 
+metacpan page for the project that will log you into IRC and allow you 
+to start asking questions (or complain at us if that is what needs 
+doing).</p>
 
 <p>The second communication improvement is the creation of an Alien::Base 
-FAQ (see <a 
-href="https://metacpan.org/pod/Alien::Base::FAQ">Alien::Base::FAQ</a>). <br />
-I promised this last year but only recently got around to writing it. <br />
-It consists of a number of questions (and corresponding answers) that I 
-personally had when I was trying to figure out how to develop my own <a 
-href="https://metacpan.org/pod/Alien::Base">Alien::Base</a> based Alien 
-distributions.  Iâm hoping this guide will help those that are getting 
+FAQ (see <a href="https://metacpan.org/pod/Alien::Base::FAQ" class="module">Alien::Base::FAQ</a>).  I promised this last year but only 
+recently got around to writing it.  It consists of a number of questions 
+(and corresponding answers) that I personally had when I was trying to 
+figure out how to develop my own <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based Alien 
+distributions.  I’m hoping this guide will help those that are getting 
 started now.</p>
 
-<p>One thing that working on the FAQ reminded me of is that although it is 
-relatively simple to create and maintain an <a 
-href="https://metacpan.org/pod/Alien::Base">Alien::Base</a> based Alien 
-distribution if your package uses autoconf and pkg-config, it is a 
-little more challenging if your package does not use these tools. <br />
-Things that are doable, but present their own set of challenges include 
-CMake, autoconf-like, and vanilla makefiles.  Iâve done my best to 
-illustrate the techniques to work with these technologies, usually only 
-a few lines of code need to be added to your <tt>Build.PL</tt>.  I wrote 
-<a href="https://metacpan.org/pod/Alien::Libbz2">Alien::Libbz2</a> while 
-I was working on the FAQ to serve as a working example of a non-autoconf 
-/ non-pkg-config package, and also to verify the techniques are 
-correct.</p>
+<p>...</p>
 
-<p>For those who use Dist::Zilla, I used <a 
-href="https://metacpan.org/pod/Dist::Zilla::Plugin::Alien">Dist::Zilla::Plugin::Alien</a> 
-when writing <a 
-href="https://metacpan.org/pod/Alien::Libbz2">Alien::Libbz2</a>, so it 
-serves as a good example of how to bridge the worlds of Dist::Zilla and 
-Alien.  While working on this, I worked with Zakariyya Mughal to drive 
-development of the plugin itself.  The plugin is now up to date once 
-again feature wise with <a 
-href="https://metacpan.org/pod/Alien::Base">Alien::Base</a>.</p>
-
-<p>Aside from the new IRC channel and the FAQ, we have always had a mailing 
-list and use the project GitHub to track issues and pull requests.  With 
-all of these ways to interact with the Alien::Base team you may be 
-wondering what the best way to get your questions answered is.  As it 
-turns out, the preferred way of contacting us is whatever is whichever 
-of those you prefer!</p>
-
-<p><a href="https://groups.google.com/forum/#!forum/perl5-alien">https://groups.google.com/forum/#!forum/perl5-alien</a></p>
-
-<p><a href="https://github.com/Perl5-Alien/Alien-Base/issues">https://github.com/Perl5-Alien/Alien-Base/issues</a></p>
-
-<p>Now I also mentioned a new feature.  New in version 0.020 is the 
-inclusion of command helpers that can be used to compute build and 
-install commands at build time.  These are used if the packages needs to 
-be built from source.  To see why this is useful, consider packages that 
-require the GNU version of make to build from source.  Normally when 
-creating your Alien module, youâd include something like this in your 
-Build.PL file:</p>
-
-<p><code>
-use Alien::Base::ModuleBuild;
-Alien::Base::ModuleBuild-&gt;new(
-  dist_name =&gt; 'Alien::Foo',
-  alien_build_commands =&gt; [
-    'make',
-  ],
-  alien_install_commands =&gt; [
-    'make install PREFIX=%s',
-  ],
-)-&gt;create_build_script;
-</code></p>
-
-<p>The problem is that while make will invoke GNU make on Linux, it will 
-typically fail on FreeBSD or OS X where the GNU version is usually 
-either gmake, or just not provided.  The core module Config comes with a 
-guess as to the correct name of GNU make, but I recommend not using it 
-as it is frequently wrong.  Instead you can use <a 
-href="https://metacpan.org/pod/Alien::gmake">Alien::gmake</a>, which is 
-itself an alien module that will detect a locally installed GNU make, or 
-build and install it for you.</p>
-
-<p><code>
-use Alien::Base::ModuleBuild;
-Alien::Base::ModuleBuild-&gt;new(
-  dist_name =&gt; 'Alien::Foo',
-  # this will make Alien::gmake a build prereq 
-  # if our library needs to be built from source
-  alien_bin_requires =&gt; { 'Alien::gmake' =&gt; 0 },
-  alien_helper =&gt; { gmake =&gt; 'Alien::gmake-&gt;exe' },
-  # %{gmake} gets replaced by the result of
-  # Alien::gmake-&gt;exe
-  alien_build_commands =&gt; [
-    '%{gmake}',
-  ],
-  alien_install_commands =&gt; [
-    '%{gmake} install PREFIX=%s',
-  ],
-)-&gt;create_build_script;
-</code></p>
-
-<p>The helper is specified as Perl code in a string that gets evaluated 
-during the build or install steps.  You can include arbitrary Perl here 
-to compute the correct command or arguments as you need them. <br />
-Unfortunately a code reference cannot be used, because of the 
-limitations of Module::Build.</p>
-
-<p>Because makefile compatibility is a persistent problem with some 
-packages, <a href="https://metacpan.org/pod/Alien::gmake">Alien::gmake</a>
-provides its own <tt>%{gmake}</tt> helper, which you can use so long as you 
-require a recent enough
-<a href="https://metacpan.org/pod/Alien::gmake">Alien::gmake</a>.</p>
-
-<p><code>
-use Alien::Base::ModuleBuild;
-Alien::Base::ModuleBuild-&gt;new(
-  dist_name =&gt; 'Alien::Foo',
-  # The built in %{gmake} helper was added to
-  # Alien::gmake in version 0.09.
-  alien_bin_requires =&gt; { 'Alien::gmake' =&gt; 0.09 },
-  # no longer need to define our own %{gmake}
-  alien_build_commands =&gt; [
-    '%{gmake}',
-  ],
-  alien_install_commands =&gt; [
-    '%{gmake} install PREFIX=%s',
-  ],
-)-&gt;create_build_script;
-</code></p>
-
-<p>Prior to <a href="https://metacpan.org/pod/Alien::Base">Alien::Base</a> 
-0.020 in order to include this sort of logic you would have to use <a 
-href="https://metacpan.org/pod/Alien::gmake">Alien::gmake</a> in your 
-<tt>Build.PL</tt>, which would make it a configure_requires requirement. <br />
-This is undesirable, because you wonât need <a 
-href="https://metacpan.org/pod/Alien::gmake">Alien::gmake</a> if you are 
-using the system version of a library!  The <tt>alien_bin_requires</tt> 
-are dynamic prerequisites that are added only if you are building from 
-source.</p>
-
-<p>Next week I intend on writing about <a 
-href="https://metacpan.org/pod/Alien::Base">Alien::Base</a>, and this 
-time I will focus system integrators, distribution packagers and 
-destdir.  See you then.</p>
-
-<hr>
-
-<p>This article was originally posted to [blogs.perl.org]: 
-<a href="http://blogs.perl.org/users/graham_ollis/2015/07/alienbase-0020-and-native.html">here</a></p>
-
-  </li>
+    <hr>
+    <p><a href="2015-07-15-alien-base-0-020-and-native.html">read full article</a></p>
+  </article>
 
   
   
-  <li>
-    <a href="2015-04-22-alien-base-past-present-and-future.html"</a>2015-04-22-alien-base-past-present-and-future.html</a>
-    <h2>Alien::Base past, present and future (upcoming change in behavior)</h2>
+  <article>
+    <h2><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> past, present and future (upcoming change in behavior)</h2>
 
 <p>By <b>Graham Ollis</b> on 22 April 2015.</p>
 
-<p>Alien::Base has made a great deal of progress since last September when 
+<p><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> has made a great deal of progress since last September when 
 Joel Berger turned over day to day development for the project to the 
-then newly created Alien::Base team.  Weâve closed most of the major 
+then newly created <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> team.  We’ve closed most of the major 
 issues and pull requests.  One remaining important issue will hopefully 
-be solved soon (I will get to that later; if you are an Alien::Base user 
+be solved soon (I will get to that later; if you are an <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> user 
 you may want to skip to <b>The Future</b> below).  Stability and 
 reliability has improved to the point where it is good enough to be used 
-by real projects.  My own FFI::Platypus depends on Alien::Base tech to 
-provide libffi, as an example.  Iâd like to see some other projects take 
-advantage of Alien::Base as well.</p>
+by real projects.  My own <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> depends on <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> tech to 
+provide libffi, as an example.  I’d like to see some other projects take 
+advantage of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> as well.</p>
 
 <p>What have we fixed?  A number of things:</p>
 
 <ul>
-<li><p>Builds on Microsoft Windows are now doable, thanks to integration 
-with Alien::MSYS that provides the necessary tools to build autotools 
-based packages</p></li>
-<li><p>Relocation of library directories is now
-supported, including support for DESTDIR and AFS</p></li>
-<li><p>Support for 64 bit Perls in hybrid 32/64 bit environments like
-Solaris</p></li>
-<li><p>Integration with FFI and Inline based distributions</p></li>
+<li>Builds on Microsoft Windows are now doable, thanks to integration 
+with <a href="https://metacpan.org/pod/Alien::MSYS" class="module">Alien::MSYS</a> that provides the necessary tools to build autotools 
+based packages</li>
 </ul>
 
-<p>Why?  A lot of XS developers when they use an external non-CPAN 
-dependency will take one of two approaches:</p>
+<p>...</p>
 
-<ol>
-<li>Bundle the dependency with the module</li>
-<li>Use Devel::CheckLib to find the library as provided by the operating 
-system</li>
-</ol>
+    <hr>
+    <p><a href="2015-04-22-alien-base-past-present-and-future.html">read full article</a></p>
+  </article>
 
-<p>These approaches are somewhat inflexible.  If you bundle the dependency 
-then you are increasing the bloat of your distribution.  The bundled 
-version may become out of date, allowing bugs and security issues that 
-have been fixed upstream to persist in your version.  It also may be 
-problematic for integrators.  One distribution developer confided in me 
-that his module was unlikely to be integrated into his distribution 
-because the bundled C code needed to be reviewed and documented for 
-legal issues that would not be a problem if the code wasnât bundled. <br />
-The distribution already provided the library as a separate package.</p>
-
-<p>If you depend on the operating system to provide the library then you 
-have a moral obligation to instruct your user as to how to install that 
-dependency, which may be different on different platforms.  If the 
-dependency isnât a common one then you will likely not get any useful 
-feedback from cpan testers.  Downstream developers may be reluctant to 
-use your module as a dependency since it may not install reliably.</p>
-
-<p>Alien defines a non-Perl or non-CPAN dependency so that it can be used 
-by your CPAN distribution.  Alien::Base provides a base class that you 
-can use to easily construct these dependencies.  When properly 
-configured, an Alien::Base based distribution will use the system 
-provided library, and if it canât be found, attempt to download from the 
-Internet and install it into a share directory so that it will not 
-interfere with any system packages.</p>
-
-<p>As an example, FFI::Platypus depends on Alien::FFI which will use the 
-system libffi if it is usually available, and if not it downloads and 
-installs it for you.</p>
-
-<h3>The Future:</h3>
-
-<p>The one remaining important issue that I mentioned above has to do with 
-the way packages are installed into the share directory.  Historically, 
-Alien::Base has installed packages into their final destination when the 
-cpan client (or user) runs the ./Build install command.  The problem 
-with this is that many cpan testers do not necessarily install the 
-modules, preferring instead to add the blib paths to the PERL5LIB.  The 
-work around for this was for Alien::Base to attempt to detect such an 
-environment and install the package into the blib in just that 
-circumstances.  This has improved the reliability of cpan testers, but 
-it does mean that cpan testers installs for Alien::Base based 
-distributions work in differently in a subtle way.</p>
-
-<p>With recent advances in relocation of packages included in Alien::Base 
-we can now install into the blib and allow the installer to install 
-these files into the final location, just like normal Perl 
-distributions.  The current version just released today has this 
-capability, but is off by default to maintain backward compatibility. <br />
-In the next version 0.017 we plan to make this the default.  So if you 
-are the owner of an Alien::Base based distribution, now would be a great 
-time to test this change in behavior.  You can do this by installing the 
-development version of Alien::Base 0.016_01, or by explicitly setting 
-alien_stage_install to 1 in your Build.PL (or dist.ini the latest 
-version of the Alien Dist::Zilla plugin also supports this option). <br />
-Here is an example of how Alien::LibYAML was modified to explicitly set 
-this value:</p>
-
-<p><a href="https://github.com/rsimoes/Alien-LibYAML/commit/2dfe47c0acd33785039d1ad27072a16e4bed98d5">https://github.com/rsimoes/Alien-LibYAML/commit/2dfe47c0acd33785039d1ad27072a16e4bed98d5</a></p>
-
-<p>You should also make Alien::Base 0.016 a prerequisite for your 
-distribution.</p>
-
-<p>If this new behavior is going to break your distribution in a way that 
-is not otherwise fixable, you can explicitly set alien_stage_install to 
-0, and the old behavior will be maintained, even when Alien::Base 0.017 
-is released.  If you decide to do this, please contact the Alien::Base 
-team, as at some point we would like to deprecate and perhaps even 
-remove the old behavior.  Contact us on either GitHub:</p>
-
-<p><a href="https://github.com/Perl5-Alien/Alien-Base/issues/94">https://github.com/Perl5-Alien/Alien-Base/issues/94</a></p>
-
-<p>or the Alien::Base mailing list:</p>
-
-<p><a href="https://groups.google.com/forum/#!forum/perl5-alien">https://groups.google.com/forum/#!forum/perl5-alien</a></p>
-
-<hr>
-
-<p>This article was originally posted to [blogs.perl.org]: 
-<a href="http://blogs.perl.org/users/graham_ollis/2015/04/alienbase-past-present-and-future-upcoming-change-in-behavior-1.html">here</a></p>
-
-  </li>
-
-  
-  
-</ul>
 
     <hr>
     <p>Copyright &copy; 2018 Graham Ollis, Joel Berger et al.</p>

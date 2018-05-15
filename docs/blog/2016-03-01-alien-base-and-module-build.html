@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Base and Module::Build</h2></title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <style>
+      pre {
+        margin-left: 8px;
+        margin-right: 8px;
+        padding: 10px 5px;
+      }
+      code {
+        background-color: #eeeeee;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body onload="sh_highlightDocument();">
+    <h2>Alien::Base and Module::Build</h2>
+
+<p></h2></p>
+
+<p>By <b>Graham Ollis</b> on 1 March 2016</p>
+
+<p>TL;DR - if you have an <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> module, please 
+update configure_requires so that it depends on 
+<a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> instead of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>, and (this part is 
+key) make a release.</p>
+
+<p>This is technically more correct, and it will also future proof your 
+module in the event that <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> 
+gets spun off from the rest of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.  There are 
+a number of motivations making such a move.  Please join us on 
+<a href="https://github.com/Perl5-Alien/Alien-Base/issues/157">GitHub</a>
+or the
+<a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native IRC channel</a>
+if are interested in working on the next generation of of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.</p>
+
+<hr />
+
+<p>This article was originally posted to <a href="https://blogs.perl.org">blogs.perl.org</a>:
+<a href="http://blogs.perl.org/users/graham_ollis/2016/03/alienbase-and-modulebuild.html">here</a></p>
+
+
+    <hr>
+    <p>Copyright &copy; 2018 Graham Ollis, Joel Berger et al.</p>
+  </body>
+</html>

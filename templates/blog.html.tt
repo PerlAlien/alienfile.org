@@ -1,14 +1,13 @@
-[% USE Markdown %]
+[% USE Custom %]
 
 [% markdown %]
 
-<ul>
-[% FOREACH md IN directory.children.grep('\.md$') %]
+[% FOREACH md IN directory.children.grep('\.md$').sort.reverse %]
   [% SET html_filename = md.basename.replace('(\..*)?\.md$','.html') %]
   [% NEXT IF html_filename == 'index.html' %]
-  <li>
-    <a href="[%  html_filename %]"</a>[% html_filename %]</a>
-    [% md.slurp | markdown %]
-  </li>
+  <article>
+    [% md.slurp_utf8 | summary | markdown %]
+    <hr>
+    <p><a href="[% html_filename %]">read full article</a></p>
+  </article>
 [% END %]
-</ul>

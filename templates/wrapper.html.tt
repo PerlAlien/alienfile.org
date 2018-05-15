@@ -3,8 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <title>[% title %]</title>
+    <script type="text/javascript" src="[% shjs %]/sh_main.min.js"></script>
+    <script type="text/javascript" src="[% shjs %]/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="[% shjs %]/css/sh_acid.css">
+    <style>
+      pre {
+        margin-left: 8px;
+        margin-right: 8px;
+        padding: 10px 5px;
+      }
+      code {
+        background-color: #eeeeee;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
   </head>
-  <body>
+  <body onload="sh_highlightDocument();">
     [% content %]
     <hr>
     <p>Copyright &copy; 2018 Graham Ollis, Joel Berger et al.</p>
