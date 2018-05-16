@@ -1,4 +1,4 @@
-## M<Alien::Base> past, present and future (upcoming change in behavior)
+## Alien::Base past, present and future (upcoming change in behavior)
 
 By <b>Graham Ollis</b> on 22 April 2015.
 

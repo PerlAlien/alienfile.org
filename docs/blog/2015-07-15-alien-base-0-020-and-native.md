@@ -1,4 +1,4 @@
-## M<Alien::Base> 0.020 and #native
+## Alien::Base 0.020 and #native
 
 By <b>Graham Ollis</b> on 15 July 2015
 

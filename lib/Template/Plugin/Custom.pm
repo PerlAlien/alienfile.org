@@ -22,25 +22,34 @@ sub new
   
   $context->define_filter(
     summary => sub {
-      my($text) = @_;
-      
-      # strip off anything under a hr
-      ($text) = split /\n---\n/, $text;
+      my(undef, $link) = @_;
 
-      if($text =~ /\<\!-- summary --\>/)
-      {
-        ($text) = split /\<\!-- summary --\>/, $text;
-        $text .= "\n\n...\n";
-      }
-      else
-      {
-        my @para = split /\n\n/, $text;
-        $text = join("\n\n", @para[0..4]) . "\n\n...\n";
-      }
+      sub {
+        my $text = shift;
+
+        # strip off anything under a hr
+        ($text) = split /\n---\n/, $text;
+
+        my $more = "[... read more]($link)";
+
+        if($text =~ /\<\!-- summary --\>/)
+        {
+          # document contains summary mark
+          ($text) = split /\<\!-- summary --\>/, $text;
+          $text =~ s/^(#+) (.*)\n(.*)/$1 [$2]($link)\n$3/;
+          $text .= "\n\n$more\n";
+        }
+        else
+        {
+          # include the first 5 "paragraphs" for the summary
+          my @para = split /\n\n/, $text;
+          $para[0] =~ s/^(#+) (.*)$/$1 [$2]($link)/;
+          $text = join("\n\n", @para[0..4]) . "\n\n$more\n";
+        }
       
-      # include the first 5 "paragraphs" for the summary
-      $text;
-    },
+        $text;
+      }
+    }, 1,
   );
   
   return $self;

@@ -241,3 +241,8 @@ ultimately the reason for all of this prep work.
 <b>Correction</b>: a previous version of this blogity blog incorrectly referred to 
 M<Alien::Build::MM> as a dynamic prerequisite.  It is always added so it is strictly speaking a 
 static prerequisite.
+
+---
+
+This article was originally posted to [blogs.perl.org](https://blogs.perl.org):
+[here](http://blogs.perl.org/users/graham_ollis/2017/04/integrating-alienfile.html)

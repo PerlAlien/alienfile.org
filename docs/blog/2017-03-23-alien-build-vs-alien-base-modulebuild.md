@@ -31,3 +31,8 @@ bug.  Those that do are not used widely .
 
 We plan on maintaining AB::MB for quite some time, as there is a lot of working code that 
 uses it, and works well.
+
+---
+
+This article was originally posted to [blogs.perl.org](https://blogs.perl.org):
+[here](http://blogs.perl.org/users/graham_ollis/2017/03/alienbuild-vs-alienbasemodulebuild.html)

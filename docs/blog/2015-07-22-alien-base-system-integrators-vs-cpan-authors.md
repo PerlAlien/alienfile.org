@@ -1,4 +1,4 @@
-## M<Alien::Base>: System Integrators vs. CPAN Authors
+## Alien::Base: System Integrators vs. CPAN Authors
 
 By <b>Graham Ollis</b> on 22 July 2015
 

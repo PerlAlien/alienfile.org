@@ -42,7 +42,34 @@
   
   
   <article>
-    <h2>Integrating alienfile</h2>
+    <h2><a href="2017-06-13-the-many-ways-to-use-alien.html">The many ways to use Alien</a></h2>
+
+<p>By <b>Graham Ollis</b> on 13 June 2017</p>
+
+<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">A while back</a> I introduced 
+the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context 
+the tool <code>xz</code> and the library <code>liblzma</code>.  I also went over how to test it with <a href="https://metacpan.org/pod/App::af" class="module">App::af</a>.
+<a href="http://blogs.perl.org/users/graham_ollis/2017/04/integrating-alienfile.html">The week after that</a>
+I showed how to integrate that alienfile into a fully functioning <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> called <a href="https://metacpan.org/pod/Alien::xz" class="module">Alien::xz</a> 
+and promised to show how to then use that Alien from an XS or FFI module.  Today I am going to 
+do that. I am also going to show how to use a tool oriented Alien module.  (conveniently, 
+Alien::xz can be used in either library or tool oriented Alien mode). If you are more 
+interested in FFI or tool oriented mode feel free to skip down to the appropriate 
+paragraph.</p>
+
+<p>First, lets suppose we have a very simple XS and Perl module that gives us the version of 
+liblzma. This admittedly doesn't do anything very useful without the rest of the library, but 
+it will help us test the basics of how to call a library that has been alienized.  (if you 
+need real LZMA support you should probably use <a href="https://metacpan.org/pod/IO::Compress::Lzma" class="module">IO::Compress::Lzma</a> of course).</p>
+
+<p><a href="2017-06-13-the-many-ways-to-use-alien.html">... read more</a></p>
+
+  </article>
+
+  
+  
+  <article>
+    <h2><a href="2017-04-04-integrating-alienfile.html">Integrating alienfile</a></h2>
 
 <p>By <b>Graham Ollis</b> on 4 April 2017</p>
 
@@ -95,16 +122,14 @@ sub MY::postamble {
 }
 </pre>
 
-<p>...</p>
+<p><a href="2017-04-04-integrating-alienfile.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2017-04-04-integrating-alienfile.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2>alienfile</h2>
+    <h2><a href="2017-03-28-alienfile.html">alienfile</a></h2>
 
 <p>By <b>Graham Ollis</b> on 28 March 2017</p>
 
@@ -131,16 +156,14 @@ that wrapped around a package that used vanilla <code>Makefile</code>'s,
 <a href="http://en.wikipedia.org/wiki/CMake">CMake</a>, and in some cases crazy custom installers.</p></li>
 </ol>
 
-<p>...</p>
+<p><a href="2017-03-28-alienfile.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2017-03-28-alienfile.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2>Alien::Build vs. Alien::Base::ModuleBuild</h2>
+    <h2><a href="2017-03-23-alien-build-vs-alien-base-modulebuild.html">Alien::Build vs. Alien::Base::ModuleBuild</a></h2>
 
 <p>By <b>Graham Ollis</b> on 23 March 2017</p>
 
@@ -164,18 +187,14 @@ configure_requires in your Build.PL.</p>
 <p>The main potential breakage for this is that when trying to install an Alien which hasn't 
 been fixed, you will receive an error message like this:</p>
 
-<p>...</p>
+<p><a href="2017-03-23-alien-build-vs-alien-base-modulebuild.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2017-03-23-alien-build-vs-alien-base-modulebuild.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2>Alien::Base and Module::Build</h2>
-
-<p></h2></p>
+    <h2><a href="2016-03-01-alien-base-and-module-build.html">Alien::Base and Module::Build</a></h2>
 
 <p>By <b>Graham Ollis</b> on 1 March 2016</p>
 
@@ -193,16 +212,14 @@ or the
 <a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native IRC channel</a>
 if are interested in working on the next generation of of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.</p>
 
-<p>...</p>
+<p><a href="2016-03-01-alien-base-and-module-build.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2016-03-01-alien-base-and-module-build.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2>Improved reliability with <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> and <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a></h2>
+    <h2><a href="2016-01-20-improved-reliability-with-alien-and-test-alien.html">Improved reliability with Alien and Test::Alien</a></h2>
 
 <p>By <b>Graham Ollis</b> on 20 January 2016</p>
 
@@ -220,16 +237,14 @@ what is great about Open Source when it works.</p>
 <li><a href="http://matrix.cpantesters.org/?dist=Text-Hunspell%202.11">2.11 - the last version to use ExtUtils::PkgConfig</a></li>
 </ul>
 
-<p>...</p>
+<p><a href="2016-01-20-improved-reliability-with-alien-and-test-alien.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2016-01-20-improved-reliability-with-alien-and-test-alien.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2>Making Alien::Base more reliable</h2>
+    <h2><a href="2015-07-29-making-alien-base-more-reliable.html">Making Alien::Base more reliable</a></h2>
 
 <p>By <b>Graham Ollis</b> on 29 July 2015</p>
 
@@ -261,16 +276,14 @@ requirement, if it is needed.  In many cases, adding Windows support for
 your AB based Alien distribution may be as simple replacing 
 <code>%pconfigure</code> with <code>%c</code> and making AB 0.005 a prerequisite.</p>
 
-<p>...</p>
+<p><a href="2015-07-29-making-alien-base-more-reliable.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2015-07-29-making-alien-base-more-reliable.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>: System Integrators vs. CPAN Authors</h2>
+    <h2><a href="2015-07-22-alien-base-system-integrators-vs-cpan-authors.html">Alien::Base: System Integrators vs. CPAN Authors</a></h2>
 
 <p>By <b>Graham Ollis</b> on 22 July 2015</p>
 
@@ -290,16 +303,14 @@ from their respective
 <a href="http://matrix.cpantesters.org/?dist=Alien-FFI+0.12">test</a> 
 <a href="http://matrix.cpantesters.org/?dist=FFI-Platypus+0.3">matrices</a></p>
 
-<p>...</p>
+<p><a href="2015-07-22-alien-base-system-integrators-vs-cpan-authors.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2015-07-22-alien-base-system-integrators-vs-cpan-authors.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> 0.020 and #native</h2>
+    <h2><a href="2015-07-15-alien-base-0-020-and-native.html">Alien::Base 0.020 and #native</a></h2>
 
 <p>By <b>Graham Ollis</b> on 15 July 2015</p>
 
@@ -327,16 +338,14 @@ figure out how to develop my own <a href="https://metacpan.org/pod/Alien::Base" 
 distributions.  I’m hoping this guide will help those that are getting 
 started now.</p>
 
-<p>...</p>
+<p><a href="2015-07-15-alien-base-0-020-and-native.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2015-07-15-alien-base-0-020-and-native.html">read full article</a></p>
   </article>
 
   
   
   <article>
-    <h2><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> past, present and future (upcoming change in behavior)</h2>
+    <h2><a href="2015-04-22-alien-base-past-present-and-future.html">Alien::Base past, present and future (upcoming change in behavior)</a></h2>
 
 <p>By <b>Graham Ollis</b> on 22 April 2015.</p>
 
@@ -359,10 +368,8 @@ with <a href="https://metacpan.org/pod/Alien::MSYS" class="module">Alien::MSYS</
 based packages</li>
 </ul>
 
-<p>...</p>
+<p><a href="2015-04-22-alien-base-past-present-and-future.html">... read more</a></p>
 
-    <hr>
-    <p><a href="2015-04-22-alien-base-past-present-and-future.html">read full article</a></p>
   </article>
 
 

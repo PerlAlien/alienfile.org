@@ -225,3 +225,8 @@ the first example though:
 So that is a lot already.  I can tell as your eyes are starting to glaze over!  And you have 
 already learned a lot.  Next time I will show you how to integrate your alienfile recipe into 
 an Alien distribution and how to use it from your XS module.
+
+---
+
+This article was originally posted to [blogs.perl.org](https://blogs.perl.org):
+[here](http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html)

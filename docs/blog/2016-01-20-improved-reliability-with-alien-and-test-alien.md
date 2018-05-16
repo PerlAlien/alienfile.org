@@ -1,4 +1,4 @@
-## Improved reliability with M<Alien> and M<Test::Alien>
+## Improved reliability with Alien and Test::Alien
 
 By <b>Graham Ollis</b> on 20 January 2016
 

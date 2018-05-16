@@ -1,4 +1,4 @@
-## Alien::Base and Module::Build</h2>
+## Alien::Base and Module::Build
 
 By <b>Graham Ollis</b> on 1 March 2016
 

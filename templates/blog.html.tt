@@ -6,8 +6,6 @@
   [% SET html_filename = md.basename.replace('(\..*)?\.md$','.html') %]
   [% NEXT IF html_filename == 'index.html' %]
   <article>
-    [% md.slurp_utf8 | summary | markdown %]
-    <hr>
-    <p><a href="[% html_filename %]">read full article</a></p>
+    [% md.slurp_utf8 | summary(html_filename) | markdown %]
   </article>
 [% END %]
