@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build vs. Alien::Base::ModuleBuild</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <style>
+      pre {
+        margin-left: 8px;
+        margin-right: 8px;
+        padding: 10px 5px;
+      }
+      pre.console {
+        background-color: black;
+        color: green;
+      }
+      pre.ini {
+        background-color: #eeeeee;
+        color: black;
+      }
+      code {
+        background-color: #eeeeee;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body onload="sh_highlightDocument();">
+    <h2>Alien::Build vs. Alien::Base::ModuleBuild</h2>
+
+<p>By <b>Graham Ollis</b> on 23 March 2017</p>
+
+<p>I have been working on the next generation of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> installer which is called 
+<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  It is already quite usable, and I encourage it's use for anyone who is 
+considering building a new Alien modules.  It may also be useful to migrate existing Aliens, 
+if they have requirements that can utilize its unique features.  The main idea is to 
+concentrate the recipe for discovery and building of a library into an <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> which is 
+separate from the Perl installer (usually ExtUtils::MakeMaker or Module::Build).  Over the 
+next few weeks I intend on writing a little about some of the new features of Alien::Build. <br />
+In the meantime, if you are interested, <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienAuthor" class="module">Alien::Build::Manual::AlienAuthor</a> may help you get 
+started.</p>
+
+<p>A year ago I mentioned that we were planning on spinning <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> (AB::MB) 
+off from the main <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> distribution.  Now that we have a viable alternative, we 
+plan to split AB::MB off into its own distribution next week.  Alien::Base will specify 
+AB::MB as a prerequisite, until the first of October 2017.  At that time it will be removed 
+as a prerequisite and if you are using AB::MB you will need to specify it as a 
+configure_requires in your Build.PL.</p>
+
+<p>The main potential breakage for this is that when trying to install an Alien which hasn't 
+been fixed, you will receive an error message like this:</p>
+
+<p><code>Can't locate Alien/Base/ModuleBuild.pm in @INC</code></p>
+
+<p>I think most Perl programmers will know that they need to install AB::MB and this is a very 
+minor inconvenience.  In addition, because we have been aggressive about notifying Alien 
+developers and providing pull requests there are very few Alien modules that still have this 
+bug.  Those that do are not used widely .</p>
+
+<p>We plan on maintaining AB::MB for quite some time, as there is a lot of working code that 
+uses it, and works well.</p>
+
+
+    <hr>
+    <p>Copyright &copy; 2018 Graham Ollis, Joel Berger et al.</p>
+  </body>
+</html>

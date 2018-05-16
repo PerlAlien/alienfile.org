@@ -27,13 +27,19 @@ sub new
       # strip off anything under a hr
       ($text) = split /\n---\n/, $text;
 
-      # split into paragraphs, roughly speaking
-      my @para = split /\n\n/, $text;
+      if($text =~ /\<\!-- summary --\>/)
+      {
+        ($text) = split /\<\!-- summary --\>/, $text;
+        $text .= "\n\n...\n";
+      }
+      else
+      {
+        my @para = split /\n\n/, $text;
+        $text = join("\n\n", @para[0..4]) . "\n\n...\n";
+      }
       
       # include the first 5 "paragraphs" for the summary
-      @para > 5
-        ? join("\n\n", @para[0..4]) . "\n\n...\n"
-        : $text;
+      $text;
     },
   );
   

@@ -12,6 +12,14 @@
         margin-right: 8px;
         padding: 10px 5px;
       }
+      pre.console {
+        background-color: black;
+        color: green;
+      }
+      pre.ini {
+        background-color: #eeeeee;
+        color: black;
+      }
       code {
         background-color: #eeeeee;
       }
@@ -34,6 +42,137 @@
   
   
   <article>
+    <h2>Integrating alienfile</h2>
+
+<p>By <b>Graham Ollis</b> on 4 April 2017</p>
+
+<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">Last week</a> I 
+introduced the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the 
+tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="https://metacpan.org/pod/App::af" class="module">App::af</a>. Today we 
+are going to take that alienfile and integrate it into a fully functional <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> 
+distribution.</p>
+
+<p>The main motiviation for <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> was to separate the alien detection 
+and installer code from the perl installer code.  (In fact your alienfile is fully usable 
+without any Perl installer at all; you can use your alienfile from a Perl script or Perl 
+module using Alien::Build directly).</p>
+
+<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> to provide 
+the thin layer of functionality needed between <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM) and 
+<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
+
+<pre class="sh_perl">
+use strict;
+use warnings;
+use ExtUtils::MakeMaker;
+use Alien::Build::MM;
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" =&gt; "Find or build xz",
+  "AUTHOR" =&gt; "Graham Ollis &lt;plicease\@cpan.org&gt;",
+  "VERSION_FROM" =&gt; "lib/Alien/xz.pm",
+  "CONFIGURE_REQUIRES" =&gt; {
+    "ExtUtils::MakeMaker" =&gt; "6.52",
+  },
+  "PREREQ_PM" =&gt; {
+    "Alien::Base" =&gt; "0.038",
+  },
+  "DISTNAME" =&gt; "Alien-xz",
+  "LICENSE" =&gt; "perl",
+  "NAME" =&gt; "Alien::xz",
+  "PREREQ_PM" =&gt; {
+    "Alien::Base" =&gt; "0.038"
+  },
+);
+
+my $abmm = Alien::Build::MM-&gt;new;
+%WriteMakefileArgs = $abmm-&gt;mm_args(%WriteMakefileArgs);
+
+WriteMakefile(%WriteMakefileArgs);
+
+sub MY::postamble {
+  $abmm-&gt;mm_postamble;
+}
+</pre>
+
+<p>...</p>
+
+    <hr>
+    <p><a href="2017-04-04-integrating-alienfile.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
+    <h2>alienfile</h2>
+
+<p>By <b>Graham Ollis</b> on 28 March 2017</p>
+
+<p><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> was first released in alpha form five years ago this month!  The good things 
+that <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> (runtime) and <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> (its installer ABMB) did when 
+it was unleashed on the world are many, but chiefly:</p>
+
+<ol>
+<li><p>It suggested a standard way of providing the compiler and linker 
+flags needed to use an already installed alien.  The
+<a href="https://metacpan.org/pod/Alien">original manifesto</a>
+was pretty flip in terms of standards or best practices.</p></li>
+<li><p>It made it dead simple to create an Alien distribution that
+“alienized” a package that used 
+<a href="https://www.gnu.org/software/autoconf/autoconf.html">autoconf</a> and
+<a href="http://en.wikipedia.org/wiki/pkg-config">pkg-config</a>, which probably covers a majority of open source libraries
+that you would be likely to want to “alienize”.
+(For those who are unfamiliar, autoconf provides a similar
+functionality to <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> in the C world
+and pkg-config is used to deal with dependencies in the C
+world).</p></li>
+<li><p>It made it possible with some work to create an Alien distribution 
+that wrapped around a package that used vanilla <code>Makefile</code>'s, 
+<a href="http://en.wikipedia.org/wiki/CMake">CMake</a>, and in some cases crazy custom installers.</p></li>
+</ol>
+
+<p>...</p>
+
+    <hr>
+    <p><a href="2017-03-28-alienfile.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
+    <h2>Alien::Build vs. Alien::Base::ModuleBuild</h2>
+
+<p>By <b>Graham Ollis</b> on 23 March 2017</p>
+
+<p>I have been working on the next generation of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> installer which is called 
+<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  It is already quite usable, and I encourage it's use for anyone who is 
+considering building a new Alien modules.  It may also be useful to migrate existing Aliens, 
+if they have requirements that can utilize its unique features.  The main idea is to 
+concentrate the recipe for discovery and building of a library into an <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> which is 
+separate from the Perl installer (usually ExtUtils::MakeMaker or Module::Build).  Over the 
+next few weeks I intend on writing a little about some of the new features of Alien::Build. <br />
+In the meantime, if you are interested, <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienAuthor" class="module">Alien::Build::Manual::AlienAuthor</a> may help you get 
+started.</p>
+
+<p>A year ago I mentioned that we were planning on spinning <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> (AB::MB) 
+off from the main <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> distribution.  Now that we have a viable alternative, we 
+plan to split AB::MB off into its own distribution next week.  Alien::Base will specify 
+AB::MB as a prerequisite, until the first of October 2017.  At that time it will be removed 
+as a prerequisite and if you are using AB::MB you will need to specify it as a 
+configure_requires in your Build.PL.</p>
+
+<p>The main potential breakage for this is that when trying to install an Alien which hasn't 
+been fixed, you will receive an error message like this:</p>
+
+<p>...</p>
+
+    <hr>
+    <p><a href="2017-03-23-alien-build-vs-alien-base-modulebuild.html">read full article</a></p>
+  </article>
+
+  
+  
+  <article>
     <h2>Alien::Base and Module::Build</h2>
 
 <p></h2></p>
@@ -53,6 +192,8 @@ a number of motivations making such a move.  Please join us on
 or the
 <a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native IRC channel</a>
 if are interested in working on the next generation of of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.</p>
+
+<p>...</p>
 
     <hr>
     <p><a href="2016-03-01-alien-base-and-module-build.html">read full article</a></p>

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Integrating alienfile</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <style>
+      pre {
+        margin-left: 8px;
+        margin-right: 8px;
+        padding: 10px 5px;
+      }
+      pre.console {
+        background-color: black;
+        color: green;
+      }
+      pre.ini {
+        background-color: #eeeeee;
+        color: black;
+      }
+      code {
+        background-color: #eeeeee;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body onload="sh_highlightDocument();">
+    <h2>Integrating alienfile</h2>
+
+<p>By <b>Graham Ollis</b> on 4 April 2017</p>
+
+<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">Last week</a> I 
+introduced the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the 
+tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="https://metacpan.org/pod/App::af" class="module">App::af</a>. Today we 
+are going to take that alienfile and integrate it into a fully functional <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> 
+distribution.</p>
+
+<p>The main motiviation for <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> was to separate the alien detection 
+and installer code from the perl installer code.  (In fact your alienfile is fully usable 
+without any Perl installer at all; you can use your alienfile from a Perl script or Perl 
+module using Alien::Build directly).</p>
+
+<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> to provide 
+the thin layer of functionality needed between <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM) and 
+<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
+
+<pre class="sh_perl">
+use strict;
+use warnings;
+use ExtUtils::MakeMaker;
+use Alien::Build::MM;
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" =&gt; "Find or build xz",
+  "AUTHOR" =&gt; "Graham Ollis &lt;plicease\@cpan.org&gt;",
+  "VERSION_FROM" =&gt; "lib/Alien/xz.pm",
+  "CONFIGURE_REQUIRES" =&gt; {
+    "ExtUtils::MakeMaker" =&gt; "6.52",
+  },
+  "PREREQ_PM" =&gt; {
+    "Alien::Base" =&gt; "0.038",
+  },
+  "DISTNAME" =&gt; "Alien-xz",
+  "LICENSE" =&gt; "perl",
+  "NAME" =&gt; "Alien::xz",
+  "PREREQ_PM" =&gt; {
+    "Alien::Base" =&gt; "0.038"
+  },
+);
+
+my $abmm = Alien::Build::MM-&gt;new;
+%WriteMakefileArgs = $abmm-&gt;mm_args(%WriteMakefileArgs);
+
+WriteMakefile(%WriteMakefileArgs);
+
+sub MY::postamble {
+  $abmm-&gt;mm_postamble;
+}
+</pre>
+
+<!-- summary -->
+
+<p>Most of this will be pretty recognizable to anyone who has hand crafted a <code>Makefile.PL</code> 
+before.  After constructing the basic arguments that will be passed to <code>WriteMakefile</code>, we 
+create an instance of <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> and pass the arguments into the <code>mm_args</code> method, 
+which returns a modified version of those arguments.  This method will decide if it can find 
+<code>xz</code> and <code>liblzma</code> from what is provided by the operating system, or if it should build the 
+tool and library from source.  To make this decision it consults the alienfile.  There are 
+dynamic prerequisite that depend on the outcome of this decision.  Typcially a build from 
+source may pull in additional prerequisite to download or unpack an archive in an unusual 
+format, or perhaps the build system requires an extra module or two.  A system install may 
+also require additional modules, although that is less common.  At the bottom of the 
+<code>Makefile.PL</code> we add a postamble to the <code>Makefile</code>.  This will add the make targets needed to 
+build <code>xz</code>.</p>
+
+<p>Note that we declare <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> as a prerequisite because our Alien class will be a subclass 
+of that.  We also declare EUMM as a configure time prerequisite which is a good practice for any 
+EUMM dist.  We do NOT need to declare <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> as a configure time prerequisite even 
+though it is used in the <code>Makefile.PL</code> because that is one of the prerequisite that are
+addedin by <code>mm_arg</code>.</p>
+
+<p>As mentioned earlier, alienfile is not tied to any one Perl installer, so if you prefer you 
+can use <a href="https://metacpan.org/pod/Module::Build" class="module">Module::Build</a> via <a href="https://metacpan.org/pod/Alien::Build::MB" class="module">Alien::Build::MB</a>.  I personally do not recommend this.  It 
+just adds extra prerequisite to your Alien.  The sole reason I wrote <a href="https://metacpan.org/pod/Alien::Build::MB" class="module">Alien::Build::MB</a> was to 
+act as a proof of concept that: yes <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> can be used with any installer 
+that meets its requirements.  Including hopefully future installers that are more capable 
+than EUMM.  (<a href="https://metacpan.org/pod/Module::Build::Tiny" class="module">Module::Build::Tiny</a> will likely never be supported, as it is useful for a 
+different subset of things).</p>
+
+<p>If (like me) you do not like mucking about in <code>Makefile.PL</code> or <code>Build.PL</code> files you can 
+instead use the <a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="https://metacpan.org/pod/Dist::Zilla::Plugin::AlienBuild" class="module">Dist::Zilla::Plugin::AlienBuild</a>.</p>
+
+<pre class="ini">
+[MakeMaker]
+[AlienBuild]
+; a little shorter than the Makefile.PL above eh?
+</pre>
+
+<p>The next thing that we need is the actual Perl module!  We will call that <code>lib/Alien/xz.pm</code>, 
+and will look like this:</p>
+
+<pre class="sh_perl">
+package Alien::xz;
+
+use strict;
+use warnings;
+use base qw( Alien::Base );
+
+our $VERSION = '1.00';
+
+1;
+</pre>
+
+<p>Not a lot is there?  For most Aliens you will find that the base class does everything that 
+you need.  The only thing missing here really, (and I do not reproduce it here for the sake 
+of brevity) is documentation.  You should provide your users with enough information in the 
+form of POD to be able to use this module!  (See <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienUser" class="module">Alien::Build::Manual::AlienUser</a> for clues 
+as to what should be included).  If you are lazy like me, you will want to use the 
+<a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="https://metacpan.org/pod/Dist::Zilla::Plugin::AlienBase::Doc" class="module">Dist::Zilla::Plugin::AlienBase::Doc</a> to generate synopsis and 
+description.</p>
+
+<p>You should of course also provide other common distribution files, such as a <code>MANIFEST</code> and a 
+<code>Changes</code> file, but all of that is beyond the scope of this document.  (Always wanted to say 
+that).</p>
+
+<p>Now we can install our Alien like any other distribution.  Create the make file:</p>
+
+<pre class="console">
+% perl Makefile.PL
+</pre>
+
+<p>You can download the xz tarball using the <code>alien_download</code> target:</p>
+
+<pre class="console">
+% make alien_download
+"/Users/ollisg/opt/perl/5.24.0/bin/perl" -MAlien::Build::MM=cmd -e prefix site /Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level /Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level /Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level
+main&gt; prefix /Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz
+"/Users/ollisg/opt/perl/5.24.0/bin/perl" -MAlien::Build::MM=cmd -e download
+Alien::Build::Plugin::Core::Download&gt; decoding html
+Alien::Build::Plugin::Core::Download&gt; candidate *http://tukaani.org/xz/xz-5.2.3.tar.gz
+Alien::Build::Plugin::Core::Download&gt; setting version based on archive to 5.2.3
+Alien::Build::Plugin::Core::Download&gt; downloaded xz-5.2.3.tar.gz
+</pre>
+
+<p>(hint, if you are testing this and the system <code>xz</code> and <code>liblzma</code> are being detected, the 
+download step will be a noisy NOOP.  You can set <code>ALIEN_INSTALL_TYPE</code> to <code>share</code> to override 
+this and force a source code build.)</p>
+
+<p>You can then build <code>xz</code> and <code>liblzma</code> using the <code>alien_build</code> target:</p>
+
+<pre class="console">
+% make alien_build
+"/Users/ollisg/opt/perl/5.24.0/bin/perl" -MAlien::Build::MM=cmd -e build
+Alien::Build::CommandSequence&gt; + ./configure --prefix=/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz --with-pic --disable-shared
+
+XZ Utils 5.2.3
+
+System type:
+checking build system type... x86_64-apple-darwin15.6.0
+checking host system type... x86_64-apple-darwin15.6.0
+...
+</pre>
+
+<p>(copious output not included).</p>
+
+<p>You can also just do a regular <code>make all</code> and it will build the <code>alien_download</code> and 
+<code>alien_build</code> targets, along with the necessary Perl specific targets.</p>
+
+<p>Now we are ready to run the tests:</p>
+
+<pre class="console">
+% make test
+PERL_DL_NONLAZY=1 "/Users/ollisg/opt/perl/5.24.0/bin/perl" "-MExtUtils::Command::MM" "-MTest::Harness" "-e" "undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')" t/*.t
+t/run.t ...... ok   
+t/xs.t ....... ok   
+All tests successful.
+Files=2, Tests=7,  1 wallclock secs ( 0.03 usr  0.01 sys +  0.70 cusr  0.56 csys =  1.30 CPU)
+Result: PASS
+</pre>
+
+<p>I waited until now to remind you that you need tests!  It is important to know that the Alien 
+will work with your XS module.  You don't want to find out it doesn't work when you are 
+installing that.  The best way to do this is to use <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a>, which tests your Alien 
+with that same tools that your Alien will actually be used with.  Here is a very basic 
+<a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> test that ensures the alienized <code>liblzma</code> works correctly with XS:</p>
+
+<pre class="sh_perl">
+use Test2::Bundle::Extended;
+use Test::Alien;
+use Alien::xz;
+
+alien_ok 'Alien::xz';
+
+xs_ok do { local $/; &lt;DATA&gt; }, with_subtest {
+  my $version = lzma::lzma_version_string();
+  ok $version;
+  note "version = $version";
+};
+
+done_testing;
+
+__DATA__
+
+#include "EXTERN.h"
+#include "perl.h"
+#include "XSUB.h"
+#include &lt;lzma.h&gt;
+
+MODULE = lzma PACKAGE = lzma
+
+const char *
+lzma_version_string()
+</pre>
+
+<p>...and here is the tool test that ensures the alienized command line <code>xz</code> works correctly:</p>
+
+<pre class="sh_perl">
+use Test2::Bundle::Extended;
+use Test::Alien;
+use Alien::xz;
+
+alien_ok 'Alien::xz';
+
+run_ok(['xz', '--version'])
+  -&gt;success
+  -&gt;out_like(qr{XZ Utils})
+  -&gt;note;
+
+done_testing;
+</pre>
+
+<p>You are all done writing your Alien.  Although it may seem like you went through a lot, this 
+is a lot less work than if you tried to roll your own Alien.  Now we can finally install our 
+Alien, and just eyeball test that it works from the command line.</p>
+
+<pre class="console">
+% make install
+...
+% perl -MAlien::xz -E 'say Alien::xz-&gt;version'
+5.2.3
+% perl -MAlien::xz -E 'say Alien::xz-&gt;cflags'
+-I/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz/include 
+% perl -MAlien::xz -E 'say Alien::xz-&gt;libs'
+-L/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz/lib -llzma 
+</pre>
+
+<p>Next time we will use the Alien that we have crafted here from an XS or FFI module, which is 
+ultimately the reason for all of this prep work.</p>
+
+<p><b>Correction</b>: a previous version of this blogity blog incorrectly referred to 
+<a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> as a dynamic prerequisite.  It is always added so it is strictly speaking a 
+static prerequisite.</p>
+
+
+    <hr>
+    <p>Copyright &copy; 2018 Graham Ollis, Joel Berger et al.</p>
+  </body>
+</html>
