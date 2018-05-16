@@ -9,4 +9,4 @@ perl:
 
 script:
   - ./build.pl
-  - prove -vm t
+  - prove -lvm t
