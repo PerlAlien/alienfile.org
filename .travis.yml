@@ -2,7 +2,7 @@ language: perl
 sudo: false
 
 install:
-  - cpanm --installdeps .
+  - cpanm -n --installdeps .
 
 perl:
   - "5.26"
