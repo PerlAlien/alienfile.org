@@ -11,9 +11,8 @@ if [ "$ALIEN_INSTALL_TYPE" == "system" ]; then
   curl -LO https://github.com/Perl5-Alien/dontpanic/archive/$VERSION.tar.gz
   tar xvf $VERSION.tar.gz
   cd dontpanic-$VERSION
-  ./configure --prefix=$HOME/opt/dontpanic/$VERSION
+  ./configure
   make
   make install
-  ln -s $HOME/opt/dontpanic/$VERSION $HOME/opt/dontpanic/current
 
 fi
