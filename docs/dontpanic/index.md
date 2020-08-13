@@ -10,7 +10,7 @@ value of 42, the answer to Life the Universe and Everything.
 
 ### Releases
 
- * [dontpanic-1.02.tar.gz](https://github.com/Perl5-Alien/dontpanic/archive/1.02.tar.gz)
- * [dontpanic-1.01.tar.gz](https://github.com/Perl5-Alien/dontpanic/archive/1.01.tar.gz)
- * [dontpanic-1.00.tar.gz](https://github.com/Perl5-Alien/dontpanic/archive/1.00.tar.gz)
- * [dontpanic-0.90.tar.gz](https://github.com/Perl5-Alien/dontpanic/archive/0.90.tar.gz)
+ * [dontpanic-1.02.tar.gz](https://github.com/PerlAlien/dontpanic/archive/1.02.tar.gz)
+ * [dontpanic-1.01.tar.gz](https://github.com/PerlAlien/dontpanic/archive/1.01.tar.gz)
+ * [dontpanic-1.00.tar.gz](https://github.com/PerlAlien/dontpanic/archive/1.00.tar.gz)
+ * [dontpanic-0.90.tar.gz](https://github.com/PerlAlien/dontpanic/archive/0.90.tar.gz)

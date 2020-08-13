@@ -4,5 +4,5 @@ Some Perl/Alien related subprojects
 
  * [The Alien Blog](/blog/)
  * [libdontpanic](/dontpanic/)
- * [Perl5-Alien organization on GitHub](https://github.com/Perl5-Alien)
+ * [PerlAlien organization on GitHub](https://github.com/PerlAlien)
  * [Alien::Build on metacpan](https://metacpan.org/pod/Alien::Build)
