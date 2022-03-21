@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NewFangled: Bringing NewRelic to Perl with Alien and FFI Technologyw</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .remark-slide-content {
+        padding-top: 4em;
+      }
+
+      div.nx-header-title {
+        position: fixed;
+        top: 0px;
+        left: 20px;
+        width: 100%;
+        font-size: 50px;
+        text-align: left;
+      }
+
+      div.nx-header-flag-1 {
+        background-color: #000000;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff),
+                                                                  color-stop(100%,#005bbb) );
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+        text-align: left;
+      }
+
+      div.nx-header-flag-2 {
+        background-color: #000000;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff),
+                                                                  color-stop(100%,#ffd500) );
+        position: fixed;
+        top: 29px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+        text-align: left;
+      }
+
+
+      div.nx-footer {
+        font-size: 10pt;
+        text-align: center;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+      }
+
+      div.nx-footer p {
+        margin-top: 10px;
+        height: 30px;
+      }
+
+      div.nx-footer img {
+        height: 30px;
+        bottom: 0px;
+        left: 0px;
+        position: fixed;
+      }
+
+      div.nx-hide-bullet li {
+        list-style-type: none;
+        margin: 0;
+        white-space: nowrap;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      img.nx-icon {
+        margin: 0;
+        max-width: 32px;
+        max-height: 32px;
+        vertical-align: middle;
+      }
+
+      img.nx-icon-small {
+        margin: 0;
+        max-width: 16px;
+        max-height: 16px;
+        vertical-align: middle;
+      }
+
+      a {
+        text-decoration: none;
+      }
+      a:link {
+        color: #005bbb;
+      }
+      a:visited {
+        color: #005bbb;
+      }
+      strong { color: orange; }
+      em     { color: green;  }
+
+      sup {
+        color: orange;
+        font-size: 65%;
+      }
+
+      h1 em {
+        font-style: normal;
+      }
+      h2 strong {
+        font-weight: normal;
+      }
+
+      .nx-red-link a, .nx-red-link a:visited {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: initial-layout
+layout: true
+
+<div class="nx-header-flag-1"></div>
+<div class="nx-header-flag-2"></div>
+<div class="nx-footer">
+  <small>
+    <a href="https://alienfile.org/newfangled">alienfile.org/newfangled</a>
+  </small>
+  /
+  <a href="https://twitter.com/plicease">@plicease</a>
+  /
+  <a href="https://sched.co/ylEf">The Perl Conference</a>
+  /
+  22 June 2022
+</div>
+
+---
+
+name: title
+class: center, middle
+
+# *NewFangled*
+## Bringing NewRelic to Perl with **Alien** and **FFI** Technology
+
+---
+
+template: initial-layout
+layout: true
+
+<div class="nx-header-title">🌻 NewFangled</div>
+
+---
+
+class: nx-hide-bullet
+
+### Graham Ollis
+
+* <img src="img/fastly.svg"  class="nx-icon"> Software Engineer at <span class="nx-red-link">[Fastly](https://fastly.com)</span>
+* <img src="img/twitter.svg" class="nx-icon"> [@plicease](https://twitter.com/plicease)
+* <img src="img/github.svg"  class="nx-icon"> [github.com/plicease](https://github.com/plicease)
+* <img src="img/perl.svg"    class="nx-icon"> cpan: [PLICEASE](https://metacpan.org/author/PLICEASE)
+* <img src="img/irc.svg"     class="nx-icon"> [\#native](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?) on [irc.perl.org](http://irc.perl.org)
+
+???
+
+My name is Graham Ollis,
+I am a software engineer at Fastly
+and I am known on the internet as PLICEASE
+
+---
+
+# Slides
+
+* <a href="https://alienfile.org/newfangled">alienfile.org/newfangled</a>
+
+---
+
+# NewRelic
+
+* instrament your *code*
+--
+count: false
+* pretty **graphs** and **alerts**
+
+---
+
+## The Problem with NewRelic
+
+NewRelic provides drivers for many languages
+
+* PHP
+* Java
+* Ruby
+* Go
+--
+count: false
+* ... but not *Perl*
+
+
+---
+
+# Solution #1
+## Hey let's just write our own!?
+
+* Brock Wilcox / <img src="img/perl.svg" class="nx-icon-small"> [AWWAIID](https://metacpan.org/author/AWWAIID) 2013 attempt
+--
+count: false
+* [Devel::Vestige](https://github.com/awwaiid/devel-vestige/blob/master/lib/Devel/Vestige/Agent/Service.pm)
+--
+count: false
+* Pure Perl
+--
+count: false
+* NewRelic said sure, please do not use their <sup>TM</sup>
+--
+count: false
+* No assistance otherwise
+
+---
+
+# Solution #2
+## Hey let's use the NewRelic Agent SDK (ASDK)!?
+
+* [NewRelic::Agent](https://metacpan.org/pod/NewRelic::Agent)
+* Bundle the **ASDK**
+* **XS** and **C++**
+* Bug: links against install itme **.so**
+* **ASDK** alpha and never officially supported
+* **Binary blog** impossible to patch
+* Only one platform: x86_64 Linux
+* Links against an old version of Ubuntu **OpenSSL**
+
+---
+
+# Solution #3
+
+
+## Hey let's write NewRelic Agent SDK bindings using
+
+### Alien Tech
+
+* [NewRelic::Agent::FFI](https://metacpan.org/pod/NewRelic::Agent::FFI)
+* [Alien::nragent](https://metacpan.org/pod/Alien::nragent)
+* **ASDK** not bundled
+
+### FFI
+
+* [NewRelic::Agent::FFI](https://metacpan.org/pod/NewRelic::Agent::FFI)
+* [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus)
+
+---
+
+# Why Platypus?
+
+* Instead of **.pm** + **.xs** + **C++**, you just need a **.pm** file
+* Links correctly at **test** + **runtime**
+
+---
+
+# Make Alien Tech a Fallback
+
+```
+  my @find_lib_args = (
+      lib => [ 'newrelic-collector-client', ... ]
+  );
+
+  push @find_lib_args, libpath => ['/opt/newrelic/lib/']
+      if -d '/opt/newrelic/lib/';
+  my @system = FFI::CheckLib::find_lib(@find_lib_args);
+
+  unless(@system) {
+      $args{PREREQ_PM}->{'Alien::nragent'} = '0.06';
+  }
+  WriteMakefile(%args);
+```
+
+---
+
+# Find Dynamic Library at Runtime
+
+```
+my $ffi = FFI::Platypus->new;
+$ffi->lib(do {
+    my @find_lib_args = (
+        lib => [ 'newrelic-collector-client', ... ],
+        alien => ['Alien::nragent'],
+    );
+    push @find_lib_args, libpath => ['/opt/newrelic/lib/']
+        if -d '/opt/newrelic/lib/';
+    find_lib_or_die(@find_lib_args);
+});
+```
+
+---
+
+# Code Calling ASDK
+
+```
+$ffi->attach( newrelic_transaction_begin => [] => 'long' );
+$ffi->attach( newrelic_transaction_set_name => [ 'long', 'string' ] => 'int'  );
+$ffi->attach( newrelic_transaction_set_request_url => [ 'long', 'string' ] => 'int'  );
+$ffi->attach( newrelic_transaction_set_max_trace_segments => [ 'long', 'int' ] => 'int' );
+$ffi->attach( newrelic_transaction_set_category => [ 'long', 'string' ] => 'int'  );
+$ffi->attach( newrelic_transaction_set_type_web => [ 'long' ] => 'int'  );
+$ffi->attach( newrelic_transaction_set_type_other => [ 'long' ]  => 'int'  );
+$ffi->attach( newrelic_transaction_add_attribute => [ 'long', 'string', 'string' ] => 'int'  );
+$ffi->attach( newrelic_transaction_notice_error => [ 'long', 'string', 'string', 'string', 'string' ] => 'int' );
+$ffi->attach( newrelic_transaction_end => [ 'long' ] => 'int'  );
+$ffi->attach( newrelic_record_metric => [ 'string', 'double'] => 'int'  );
+$ffi->attach( newrelic_record_cpu_usage => [ 'double', 'double' ] => 'int'  );
+$ffi->attach( newrelic_record_memory_usage => [ 'double' ] => 'int'  );
+$ffi->attach( newrelic_segment_generic_begin => [ 'long', 'long', 'string' ] => 'long' );
+```
+
+---
+
+# More Complicated Code
+
+```
+$ffi->attach(
+  newrelic_init => 
+    [ 'opaque', 'opaque', 'opaque', 'opaque' ] => 'int' => 
+sub {
+  my($xsub, $license_key, 
+     $app_name, $app_language, $app_language_version) = @_;
+ 
+  $license_key          ||= $ENV{NEWRELIC_LICENSE_KEY}          || '';
+  $app_name             ||= $ENV{NEWRELIC_APP_NAME}             || 'AppName';
+  $app_language         ||= $ENV{NEWRELIC_APP_LANGUAGE}         || 'perl';
+  $app_language_version ||= $ENV{NEWRELIC_APP_LANGUAGE_VERSION} || $];
+ 
+  my @new = map { strdup($_) } (
+      $license_key, 
+      $app_name,
+      $app_language,
+      $app_language_version
+  );
+ 
+  my $ret = $xsub->(@new);
+ 
+  # cannot find documentation to confirm, but NR doesn't
+  # appear to copy these strings, so we copy them.  But
+  # we want to free the old strings if we re-init. NB.
+  # it's not even clear to me from the NR doco that you
+  # should be calling _init more than once, but we've been 
+  # doing it in production via NewRelic::Agent so...
+  state $olds = [];
+  free $_ for @$olds;
+
+  $olds = \@new;
+ 
+  $ret;
+});
+```
+
+---
+
+# Solution #3
+
+## The FFI::Platypus are better!, but still:
+
+* ASDK alpha and never officially supported
+* Buggy tbh, and impossible to patch
+* Links against an old version of Ubuntu OpenSSL
+* Does not work on macOS
+
+---
+
+name: questions
+class: nx-hide-bullet
+
+# Questions
+
+* <a href="https://alienfile.org/newfangled">alienfile.org/newfangled</a>
+* <img src="img/irc.svg"     class="nx-icon"> [\#native](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?) on [irc.perl.org](http://irc.perl.org)
+* <img src="img/github.svg"  class="nx-icon"> [github.com/PerlAlien](https://github.com/PerlAlien)
+* <img src="img/github.svg"  class="nx-icon"> [github.com/PerlFFI](https://github.com/PerlFFI)
+* <img src="img/twitter.svg" class="nx-icon"> [@plicease](https://twitter.com/plicease)
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        //ratio: '16:9',
+        highlightLanguage: 'perl',
+        highlightStyle: 'monokai',
+      });
+    </script>
+  </body>
+</html>
