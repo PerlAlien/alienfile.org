@@ -79,7 +79,7 @@ name="History"
 >Alien::Base</a>. This distribution included the runtime code <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and an installer class <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
 >Alien::Base::ModuleBuild</a>. The significant thing about <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> was that it provided tools to make it relatively easy for people to roll their own <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> was that it provided tools to make it relatively easy for people to roll their own <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> distributions. Over time, the PerlAlien (github organization) or &#34;Alien::Base team&#34; has taken over development of <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> with myself (Graham Ollis) being responsible for integration and releases. Joel Berger is still involved in the project.</p>
 
@@ -98,7 +98,7 @@ name="Alien_runtime_should_be_as_config-only_as_possible."
 >Alien runtime should be as config-only as possible.</a></h3>
 
 <p>Ideally the code for an <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> should simply inherit from <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>, like so:</p>
 
@@ -118,7 +118,7 @@ name="Alien_runtime_should_be_as_config-only_as_possible."
 name="when_downloading_a_package_grab_the_latest_version"
 >when downloading a package grab the latest version</a></h3>
 
-<p>If the maintainer of an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>If the maintainer of an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> disappears for a while, and if the version downloaded during a &#34;share&#34; install is hardcoded in the <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a>, it can be problematic for end-users.</p>
 
@@ -128,12 +128,12 @@ name="when_downloading_a_package_grab_the_latest_version"
 name="when_installing_a_package_the_operating_system_as_a_whole_should_not_be_affected"
 >when installing a package the operating system as a whole should not be affected</a></h3>
 
-<p>The convenience of using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> is that a user of a CPAN module that consumes an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>The convenience of using an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> is that a user of a CPAN module that consumes an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> doesn&#39;t need to know the exact incantation to install the libraries on which it depends (or indeed it may not be easily installed through the package manager anyway).</p>
 
-<p>As a corollary, a user of a CPAN module that consumes an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> module shouldn&#39;t expect operating system level packages to be installed, or for these packages to be installed in common system level directories, like <code>/usr/local</code> or <code>/opt</code>. Instead a &#34;share&#34; directory associated with the Perl install and <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>As a corollary, a user of a CPAN module that consumes an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> module shouldn&#39;t expect operating system level packages to be installed, or for these packages to be installed in common system level directories, like <code>/usr/local</code> or <code>/opt</code>. Instead a &#34;share&#34; directory associated with the Perl install and <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module should be used.</p>
 
 <p>Plugins that require user opt-in could be written to prompt a user to automatically install operating system packages, but this should never be done by default or without consent by the user.</p>
@@ -142,7 +142,7 @@ name="when_installing_a_package_the_operating_system_as_a_whole_should_not_be_af
 name="avoid_dependencies"
 >avoid dependencies</a></h3>
 
-<p>One of the challenges with <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>One of the challenges with <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> development is that you are by the nature of the problem, trying to make everyone happy. Developers working out of CPAN just want stuff to work, and some build environments can be hostile in terms of tool availability, so for reliability you end up pulling a lot of dependencies. On the other hand, operating system vendors who are building Perl modules usually want to use the system version of a library so that they do not have to patch libraries in multiple places. Such vendors have to package any extra dependencies and having to do so for packages that the don&#39;t even use makes them understandably unhappy.</p>
 
 <p>As general policy the <a href="/pod/Alien/Build.html" class="podlinkpod"
@@ -159,7 +159,7 @@ name="interface_agnostic"
 >Alien::Buil::ModuleBuild</a> was that <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a> was pulled from the core. In addition, there is a degree of hostility toward <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a> in some corners of the Perl community. I agree with Joel Berger&#39;s rationale for choosing <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
->Module::Build</a> at the time, as I believe its interface more easily lends itself to building <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Module::Build</a> at the time, as I believe its interface more easily lends itself to building <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> distributions.</p>
 
 <p>That said, an important feature of <a href="/pod/Alien/Build.html" class="podlinkpod"
@@ -220,7 +220,7 @@ name="SEE_ALSO"
 >alienfile</a>, <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
 >Alien::Build::MM</a>, <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
 >Alien::Build::Plugin</a>, <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a>, <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a>, <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a></p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

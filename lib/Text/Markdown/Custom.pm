@@ -2,14 +2,46 @@ package Text::Markdown::Custom;
 
 use strict;
 use warnings;
-use base 'Text::Markdown::PerlExtensions', 'Exporter';
+use 5.020;
+use experimental qw( signatures postderef );
+use base 'Text::Markdown::PerlExtensions';
 
-our @EXPORT_OK = qw( markdown );
-
-sub _DoCodeSpans
+sub pods ($class, $new=undef)
 {
-  my ($self, $text) = @_;
+  state $pods;
+  $pods = $new if defined $new;
+  $pods;
+}
 
+sub new ($class, @args)
+{
+  my $self = $class->SUPER::new(@args);
+
+  $self->add_formatting_code( M => sub ($stuff) {
+    my $text;
+    my $fragment = '';
+
+    if($stuff =~ s/(#.*)$//)
+    {
+      $fragment = $1;
+    }
+    if($stuff =~ s/^(.*)\|//)
+    {
+      $text = $1;
+    }
+
+    my $name = $stuff;
+    $text //= $name;
+
+    my $href = $self->pods->get_link($name) // "https://metacpan.org/pod/$name$fragment";
+    return qq{<a href="$href$fragment" class="module">$text</a>};
+  });
+
+  $self;
+}
+
+sub _DoCodeSpans ($self, $text)
+{
     $text =~ s@
             (?<!\\)        # Character before opening ` can't be a backslash
             (`+)        # $1 = Opening run of `
@@ -30,15 +62,6 @@ sub _DoCodeSpans
   $text = $self->SUPER::_DoCodeSpans($text);
   
   $text;
-}
-
-sub markdown
-{
-  my($text) = @_;
-  
-  my $self = __PACKAGE__->new;
-  
-  $self->SUPER::markdown($text);
 }
 
 1;

@@ -61,12 +61,12 @@ name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
 <p>This document is intended for a user of an <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module&#39;s user. Although specifically geared for <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> subclasses, it may have some useful hints for <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> subclasses, it may have some useful hints for <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> in general.</p>
 
-<p>Full working examples of how to use an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Full working examples of how to use an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module are also bundled with <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> in the distribution&#39;s <code>example/user</code> directory. Those examples use <a href="https://metacpan.org/pod/Alien%3A%3Axz" class="podlinkpod"
 >Alien::xz</a>, which uses <a href="/pod/alienfile.html" class="podlinkpod"
@@ -74,13 +74,13 @@ name="DESCRIPTION"
 >Alien::Build</a> + <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>.</p>
 
-<p>The following documentation will assume you are trying to use an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> called <code>Alien::Foo</code> which provides the library <code>libfoo</code> and the command line tool <code>foo</code>. Many <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>The following documentation will assume you are trying to use an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> called <code>Alien::Foo</code> which provides the library <code>libfoo</code> and the command line tool <code>foo</code>. Many <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s will only provide one or the other.</p>
 
 <p>The best interface to use for using <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> based aliens is <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
->Alien::Base::Wrapper</a>. This allows you to combine multiple aliens together and handles a number of corner obscure corner cases that using <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base::Wrapper</a>. This allows you to combine multiple aliens together and handles a number of corner obscure corner cases that using <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s directly does not. Also as of 0.64, <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
 >Alien::Base::Wrapper</a> comes bundled with <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
@@ -143,7 +143,7 @@ name="Inline::C_/_Inline::CPP"
 <p><a href="https://metacpan.org/pod/Inline%3A%3AC" class="podlinkpod"
 >Inline::C</a> and <a href="https://metacpan.org/pod/Inline%3A%3ACPP" class="podlinkpod"
 >Inline::CPP</a> can be configured to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> with the <code>with</code> keyword.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -204,11 +204,11 @@ name="FFI::Platypus"
    lib =&#62; [ find_lib_or_die lib =&#62; &#39;foo&#39;, alien =&#62; [&#39;Alien::Foo&#39;] ],
  );</pre>
 
-<p>If you are going to always require an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>If you are going to always require an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> you can just call <code>dynamic_libs</code> and pass it into <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a>&#39; lib method. You should consider using <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
->FFI::CheckLib</a> to use the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> in fallback mode instead. This way you only need to install the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>FFI::CheckLib</a> to use the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> in fallback mode instead. This way you only need to install the <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> if the system doesn&#39;t provide it.</p>
 
 <p>For fallback mode to work correctly you need to be using <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
@@ -243,7 +243,7 @@ name="tool"
  unshift @PATH, Alien::Foo-&#62;bin_dir;
  system &#39;foo&#39;, &#39;--bar&#39;, &#39;--baz&#39;;</pre>
 
-<p>Some <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Some <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s provide tools instead of or in addition to a library. You need to add them to the <code>PATH</code> environment variable though. (Unless the tool is already provided by the system, in which case it is already in the path and the <code>bin_dir</code> method will return an empty list).</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -256,14 +256,14 @@ name="ENVIRONMENT"
 
 <dd>
 <p>Although the recommended way for a consumer to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> is to declare it as a static configure and build-time dependency, some consumers may prefer to fallback on using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> only when the consumer itself cannot detect the necessary package. In some cases the consumer may want the user to opt-in to using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> is to declare it as a static configure and build-time dependency, some consumers may prefer to fallback on using an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> only when the consumer itself cannot detect the necessary package. In some cases the consumer may want the user to opt-in to using an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> before requiring it.</p>
 
-<p>To keep the interface consistent among Aliens, the consumer of the fallback opt-in <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> may fallback on the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> if the environment variable <code>ALIEN_INSTALL_TYPE</code> is set to any value. The rationale is that by setting this environment variable the user is aware that <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>To keep the interface consistent among Aliens, the consumer of the fallback opt-in <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> may fallback on the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> if the environment variable <code>ALIEN_INSTALL_TYPE</code> is set to any value. The rationale is that by setting this environment variable the user is aware that <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules may be installed and have indicated consent. The actual implementation of this, by its nature would have to be in the consuming CPAN module.</p>
 
 <p>This behavior should be documented in the consumer&#39;s POD.</p>

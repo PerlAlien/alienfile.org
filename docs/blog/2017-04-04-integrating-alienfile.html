@@ -19,19 +19,19 @@
 <p>By <b>Graham Ollis</b> on 4 April 2017</p>
 
 <p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">Last week</a> I 
-introduced the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the 
-tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="https://metacpan.org/pod/App::af" class="module">App::af</a>. Today we 
-are going to take that alienfile and integrate it into a fully functional <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> 
+introduced the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the 
+tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="/pod/App/af.html" class="module">App::af</a>. Today we 
+are going to take that alienfile and integrate it into a fully functional <a href="/pod/Alien.html" class="module">Alien</a> 
 distribution.</p>
 
-<p>The main motiviation for <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> was to separate the alien detection 
+<p>The main motiviation for <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> was to separate the alien detection 
 and installer code from the perl installer code.  (In fact your alienfile is fully usable 
 without any Perl installer at all; you can use your alienfile from a Perl script or Perl 
 module using Alien::Build directly).</p>
 
-<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> to provide 
+<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> to provide 
 the thin layer of functionality needed between <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM) and 
-<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
+<a href="/pod/Alien/Build.html" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
 
 <pre class="sh_perl">
 use strict;
@@ -71,7 +71,7 @@ sub MY::postamble {
 
 <p>Most of this will be pretty recognizable to anyone who has hand crafted a <code>Makefile.PL</code> 
 before.  After constructing the basic arguments that will be passed to <code>WriteMakefile</code>, we 
-create an instance of <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> and pass the arguments into the <code>mm_args</code> method, 
+create an instance of <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> and pass the arguments into the <code>mm_args</code> method, 
 which returns a modified version of those arguments.  This method will decide if it can find 
 <code>xz</code> and <code>liblzma</code> from what is provided by the operating system, or if it should build the 
 tool and library from source.  To make this decision it consults the alienfile.  There are 
@@ -82,16 +82,16 @@ also require additional modules, although that is less common.  At the bottom of
 <code>Makefile.PL</code> we add a postamble to the <code>Makefile</code>.  This will add the make targets needed to 
 build <code>xz</code>.</p>
 
-<p>Note that we declare <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> as a prerequisite because our Alien class will be a subclass 
+<p>Note that we declare <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> as a prerequisite because our Alien class will be a subclass 
 of that.  We also declare EUMM as a configure time prerequisite which is a good practice for any 
-EUMM dist.  We do NOT need to declare <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> as a configure time prerequisite even 
+EUMM dist.  We do NOT need to declare <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> as a configure time prerequisite even 
 though it is used in the <code>Makefile.PL</code> because that is one of the prerequisite that are
 addedin by <code>mm_arg</code>.</p>
 
 <p>As mentioned earlier, alienfile is not tied to any one Perl installer, so if you prefer you 
 can use <a href="https://metacpan.org/pod/Module::Build" class="module">Module::Build</a> via <a href="https://metacpan.org/pod/Alien::Build::MB" class="module">Alien::Build::MB</a>.  I personally do not recommend this.  It 
 just adds extra prerequisite to your Alien.  The sole reason I wrote <a href="https://metacpan.org/pod/Alien::Build::MB" class="module">Alien::Build::MB</a> was to 
-act as a proof of concept that: yes <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> can be used with any installer 
+act as a proof of concept that: yes <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> can be used with any installer 
 that meets its requirements.  Including hopefully future installers that are more capable 
 than EUMM.  (<a href="https://metacpan.org/pod/Module::Build::Tiny" class="module">Module::Build::Tiny</a> will likely never be supported, as it is useful for a 
 different subset of things).</p>
@@ -123,7 +123,7 @@ our $VERSION = '1.00';
 <p>Not a lot is there?  For most Aliens you will find that the base class does everything that 
 you need.  The only thing missing here really, (and I do not reproduce it here for the sake 
 of brevity) is documentation.  You should provide your users with enough information in the 
-form of POD to be able to use this module!  (See <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienUser" class="module">Alien::Build::Manual::AlienUser</a> for clues 
+form of POD to be able to use this module!  (See <a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a> for clues 
 as to what should be included).  If you are lazy like me, you will want to use the 
 <a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="https://metacpan.org/pod/Dist::Zilla::Plugin::AlienBase::Doc" class="module">Dist::Zilla::Plugin::AlienBase::Doc</a> to generate synopsis and 
 description.</p>
@@ -189,9 +189,9 @@ Result: PASS
 
 <p>I waited until now to remind you that you need tests!  It is important to know that the Alien 
 will work with your XS module.  You don't want to find out it doesn't work when you are 
-installing that.  The best way to do this is to use <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a>, which tests your Alien 
+installing that.  The best way to do this is to use <a href="/pod/Test/Alien.html" class="module">Test::Alien</a>, which tests your Alien 
 with that same tools that your Alien will actually be used with.  Here is a very basic 
-<a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> test that ensures the alienized <code>liblzma</code> works correctly with XS:</p>
+<a href="/pod/Test/Alien.html" class="module">Test::Alien</a> test that ensures the alienized <code>liblzma</code> works correctly with XS:</p>
 
 <pre class="sh_perl">
 use Test2::Bundle::Extended;
@@ -257,7 +257,7 @@ Alien, and just eyeball test that it works from the command line.</p>
 ultimately the reason for all of this prep work.</p>
 
 <p><b>Correction</b>: a previous version of this blogity blog incorrectly referred to 
-<a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> as a dynamic prerequisite.  It is always added so it is strictly speaking a 
+<a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> as a dynamic prerequisite.  It is always added so it is strictly speaking a 
 static prerequisite.</p>
 
 <hr />

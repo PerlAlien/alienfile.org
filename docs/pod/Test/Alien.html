@@ -128,24 +128,24 @@ name="SYNOPSIS"
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This module provides tools for testing <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>This module provides tools for testing <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules. It has hooks to work easily with <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> based modules, but can also be used via the synthetic interface to test non <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules. It has very modest prerequisites.</p>
 
-<p>Prior to this module the best way to test a <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Prior to this module the best way to test a <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module was via <a href="https://metacpan.org/pod/Test%3A%3ACChecker" class="podlinkpod"
 >Test::CChecker</a>. The main downside to that module is that it is heavily influenced by and uses <a href="https://metacpan.org/pod/ExtUtils%3A%3ACChecker" class="podlinkpod"
 >ExtUtils::CChecker</a>, which is a tool for checking at install time various things about your compiler. It was also written before <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> became as stable as it is today. In particular, <a href="https://metacpan.org/pod/Test%3A%3ACChecker" class="podlinkpod"
 >Test::CChecker</a> does its testing by creating an executable and running it. Unfortunately Perl uses extensions by creating dynamic libraries and linking them into the Perl process, which is different in subtle and error prone ways. This module attempts to test the libraries in the way that they will actually be used, via either <code>XS</code> or <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
->FFI::Platypus</a>. It also provides a mechanism for testing binaries that are provided by the various <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>FFI::Platypus</a>. It also provides a mechanism for testing binaries that are provided by the various <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules (for example <a href="https://metacpan.org/pod/Alien%3A%3Agmake" class="podlinkpod"
 >Alien::gmake</a> and <a href="https://metacpan.org/pod/Alien%3A%3Apatch" class="podlinkpod"
 >Alien::patch</a>).</p>
 
-<p><a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p><a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules can actually be useable without a compiler, or without <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a> (for example, if the library is provided by the system, and you are using <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a>, or if you are building from source and you are using <code>XS</code>), so tests with missing prerequisites are automatically skipped. For example, <a href="#xs_ok" class="podlinkpod"
@@ -164,7 +164,7 @@ name="alien_ok"
 <pre class="sh_perl"> alien_ok $alien, $message;
  alien_ok $alien;</pre>
 
-<p>Load the given <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Load the given <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> instance or class. Checks that the instance or class conforms to the same interface as <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>. Will be used by subsequent tests. The <code>$alien</code> module only needs to provide these methods in order to conform to the <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> interface:</p>
@@ -186,20 +186,20 @@ name="alien_ok"
 >dynamic_libs</a></dt>
 
 <dd>
-<p>List of dynamic libraries. Returns empty list if the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>List of dynamic libraries. Returns empty list if the <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module does not provide this.</p>
 
 <dt><a name="bin_dir"
 >bin_dir</a></dt>
 
 <dd>
-<p>Directory containing tool binaries. Returns empty list if the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Directory containing tool binaries. Returns empty list if the <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module does not provide this.</p>
 </dd>
 </dl>
 
-<p>If your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> module does not conform to this interface then you can create a synthetic <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>If your <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> module does not conform to this interface then you can create a synthetic <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module using the <a href="#synthetic" class="podlinkpod"
 >&#34;synthetic&#34;</a> function.</p>
 
@@ -209,7 +209,7 @@ name="synthetic"
 
 <pre class="sh_perl"> my $alien = synthetic \%config;</pre>
 
-<p>Create a synthetic <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Create a synthetic <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> module which can be passed into <a href="#alien_ok" class="podlinkpod"
 >&#34;alien_ok&#34;</a>. <code>\%config</code> can contain these keys (all of which are optional):</p>
 
@@ -268,7 +268,7 @@ name="run_ok"
 <pre class="sh_perl"> my $run = run_ok $command;
  my $run = run_ok $command, $message;</pre>
 
-<p>Runs the given command, falling back on any <code>Alien::Base#bin_dir</code> methods provided by <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Runs the given command, falling back on any <code>Alien::Base#bin_dir</code> methods provided by <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules specified with <a href="#alien_ok" class="podlinkpod"
 >&#34;alien_ok&#34;</a>.</p>
 
@@ -492,7 +492,7 @@ name="SEE_ALSO"
 
 <dl>
 <dt><a name="Alien"
-><a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+><a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a></a></dt>
 
 <dd>

@@ -91,7 +91,7 @@ aren’t pertinent to usage in Perl.  It also means that this test file
 does NOT catch errors that are specific to dynamic libraries, which ARE 
 pertinent to usage in Perl.</p>
 
-<p>So I wrote <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> to test <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> modules in the way that they 
+<p>So I wrote <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> to test <a href="/pod/Alien.html" class="module">Alien</a> modules in the way that they 
 are actually used.  Create an interface to make it easy to create a 
 mini-XS or FFI and run some basic tests like ensure you can query the 
 version number.  This increases the likelihood that the Alien module 
@@ -168,19 +168,19 @@ ffi_ok { symbols => [qw( Hunspell_create Hunspell_destroy )] }, with_subtest {
 };
 </pre>
 
-<p><a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> also has tests for tool oriented Alien modules, such as 
-<a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a> and <a href="https://metacpan.org/pod/Alien::patch" class="module">Alien::patch</a>.  <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> is designed to work 
-seamlessly with <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="module">Alien</a> modules, but can also be made to 
-work without much additional work with non <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Aliens" class="module">Aliens</a>.</p>
+<p><a href="/pod/Test/Alien.html" class="module">Test::Alien</a> also has tests for tool oriented Alien modules, such as 
+<a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a> and <a href="https://metacpan.org/pod/Alien::patch" class="module">Alien::patch</a>.  <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> is designed to work 
+seamlessly with <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> modules, but can also be made to 
+work without much additional work with non <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Aliens" class="module">Aliens</a>.</p>
 
-<p>The other nice thing about the <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> interface is that its tests 
+<p>The other nice thing about the <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> interface is that its tests 
 will self skip if a compiler or <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> are not found.  This is 
 useful, as <a href="https://metacpan.org/pod/Text::Hunspell::FFI" class="module">Text::Hunspell::FFI</a> can use <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> without a 
 compiler if the hunspell system packages are installed, and conversely 
 <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> can use <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> if <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> is not 
 installed.</p>
 
-<p>I used <a href="https://metacpan.org/pod/Test::Alien" class="module">Test::Alien</a> in development versions of <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> to 
+<p>I used <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> in development versions of <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> to 
 identify and correct bugs to make it more reliable.</p>
 
 <hr />

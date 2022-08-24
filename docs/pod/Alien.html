@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    
+      <div class="nx-header-title"><a href="/">🌻</a> Alien</div>
+    
+    <!--Alien--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#ORIGINAL_MANIFESTO'>ORIGINAL MANIFESTO</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#Why'>Why</a>
+    <li class='indexItem indexItem2'><a href='#How'>How</a>
+    <li class='indexItem indexItem2'><a href='#No_Framework!'>No Framework!</a>
+    <li class='indexItem indexItem2'><a href='#Responsibilities_of_a_Alien_module.'>Responsibilities of a Alien module.</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHORS'>AUTHORS</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien - External libraries wrapped up for your viewing pleasure!</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.96</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> % perldoc Alien</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>The intent of the Alien namespace is to provide a mechanism for specifying, installing and using non-native dependencies on CPAN. Frequently this is a C library used by XS (see <a href="https://metacpan.org/pod/perlxs" class="podlinkpod"
+>perlxs</a>) or FFI (see <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>), but it could be anything non-Perl usable from Perl.</p>
+
+<p>Typical characteristics of an Alien distribution include:</p>
+
+<dl>
+<dt><a name="Probe_for_or_install_library_during_the_build_process"
+>Probe for or install library during the build process</a></dt>
+
+<dd>
+<p>Usually this means that <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> or <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> will be extended to probe for an existing system library that meets the criteria of the Alien module. If it cannot be found the library is downloaded from the Internet and installed into a share directory (See <a href="https://metacpan.org/pod/File%3A%3AShareDir%3A%3ADist" class="podlinkpod"
+>File::ShareDir::Dist</a>).</p>
+
+<p>Usually, though not necessarily, this is a C library. It could be anything though, some JavaScript, Java <code>.class</code> files. Anything imaginable.</p>
+
+<dt><a name="The_module_itself_provides_attributes_needed_to_use_the_library"
+>The module itself provides attributes needed to use the library</a></dt>
+
+<dd>
+<p>This means that if you are writing <code>Alien::Foo</code> it will provide class or member functions that will provide the necessary information for using the library that was probed for or installed during the previous step.</p>
+
+<p>If, for example, <code>Alien::Foo</code> were providing a dependency on the C library <code>libfoo</code>, then you might provide <code>Alien::Foo-&#62;cflags</code> and <code>Alien::Foo-&#62;libs</code> class methods to return the compiler and library flags required for using the library.</p>
+</dd>
+</dl>
+
+<p>These are guidelines, and this module does not provide an implementation or a framework, because of the diverse nature of non-Perl dependencies on CPAN. The more common cases are handled by the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> system, which is recommended if you want to avoid reinventing the wheel. See the <a href="#SEE_ALSO" class="podlinkpod"
+>&#34;SEE ALSO&#34;</a> section below for helpful resources.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>This section contains some recommendations from my own experience in writing Alien modules and from working on the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> team. The <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> FAQ (<a href="/pod/Alien/Build/Manual/FAQ.html" class="podlinkpod"
+>Alien::Build::Manual::FAQ</a>) also addresses a number of implementation specific gotchas.</p>
+
+<dl>
+<dt><a name="When_building_from_source_code,_build_static_libraries_whenever_possible"
+>When building from source code, build static libraries whenever possible</a></dt>
+
+<dd>
+<p>Or at least isolate the dynamic libraries so they can be used by FFI, but do not use them to build XS modules. The reason for this is that if an end user upgrades their version of <code>Alien::Foo</code> it may break the already installed version of <code>Foo::XS</code> that used it when it was installed.</p>
+
+<dt><a name="On_Windows_(ActiveState,_Strawberry_Perl)"
+>On Windows (ActiveState, Strawberry Perl)</a></dt>
+
+<dd>
+<p>Many open source libraries use <code>autoconf</code> and other Unix focused tools that may not be easily available to the native (non-Cygwin) windows Perl. <a href="https://metacpan.org/pod/Alien%3A%3AMSYS" class="podlinkpod"
+>Alien::MSYS</a> provides just enough of these tools for <code>autoconf</code> and may be sufficient for some other build tools. Also, <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> have hooks to detect <code>autoconf</code> and inject <a href="https://metacpan.org/pod/Alien%3A%3AMSYS" class="podlinkpod"
+>Alien::MSYS</a> as a requirement on Windows when it is needed.</p>
+
+<dt><a name="MB_vs_EUMM"
+>MB vs EUMM</a></dt>
+
+<dd>
+<p>The original Alien documentation recommends the use of <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> (MB), which at the time was recommended over <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> (EUMM). Many Alien distributions have been written using MB. Including the original installer that came with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>. I believe this is because it is an easier build system to adapt to the Alien concept. MB is no longer universally recommended over EUMM, and has been removed from Perl&#39;s core, so if you can, this author recommends using EUMM instead. <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a> provide tools for creating EUMM based Aliens. Another example worth looking at is <a href="https://metacpan.org/pod/Alien%3A%3Apkgconf" class="podlinkpod"
+>Alien::pkgconf</a>, which uses EUMM, but isn&#39;t based on <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> or <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ORIGINAL_MANIFESTO"
+>ORIGINAL MANIFESTO</a></h1>
+
+<p>What follows is the original Alien manifesto written by Artur Bergman. It is included here, because much of it is still largely true today, but it was out of necessity quite aspirational at the time it was written.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Why"
+>Why</a></h2>
+
+<p>James and I ended up doing a build system for Fotango, lots of people have done a build system, it is a pretty boring task. The boring task is really all the mindlessly stupid things you need to do to build C libraries that Perl modules require, these C modules usually have unusual installation systems or require vastly different options. So CPAN modules install easy, 3rd party stuff is nasty.</p>
+
+<p>So, suddenly an idea struck me, Alien packages! Imagine a CPAN module that has as its only task to make sure a certain library is installed! That means that you can write all the voodoo in your Build.PL file and then just make sure the module requires the correct Alien module! Then anything that install Perl modules will deal with it automatically!</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How"
+>How</a></h2>
+
+<p>So, what should an Alien module do? It should make sure that the target is installed and it should provide the caller with enough information to use it.</p>
+
+<p>The idea is that you use it to make sure it is there, and you call class methods to find out what to use. These class methods will be individually specified by the stand alone Alien modules.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="No_Framework!"
+>No Framework!</a></h2>
+
+<p>The reason this is so loosely worded is because we have no idea what common functionality will be needed, so we will let evolution work for us and see what individual Alien packages need and then eventually factor it out into this packages. I would like to avoid a top down design approach.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Responsibilities_of_a_Alien_module."
+>Responsibilities of a Alien module.</a></h2>
+
+<p>On installation, make sure the required package is there, otherwise install it.</p>
+
+<p>On usage, make sure the required package is there, else croak.</p>
+
+<p>Bundle the source with the module, or download it.</p>
+
+<p>Allow module authors to access information it gathers.</p>
+
+<p>Document itself well.</p>
+
+<p>Preferably use <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>. [ see caveats above ]</p>
+
+<p>Be sane.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build::Manual::Alien"
+><a href="/pod/Alien/Build/Manual/Alien.html" class="podlinkpod"
+>Alien::Build::Manual::Alien</a></a></dt>
+
+<dd>
+<p>Documentation for building <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s using the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> system. Intended for as a starting point for Alien users and Alien authors.</p>
+
+<dt><a name="Alien::Build::Manual::FAQ"
+><a href="/pod/Alien/Build/Manual/FAQ.html" class="podlinkpod"
+>Alien::Build::Manual::FAQ</a></a></dt>
+
+<dd>
+<p>Quick answers (FAQ) for many common Alien issues.</p>
+
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<p>A new installer agnostic Alien builder, intended to replace <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>. See <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a> for details on how to create your own <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> based Alien.</p>
+
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<p>An (optional) base class and framework for creating Alien distributions.</p>
+
+<dt><a name="#native_on_irc.perl.org"
+><a href="http://chat.mibbit.com/#native@irc.perl.org" class="podlinkurl"
+>#native on irc.perl.org</a></a></dt>
+
+<dd>
+<p>This channel on IRC is dedicated to those interested in using native interfaces in Perl. It is specifically geared to Alien, <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and FFI.</p>
+
+<dt><a name="Perl5_Alien_mailing_list"
+><a href="https://groups.google.com/forum/#!forum/perl5-alien" class="podlinkurl"
+>Perl5 Alien mailing list</a></a></dt>
+
+<dd>
+<p>This mailing list is mainly for <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, and announcements for new versions will be posted there, but general Alien inquires are also welcome.</p>
+
+<dt><a name="https://github.com/PerlAlien"
+><a href="https://github.com/PerlAlien" class="podlinkurl"
+>https://github.com/PerlAlien</a></a></dt>
+
+<dd>
+<p>The Perl Alien organization on GitHub.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHORS"
+>AUTHORS</a></h1>
+
+<ul>
+<li>Arthur Bergman &#60;abergman@fotango.com&#62;</li>
+
+<li>Graham Ollis &#60;plicease@cpan.org&#62;</li>
+</ul>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2003 by Arthur Bergman &#60;abergman@fotango.com&#62;.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

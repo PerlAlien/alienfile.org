@@ -16,7 +16,7 @@ sub new
   $context->define_filter(
     markdown => sub {
       my($text) = @_;
-      Text::Markdown::Custom::markdown($text);
+      Text::Markdown::Custom->new->markdown($text);
     },
   );
   

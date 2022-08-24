@@ -1,4 +1,19 @@
-# alienfile.org - The Home for Perl Aliens
+# alienfile.org - Home of the Perl Alien Project
+
+The Perl Alien Project is dedicated to making external, non-Perl dependencies available for [CPAN](https://metacpan.org/about) modules.
+This is for both libraries (potentially any language) and tools (such as code generators).
+To this end the `Alien::` namespace on [CPAN](https://metacpan.org/about) has been reserved for modules that provide such
+dependencies.  A well behaved Alien should probe the system to see if the library tool is already installed.  If not, it should
+download it from the internet and install it into a private share location so that it can be used by other Perl modules.
+Installing in a private share location is an important part of the Alien philosophy as we do not want to replace or corrupt 
+system libraries.
+
+The M<original manifesto|Alien#ORIGINAL_MANIFESTO> developed by A<ABERGMAN> states that no framework is to be imposed onto
+Alien authors, which adds to the flexability of the Alien concept, but you should consider the M<Alien::Build> framework,
+which provides powerful tools for creating and maintaining Aliens.  It is very easy to build an M<Alien::Build> based
+Alien that alienizes a package that uses common build tools like M<autotools|Alien::Build::Plugin::Build::Autoconf>
+and M<CMake|Alien::Build::Plugin::Build::CMake>.  It is also extensible through its L<plugin|Alien::Build::Plugin> system
+allowing other build systems to be added.
 
 ## Slides
 
@@ -9,5 +24,8 @@
 
  * [The Alien Blog](/blog/)
  * [libdontpanic](/dontpanic/)
+
+## External Links
+
  * [PerlAlien organization on GitHub](https://github.com/PerlAlien)
  * [Alien::Build on metacpan](https://metacpan.org/pod/Alien::Build)

@@ -46,7 +46,14 @@ package Pods {
             my $name = $path;
             $name =~ s{\.(pod|pm)$}{};
             $name =~ s{/}{::}g;
-            $self->{pod}->{$name} = $content;
+
+            my $href = $path;
+            $href =~ s{\.(pod|pm)$}{.html};
+
+            $self->{pod}->{$name} = {
+              content => $content,
+              href    => $self->url_prefix . $href,
+            };
           }
           else
           {
@@ -57,7 +64,10 @@ package Pods {
         elsif($filename =~ m{^[^/]+/bin/(.+)$})
         {
           my $name = $1;
-          $self->{pod}->{$name} = $content;
+          $self->{pod}->{$name} = {
+            content => $content,
+            href    => $self->url_prefix . "$name.html",
+          };
         }
       });
     } else {
@@ -109,7 +119,7 @@ package Pods {
       $p->{Tagmap}->{'VerbatimFormatted'} = "\n<pre class=\"sh_perl\">";
       $self->current($name);
 
-      $p->parse_string_document($self->{pod}->{$name});
+      $p->parse_string_document($self->{pod}->{$name}->{content});
 
       my $path = $self->fs_root->child(do {
         my @parts = split /::/, $name;
@@ -138,8 +148,8 @@ package Pods {
     }
   }
 
-  sub has_pod ($self, $name) {
-    !!$self->{pod}->{$name};
+  sub get_link ($self, $name) {
+    $self->{pod}->{$name}->{href};
   }
 
 }
@@ -162,9 +172,7 @@ package Pods::HTML {
       my $section = $link->attr('section');
       if(defined $to)
       {
-        if($self->pods->has_pod($to)) {
-          my $path = $self->pods->url_prefix . "$to.html";
-          $path =~ s{::}{/}g;
+        if(my $path = $self->pods->get_link($to)) {
           $path .= "#" . $self->section_escape($section) if defined $section;
           return $path;
         }

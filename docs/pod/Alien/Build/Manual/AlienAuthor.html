@@ -65,11 +65,11 @@ name="DESCRIPTION"
 <p><b>Note</b>: Please read the entire document before you get started in writing your own <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a>. The section on dynamic vs. static libraries will likely save you a lot of grief if you read it now!</p>
 
-<p>This document is intended to teach <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
->Alien</a> authors how to build their own <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>This document is intended to teach <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> authors how to build their own <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> distribution using <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a>. Such an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a>. Such an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> distribution consists of three essential parts:</p>
 
 <dl>
@@ -95,7 +95,7 @@ name="DESCRIPTION"
 >Alien::Base</a></a></dt>
 
 <dd>
-<p>For most <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>For most <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s this does not need to be customized at all, since <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> usually does what you need.</p>
 </dd>
@@ -231,7 +231,7 @@ name="Using_commands"
  ];</pre>
 
 <p>The scalar reference as the final item in the command list tells <a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a> that the output from the command should be stored in the given variable. The runtime variables are the ones that will be available to <code>Alien::Libfoo</code> once it is installed. (Install properties, which are the ones that we have seen up till now are thrown away once the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Build</a> that the output from the command should be stored in the given variable. The runtime variables are the ones that will be available to <code>Alien::Libfoo</code> once it is installed. (Install properties, which are the ones that we have seen up till now are thrown away once the <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> distribution is installed.</p>
 
 <p>You can also provide a <code>sys</code> block for directives that should be used when a system install is detected. Normally you only need to do this if the gather step is different between share and system installs. For example, the above is equivalent to:</p>
@@ -259,7 +259,7 @@ name="Using_commands"
 name="Using_plugins"
 >Using plugins</a></h2>
 
-<p>The first example is a good way of showing the full manual path that you can choose, but there is a lot of repetition, if you are doing many <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>The first example is a good way of showing the full manual path that you can choose, but there is a lot of repetition, if you are doing many <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s that use autoconf and <code>pkg-config</code> (which are quite common. <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> allows you to use plugins. See <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
 >Alien::Build::Plugin</a> for a list of some of the plugin categories.</p>
@@ -332,11 +332,11 @@ name="Multiple_.pc_files"
 name="A_note_about_dynamic_vs._static_libraries"
 >A note about dynamic vs. static libraries</a></h2>
 
-<p>If you are using your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>If you are using your <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> to build an XS module, it is important that you use static libraries if possible. If you have a package that refuses to build a static library, then you can use <a href="https://metacpan.org/pod/Alien%3A%3ARole%3A%3ADino" class="podlinkpod"
 >Alien::Role::Dino</a>.</p>
 
-<p>Actually let me back up a minute. For a <code>share</code> install it is best to use static libraries to build your XS extension. This is because if your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>Actually let me back up a minute. For a <code>share</code> install it is best to use static libraries to build your XS extension. This is because if your <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> is ever upgraded to a new version it can break your existing XS modules. For a <code>system</code> install shared libraries are usually best because you can often get security patches without having to re-build anything in perl land.</p>
 
 <p>If you looked closely at the &#34;Using commands&#34; and &#34;Using plugins&#34; sections above, you may notice that we went out of our way where possible to tell Autotools to build only static libraries using the <code>--disable-shared</code> command. The Autoconf plugin also does this by default.</p>
@@ -507,7 +507,7 @@ name="Non_standard_configuration"
 >Non standard configuration</a></h2>
 
 <p><a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> support most of the things that your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien::Base</a> support most of the things that your <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> will need, like compiler flags (cflags), linker flags (libs) and binary directory (bin_dir). Your library or tool may have other configuration items which are not supported by default. You can store the values in the <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> into the runtime properties:</p>
 
@@ -608,7 +608,7 @@ name="Testing"
    };
  }</pre>
 
-<p>More details on testing <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+<p>More details on testing <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules can be found in the <a href="/pod/Test/Alien.html" class="podlinkpod"
 >Test::Alien</a> documentation.</p>
 

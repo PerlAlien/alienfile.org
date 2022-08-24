@@ -5,9 +5,11 @@ use warnings;
 use FindBin ();
 use lib "$FindBin::Bin/lib";
 use 5.026;
+use experimental qw( signatures postderef );
 use Template;
 use Path::Tiny qw( path );
-use Text::Markdown::Custom qw( markdown );
+use Text::Markdown::Custom;
+use Pods;
 
 my $root = path(__FILE__)->parent;
 
@@ -19,9 +21,17 @@ my $tt = Template->new(
   ENCODING           => 'utf8',
 );
 
+my $pods = Pods->new;
+$pods->add_dist('https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-0.96.tar.gz');
+$pods->add_dist('https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-2.59.tar.gz');
+$pods->add_dist('https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/App-af-0.17.tar.gz');
+$pods->fs_root->remove_tree;
+$pods->generate_html;
+
+Text::Markdown::Custom->pods($pods);
+
 $root->child('docs')->visit(
-  sub {
-    my($md_path) = @_;
+  sub ($md_path, $) {
     return unless $md_path->basename =~ /\.md$/;
 
     my($html_path, undef, $template_name) = $md_path->basename =~ /^(.*?)(\.(.*))?\.md$/;
@@ -54,7 +64,7 @@ $root->child('docs')->visit(
       {
         title     => $title,
         h1        => $h1,
-        markdown  => markdown(join '', @lines),
+        markdown  => Text::Markdown::Custom->new->markdown(join('', @lines)),
         directory => $md_path->parent,
         shjs      => "https://shjs.wdlabs.com",
       },
