@@ -16,6 +16,7 @@ my $tt = Template->new(
   INCLUDE_PATH       => $root->child('templates')->stringify,
   render_die         => 1,
   TEMPLATE_EXTENSION => '.tt',
+  ENCODING           => 'utf8',
 );
 
 $root->child('docs')->visit(
@@ -31,9 +32,18 @@ $root->child('docs')->visit(
     my $out = '';
     
     my @lines = $md_path->lines_utf8;
-    
-    my($title) = $lines[0] =~ /^#+\s(.*)$/;
-    $title ||= 'alienfile.org';
+    my $title = 'alienfile.org';
+    my $h1;
+
+    if($lines[0] =~ m/^##+\s*(\S.*)$/)
+    {
+      $title = $1;
+    }
+    elsif($lines[0] =~ m/^#\s*(\S.*)$/)
+    {
+      $h1 = $title = $1;
+      shift @lines;
+    }
 
     my $template_path = $root->child("templates/$template_name.html.tt");
     say "$md_path ($template_path)";
@@ -43,6 +53,7 @@ $root->child('docs')->visit(
       $template_path->basename,
       {
         title     => $title,
+        h1        => $h1,
         markdown  => markdown(join '', @lines),
         directory => $md_path->parent,
         shjs      => "https://shjs.wdlabs.com",
