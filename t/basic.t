@@ -14,7 +14,7 @@ Test2::Tools::HTTP::Tx->add_helper(
   },
 );
 
-app do "./test.psgi";
+app_add do "./test.psgi";
 
 req(
   GET('https://alienfile.org'),
