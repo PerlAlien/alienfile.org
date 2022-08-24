@@ -2,8 +2,8 @@
 
 ## Slides
 
- * The Perl Conference 2022 : [NewFangled - Bringing NewRelic to Perl with Alien and FFI Technology](/newfangled)
- * The Perl Conference 2022 lightning talk : [Bundling Code With FFI::Platypus - How FFI::C::Stat was born](/ffi-stat)
+ * The Perl Conference 2022 : [NewFangled - Bringing NewRelic to Perl with Alien and FFI Technology](/slides/newfangled)
+ * The Perl Conference 2022 lightning talk : [Bundling Code With FFI::Platypus - How FFI::C::Stat was born](/slides/ffi-stat)
 
 ## Some Perl/Alien related subprojects
 

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bundling Code With *FFI::Platypus</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .remark-slide-content {
+        padding-top: 4em;
+      }
+
+      div.nx-header-title {
+        position: fixed;
+        top: 0px;
+        left: 20px;
+        width: 100%;
+        font-size: 50px;
+        text-align: left;
+      }
+
+      div.nx-header-flag-1 {
+        background-color: #000000;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff),
+                                                                  color-stop(100%,#005bbb) );
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+        text-align: left;
+      }
+
+      div.nx-header-flag-2 {
+        background-color: #000000;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff),
+                                                                  color-stop(100%,#ffd500) );
+        position: fixed;
+        top: 29px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+        text-align: left;
+      }
+
+
+      div.nx-footer {
+        font-size: 10pt;
+        text-align: center;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+      }
+
+      div.nx-footer p {
+        margin-top: 10px;
+        height: 30px;
+      }
+
+      div.nx-footer img {
+        height: 30px;
+        bottom: 0px;
+        left: 0px;
+        position: fixed;
+      }
+
+      div.nx-hide-bullet li {
+        list-style-type: none;
+        margin: 0;
+        white-space: nowrap;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      img.nx-icon {
+        margin: 0;
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+      }
+
+      img.nx-icon-small {
+        margin: 0;
+        max-width: 16px;
+        max-height: 16px;
+        vertical-align: middle;
+      }
+
+      a {
+        text-decoration: none;
+      }
+      a:link {
+        color: #005bbb;
+      }
+      a:visited {
+        color: #005bbb;
+      }
+      strong { color: orange; }
+      em     { color: green;  }
+
+      sup {
+        color: orange;
+        font-size: 65%;
+      }
+
+      h1 em {
+        font-style: normal;
+      }
+      h2 strong {
+        font-weight: normal;
+      }
+
+      .nx-red-link a, .nx-red-link a:visited {
+        color: red;
+      }
+
+      code {
+        overflow-y: auto;
+        max-height: 400px;
+      }
+
+      table.nx {
+        border-collapse: collapse;
+      }
+
+      table.nx tbody tr th {
+        border-right: 1px solid black;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      table.nx tbody tr td.name {
+        padding-right: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-top: 1px solid black;
+        text-align: left;
+      }
+
+      table.nx tbody tr:last-child td.name {
+        border-bottom: 1px solid black;
+      }
+
+      table.nx tbody tr td {
+        //border: 1px solid black;
+        text-align: center;
+      }
+
+      table.nx tbody tr td.yes {
+        background-color: green;
+        color: white;
+      }
+
+      table.nx tbody tr td.no {
+        background-color: red;
+        color: white;
+      }
+
+      table.nx tbody tr td.na {
+        background-color: lightgray;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: initial-layout
+layout: true
+
+<div class="nx-header-flag-1"></div>
+<div class="nx-header-flag-2"></div>
+<div class="nx-footer">
+  <small>
+    <a href="https://alienfile.org/">alienfile.org</a>/<a href="https://alienfile.org/ffi-stat">ffi-stat</a>
+  </small>
+  /
+  <a href="https://twitter.com/plicease">@plicease</a>
+  /
+  <a href="https://tprc2022.sched.com/event/ylap/lightning-talks-day-1">The Perl Conference (lightning talk)</a>
+  /
+  22 June 2022
+</div>
+
+---
+
+name: title
+class: center, middle
+
+# Bundling Code With *FFI::Platypus*
+## How **FFI::C::Stat** was born
+
+---
+
+template: initial-layout
+layout: true
+
+<div class="nx-header-title">🌻 Bundling Code With Platypus</div>
+
+---
+
+# It all began
+
+* Archive::Libarchive::FFI
+ * Comprehensive Perl bindings for libarchive
+ * Using FFI::Raw
+
+---
+
+# Cheating
+
+```C
+const struct stat* archive_entry_stat(struct archive_entry *);
+```
+
+--
+count: false
+```
+sub archive_entry_stat {
+  my($entry) = @_;
+  no strict 'refs';
+  map { &{"archive_entry_$_"}($entry) } qw ( dev ino mode nlink uid gid rdev
+                                             atime mtime ctime );
+}
+```
+
+---
+
+# Why?
+
+```C
+struct stat {
+    dev_t     st_dev;         /* ID of device containing file */
+    ino_t     st_ino;         /* Inode number */
+    mode_t    st_mode;        /* File type and mode */
+    nlink_t   st_nlink;       /* Number of hard links */
+    uid_t     st_uid;         /* User ID of owner */
+    gid_t     st_gid;         /* Group ID of owner */
+    dev_t     st_rdev;        /* Device ID (if special file) */
+    off_t     st_size;        /* Total size, in bytes */
+    blksize_t st_blksize;     /* Block size for filesystem I/O */
+    blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */
+
+    /* Since Linux 2.6, the kernel supports nanosecond
+       precision for the following timestamp fields.
+       For the details before Linux 2.6, see NOTES. */
+
+    struct timespec st_atim;  /* Time of last access */
+    struct timespec st_mtim;  /* Time of last modification */
+    struct timespec st_ctim;  /* Time of last status change */
+
+#define st_atime st_atim.tv_sec      /* Backward compatibility */
+#define st_mtime st_mtim.tv_sec
+#define st_ctime st_ctim.tv_sec
+};
+```
+
+---
+
+# FFI::Platypus + Bundled code install/runtime
+
+<img src="diag/ffi-bundle-installer-runtime.png" width="750">
+
+
+---
+
+# FFI::C::Stat implementation
+
+```C
+dev_t stat__dev(struct stat *self) {
+  return self->st_dev;
+}
+
+dev_t stat__rdev(struct stat *self) {
+  return self->st_rdev;
+}
+```
+
+--
+count: false
+```
+$ffi->attach( dev  => ['stat'] => 'dev_t' );
+$ffi->attach( rdev => ['stat'] => 'dev_t' );
+```
+
+--
+count: false
+```
+$ffi->attach( stat => ['archive_entry'] => opaque => sub {
+  my($xsub, $self) = @_;
+  my $ptr = $xsub->($self);
+  defined $ptr ? FFI::C::Stat->clone($ptr) : undef;
+});
+```
+
+---
+
+# Why?
+
+* now properly complete libarchive bindings
+--
+count: false
+* useful for APIs that return `stat` structures
+--
+count: false
+* bundling code can solve some corner cases
+
+---
+
+# Bug!
+
+* [https://github.com/PerlFFI/FFI-C-Stat/issues/5]
+
+---
+
+name: questions
+class: nx-hide-bullet
+
+# Questions
+
+* <img src="img/www.svg"     class="nx-icon"> <a href="https://alienfile.org/ffi-stat">alienfile.org/ffi-stat</a>
+* <img src="img/irc.svg"     class="nx-icon"> [\#native](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?) on [irc.perl.org](http://irc.perl.org)
+* <img src="img/github.svg"  class="nx-icon"> [github.com/PerlAlien](https://github.com/PerlAlien)
+* <img src="img/github.svg"  class="nx-icon"> [github.com/PerlFFI](https://github.com/PerlFFI)
+* <img src="img/twitter.svg" class="nx-icon"> [@plicease](https://twitter.com/plicease)
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        ratio: '16:9',
+        navigation: {
+          scroll: false,
+        },
+        highlightLanguage: 'perl',
+        highlightStyle: 'default',
+        highlightLines: true,
+      });
+    </script>
+  </body>
+</html>
