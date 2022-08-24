@@ -17,17 +17,32 @@
     <p>The Perl Alien Project is dedicated to making external, non-Perl dependencies available for <a href="https://metacpan.org/about">CPAN</a> modules.
 This is for both libraries (potentially any language) and tools (such as code generators).
 To this end the <code>Alien::</code> namespace on <a href="https://metacpan.org/about">CPAN</a> has been reserved for modules that provide such
-dependencies.  A well behaved Alien should probe the system to see if the library tool is already installed.  If not, it should
+dependencies.  A well behaved Alien should probe the system to see if the library or tool is already installed.  If not, it should
 download it from the internet and install it into a private share location so that it can be used by other Perl modules.
 Installing in a private share location is an important part of the Alien philosophy as we do not want to replace or corrupt 
 system libraries.</p>
 
 <p>The <a href="/pod/Alien.html#ORIGINAL_MANIFESTO" class="module">original manifesto</a> developed by <a href="https://metacpan.org/author/ABERGMAN" class="cpanAuthor">ABERGMAN</a> states that no framework is to be imposed onto
-Alien authors, which adds to the flexability of the Alien concept, but you should consider the <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> framework,
+Alien authors, which adds to the flexability of the Alien concept.  That said you should consider the <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> framework,
 which provides powerful tools for creating and maintaining Aliens.  It is very easy to build an <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> based
 Alien that alienizes a package that uses common build tools like <a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="module">autotools</a>
-and <a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="module">CMake</a>.  It is also extensible through its L<plugin|Alien::Build::Plugin> system
-allowing other build systems to be added.</p>
+and <a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="module">CMake</a>.  It is also extensible through its <a href="/pod/Alien/Build/Plugin.html" class="module">plugin</a> system
+allowing other build systems to be added.  The <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> project also comes with a large and growing manual.  The
+manual has three main sections depending on how you need to use <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> and a FAQ.</p>
+
+<ul>
+<li><a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="module">Alien::Build::Manual::AlienAuthor</a> - for would be authors of new <a href="/pod/Alien.html" class="module">Aliens</a></li>
+<li><a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a> - for users of an existing <a href="/pod/Alien.html" class="module">Alien</a></li>
+<li><a href="/pod/Alien/Build/Manual/PluginAuthor.html" class="module">Alien::Build::Manual::PluginAuthor</a> - for developers who want to extend <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> using its plugin system</li>
+<li><a href="/pod/Alien/Build/Manual/FAQ.html" class="module">Alien::Build::Manual::FAQ</a> - the Frequently Asked Questions</li>
+</ul>
+
+<h2>Resources hosted here</h2>
+
+<ul>
+<li><a href="/blog/">The Alien Blog</a></li>
+<li><a href="/dontpanic/">libdontpanic</a></li>
+</ul>
 
 <h2>Slides</h2>
 
@@ -36,16 +51,11 @@ allowing other build systems to be added.</p>
 <li>The Perl Conference 2022 lightning talk : <a href="/slides/ffi-stat">Bundling Code With FFI::Platypus - How FFI::C::Stat was born</a></li>
 </ul>
 
-<h2>Some Perl/Alien related subprojects</h2>
-
-<ul>
-<li><a href="/blog/">The Alien Blog</a></li>
-<li><a href="/dontpanic/">libdontpanic</a></li>
-</ul>
-
 <h2>External Links</h2>
 
 <ul>
+<li><a href="https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?">#native on irc.perl.org</a></li>
+<li><a href="https://twitter.com/AlienPerl">@AlienPerl</a> - the official twitter acount of the Perl Alien Project</li>
 <li><a href="https://github.com/PerlAlien">PerlAlien organization on GitHub</a></li>
 <li><a href="https://metacpan.org/pod/Alien::Build">Alien::Build on metacpan</a></li>
 </ul>
