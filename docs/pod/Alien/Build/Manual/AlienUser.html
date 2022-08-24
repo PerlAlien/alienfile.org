@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Manual::AlienUser</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    
+      <div class="nx-header-title"><a href="/">🌻</a> Alien::Build::Manual::AlienUser</div>
+    
+    <!--Alien::Build::Manual::AlienUser--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#ExtUtils%3A%3AMakeMaker'>ExtUtils::MakeMaker</a>
+    <li class='indexItem indexItem2'><a href='#Module%3A%3ABuild'>Module::Build</a>
+    <li class='indexItem indexItem2'><a href='#Inline%3A%3AC_%2F_Inline%3A%3ACPP'>Inline::C / Inline::CPP</a>
+    <li class='indexItem indexItem2'><a href='#ExtUtils%3A%3ADepends'>ExtUtils::Depends</a>
+    <li class='indexItem indexItem2'><a href='#Dist%3A%3AZilla'>Dist::Zilla</a>
+    <li class='indexItem indexItem2'><a href='#FFI%3A%3APlatypus'>FFI::Platypus</a>
+    <li class='indexItem indexItem2'><a href='#Inline%3A%3AC'>Inline::C</a>
+    <li class='indexItem indexItem2'><a href='#tool'>tool</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Manual::AlienUser - Alien user documentation</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.59</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> perldoc Alien::Build::Manual::AlienUser</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This document is intended for a user of an <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module&#39;s user. Although specifically geared for <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> subclasses, it may have some useful hints for <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> in general.</p>
+
+<p>Full working examples of how to use an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module are also bundled with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> in the distribution&#39;s <code>example/user</code> directory. Those examples use <a href="https://metacpan.org/pod/Alien%3A%3Axz" class="podlinkpod"
+>Alien::xz</a>, which uses <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> + <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>.</p>
+
+<p>The following documentation will assume you are trying to use an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> called <code>Alien::Foo</code> which provides the library <code>libfoo</code> and the command line tool <code>foo</code>. Many <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a>s will only provide one or the other.</p>
+
+<p>The best interface to use for using <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based aliens is <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
+>Alien::Base::Wrapper</a>. This allows you to combine multiple aliens together and handles a number of corner obscure corner cases that using <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a>s directly does not. Also as of 0.64, <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
+>Alien::Base::Wrapper</a> comes bundled with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> anyway, so it is not an extra dependency.</p>
+
+<p>What follows are the main use cases.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="ExtUtils::MakeMaker"
+>ExtUtils::MakeMaker</a></h2>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use Alien::Base::Wrapper ();
+ 
+ WriteMakefile(
+   Alien::Base::Wrapper-&#62;new(&#39;Alien::Foo&#39;)-&#62;mm_args2(
+     NAME =&#62; &#39;FOO::XS&#39;,
+     ...
+   ),
+ );</pre>
+
+<p><a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
+>Alien::Base::Wrapper</a> will take a hash of <code>WriteMakefile</code> arguments and insert the appropriate compiler and linker flags for you. This is recommended over doing this yourself as the exact incantation to get EUMM to work is tricky to get right.</p>
+
+<p>The <code>mm_args2</code> method will also set your <code>CONFIGURE_REQUIRES</code> for <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
+>Alien::Base::Wrapper</a>, <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> and any aliens that you specify.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Module::Build"
+>Module::Build</a></h2>
+
+<pre class="sh_perl"> use Module::Build;
+ use Alien::Base::Wrapper qw( Alien::Foo !export );
+ use Alien::Foo;
+ 
+ my $build = Module::Build-&#62;new(
+   ...
+   configure_requires =&#62; {
+     &#39;Alien::Base::Wrapper&#39; =&#62; &#39;0&#39;,
+     &#39;Alien::Foo&#39;           =&#62; &#39;0&#39;,
+     ...
+   },
+   Alien::Base::Wrapper-&#62;mb_args,
+   ...
+ );
+ 
+ $build-&#62;create_build_script;</pre>
+
+<p>For <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> you can also use <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
+>Alien::Base::Wrapper</a>, but you will have to specify the <code>configure_requires</code> yourself.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Inline::C_/_Inline::CPP"
+>Inline::C / Inline::CPP</a></h2>
+
+<pre class="sh_perl"> use Inline 0.56 with =&#62; &#39;Alien::Foo&#39;;</pre>
+
+<p><a href="https://metacpan.org/pod/Inline%3A%3AC" class="podlinkpod"
+>Inline::C</a> and <a href="https://metacpan.org/pod/Inline%3A%3ACPP" class="podlinkpod"
+>Inline::CPP</a> can be configured to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> with the <code>with</code> keyword.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="ExtUtils::Depends"
+>ExtUtils::Depends</a></h2>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use ExtUtils::Depends;
+ 
+ my $pkg = ExtUtils::Depends-&#62;new(&#34;Alien::Foo&#34;);
+ 
+ WriteMakefile(
+   ...
+   $pkg-&#62;get_makefile_vars,
+   ...
+ );</pre>
+
+<p><a href="https://metacpan.org/pod/ExtUtils%3A%3ADepends" class="podlinkpod"
+>ExtUtils::Depends</a> works similar to <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
+>Alien::Base::Wrapper</a>, but uses the <a href="https://metacpan.org/pod/Inline" class="podlinkpod"
+>Inline</a> interface under the covers.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Dist::Zilla"
+>Dist::Zilla</a></h2>
+
+<pre class="sh_perl"> [@Filter]
+ -bundle = @Basic
+ -remove = MakeMaker
+ 
+ [Prereqs / ConfigureRequires]
+ Alien::Foo = 0
+ 
+ [MakeMaker::Awesome]
+ header = use Alien::Base::Wrapper qw( Alien::Foo !export );
+ WriteMakefile_arg = Alien::Base::Wrapper-&#62;mm_args</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="FFI::Platypus"
+>FFI::Platypus</a></h2>
+
+<p>Requires <code>Alien::Foo</code> always:</p>
+
+<pre class="sh_perl"> use FFI::Platypus;
+ use Alien::Foo;
+ 
+ my $ffi = FFI::Platypus-&#62;new(
+   lib =&#62; [ Alien::Foo-&#62;dynamic_libs ],
+ );</pre>
+
+<p>Use <code>Alien::Foo</code> in fallback mode:</p>
+
+<pre class="sh_perl"> use FFI::Platypus;
+ use FFI::CheckLib 0.28 qw( find_lib_or_die );
+ use Alien::Foo;
+ 
+ my $ffi = FFI::Platypus-&#62;new(
+   lib =&#62; [ find_lib_or_die lib =&#62; &#39;foo&#39;, alien =&#62; [&#39;Alien::Foo&#39;] ],
+ );</pre>
+
+<p>If you are going to always require an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> you can just call <code>dynamic_libs</code> and pass it into <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>&#39; lib method. You should consider using <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+>FFI::CheckLib</a> to use the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> in fallback mode instead. This way you only need to install the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> if the system doesn&#39;t provide it.</p>
+
+<p>For fallback mode to work correctly you need to be using <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+>FFI::CheckLib</a> 0.28 or better.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Inline::C"
+>Inline::C</a></h2>
+
+<pre class="sh_perl"> use Inline with =&#62; &#39;Alien::Foo&#39;;
+ use Inline C =&#62; &#60;&#60;~&#39;END&#39;;
+   #include &#60;foo.h&#62;
+ 
+   const char *my_foo_wrapper()
+   {
+     foo();
+   }
+   END
+ 
+ sub exported_foo()
+ {
+   my_foo_wrapper();
+ }</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="tool"
+>tool</a></h2>
+
+<pre class="sh_perl"> use Alien::Foo;
+ use Env qw( @PATH );
+ 
+ unshift @PATH, Alien::Foo-&#62;bin_dir;
+ system &#39;foo&#39;, &#39;--bar&#39;, &#39;--baz&#39;;</pre>
+
+<p>Some <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a>s provide tools instead of or in addition to a library. You need to add them to the <code>PATH</code> environment variable though. (Unless the tool is already provided by the system, in which case it is already in the path and the <code>bin_dir</code> method will return an empty list).</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ENVIRONMENT"
+>ENVIRONMENT</a></h1>
+
+<dl>
+<dt><a name="ALIEN_INSTALL_TYPE"
+>ALIEN_INSTALL_TYPE</a></dt>
+
+<dd>
+<p>Although the recommended way for a consumer to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> is to declare it as a static configure and build-time dependency, some consumers may prefer to fallback on using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> only when the consumer itself cannot detect the necessary package. In some cases the consumer may want the user to opt-in to using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> before requiring it.</p>
+
+<p>To keep the interface consistent among Aliens, the consumer of the fallback opt-in <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> may fallback on the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> if the environment variable <code>ALIEN_INSTALL_TYPE</code> is set to any value. The rationale is that by setting this environment variable the user is aware that <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules may be installed and have indicated consent. The actual implementation of this, by its nature would have to be in the consuming CPAN module.</p>
+
+<p>This behavior should be documented in the consumer&#39;s POD.</p>
+
+<p>See <a href="/pod/Alien/Build.html#ENVIRONMENT" class="podlinkpod"
+>&#34;ENVIRONMENT&#34; in Alien::Build</a> for more details on the usage of this environment variable.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

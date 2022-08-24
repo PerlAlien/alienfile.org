@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Test::Alien</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    
+      <div class="nx-header-title"><a href="/">🌻</a> Test::Alien</div>
+    
+    <!--Test::Alien--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#FUNCTIONS'>FUNCTIONS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#alien_ok'>alien_ok</a>
+    <li class='indexItem indexItem2'><a href='#synthetic'>synthetic</a>
+    <li class='indexItem indexItem2'><a href='#run_ok'>run_ok</a>
+    <li class='indexItem indexItem2'><a href='#xs_ok'>xs_ok</a>
+    <li class='indexItem indexItem2'><a href='#ffi_ok'>ffi_ok</a>
+    <li class='indexItem indexItem2'><a href='#helper_ok'>helper_ok</a>
+    <li class='indexItem indexItem2'><a href='#plugin_ok'>plugin_ok</a>
+    <li class='indexItem indexItem2'><a href='#interpolate_template_is'>interpolate_template_is</a>
+    <li class='indexItem indexItem2'><a href='#interpolate_run_ok'>interpolate_run_ok</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Test::Alien - Testing tools for Alien modules</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.59</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>Test commands that come with your Alien:</p>
+
+<pre class="sh_perl"> use Test2::V0;
+ use Test::Alien;
+ use Alien::patch;
+ 
+ alien_ok &#39;Alien::patch&#39;;
+ run_ok([ &#39;patch&#39;, &#39;--version&#39; ])
+   -&#62;success
+   # we only accept the version written
+   # by Larry ...
+   -&#62;out_like(qr{Larry Wall});
+ 
+ done_testing;</pre>
+
+<p>Test that your library works with <code>XS</code>:</p>
+
+<pre class="sh_perl"> use Test2::V0;
+ use Test::Alien;
+ use Alien::Editline;
+ 
+ alien_ok &#39;Alien::Editline&#39;;
+ my $xs = do { local $/; &#60;DATA&#62; };
+ xs_ok $xs, with_subtest {
+   my($module) = @_;
+   ok $module-&#62;version;
+ };
+ 
+ done_testing;
+ 
+ __DATA__
+ 
+ #include &#34;EXTERN.h&#34;
+ #include &#34;perl.h&#34;
+ #include &#34;XSUB.h&#34;
+ #include &#60;editline/readline.h&#62;
+ 
+ const char *
+ version(const char *class)
+ {
+   return rl_library_version;
+ }
+ 
+ MODULE = TA_MODULE PACKAGE = TA_MODULE
+ 
+ const char *version(class);
+     const char *class;</pre>
+
+<p>Test that your library works with <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>:</p>
+
+<pre class="sh_perl"> use Test2::V0;
+ use Test::Alien;
+ use Alien::LibYAML;
+ 
+ alien_ok &#39;Alien::LibYAML&#39;;
+ ffi_ok { symbols =&#62; [&#39;yaml_get_version&#39;] }, with_subtest {
+   my($ffi) = @_;
+   my $get_version = $ffi-&#62;function(yaml_get_version =&#62; [&#39;int*&#39;,&#39;int*&#39;,&#39;int*&#39;] =&#62; &#39;void&#39;);
+   $get_version-&#62;call(\my $major, \my $minor, \my $patch);
+   like $major, qr{[0-9]+};
+   like $minor, qr{[0-9]+};
+   like $patch, qr{[0-9]+};
+ };
+ 
+ done_testing;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module provides tools for testing <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules. It has hooks to work easily with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based modules, but can also be used via the synthetic interface to test non <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules. It has very modest prerequisites.</p>
+
+<p>Prior to this module the best way to test a <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module was via <a href="https://metacpan.org/pod/Test%3A%3ACChecker" class="podlinkpod"
+>Test::CChecker</a>. The main downside to that module is that it is heavily influenced by and uses <a href="https://metacpan.org/pod/ExtUtils%3A%3ACChecker" class="podlinkpod"
+>ExtUtils::CChecker</a>, which is a tool for checking at install time various things about your compiler. It was also written before <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> became as stable as it is today. In particular, <a href="https://metacpan.org/pod/Test%3A%3ACChecker" class="podlinkpod"
+>Test::CChecker</a> does its testing by creating an executable and running it. Unfortunately Perl uses extensions by creating dynamic libraries and linking them into the Perl process, which is different in subtle and error prone ways. This module attempts to test the libraries in the way that they will actually be used, via either <code>XS</code> or <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>. It also provides a mechanism for testing binaries that are provided by the various <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules (for example <a href="https://metacpan.org/pod/Alien%3A%3Agmake" class="podlinkpod"
+>Alien::gmake</a> and <a href="https://metacpan.org/pod/Alien%3A%3Apatch" class="podlinkpod"
+>Alien::patch</a>).</p>
+
+<p><a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules can actually be useable without a compiler, or without <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> (for example, if the library is provided by the system, and you are using <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>, or if you are building from source and you are using <code>XS</code>), so tests with missing prerequisites are automatically skipped. For example, <a href="#xs_ok" class="podlinkpod"
+>&#34;xs_ok&#34;</a> will automatically skip itself if a compiler is not found, and <a href="#ffi_ok" class="podlinkpod"
+>&#34;ffi_ok&#34;</a> will automatically skip itself if <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> is not installed.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="FUNCTIONS"
+>FUNCTIONS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_ok"
+>alien_ok</a></h2>
+
+<pre class="sh_perl"> alien_ok $alien, $message;
+ alien_ok $alien;</pre>
+
+<p>Load the given <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> instance or class. Checks that the instance or class conforms to the same interface as <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Will be used by subsequent tests. The <code>$alien</code> module only needs to provide these methods in order to conform to the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> interface:</p>
+
+<dl>
+<dt><a name="cflags"
+>cflags</a></dt>
+
+<dd>
+<p>String containing the compiler flags</p>
+
+<dt><a name="libs"
+>libs</a></dt>
+
+<dd>
+<p>String containing the linker and library flags</p>
+
+<dt><a name="dynamic_libs"
+>dynamic_libs</a></dt>
+
+<dd>
+<p>List of dynamic libraries. Returns empty list if the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module does not provide this.</p>
+
+<dt><a name="bin_dir"
+>bin_dir</a></dt>
+
+<dd>
+<p>Directory containing tool binaries. Returns empty list if the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module does not provide this.</p>
+</dd>
+</dl>
+
+<p>If your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module does not conform to this interface then you can create a synthetic <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module using the <a href="#synthetic" class="podlinkpod"
+>&#34;synthetic&#34;</a> function.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="synthetic"
+>synthetic</a></h2>
+
+<pre class="sh_perl"> my $alien = synthetic \%config;</pre>
+
+<p>Create a synthetic <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> module which can be passed into <a href="#alien_ok" class="podlinkpod"
+>&#34;alien_ok&#34;</a>. <code>\%config</code> can contain these keys (all of which are optional):</p>
+
+<dl>
+<dt><a name="cflags"
+>cflags</a></dt>
+
+<dd>
+<p>String containing the compiler flags.</p>
+
+<dt><a name="cflags_static"
+>cflags_static</a></dt>
+
+<dd>
+<p>String containing the static compiler flags (optional).</p>
+
+<dt><a name="libs"
+>libs</a></dt>
+
+<dd>
+<p>String containing the linker and library flags.</p>
+
+<dt><a name="libs_static"
+>libs_static</a></dt>
+
+<dd>
+<p>String containing the static linker flags (optional).</p>
+
+<dt><a name="dynamic_libs"
+>dynamic_libs</a></dt>
+
+<dd>
+<p>List reference containing the dynamic libraries.</p>
+
+<dt><a name="bin_dir"
+>bin_dir</a></dt>
+
+<dd>
+<p>Tool binary directory.</p>
+
+<dt><a name="runtime_prop"
+>runtime_prop</a></dt>
+
+<dd>
+<p>Runtime properties.</p>
+</dd>
+</dl>
+
+<p>See <a href="/pod/Test/Alien/Synthetic.html" class="podlinkpod"
+>Test::Alien::Synthetic</a> for more details.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="run_ok"
+>run_ok</a></h2>
+
+<pre class="sh_perl"> my $run = run_ok $command;
+ my $run = run_ok $command, $message;</pre>
+
+<p>Runs the given command, falling back on any <code>Alien::Base#bin_dir</code> methods provided by <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules specified with <a href="#alien_ok" class="podlinkpod"
+>&#34;alien_ok&#34;</a>.</p>
+
+<p><code>$command</code> can be either a string or an array reference.</p>
+
+<p>Only fails if the command cannot be found, or if it is killed by a signal! Returns a <a href="/pod/Test/Alien/Run.html" class="podlinkpod"
+>Test::Alien::Run</a> object, which you can use to test the exit status, output and standard error.</p>
+
+<p>Always returns an instance of <a href="/pod/Test/Alien/Run.html" class="podlinkpod"
+>Test::Alien::Run</a>, even if the command could not be found.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="xs_ok"
+>xs_ok</a></h2>
+
+<pre class="sh_perl"> xs_ok $xs;
+ xs_ok $xs, $message;</pre>
+
+<p>Compiles, links the given <code>XS</code> code and attaches to Perl.</p>
+
+<p>If you use the special module name <code>TA_MODULE</code> in your <code>XS</code> code, it will be replaced by an automatically generated package name. This can be useful if you want to pass the same <code>XS</code> code to multiple calls to <code>xs_ok</code> without subsequent calls replacing previous ones.</p>
+
+<p><code>$xs</code> may be either a string containing the <code>XS</code> code, or a hash reference with these keys:</p>
+
+<dl>
+<dt><a name="xs"
+>xs</a></dt>
+
+<dd>
+<p>The XS code. This is the only required element.</p>
+
+<dt><a name="pxs"
+>pxs</a></dt>
+
+<dd>
+<p>Extra <a href="https://metacpan.org/pod/ExtUtils%3A%3AParseXS" class="podlinkpod"
+>ExtUtils::ParseXS</a> arguments passed in as a hash reference.</p>
+
+<dt><a name="cbuilder_check"
+>cbuilder_check</a></dt>
+
+<dd>
+<p>The compile check that should be done prior to attempting to build. Should be one of <code>have_compiler</code> or <code>have_cplusplus</code>. Defaults to <code>have_compiler</code>.</p>
+
+<dt><a name="cbuilder_config"
+>cbuilder_config</a></dt>
+
+<dd>
+<p>Hash to override values normally provided by <code>Config</code>.</p>
+
+<dt><a name="cbuilder_compile"
+>cbuilder_compile</a></dt>
+
+<dd>
+<p>Extra The <a href="https://metacpan.org/pod/ExtUtils%3A%3ACBuilder" class="podlinkpod"
+>ExtUtils::CBuilder</a> arguments passed in as a hash reference.</p>
+
+<dt><a name="cbuilder_link"
+>cbuilder_link</a></dt>
+
+<dd>
+<p>Extra The <a href="https://metacpan.org/pod/ExtUtils%3A%3ACBuilder" class="podlinkpod"
+>ExtUtils::CBuilder</a> arguments passed in as a hash reference.</p>
+
+<dt><a name="verbose"
+>verbose</a></dt>
+
+<dd>
+<p>Spew copious debug information via test note.</p>
+</dd>
+</dl>
+
+<p>You can use the <code>with_subtest</code> keyword to conditionally run a subtest if the <code>xs_ok</code> call succeeds. If <code>xs_ok</code> does not work, then the subtest will automatically be skipped. Example:</p>
+
+<pre class="sh_perl"> xs_ok $xs, with_subtest {
+   # skipped if $xs fails for some reason
+   my($module) = @_;
+   is $module-&#62;foo, 1;
+ };</pre>
+
+<p>The module name detected during the XS parsing phase will be passed in to the subtest. This is helpful when you are using a generated module name.</p>
+
+<p>If you need to test XS C++ interfaces, see <a href="https://metacpan.org/pod/Test%3A%3AAlien%3A%3ACPP" class="podlinkpod"
+>Test::Alien::CPP</a>.</p>
+
+<p>Caveats: <code>xs_ok</code> uses <a href="https://metacpan.org/pod/ExtUtils%3A%3AParseXS" class="podlinkpod"
+>ExtUtils::ParseXS</a>, which may call <code>exit</code> under certain error conditions. While this is not really good thing to happen in the middle of a test, it usually indicates a real failure condition, and it should return a failure condition so the test should still fail overall.</p>
+
+<p>[version 2.53]</p>
+
+<p>As of version 2.53, <code>xs_ok</code> will only remove temporary generated files if the test is successful by default. You can force either always or never removing the temporary generated files using the <code>TEST_ALIEN_ALWAYS_KEEP</code> environment variable (see <a href="#ENVIRONMENT" class="podlinkpod"
+>&#34;ENVIRONMENT&#34;</a> below).</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="ffi_ok"
+>ffi_ok</a></h2>
+
+<pre class="sh_perl"> ffi_ok;
+ ffi_ok \%opt;
+ ffi_ok \%opt, $message;</pre>
+
+<p>Test that <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> works.</p>
+
+<p><code>\%opt</code> is a hash reference with these keys (all optional):</p>
+
+<dl>
+<dt><a name="symbols"
+>symbols</a></dt>
+
+<dd>
+<p>List references of symbols that must be found for the test to succeed.</p>
+
+<dt><a name="ignore_not_found"
+>ignore_not_found</a></dt>
+
+<dd>
+<p>Ignores symbols that aren&#39;t found. This affects functions accessed via <a href="https://metacpan.org/pod/FFI%3A%3APlatypus%23attach" class="podlinkpod"
+>FFI::Platypus#attach</a> and <a href="https://metacpan.org/pod/FFI%3A%3APlatypus%23function" class="podlinkpod"
+>FFI::Platypus#function</a> methods, and does not influence the <code>symbols</code> key above.</p>
+
+<dt><a name="lang"
+>lang</a></dt>
+
+<dd>
+<p>Set the language. Used primarily for language specific native types.</p>
+
+<dt><a name="api"
+>api</a></dt>
+
+<dd>
+<p>Set the API. <code>api = 1</code> requires FFI::Platypus 0.99 or later. This option was added with Test::Alien version 1.90, so your use line should include this version as a safeguard to make sure it works:</p>
+
+<pre class="sh_perl"> use Test::Alien 1.90;
+ ...
+ ffi_ok ...;</pre>
+</dd>
+</dl>
+
+<p>As with <a href="#xs_ok" class="podlinkpod"
+>&#34;xs_ok&#34;</a> above, you can use the <code>with_subtest</code> keyword to specify a subtest to be run if <code>ffi_ok</code> succeeds (it will skip otherwise). The <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> instance is passed into the subtest as the first argument. For example:</p>
+
+<pre class="sh_perl"> ffi_ok with_subtest {
+   my($ffi) = @_;
+   is $ffi-&#62;function(foo =&#62; [] =&#62; &#39;void&#39;)-&#62;call, 42;
+ };</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="helper_ok"
+>helper_ok</a></h2>
+
+<pre class="sh_perl"> helper_ok $name;
+ helper_ok $name, $message;</pre>
+
+<p>Tests that the given helper has been defined.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="plugin_ok"
+>plugin_ok</a></h2>
+
+<p>[version 2.52]</p>
+
+<pre class="sh_perl"> plugin_ok $plugin_name, $message;
+ plugin_ok [$plugin_name, @args], $message;</pre>
+
+<p>This applies an <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>Alien::Build::Plugin</a> to the interpolator used by <a href="#helper_ok" class="podlinkpod"
+>&#34;helper_ok&#34;</a>, <a href="https://metacpan.org/pod/interpolate_template_is" class="podlinkpod"
+>interpolate_template_is</a> and <a href="#interpolate_run_ok" class="podlinkpod"
+>&#34;interpolate_run_ok&#34;</a> so that you can test with any helpers that plugin provides. Useful, for example for getting <code>%{configure}</code> from <a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Autoconf</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="interpolate_template_is"
+>interpolate_template_is</a></h2>
+
+<pre class="sh_perl"> interpolate_template_is $template, $string;
+ interpolate_template_is $template, $string, $message;
+ interpolate_template_is $template, $regex;
+ interpolate_template_is $template, $regex, $message;</pre>
+
+<p>Tests that the given template when evaluated with the appropriate helpers will match either the given string or regular expression.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="interpolate_run_ok"
+>interpolate_run_ok</a></h2>
+
+<p>[version 2.52]</p>
+
+<pre class="sh_perl"> my $run = interpolate_run_ok $command;
+ my $run = interpolate_run_ok $command, $message;</pre>
+
+<p>This is the same as <a href="#run_ok" class="podlinkpod"
+>&#34;run_ok&#34;</a> except it runs the command through the interpolator first.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ENVIRONMENT"
+>ENVIRONMENT</a></h1>
+
+<dl>
+<dt><a name="TEST_ALIEN_ALWAYS_KEEP"
+><code>TEST_ALIEN_ALWAYS_KEEP</code></a></dt>
+
+<dd>
+<p>If this is defined then it will override the built in logic that decides if the temporary files generated by <a href="#xs_ok" class="podlinkpod"
+>&#34;xs_ok&#34;</a> should be kept when the test file terminates. If set to true the generated files will always be kept. If set to false, then they will always be removed.</p>
+
+<dt><a name="TEST_ALIEN_ALIENS_MISSING"
+><code>TEST_ALIEN_ALIENS_MISSING</code></a></dt>
+
+<dd>
+<p>By default, this module will warn you if some tools are used without first invoking <a href="#alien_ok" class="podlinkpod"
+>&#34;alien_ok&#34;</a>. This is usually a mistake, but if you really do want to use one of these tools with no aliens loaded, you can set this environment variable to false.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien"
+><a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="Test2"
+><a href="https://metacpan.org/pod/Test2" class="podlinkpod"
+>Test2</a></a></dt>
+
+<dd>
+<dt><a name="Test::Alien::Run"
+><a href="/pod/Test/Alien/Run.html" class="podlinkpod"
+>Test::Alien::Run</a></a></dt>
+
+<dd>
+<dt><a name="Test::Alien::CanCompile"
+><a href="/pod/Test/Alien/CanCompile.html" class="podlinkpod"
+>Test::Alien::CanCompile</a></a></dt>
+
+<dd>
+<dt><a name="Test::Alien::CanPlatypus"
+><a href="/pod/Test/Alien/CanPlatypus.html" class="podlinkpod"
+>Test::Alien::CanPlatypus</a></a></dt>
+
+<dd>
+<dt><a name="Test::Alien::Synthetic"
+><a href="/pod/Test/Alien/Synthetic.html" class="podlinkpod"
+>Test::Alien::Synthetic</a></a></dt>
+
+<dd>
+<dt><a name="Test::Alien::CPP"
+><a href="https://metacpan.org/pod/Test%3A%3AAlien%3A%3ACPP" class="podlinkpod"
+>Test::Alien::CPP</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

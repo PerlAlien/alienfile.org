@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::MM</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    
+      <div class="nx-header-title"><a href="/">🌻</a> Alien::Build::MM</div>
+    
+    <!--Alien::Build::MM--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CONSTRUCTOR'>CONSTRUCTOR</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#new'>new</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#PROPERTIES'>PROPERTIES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#build'>build</a>
+    <li class='indexItem indexItem2'><a href='#alienfile_meta'>alienfile_meta</a>
+    <li class='indexItem indexItem2'><a href='#clean_install'>clean_install</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#mm_args'>mm_args</a>
+    <li class='indexItem indexItem2'><a href='#mm_postamble'>mm_postamble</a>
+    <li class='indexItem indexItem2'><a href='#mm_install'>mm_install</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::MM - Alien::Build installer code for ExtUtils::MakeMaker</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.59</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your <code>Makefile.PL</code>:</p>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use Alien::Build::MM;
+ 
+ my $abmm = Alien::Build::MM-&#62;new;
+ 
+ WriteMakefile($abmm-&#62;mm_args(
+   ABSTRACT     =&#62; &#39;Discover or download and install libfoo&#39;,
+   DISTNAME     =&#62; &#39;Alien-Libfoo&#39;,
+   NAME         =&#62; &#39;Alien::Libfoo&#39;,
+   VERSION_FROM =&#62; &#39;lib/Alien/Libfoo.pm&#39;,
+   ...
+ ));
+ 
+ sub MY::postamble {
+   $abmm-&#62;mm_postamble(@_);
+ }
+ 
+ sub MY::install {
+   $abmm-&#62;mm_install(@_);
+ }</pre>
+
+<p>In your <code>lib/Alien/Libfoo.pm</code>:</p>
+
+<pre class="sh_perl"> package Alien::Libfoo;
+ use parent qw( Alien::Base );
+ 1;</pre>
+
+<p>In your alienfile (needs to be named <code>alienfile</code> and should be in the root of your dist):</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;PkgConfig&#39; =&#62; &#39;libfoo&#39;;
+ 
+ share {
+   start_url &#39;http://libfoo.org&#39;;
+   ...
+ };</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This class allows you to use Alien::Build and Alien::Base with <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a>. It load the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> recipe in the root of your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> dist, updates the prereqs passed into <code>WriteMakefile</code> if any are specified by your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> or its plugins, and adds a postamble to the <code>Makefile</code> that will download/build/test the alienized package as appropriate.</p>
+
+<p>The <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> must be named <code>alienfile</code>.</p>
+
+<p>If you are using <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
+>Dist::Zilla</a> to author your <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> dist, you should consider using the <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AAlienBuild" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a> plugin.</p>
+
+<p>I personally don&#39;t recommend it, but if you want to use <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> instead, you can use <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AMB" class="podlinkpod"
+>Alien::Build::MB</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CONSTRUCTOR"
+>CONSTRUCTOR</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="new"
+>new</a></h2>
+
+<pre class="sh_perl"> my $abmm = Alien::Build::MM-&#62;new;</pre>
+
+<p>Create a new instance of <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="PROPERTIES"
+>PROPERTIES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="build"
+>build</a></h2>
+
+<pre class="sh_perl"> my $build = $abmm-&#62;build;</pre>
+
+<p>The <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instance.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alienfile_meta"
+>alienfile_meta</a></h2>
+
+<pre class="sh_perl"> my $bool = $abmm-&#62;alienfile_meta</pre>
+
+<p>Set to a false value, in order to turn off the x_alienfile meta</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="clean_install"
+>clean_install</a></h2>
+
+<pre class="sh_perl"> my $bool = $abmm-&#62;clean_install;</pre>
+
+<p>Set to a true value, in order to clean the share directory prior to installing. If you use this you have to make sure that you install the install handler in your <code>Makefile.PL</code>:</p>
+
+<pre class="sh_perl"> $abmm = Alien::Build::MM-&#62;new(
+   clean_install =&#62; 1,
+ );
+ 
+ ...
+ 
+ sub MY::install {
+   $abmm-&#62;mm_install(@_);
+ }</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="mm_args"
+>mm_args</a></h2>
+
+<pre class="sh_perl"> my %args = $abmm-&#62;mm_args(%args);</pre>
+
+<p>Adjust the arguments passed into <code>WriteMakefile</code> as needed by <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="mm_postamble"
+>mm_postamble</a></h2>
+
+<pre class="sh_perl"> my $postamble $abmm-&#62;mm_postamble;
+ my $postamble $abmm-&#62;mm_postamble($mm);</pre>
+
+<p>Returns the postamble for the <code>Makefile</code> needed for <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. This adds the following <code>make</code> targets which are normally called when you run <code>make all</code>, but can be run individually if needed for debugging.</p>
+
+<dl>
+<dt><a name="alien_prefix"
+>alien_prefix</a></dt>
+
+<dd>
+<p>Determines the final install prefix (<code>%{.install.prefix}</code>).</p>
+
+<dt><a name="alien_version"
+>alien_version</a></dt>
+
+<dd>
+<p>Determine the perl_module_version (<code>%{.runtime.perl_module_version}</code>)</p>
+
+<dt><a name="alien_download"
+>alien_download</a></dt>
+
+<dd>
+<p>Downloads the source from the internet. Does nothing for a system install.</p>
+
+<dt><a name="alien_build"
+>alien_build</a></dt>
+
+<dd>
+<p>Build from source (if a share install). Gather configuration (for either system or share install).</p>
+
+<dt><a name="alien_prop,_alien_prop_meta,_alien_prop_install,_alien_prop_runtime"
+>alien_prop, alien_prop_meta, alien_prop_install, alien_prop_runtime</a></dt>
+
+<dd>
+<p>Prints the meta, install and runtime properties for the Alien.</p>
+
+<dt><a name="alien_realclean,_alien_clean"
+>alien_realclean, alien_clean</a></dt>
+
+<dd>
+<p>Removes the alien specific files. These targets are executed when you call the <code>realclean</code> and <code>clean</code> targets respectively.</p>
+
+<dt><a name="alien_clean_install"
+>alien_clean_install</a></dt>
+
+<dd>
+<p>Cleans out the Alien&#39;s share directory. Caution should be used in invoking this target directly, as if you do not understand what you are doing you are likely to break your already installed Alien.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="mm_install"
+>mm_install</a></h2>
+
+<pre class="sh_perl"> sub MY::install {
+   $abmm-&#62;mm_install(@_);
+ }</pre>
+
+<p><b>EXPERIMENTAL</b></p>
+
+<p>Adds an install rule to clean the final install dist directory prior to installing.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a>, <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AAlienBuild" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a>, <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AMB" class="podlinkpod"
+>Alien::Build::MB</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

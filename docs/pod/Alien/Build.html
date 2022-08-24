@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    
+      <div class="nx-header-title"><a href="/">🌻</a> Alien::Build</div>
+    
+    <!--Alien::Build--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CONSTRUCTORS'>CONSTRUCTORS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#new'>new</a>
+    <li class='indexItem indexItem2'><a href='#load'>load</a>
+    <li class='indexItem indexItem2'><a href='#resume'>resume</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#PROPERTIES'>PROPERTIES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#meta_prop'>meta_prop</a>
+    <li class='indexItem indexItem2'><a href='#install_prop'>install_prop</a>
+    <li class='indexItem indexItem2'><a href='#plugin_instance_prop'>plugin_instance_prop</a>
+    <li class='indexItem indexItem2'><a href='#runtime_prop'>runtime_prop</a>
+    <li class='indexItem indexItem2'><a href='#hook_prop'>hook_prop</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#checkpoint'>checkpoint</a>
+    <li class='indexItem indexItem2'><a href='#root'>root</a>
+    <li class='indexItem indexItem2'><a href='#install_type'>install_type</a>
+    <li class='indexItem indexItem2'><a href='#set_prefix'>set_prefix</a>
+    <li class='indexItem indexItem2'><a href='#set_stage'>set_stage</a>
+    <li class='indexItem indexItem2'><a href='#requires'>requires</a>
+    <li class='indexItem indexItem2'><a href='#load_requires'>load_requires</a>
+    <li class='indexItem indexItem2'><a href='#probe'>probe</a>
+    <li class='indexItem indexItem2'><a href='#download'>download</a>
+    <li class='indexItem indexItem2'><a href='#fetch'>fetch</a>
+    <li class='indexItem indexItem2'><a href='#check_digest'>check_digest</a>
+    <li class='indexItem indexItem2'><a href='#decode'>decode</a>
+    <li class='indexItem indexItem2'><a href='#prefer'>prefer</a>
+    <li class='indexItem indexItem2'><a href='#extract'>extract</a>
+    <li class='indexItem indexItem2'><a href='#build'>build</a>
+    <li class='indexItem indexItem2'><a href='#test'>test</a>
+    <li class='indexItem indexItem2'><a href='#clean_install'>clean_install</a>
+    <li class='indexItem indexItem2'><a href='#system'>system</a>
+    <li class='indexItem indexItem2'><a href='#log'>log</a>
+    <li class='indexItem indexItem2'><a href='#meta'>meta</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#META_METHODS'>META METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#prop'>prop</a>
+    <li class='indexItem indexItem2'><a href='#add_requires'>add_requires</a>
+    <li class='indexItem indexItem2'><a href='#interpolator'>interpolator</a>
+    <li class='indexItem indexItem2'><a href='#has_hook'>has_hook</a>
+    <li class='indexItem indexItem2'><a href='#register_hook'>register_hook</a>
+    <li class='indexItem indexItem2'><a href='#default_hook'>default_hook</a>
+    <li class='indexItem indexItem2'><a href='#around_hook'>around_hook</a>
+    <li class='indexItem indexItem2'><a href='#after_hook'>after_hook</a>
+    <li class='indexItem indexItem2'><a href='#before_hook'>before_hook</a>
+    <li class='indexItem indexItem2'><a href='#apply_plugin'>apply_plugin</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#SUPPORT'>SUPPORT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#THANKS'>THANKS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build - Build external dependencies for use in CPAN</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.59</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> my $build = Alien::Build-&#62;load(&#39;./alienfile&#39;);
+ $build-&#62;load_requires(&#39;configure&#39;);
+ $build-&#62;set_prefix(&#39;/usr/local&#39;);
+ $build-&#62;set_stage(&#39;/foo/mystage&#39;);  # needs to be absolute
+ $build-&#62;load_requires($build-&#62;install_type);
+ $build-&#62;download;
+ $build-&#62;build;
+ # files are now in /foo/mystage, it is your job (or
+ # ExtUtils::MakeMaker, Module::Build, etc) to copy
+ # those files into /usr/local</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module provides tools for building external (non-CPAN) dependencies for CPAN. It is mainly designed to be used at install time of a CPAN client, and work closely with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> which is used at runtime.</p>
+
+<p>This is the detailed documentation for the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> class. If you are starting out you probably want to do so from one of these documents:</p>
+
+<dl>
+<dt><a name="Alien::Build::Manual::Alien"
+><a href="/pod/Alien/Build/Manual/Alien.html" class="podlinkpod"
+>Alien::Build::Manual::Alien</a></a></dt>
+
+<dd>
+<p>A broad overview of <code>Alien-Build</code> and its ecosystem.</p>
+
+<dt><a name="Alien::Build::Manual::AlienUser"
+><a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a></a></dt>
+
+<dd>
+<p>For users of an <code>Alien::libfoo</code> that is implemented using <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. (The developer of <code>Alien::libfoo</code> <i>should</i> provide the documentation necessary, but if not, this is the place to start).</p>
+
+<dt><a name="Alien::Build::Manual::AlienAuthor"
+><a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a></a></dt>
+
+<dd>
+<p>If you are writing your own <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> based on <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>.</p>
+
+<dt><a name="Alien::Build::Manual::FAQ"
+><a href="/pod/Alien/Build/Manual/FAQ.html" class="podlinkpod"
+>Alien::Build::Manual::FAQ</a></a></dt>
+
+<dd>
+<p>If you have a common question that has already been answered, like &#34;How do I use <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> with some build system&#34;.</p>
+
+<dt><a name="Alien::Build::Manual::PluginAuthor"
+><a href="/pod/Alien/Build/Manual/PluginAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::PluginAuthor</a></a></dt>
+
+<dd>
+<p>This is for the brave souls who want to write plugins that will work with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> + <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+</dd>
+</dl>
+
+<p>Note that you will not usually create a <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instance directly, but rather be using a thin installer layer, such as <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a> (for use with <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a>) or <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AMB" class="podlinkpod"
+>Alien::Build::MB</a> (for use with <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>). One of the goals of this project is to remain installer agnostic.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CONSTRUCTORS"
+>CONSTRUCTORS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="new"
+>new</a></h2>
+
+<pre class="sh_perl"> my $build = Alien::Build-&#62;new;</pre>
+
+<p>This creates a new empty instance of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. Normally you will want to use <code>load</code> below to create an instance of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> from an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> recipe.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="load"
+>load</a></h2>
+
+<pre class="sh_perl"> my $build = Alien::Build-&#62;load($alienfile);</pre>
+
+<p>This creates an <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instance with the given <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> recipe.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="resume"
+>resume</a></h2>
+
+<pre class="sh_perl"> my $build = Alien::Build-&#62;resume($alienfile, $root);</pre>
+
+<p>Load a checkpointed <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instance. You will need the original <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> and the build root (usually <code>_alien</code>), and a build that had been properly checkpointed using the <code>checkpoint</code> method below.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="PROPERTIES"
+>PROPERTIES</a></h1>
+
+<p>There are three main properties for <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. There are a number of properties documented here with a specific usage. Note that these properties may need to be serialized into something primitive like JSON that does not support: regular expressions, code references of blessed objects.</p>
+
+<p>If you are writing a plugin (<a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>Alien::Build::Plugin</a>) you should use a prefix like &#34;plugin_<i>name</i>&#34; (where <i>name</i> is the name of your plugin) so that it does not interfere with other plugin or future versions of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. For example, if you were writing <code>Alien::Build::Plugin::Fetch::NewProtocol</code>, please use the prefix <code>plugin_fetch_newprotocol</code>:</p>
+
+<pre class="sh_perl"> sub init
+ {
+   my($self, $meta) = @_;
+ 
+   $meta-&#62;prop( plugin_fetch_newprotocol_foo =&#62; &#39;some value&#39; );
+ 
+   $meta-&#62;register_hook(
+     some_hook =&#62; sub {
+       my($build) = @_;
+       $build-&#62;install_prop-&#62;{plugin_fetch_newprotocol_bar} = &#39;some other value&#39;;
+       $build-&#62;runtime_prop-&#62;{plugin_fetch_newprotocol_baz} = &#39;and another value&#39;;
+     }
+   );
+ }</pre>
+
+<p>If you are writing a <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> recipe please use the prefix <code>my_</code>:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ meta_prop-&#62;{my_foo} = &#39;some value&#39;;
+ 
+ probe sub {
+   my($build) = @_;
+   $build-&#62;install_prop-&#62;{my_bar} = &#39;some other value&#39;;
+   $build-&#62;install_prop-&#62;{my_baz} = &#39;and another value&#39;;
+ };</pre>
+
+<p>Any property may be used from a command:</p>
+
+<pre class="sh_perl"> probe [ &#39;some command %{.meta.plugin_fetch_newprotocol_foo}&#39; ];
+ probe [ &#39;some command %{.install.plugin_fetch_newprotocol_bar}&#39; ];
+ probe [ &#39;some command %{.runtime.plugin_fetch_newprotocol_baz}&#39; ];
+ probe [ &#39;some command %{.meta.my_foo}&#39; ];
+ probe [ &#39;some command %{.install.my_bar}&#39; ];
+ probe [ &#39;some command %{.runtime.my_baz}&#39; ];</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="meta_prop"
+>meta_prop</a></h2>
+
+<pre class="sh_perl"> my $href = $build-&#62;meta_prop;
+ my $href = Alien::Build-&#62;meta_prop;</pre>
+
+<p>Meta properties have to do with the recipe itself, and not any particular instance that probes or builds that recipe. Meta properties can be changed from within an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> using the <code>meta_prop</code> directive, or from a plugin from its <code>init</code> method (though should NOT be modified from any hooks registered within that <code>init</code> method). This is not strictly enforced, but if you do not follow this rule your recipe will likely be broken.</p>
+
+<dl>
+<dt><a name="arch"
+>arch</a></dt>
+
+<dd>
+<p>This is a hint to an installer like <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a> or <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AMB" class="podlinkpod"
+>Alien::Build::MB</a>, that the library or tool contains architecture dependent files and so should be stored in an architecture dependent location. If not specified by your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> then it will be set to true.</p>
+
+<dt><a name="destdir"
+>destdir</a></dt>
+
+<dd>
+<p>Some plugins (<a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Autoconf</a> for example) support installing via <code>DESTDIR</code>. They will set this property to true if they plan on doing such an install. This helps <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> find the staged install files and how to locate them.</p>
+
+<p>If available, <code>DESTDIR</code> is used to stage install files in a sub directory before copying the files into <code>blib</code>. This is generally preferred method if available.</p>
+
+<dt><a name="destdir_filter"
+>destdir_filter</a></dt>
+
+<dd>
+<p>Regular expression for the files that should be copied from the <code>DESTDIR</code> into the stage directory. If not defined, then all files will be copied.</p>
+
+<dt><a name="destdir_ffi_filter"
+>destdir_ffi_filter</a></dt>
+
+<dd>
+<p>Same as <code>destdir_filter</code> except applies to <code>build_ffi</code> instead of <code>build</code>.</p>
+
+<dt><a name="env"
+>env</a></dt>
+
+<dd>
+<p>Environment variables to override during the build stage.</p>
+
+<dt><a name="env_interpolate"
+>env_interpolate</a></dt>
+
+<dd>
+<p>Environment variable values will be interpolated with helpers. Example:</p>
+
+<pre class="sh_perl"> meta-&#62;prop-&#62;{env_interpolate} = 1;
+ meta-&#62;prop-&#62;{env}-&#62;{PERL} = &#39;%{perl}&#39;;</pre>
+
+<dt><a name="local_source"
+>local_source</a></dt>
+
+<dd>
+<p>Set to true if source code package is available locally. (that is not fetched over the internet). This is computed by default based on the <code>start_url</code> property. Can be set by an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> or plugin.</p>
+
+<dt><a name="platform"
+>platform</a></dt>
+
+<dd>
+<p>Hash reference. Contains information about the platform beyond just <code>$^O</code>.</p>
+
+<dl>
+<dt><a name="compiler_type"
+>compiler_type</a></dt>
+
+<dd>
+<p>Refers to the type of flags that the compiler accepts. May be expanded in the future, but for now, will be one of:</p>
+
+<dl>
+<dt><a name="microsoft"
+>microsoft</a></dt>
+
+<dd>
+<p>On Windows when using Microsoft Visual C++</p>
+
+<dt><a name="unix"
+>unix</a></dt>
+
+<dd>
+<p>Virtually everything else, including gcc on windows.</p>
+</dd>
+</dl>
+
+<p>The main difference is that with Visual C++ <code>-LIBPATH</code> should be used instead of <code>-L</code>, and static libraries should have the <code>.LIB</code> suffix instead of <code>.a</code>.</p>
+
+<dt><a name="system_type"
+>system_type</a></dt>
+
+<dd>
+<p><code>$^O</code> is frequently good enough to make platform specific logic in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>, this handles the case when $^O can cover platforms that provide multiple environments that Perl might run under. The main example is windows, but others may be added in the future.</p>
+
+<dl>
+<dt><a name="unix"
+>unix</a></dt>
+
+<dd>
+<dt><a name="vms"
+>vms</a></dt>
+
+<dd>
+<dt><a name="windows-activestate"
+>windows-activestate</a></dt>
+
+<dd>
+<dt><a name="windows-microsoft"
+>windows-microsoft</a></dt>
+
+<dd>
+<dt><a name="windows-mingw"
+>windows-mingw</a></dt>
+
+<dd>
+<dt><a name="windows-strawberry"
+>windows-strawberry</a></dt>
+
+<dd>
+<dt><a name="windows-unknown"
+>windows-unknown</a></dt>
+</dl>
+
+<p>Note that <code>cygwin</code> and <code>msys</code> are considered <code>unix</code> even though they run on windows!</p>
+</dd>
+</dl>
+
+<dt><a name="out_of_source"
+>out_of_source</a></dt>
+
+<dd>
+<p>Build in a different directory from the where the source code is stored. In autoconf this is referred to as a &#34;VPATH&#34; build. Everyone else calls this an &#34;out-of-source&#34; build. When this property is true, instead of extracting to the source build root, the downloaded source will be extracted to an source extraction directory and the source build root will be empty. You can use the <code>extract</code> install property to get the location of the extracted source.</p>
+
+<dt><a name="network"
+>network</a></dt>
+
+<dd>
+<p>True if a network fetch is available. This should NOT be set by an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> or plugin. This is computed based on the <code>ALIEN_INSTALL_NETWORK</code> environment variables.</p>
+
+<dt><a name="start_url"
+>start_url</a></dt>
+
+<dd>
+<p>The default or start URL used by fetch plugins.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install_prop"
+>install_prop</a></h2>
+
+<pre class="sh_perl"> my $href = $build-&#62;install_prop;</pre>
+
+<p>Install properties are used during the install phase (either under <code>share</code> or <code>system</code> install). They are remembered for the entire install phase, but not kept around during the runtime phase. Thus they cannot be accessed from your <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based module.</p>
+
+<dl>
+<dt><a name="autoconf_prefix"
+>autoconf_prefix</a></dt>
+
+<dd>
+<p>The prefix as understood by autoconf. This is only different on Windows Where MSYS is used and paths like <code>C:/foo</code> are represented as <code>/C/foo</code> which are understood by the MSYS tools, but not by Perl. You should only use this if you are using <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3AAutoconf" class="podlinkpod"
+>Alien::Build::Plugin::Autoconf</a> in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>. This is set during before the build hook is run.</p>
+
+<dt><a name="download"
+>download</a></dt>
+
+<dd>
+<p>The location of the downloaded archive (tar.gz, or similar) or directory. This will be undefined until the archive is actually downloaded.</p>
+
+<dt><a name="env"
+>env</a></dt>
+
+<dd>
+<p>Environment variables to override during the build stage. Plugins are free to set additional overrides using this hash.</p>
+
+<dt><a name="extract"
+>extract</a></dt>
+
+<dd>
+<p>The location of the last source extraction. For a &#34;out-of-source&#34; build (see the <code>out_of_source</code> meta property above), this will only be set once. For other types of builds, the source code may be extracted multiple times, and thus this property may change.</p>
+
+<dt><a name="old"
+>old</a></dt>
+
+<dd>
+<p>[deprecated]</p>
+
+<p>Hash containing information on a previously installed Alien of the same name, if available. This may be useful in cases where you want to reuse the previous install if it is still sufficient.</p>
+
+<dl>
+<dt><a name="prefix"
+>prefix</a></dt>
+
+<dd>
+<p>[deprecated]</p>
+
+<p>The prefix for the previous install. Versions prior to 1.42 unfortunately had this in typo form of <code>preifx</code>.</p>
+
+<dt><a name="runtime"
+>runtime</a></dt>
+
+<dd>
+<p>[deprecated]</p>
+
+<p>The runtime properties from the previous install.</p>
+</dd>
+</dl>
+
+<dt><a name="patch"
+>patch</a></dt>
+
+<dd>
+<p>Directory with patches, if available. This will be <code>undef</code> if there are no patches. When initially installing an alien this will usually be a sibling of the <code>alienfile</code>, a directory called <code>patch</code>. Once installed this will be in the share directory called <code>_alien/patch</code>. The former is useful for rebuilding an alienized package using <a href="/pod/af.html" class="podlinkpod"
+>af</a>.</p>
+
+<dt><a name="prefix"
+>prefix</a></dt>
+
+<dd>
+<p>The install time prefix. Under a <code>destdir</code> install this is the same as the runtime or final install location. Under a non-<code>destdir</code> install this is the <code>stage</code> directory (usually the appropriate share directory under <code>blib</code>).</p>
+
+<dt><a name="root"
+>root</a></dt>
+
+<dd>
+<p>The build root directory. This will be an absolute path. It is the absolute form of <code>./_alien</code> by default.</p>
+
+<dt><a name="stage"
+>stage</a></dt>
+
+<dd>
+<p>The stage directory where files will be copied. This is usually the root of the blib share directory.</p>
+
+<dt><a name="system_probe_class"
+>system_probe_class</a></dt>
+
+<dd>
+<p>After the probe step this property may contain the plugin class that performed the system probe. It shouldn&#39;t be filled in directly by the plugin (instead if should use the hook property <code>probe_class</code>, see below). This is optional, and not all probe plugins will provide this information.</p>
+
+<dt><a name="system_probe_instance_id"
+>system_probe_instance_id</a></dt>
+
+<dd>
+<p>After the probe step this property may contain the plugin instance id that performed the system probe. It shouldn&#39;t be filled in directly by the plugin (instead if should use the hook property <code>probe_instance_id</code>, see below). This is optional, and not all probe plugins will provide this information.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="plugin_instance_prop"
+>plugin_instance_prop</a></h2>
+
+<pre class="sh_perl"> my $href = $build-&#62;plugin_instance_prop($plugin);</pre>
+
+<p>This returns the private plugin instance properties for a given plugin. This method should usually only be called internally by plugins themselves to keep track of internal state. Because the content can be used arbitrarily by the owning plugin because it is private to the plugin, and thus is not part of the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> spec.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="runtime_prop"
+>runtime_prop</a></h2>
+
+<pre class="sh_perl"> my $href = $build-&#62;runtime_prop;</pre>
+
+<p>Runtime properties are used during the install and runtime phases (either under <code>share</code> or <code>system</code> install). This should include anything that you will need to know to use the library or tool during runtime, and shouldn&#39;t include anything that is no longer relevant once the install process is complete.</p>
+
+<dl>
+<dt><a name="alien_build_version"
+>alien_build_version</a></dt>
+
+<dd>
+<p>The version of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> used to install the library or tool.</p>
+
+<dt><a name="alt"
+>alt</a></dt>
+
+<dd>
+<p>Alternate configurations. If the alienized package has multiple libraries this could be used to store the different compiler or linker flags for each library. Typically this will be set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="cflags"
+>cflags</a></dt>
+
+<dd>
+<p>The compiler flags. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="cflags_static"
+>cflags_static</a></dt>
+
+<dd>
+<p>The static compiler flags. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="command"
+>command</a></dt>
+
+<dd>
+<p>The command name for tools where the name my differ from platform to platform. For example, the GNU version of make is usually <code>make</code> in Linux and <code>gmake</code> on FreeBSD. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="ffi_name"
+>ffi_name</a></dt>
+
+<dd>
+<p>The name DLL or shared object &#34;name&#34; to use when searching for dynamic libraries at runtime. This is passed into <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+>FFI::CheckLib</a>, so if your library is something like <code>libarchive.so</code> or <code>archive.dll</code> you would set this to <code>archive</code>. This may be a string or an array of strings. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="ffi_checklib"
+>ffi_checklib</a></dt>
+
+<dd>
+<p>This property contains two sub properties:</p>
+
+<dl>
+<dt><a name="share"
+>share</a></dt>
+
+<dd>
+<pre class="sh_perl"> $build-&#62;runtime_prop-&#62;{ffi_checklib}-&#62;{share} = [ ... ];</pre>
+
+<p>Array of additional <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+>FFI::CheckLib</a> flags to pass in to <code>find_lib</code> for a <code>share</code> install.</p>
+
+<dt><a name="system"
+>system</a></dt>
+
+<dd>
+<p>Array of additional <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+>FFI::CheckLib</a> flags to pass in to <code>find_lib</code> for a <code>system</code> install.</p>
+
+<p>Among other things, useful for specifying the <code>try_linker_script</code> flag:</p>
+
+<pre class="sh_perl"> $build-&#62;runtime_prop-&#62;{ffi_checklib}-&#62;{system} = [ try_linker_script =&#62; 1 ];</pre>
+</dd>
+</dl>
+
+<p>This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="inline_auto_include"
+>inline_auto_include</a></dt>
+
+<dd>
+<p>[version 2.53]</p>
+
+<p>This property is an array reference of C code that will be passed into <a href="https://metacpan.org/pod/Inline%3A%3AC" class="podlinkpod"
+>Inline::C</a> to make sure that appropriate headers are automatically included. See <a href="https://metacpan.org/pod/Inline%3A%3AC#auto_include" class="podlinkpod"
+>&#34;auto_include&#34; in Inline::C</a> for details.</p>
+
+<dt><a name="install_type"
+>install_type</a></dt>
+
+<dd>
+<p>The install type. This is set by AB core after the probe hook is executed. Is one of:</p>
+
+<dl>
+<dt><a name="system"
+>system</a></dt>
+
+<dd>
+<p>For when the library or tool is provided by the operating system, can be detected by <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, and is considered satisfactory by the <code>alienfile</code> recipe.</p>
+
+<dt><a name="share"
+>share</a></dt>
+
+<dd>
+<p>For when a system install is not possible, the library source will be downloaded from the internet or retrieved in another appropriate fashion and built.</p>
+</dd>
+</dl>
+
+<dt><a name="libs"
+>libs</a></dt>
+
+<dd>
+<p>The library flags. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="libs_static"
+>libs_static</a></dt>
+
+<dd>
+<p>The static library flags. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+
+<dt><a name="perl_module_version"
+>perl_module_version</a></dt>
+
+<dd>
+<p>The version of the Perl module used to install the alien (if available). For example if <a href="https://metacpan.org/pod/Alien%3A%3Acurl" class="podlinkpod"
+>Alien::curl</a> is installing <code>libcurl</code> this would be the version of <a href="https://metacpan.org/pod/Alien%3A%3Acurl" class="podlinkpod"
+>Alien::curl</a> used during the install step.</p>
+
+<dt><a name="prefix"
+>prefix</a></dt>
+
+<dd>
+<p>The final install root. This is usually they share directory.</p>
+
+<dt><a name="version"
+>version</a></dt>
+
+<dd>
+<p>The version of the library or tool. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="hook_prop"
+>hook_prop</a></h2>
+
+<pre class="sh_perl"> my $href = $build-&#62;hook_prop;</pre>
+
+<p>Hook properties are for the currently running (if any) hook. They are used only during the execution of each hook and are discarded after. If no hook is currently running then <code>hook_prop</code> will return <code>undef</code>.</p>
+
+<dl>
+<dt><a name="name"
+>name</a></dt>
+
+<dd>
+<p>The name of the currently running hook.</p>
+
+<dt><a name="version_(probe)"
+>version (probe)</a></dt>
+
+<dd>
+<p>Probe and PkgConfig plugins <i>may</i> set this property indicating the version of the alienized package. Not all plugins and configurations may be able to provide this.</p>
+
+<dt><a name="probe_class_(probe)"
+>probe_class (probe)</a></dt>
+
+<dd>
+<p>Probe and PkgConfig plugins <i>may</i> set this property indicating the plugin class that made the probe. If the probe results in a system install this will be propagated to <code>system_probe_class</code> for later use.</p>
+
+<dt><a name="probe_instance_id_(probe)"
+>probe_instance_id (probe)</a></dt>
+
+<dd>
+<p>Probe and PkgConfig plugins <i>may</i> set this property indicating the plugin instance id that made the probe. If the probe results in a system install this will be propagated to <code>system_probe_instance_id</code> for later use.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="checkpoint"
+>checkpoint</a></h2>
+
+<pre class="sh_perl"> $build-&#62;checkpoint;</pre>
+
+<p>Save any install or runtime properties so that they can be reloaded on a subsequent run in a separate process. This is useful if your build needs to be done in multiple stages from a <code>Makefile</code>, such as with <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a>. Once checkpointed you can use the <code>resume</code> constructor (documented above) to resume the probe/build/install] process.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="root"
+>root</a></h2>
+
+<pre class="sh_perl"> my $dir = $build-&#62;root;</pre>
+
+<p>This is just a shortcut for:</p>
+
+<pre class="sh_perl"> my $root = $build-&#62;install_prop-&#62;{root};</pre>
+
+<p>Except that it will be created if it does not already exist.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install_type"
+>install_type</a></h2>
+
+<pre class="sh_perl"> my $type = $build-&#62;install_type;</pre>
+
+<p>This will return the install type. (See the like named install property above for details). This method will call <code>probe</code> if it has not already been called.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="set_prefix"
+>set_prefix</a></h2>
+
+<pre class="sh_perl"> $build-&#62;set_prefix($prefix);</pre>
+
+<p>Set the final (unstaged) prefix. This is normally only called by <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a> and similar modules. It is not intended for use from plugins or from an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="set_stage"
+>set_stage</a></h2>
+
+<pre class="sh_perl"> $build-&#62;set_stage($dir);</pre>
+
+<p>Sets the stage directory. This is normally only called by <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a> and similar modules. It is not intended for use from plugins or from an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="requires"
+>requires</a></h2>
+
+<pre class="sh_perl"> my $hash = $build-&#62;requires($phase);</pre>
+
+<p>Returns a hash reference of the modules required for the given phase. Phases include:</p>
+
+<dl>
+<dt><a name="configure"
+>configure</a></dt>
+
+<dd>
+<p>These modules must already be available when the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> is read.</p>
+
+<dt><a name="any"
+>any</a></dt>
+
+<dd>
+<p>These modules are used during either a <code>system</code> or <code>share</code> install.</p>
+
+<dt><a name="share"
+>share</a></dt>
+
+<dd>
+<p>These modules are used during the build phase of a <code>share</code> install.</p>
+
+<dt><a name="system"
+>system</a></dt>
+
+<dd>
+<p>These modules are used during the build phase of a <code>system</code> install.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="load_requires"
+>load_requires</a></h2>
+
+<pre class="sh_perl"> $build-&#62;load_requires($phase);</pre>
+
+<p>This loads the appropriate modules for the given phase (see <code>requires</code> above for a description of the phases).</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="probe"
+>probe</a></h2>
+
+<pre class="sh_perl"> my $install_type = $build-&#62;probe;</pre>
+
+<p>Attempts to determine if the operating system has the library or tool already installed. If so, then the string <code>system</code> will be returned and a system install will be performed. If not, then the string <code>share</code> will be installed and the tool or library will be downloaded and built from source.</p>
+
+<p>If the environment variable <code>ALIEN_INSTALL_TYPE</code> is set, then that will force a specific type of install. If the detection logic cannot accommodate the install type requested then it will fail with an exception.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="download"
+>download</a></h2>
+
+<pre class="sh_perl"> $build-&#62;download;</pre>
+
+<p>Download the source, usually as a tarball, usually from the internet.</p>
+
+<p>Under a <code>system</code> install this does not do anything.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="fetch"
+>fetch</a></h2>
+
+<pre class="sh_perl"> my $res = $build-&#62;fetch;
+ my $res = $build-&#62;fetch($url, %options);</pre>
+
+<p>Fetch a resource using the fetch hook. Returns the same hash structure described below in the hook documentation.</p>
+
+<p>[version 2.39]</p>
+
+<p>As of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> 2.39, these options are supported:</p>
+
+<dl>
+<dt><a name="http_headers"
+>http_headers</a></dt>
+
+<dd>
+<pre class="sh_perl"> my $res = $build-&#62;fetch($url, http_headers =&#62; [ $key1 =&#62; $value1, $key2 =&#62; $value 2, ... ]);</pre>
+
+<p>Set the HTTP request headers on all outgoing HTTP requests. Note that not all protocols or fetch plugins support setting request headers, but the ones that do not <i>should</i> issue a warning if you try to set request headers and they are not supported.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="check_digest"
+>check_digest</a></h2>
+
+<p>[experimental]</p>
+
+<pre class="sh_perl"> my $bool = $build-&#62;check_digest($path);</pre>
+
+<p>Checks any cryptographic signatures for the given file. The file is specified by <code>$path</code> which may be one of:</p>
+
+<dl>
+<dt><a name="string"
+>string</a></dt>
+
+<dd>
+<p>Containing the path to the file to be checked.</p>
+
+<dt><a name="Path::Tiny"
+><a href="https://metacpan.org/pod/Path%3A%3ATiny" class="podlinkpod"
+>Path::Tiny</a></a></dt>
+
+<dd>
+<p>Containing the path to the file to be checked.</p>
+
+<dt><a name="HASH"
+><code>HASH</code></a></dt>
+
+<dd>
+<p>A Hash reference containing information about a file. See <a href="/pod/Alien/Build/Manual/PluginAuthor.html#fech_hook" class="podlinkpod"
+>the fetch hook</a> for details on the format.</p>
+</dd>
+</dl>
+
+<p>Returns true if the cryptographic signature matches, false if cryptographic signatures are disabled. Will throw an exception if the signature does not match, or if no plugin provides the correct algorithm for checking the signature.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="decode"
+>decode</a></h2>
+
+<pre class="sh_perl"> my $decoded_res = $build-&#62;decode($res);</pre>
+
+<p>Decode the HTML or file listing returned by <code>fetch</code>. Returns the same hash structure described below in the hook documentation.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="prefer"
+>prefer</a></h2>
+
+<pre class="sh_perl"> my $sorted_res = $build-&#62;prefer($res);</pre>
+
+<p>Filter and sort candidates. The preferred candidate will be returned first in the list. The worst candidate will be returned last. Returns the same hash structure described below in the hook documentation.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="extract"
+>extract</a></h2>
+
+<pre class="sh_perl"> my $dir = $build-&#62;extract;
+ my $dir = $build-&#62;extract($archive);</pre>
+
+<p>Extracts the given archive into a fresh directory. This is normally called internally to <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, and for normal usage is not needed from a plugin or <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="build"
+>build</a></h2>
+
+<pre class="sh_perl"> $build-&#62;build;</pre>
+
+<p>Run the build step. It is expected that <code>probe</code> and <code>download</code> have already been performed. What it actually does depends on the type of install:</p>
+
+<dl>
+<dt><a name="share"
+>share</a></dt>
+
+<dd>
+<p>The source is extracted, and built as determined by the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> recipe. If there is a <code>gather_share</code> that will be executed last.</p>
+
+<dt><a name="system"
+>system</a></dt>
+
+<dd>
+<p>The <code>gather_system</code> hook will be executed.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="test"
+>test</a></h2>
+
+<pre class="sh_perl"> $build-&#62;test;</pre>
+
+<p>Run the test phase</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="clean_install"
+>clean_install</a></h2>
+
+<pre class="sh_perl"> $build-&#62;clean_install</pre>
+
+<p>Clean files from the final install location. The default implementation removes all files recursively except for the <code>_alien</code> directory. This is helpful when you have an old install with files that may break the new build.</p>
+
+<p>For a non-share install this doesn&#39;t do anything.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="system"
+>system</a></h2>
+
+<pre class="sh_perl"> $build-&#62;system($command);
+ $build-&#62;system($command, @args);</pre>
+
+<p>Interpolates the command and arguments and run the results using the Perl <code>system</code> command.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="log"
+>log</a></h2>
+
+<pre class="sh_perl"> $build-&#62;log($message);</pre>
+
+<p>Send a message to the log. By default this prints to <code>STDOUT</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="meta"
+>meta</a></h2>
+
+<pre class="sh_perl"> my $meta = Alien::Build-&#62;meta;
+ my $meta = $build-&#62;meta;</pre>
+
+<p>Returns the meta object for your <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> class or instance. The meta object is a way to manipulate the recipe, and so any changes to the meta object should be made before the <code>probe</code>, <code>download</code> or <code>build</code> steps.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="META_METHODS"
+>META METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="prop"
+>prop</a></h2>
+
+<pre class="sh_perl"> my $href = $build-&#62;meta-&#62;prop;</pre>
+
+<p>Meta properties. This is the same as calling <code>meta_prop</code> on the class or <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instance.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="add_requires"
+>add_requires</a></h2>
+
+<pre class="sh_perl"> Alien::Build-&#62;meta-&#62;add_requires($phase, $module =&#62; $version, ...);</pre>
+
+<p>Add the requirement to the given phase. Phase should be one of:</p>
+
+<dl>
+<dt><a name="configure"
+>configure</a></dt>
+
+<dd>
+<dt><a name="any"
+>any</a></dt>
+
+<dd>
+<dt><a name="share"
+>share</a></dt>
+
+<dd>
+<dt><a name="system"
+>system</a></dt>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="interpolator"
+>interpolator</a></h2>
+
+<pre class="sh_perl"> my $interpolator = $build-&#62;meta-&#62;interpolator;
+ my $interpolator = Alien::Build-&#62;interpolator;</pre>
+
+<p>Returns the <a href="/pod/Alien/Build/Interpolate.html" class="podlinkpod"
+>Alien::Build::Interpolate</a> instance for the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> class.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="has_hook"
+>has_hook</a></h2>
+
+<pre class="sh_perl"> my $bool = $build-&#62;meta-&#62;has_hook($name);
+ my $bool = Alien::Build-&#62;has_hook($name);</pre>
+
+<p>Returns if there is a usable hook registered with the given name.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="register_hook"
+>register_hook</a></h2>
+
+<pre class="sh_perl"> $build-&#62;meta-&#62;register_hook($name, $instructions);
+ Alien::Build-&#62;meta-&#62;register_hook($name, $instructions);</pre>
+
+<p>Register a hook with the given name. <code>$instruction</code> should be either a code reference, or a command sequence, which is an array reference.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="default_hook"
+>default_hook</a></h2>
+
+<pre class="sh_perl"> $build-&#62;meta-&#62;default_hook($name, $instructions);
+ Alien::Build-&#62;meta-&#62;default_hook($name, $instructions);</pre>
+
+<p>Register a default hook, which will be used if the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> does not register its own hook with that name.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="around_hook"
+>around_hook</a></h2>
+
+<pre class="sh_perl"> $build-&#62;meta-&#62;around_hook($hook_name, $code);
+ Alien::Build-&#62;meta-&#62;around_hook($hook_name, $code);</pre>
+
+<p>Wrap the given hook with a code reference. This is similar to a <a href="https://metacpan.org/pod/Moose" class="podlinkpod"
+>Moose</a> method modifier, except that it wraps around the given hook instead of a method. For example, this will add a probe system requirement:</p>
+
+<pre class="sh_perl"> $build-&#62;meta-&#62;around_hook(
+   probe =&#62; sub {
+     my $orig = shift;
+     my $build = shift;
+     my $type = $orig-&#62;($build, @_);
+     return $type unless $type eq &#39;system&#39;;
+     # also require a configuration file
+     if(-f &#39;/etc/foo.conf&#39;)
+     {
+       return &#39;system&#39;;
+     }
+     else
+     {
+       return &#39;share&#39;;
+     }
+   },
+ );</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="after_hook"
+>after_hook</a></h2>
+
+<pre class="sh_perl"> $build-&#62;meta-&#62;after_hook($hook_name, sub {
+   my(@args) = @_;
+   ...
+ });</pre>
+
+<p>Execute the given code reference after the hook. The original arguments are passed into the code reference.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="before_hook"
+>before_hook</a></h2>
+
+<pre class="sh_perl"> $build-&#62;meta-&#62;before_hook($hook_name, sub {
+   my(@args) = @_;
+   ...
+ });</pre>
+
+<p>Execute the given code reference before the hook. The original arguments are passed into the code reference.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="apply_plugin"
+>apply_plugin</a></h2>
+
+<pre class="sh_perl"> Alien::Build-&#62;meta-&#62;apply_plugin($name);
+ Alien::Build-&#62;meta-&#62;apply_plugin($name, @args);</pre>
+
+<p>Apply the given plugin with the given arguments.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ENVIRONMENT"
+>ENVIRONMENT</a></h1>
+
+<p><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> responds to these environment variables:</p>
+
+<dl>
+<dt><a name="ALIEN_INSTALL_NETWORK"
+>ALIEN_INSTALL_NETWORK</a></dt>
+
+<dd>
+<p>If set to true (the default), then network fetch will be allowed. If set to false, then network fetch will not be allowed.</p>
+
+<p>What constitutes a local vs. network fetch is determined based on the <code>start_url</code> and <code>local_source</code> meta properties. An <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> or plugin <code>could</code> override this detection (possibly inappropriately), so this variable is not a substitute for properly auditing of Perl modules for environments that require that.</p>
+
+<dt><a name="ALIEN_INSTALL_TYPE"
+>ALIEN_INSTALL_TYPE</a></dt>
+
+<dd>
+<p>If set to <code>share</code> or <code>system</code>, it will override the system detection logic. If set to <code>default</code>, it will use the default setting for the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>. The behavior of other values is undefined.</p>
+
+<p>Although the recommended way for a consumer to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> is to declare it as a static configure and build-time dependency, some consumers may prefer to fallback on using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> only when the consumer itself cannot detect the necessary package. In some cases the consumer may want the user to opt-in to using an <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> before requiring it.</p>
+
+<p>To keep the interface consistent among Aliens, the consumer of the fallback opt-in <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> may fallback on the <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> if the environment variable <code>ALIEN_INSTALL_TYPE</code> is set to any value. The rationale is that by setting this environment variable the user is aware that <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a> modules may be installed and have indicated consent. The actual implementation of this, by its nature would have to be in the consuming CPAN module.</p>
+
+<dt><a name="ALIEN_BUILD_LOG"
+>ALIEN_BUILD_LOG</a></dt>
+
+<dd>
+<p>The default log class used. See <a href="/pod/Alien/Build/Log.html" class="podlinkpod"
+>Alien::Build::Log</a> and <a href="/pod/Alien/Build/Log/Default.html" class="podlinkpod"
+>Alien::Build::Log::Default</a>.</p>
+
+<dt><a name="ALIEN_BUILD_RC"
+>ALIEN_BUILD_RC</a></dt>
+
+<dd>
+<p>Perl source file which can override some global defaults for <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, by, for example, setting preload and postload plugins.</p>
+
+<dt><a name="ALIEN_BUILD_PKG_CONFIG"
+>ALIEN_BUILD_PKG_CONFIG</a></dt>
+
+<dd>
+<p>Override the logic in <a href="/pod/Alien/Build/Plugin/PkgConfig/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::PkgConfig::Negotiate</a> which chooses the best <code>pkg-config</code> plugin.</p>
+
+<dt><a name="ALIEN_BUILD_PRELOAD"
+>ALIEN_BUILD_PRELOAD</a></dt>
+
+<dd>
+<p>semicolon separated list of plugins to automatically load before parsing your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<dt><a name="ALIEN_BUILD_POSTLOAD"
+>ALIEN_BUILD_POSTLOAD</a></dt>
+
+<dd>
+<p>semicolon separated list of plugins to automatically load after parsing your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<dt><a name="DESTDIR"
+>DESTDIR</a></dt>
+
+<dd>
+<p>This environment variable will be manipulated during a destdir install.</p>
+
+<dt><a name="PKG_CONFIG"
+>PKG_CONFIG</a></dt>
+
+<dd>
+<p>This environment variable can be used to override the program name for <code>pkg-config</code> when using the command line plugin: <a href="/pod/Alien/Build/Plugin/PkgConfig/CommandLine.html" class="podlinkpod"
+>Alien::Build::Plugin::PkgConfig::CommandLine</a>.</p>
+
+<dt><a name="ftp_proxy,_all_proxy"
+>ftp_proxy, all_proxy</a></dt>
+
+<dd>
+<p>If these environment variables are set, it may influence the Download negotiation plugin <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3ADownaload%3A%3ANegotiate" class="podlinkpod"
+>Alien::Build::Plugin::Downaload::Negotiate</a>. Other proxy variables may be used by some Fetch plugins, if they support it.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SUPPORT"
+>SUPPORT</a></h1>
+
+<p>The intent of the <code>Alien-Build</code> team is to support as best as possible all Perls from 5.8.4 to the latest production version. So long as they are also supported by the Perl toolchain.</p>
+
+<p>Please feel encouraged to report issues that you encounter to the project GitHub Issue tracker:</p>
+
+<dl>
+<dt><a name="https://github.com/PerlAlien/Alien-Build/issues"
+><a href="https://github.com/PerlAlien/Alien-Build/issues" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Build/issues</a></a></dt>
+</dl>
+
+<p>Better if you can fix the issue yourself, please feel encouraged to open pull-request on the project GitHub:</p>
+
+<dl>
+<dt><a name="https://github.com/PerlAlien/Alien-Build/pulls"
+><a href="https://github.com/PerlAlien/Alien-Build/pulls" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Build/pulls</a></a></dt>
+</dl>
+
+<p>If you are confounded and have questions, join us on the <code>#native</code> channel on irc.perl.org. The <code>Alien-Build</code> developers frequent this channel and can probably help point you in the right direction. If you don&#39;t have an IRC client handy, you can use this web interface:</p>
+
+<dl>
+<dt><a name="https://chat.mibbit.com/?channel=%23native&#38;server=irc.perl.org"
+><a href="https://chat.mibbit.com/?channel=%23native&#38;server=irc.perl.org" class="podlinkurl"
+>https://chat.mibbit.com/?channel=%23native&#38;server=irc.perl.org</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p><a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a>, <a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a>, <a href="/pod/Alien/Build/Manual/Contributing.html" class="podlinkpod"
+>Alien::Build::Manual::Contributing</a>, <a href="/pod/Alien/Build/Manual/FAQ.html" class="podlinkpod"
+>Alien::Build::Manual::FAQ</a>, <a href="/pod/Alien/Build/Manual/PluginAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::PluginAuthor</a></p>
+
+<p><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>, <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a>, <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>Alien::Build::Plugin</a>, <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, <a href="https://metacpan.org/pod/Alien" class="podlinkpod"
+>Alien</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="THANKS"
+>THANKS</a></h1>
+
+<p><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> was originally written by Joel Berger, the rest of this project would not have been possible without him getting the project started. Thanks to his support I have been able to augment the original <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> system with a reliable set of tools (<a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>, <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a>), which make up this toolset.</p>
+
+<p>The original <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> is still copyright (c) 2012-2020 Joel Berger. It has the same license as the rest of the Alien::Build and related tools distributed as <code>Alien-Build</code>. Joel Berger thanked a number of people who helped in in the development of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, in the documentation for that module.</p>
+
+<p>I would also like to acknowledge the other members of the PerlAlien github organization, Zakariyya Mughal (sivoais, ZMUGHAL) and mohawk (ETJ). Also important in the early development of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> were the early adopters Chase Whitener (genio, CAPOEIRAB, author of <a href="https://metacpan.org/pod/Alien%3A%3Alibuv" class="podlinkpod"
+>Alien::libuv</a>), William N. Braswell, Jr (willthechill, WBRASWELL, author of <a href="https://metacpan.org/pod/Alien%3A%3AJPCRE2" class="podlinkpod"
+>Alien::JPCRE2</a> and <a href="https://metacpan.org/pod/Alien%3A%3APCRE2" class="podlinkpod"
+>Alien::PCRE2</a>) and Ahmad Fatoum (a3f, ATHREEF, author of <a href="https://metacpan.org/pod/Alien%3A%3Alibudev" class="podlinkpod"
+>Alien::libudev</a> and <a href="https://metacpan.org/pod/Alien%3A%3ALibUSB" class="podlinkpod"
+>Alien::LibUSB</a>).</p>
+
+<p>The Alien ecosystem owes a debt to Dan Book, who goes by Grinnz on IRC, for answering question about how to use <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and friends.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>
