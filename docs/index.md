@@ -16,24 +16,25 @@ and M<CMake|Alien::Build::Plugin::Build::CMake>.  It is also extensible through 
 allowing other build systems to be added.  The M<Alien::Build> project also comes with a large and growing manual.  The
 manual has three main sections depending on how you need to use M<Alien::Build> and a FAQ.
 
- * M<Alien::Build::Manual::AlienAuthor> - for would be authors of new M<Aliens|Alien>
- * M<Alien::Build::Manual::AlienUser> - for users of an existing M<Alien>
- * M<Alien::Build::Manual::PluginAuthor> - for developers who want to extend M<Alien::Build> using its plugin system
- * M<Alien::Build::Manual::FAQ> - the Frequently Asked Questions
+ * 📖 M<Alien::Build::Manual::AlienAuthor> - for would be authors of new M<Aliens|Alien>
+ * 📖 M<Alien::Build::Manual::AlienUser> - for users of an existing M<Alien>
+ * 📖 M<Alien::Build::Manual::PluginAuthor> - for developers who want to extend M<Alien::Build> using its plugin system
+ * 📖 M<Alien::Build::Manual::FAQ> - the Frequently Asked Questions
 
 ## Resources hosted here
 
- * [The Alien Blog](/blog/)
- * [libdontpanic](/dontpanic/)
+ * [🪵 Alien Blog](/blog/)
+ * [📖 Alien Documentation](/pod/)
+ * [📦 libdontpanic](/dontpanic/)
 
 ## Slides
 
- * The Perl Conference 2022 : [NewFangled - Bringing NewRelic to Perl with Alien and FFI Technology](/slides/newfangled)
- * The Perl Conference 2022 lightning talk : [Bundling Code With FFI::Platypus - How FFI::C::Stat was born](/slides/ffi-stat)
+ * 🗣️ The Perl Conference 2022 : [NewFangled - Bringing NewRelic to Perl with Alien and FFI Technology](/slides/newfangled)
+ * 🗣️ The Perl Conference 2022 lightning talk : [Bundling Code With FFI::Platypus - How FFI::C::Stat was born](/slides/ffi-stat)
 
 ## External Links
 
- * [#native on irc.perl.org](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?)
- * [@AlienPerl](https://twitter.com/AlienPerl) - the official twitter acount of the Perl Alien Project
- * [PerlAlien organization on GitHub](https://github.com/PerlAlien)
- * [Alien::Build on metacpan](https://metacpan.org/pod/Alien::Build)
+ * #️ [#native on irc.perl.org](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?)
+ * 🐦 [@AlienPerl](https://twitter.com/AlienPerl) - the official twitter acount of the Perl Alien Project
+ * 👽 [PerlAlien organization on GitHub](https://github.com/PerlAlien)
+ * 👽 [Alien::Build on metacpan](https://metacpan.org/pod/Alien::Build)

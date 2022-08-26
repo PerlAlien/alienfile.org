@@ -1,3 +1,5 @@
+[% SET title = 'Alien Documentation' %]
+[% SET h1 = 'Alien Documentation' %]
 <ul class="dists">
 [% FOREACH dist IN dists %]
   <li class="dist">[% dist.name %]
