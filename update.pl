@@ -11,35 +11,21 @@ use Web;
 
 my %repos;
 
-my $page = 1;
-while(1)
+for(my $page = 1; 1; $page++)
 {
-  my $res = Web->ua->get("https://api.github.com/orgs/PerlAlien/repos?page=$page");
-  if($res->{success})
+  my $res = decode_json(Web->get("https://api.github.com/orgs/PerlAlien/repos?page=$page"));
+
+  last unless @$res > 0;
+
+  foreach my $repo (@$res)
   {
-    $res = decode_json($res->{content});
-    if(@$res > 0)
-    {
-      foreach my $repo (@$res)
-      {
-        next if $repo->{archived};
-        my $name = $repo->{name};
-        next if $name =~ /^(dontpanic|autotools-libpalindrome|cmake-libpalindrome|alienfile.org|hunspell)$/;
-        my $set = Web->mcpan->release({ all => [ { distribution => $name }, { status => 'latest' } ] });
-        die "latest release for $name returned @{[ $set->total ]} items" if $set->total != 1;
-        my $release = $set->next;
-        $repos{$name} = $release->download_url;
-      }
-      $page++;
-    }
-    else
-    {
-      last;
-    }
-  }
-  else
-  {
-      die "error fetching repository list @{[ $res->{status} ]} @{[ $res->{reason} ]}";
+    next if $repo->{archived};
+    my $name = $repo->{name};
+    next if $name =~ /^(dontpanic|autotools-libpalindrome|cmake-libpalindrome|alienfile.org|hunspell)$/;
+    my $set = Web->mcpan->release({ all => [ { distribution => $name }, { status => 'latest' } ] });
+    die "latest release for $name returned @{[ $set->total ]} items" if $set->total != 1;
+    my $release = $set->next;
+    $repos{$name} = $release->download_url;
   }
 }
 
