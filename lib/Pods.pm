@@ -152,10 +152,44 @@ package Pods {
 
       $path->parent->mkpath;
 
+      my $h1;
+      if($name =~ /::/)
+      {
+        my @parts = split /::/, $name;
+        my $last = pop @parts;
+        my $sofar;
+        foreach my $part (@parts)
+        {
+          if(defined $sofar)
+          {
+            $sofar .= "::$part";
+            $h1 .= "::";
+          }
+          else
+          {
+            $sofar = $part;
+          }
+          my $href = $self->get_link($sofar);
+          if(defined $href)
+          {
+            $h1 .= "<a href=\"$href\">$part</a>";
+          }
+          else
+          {
+            $h1 .= $part;
+          }
+        }
+        $h1 .= "::$last";
+      }
+      else
+      {
+        $h1 = $name;
+      }
+
       my $full_html;
       $self->tt->process('pod.html.tt', {
         title => $name,
-        h1    => $name,
+        h1    => $h1,
         pod   => $html,
         shjs  => "https://shjs.wdlabs.com"
       }, \$full_html);
