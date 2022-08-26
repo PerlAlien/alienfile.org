@@ -23,7 +23,7 @@ my $tt = Template->new(
 );
 
 my $pods = Pods->new;
-foreach my $url (path('tarballs.txt')->lines( { chomp => 1 } ))
+foreach my $url (path('.tarballs.txt')->lines( { chomp => 1 } ))
 {
   $pods->add_dist($url);
 }

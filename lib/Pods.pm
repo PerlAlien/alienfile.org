@@ -6,94 +6,80 @@ use experimental qw( signatures postderef );
 package Pods {
 
   use Archive::Libarchive::Peek;
-  use LWP::UserAgent;
   use URI;
   use URI::file;
   use Path::Tiny ();
   use JSON::MaybeXS qw( decode_json );
   use Template;
+  use Web;
 
   sub new ($class) {
     bless {}, $class;
   }
 
-  sub ua ($self, $new=undef) {
-    if($new) {
-      $self->{ua} = $new;
-    }
-    my $ua = $self->{ua} ||= LWP::UserAgent->new;
-    $ua->env_proxy;
-    $ua;
-  }
-
   sub add_dist ($self, $location) {
     my $url = -f $location ? URI::file->new(Path::Tiny->new($location)->absolute->stringify) : URI->new($location);
     say "$url";
-    my $res = $self->ua->get($url);
-    if($res->is_success) {
-      my $tarball = $res->decoded_content;
-      my $peek = Archive::Libarchive::Peek->new(
-        memory => \$tarball,
-      );
+    my $tarball = Web->get($url);
 
-      my @pod_list;
-      my $dist_name;
+    my $peek = Archive::Libarchive::Peek->new(
+      memory => \$tarball,
+    );
 
-      $peek->iterate(sub ($filename, $content, $e) {
-        return unless $e->filetype eq 'reg';
+    my @pod_list;
+    my $dist_name;
 
-        # want to also handle bin directory
-        if($filename =~ m{^[^/]+/lib/(.+)$})
+    $peek->iterate(sub ($filename, $content, $e) {
+      return unless $e->filetype eq 'reg';
+
+      # want to also handle bin directory
+      if($filename =~ m{^[^/]+/lib/(.+)$})
+      {
+        my $path = $1;
+        if($path =~ /\.(pod|pm)$/)
         {
-          my $path = $1;
-          if($path =~ /\.(pod|pm)$/)
-          {
-            my $name = $path;
-            $name =~ s{\.(pod|pm)$}{};
-            $name =~ s{/}{::}g;
+          my $name = $path;
+          $name =~ s{\.(pod|pm)$}{};
+          $name =~ s{/}{::}g;
 
-            my $href = $path;
-            $href =~ s{\.(pod|pm)$}{.html};
+          my $href = $path;
+          $href =~ s{\.(pod|pm)$}{.html};
 
-            $self->{pod}->{$name} = {
-              content => $content,
-              href    => $self->url_prefix . $href,
-            };
-            push @pod_list, $name;
-          }
-          else
-          {
-            say "data: $path";
-            $self->{data}->{$path} = $content;
-          }
-        }
-        elsif($filename =~ m{^[^/]+/bin/(.+)$})
-        {
-          my $name = $1;
           $self->{pod}->{$name} = {
             content => $content,
-            href    => $self->url_prefix . "$name.html",
+            href    => $self->url_prefix . $href,
           };
           push @pod_list, $name;
         }
-        elsif($filename =~  m{^[^/]+/META.json$})
+        else
         {
-          my $meta = decode_json($content);
-          $dist_name = $meta->{name};
+          say "data: $path";
+          $self->{data}->{$path} = $content;
         }
-      });
-
-      if($dist_name)
-      {
-        $self->{dist}->{$dist_name} = [ sort @pod_list ];
       }
-      else
+      elsif($filename =~ m{^[^/]+/bin/(.+)$})
       {
-        warn "unknown dist for $url";
+        my $name = $1;
+        $self->{pod}->{$name} = {
+          content => $content,
+          href    => $self->url_prefix . "$name.html",
+        };
+        push @pod_list, $name;
       }
+      elsif($filename =~  m{^[^/]+/META.json$})
+      {
+        my $meta = decode_json($content);
+        $dist_name = $meta->{name};
+      }
+    });
 
-    } else {
-      die "error fetching $url: @{[ $res->status_line ]}";
+    if($dist_name)
+    {
+      $self->{dist}->{$dist_name} = [ sort @pod_list ];
+    }
+    else
+    {
+      warn "unknown dist for $url";
     }
   }
 
