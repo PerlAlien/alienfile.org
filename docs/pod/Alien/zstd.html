@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::zstd</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::zstd</div>
+    <!--Alien::zstd--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::zstd - Find or build zstd</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>From <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a>:</p>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use Alien::Base::Wrapper ();
+
+ WriteMakefile(
+   Alien::Base::Wrapper-&#62;new(&#39;Alien::zstd&#39;)-&#62;mm_args2(
+     NAME =&#62; &#39;FOO::XS&#39;,
+     ...
+   ),
+ );</pre>
+
+<p>From <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>:</p>
+
+<pre class="sh_perl"> use Module::Build;
+ use Alien::Base::Wrapper qw( Alien::zstd !export );
+ use Alien::zstd;
+
+ my $build = Module::Build-&#62;new(
+   ...
+   configure_requires =&#62; {
+     &#39;Alien::Base::Wrapper&#39; =&#62; &#39;0&#39;,
+     &#39;Alien::zstd&#39; =&#62; &#39;0&#39;,
+     ...
+   },
+   Alien::Base::Wrapper-&#62;mb_args,
+   ...
+ );
+
+ $build-&#62;create_build_script;</pre>
+
+<p>From <a href="https://metacpan.org/pod/Inline%3A%3AC" class="podlinkpod"
+>Inline::C</a> / <a href="https://metacpan.org/pod/Inline%3A%3ACPP" class="podlinkpod"
+>Inline::CPP</a> script:</p>
+
+<pre class="sh_perl"> use Inline 0.56 with =&#62; &#39;Alien::zstd&#39;;</pre>
+
+<p>From <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
+>Dist::Zilla</a></p>
+
+<pre class="sh_perl"> [@Filter]
+ -bundle = @Basic
+ -remove = MakeMaker
+
+ [Prereqs / ConfigureRequires]
+ Alien::zstd = 0
+
+ [MakeMaker::Awesome]
+ header = use Alien::Base::Wrapper qw( Alien::zstd !export );
+ WriteMakefile_arg = Alien::Base::Wrapper-&#62;mm_args</pre>
+
+<p>From <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>:</p>
+
+<pre class="sh_perl"> use FFI::Platypus;
+ use Alien::zstd;
+
+ my $ffi = FFI::Platypus-&#62;new(
+   lib =&#62; [ Alien::zstd-&#62;dynamic_libs ],
+ );</pre>
+
+<p>Command line tool:</p>
+
+<pre class="sh_perl"> use Alien::zstd;
+ use Env qw( @PATH );
+
+ unshift @PATH, Alien::zstd-&#62;bin_dir;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This distribution provides zstd so that it can be used by other Perl distributions that are on CPAN. It does this by first trying to detect an existing install of zstd on your system. If found it will use that. If it cannot be found, the source code will be downloaded from the internet and it will be installed in a private share location for the use of other modules.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="zstd"
+><a href="https://facebook.github.io/zstd/" class="podlinkurl"
+>zstd</a></a></dt>
+
+<dd>
+<p>The zstd home page.</p>
+
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<p>Documentation on the Alien concept itself.</p>
+
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<p>The base class for this Alien.</p>
+
+<dt><a name="Alien::Build::Manual::AlienUser"
+><a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a></a></dt>
+
+<dd>
+<p>Detailed manual for users of Alien classes.</p>
+</dd>
+</dl>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

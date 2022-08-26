@@ -356,7 +356,7 @@ name="clean_install"
  });</pre>
 
 <p>This hook allows you to remove files from the final install location before the files are installed by the installer layer (examples: <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
->Alien::Build::MM</a>, <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AMB" class="podlinkpod"
+>Alien::Build::MM</a>, <a href="/pod/Alien/Build/MB.html" class="podlinkpod"
 >Alien::Build::MB</a> or <a href="/pod/App/af.html" class="podlinkpod"
 >App::af</a>). This hook is not called by default, and must be enabled via the interface to the installer layer (example: <a href="/pod/Alien/Build/MM.html#clean_install" class="podlinkpod"
 >&#34;clean_install&#34; in Alien::Build::MM</a>).</p>
@@ -545,8 +545,8 @@ name="override_hook"
    return $ENV{ALIEN_INSTALL_TYPE} || &#39;&#39;;
  });</pre>
 
-<p>This allows you to alter the override logic. It should return one of <code>share</code>, <code>system</code>, <code>default</code> or <code>&#39;&#39;</code>. The default implementation is shown above. <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3AProbe%3A%3AOverride" class="podlinkpod"
->Alien::Build::Plugin::Probe::Override</a> and <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3AProbe%3A%3AOverrideCI" class="podlinkpod"
+<p>This allows you to alter the override logic. It should return one of <code>share</code>, <code>system</code>, <code>default</code> or <code>&#39;&#39;</code>. The default implementation is shown above. <a href="/pod/Alien/Build/Plugin/Probe/Override.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::Override</a> and <a href="/pod/Alien/Build/Plugin/Probe/OverrideCI.html" class="podlinkpod"
 >Alien::Build::Plugin::Probe::OverrideCI</a> are examples of how you can use this hook.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'

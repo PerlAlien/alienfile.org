@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Autotools</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Autotools</div>
+    <!--Alien::Autotools--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#bin_dir'>bin_dir</a>
+    <li class='indexItem indexItem2'><a href='#aclocal_dir'>aclocal_dir</a>
+    <li class='indexItem indexItem2'><a href='#versions'>versions</a>
+    <li class='indexItem indexItem2'><a href='#autoconf_dir'>autoconf_dir</a>
+    <li class='indexItem indexItem2'><a href='#automake_dir'>automake_dir</a>
+    <li class='indexItem indexItem2'><a href='#libtool_dir'>libtool_dir</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Autotools - Build and install the GNU build system.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 1.07</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>From Perl:</p>
+
+<pre class="sh_perl"> use Alien::Autotools;
+ use Env qw( @PATH @ACLOCAL_PATH );
+ 
+ unshift @PATH, Alien::Autotools-&#62;bin_dir;
+ unshift @ACLOCAL_PATH, Alien::Autotools-&#62;aclocal_dir;
+ 
+ system &#39;autoconf&#39;, ...;</pre>
+
+<p>From <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ share {
+   # Alien::Autotools will pull in:
+   #  - Alien::autoconf
+   #  - Alien::automake
+   #  - Alien::m4
+   #  - Alien::libtool
+   # all of which you will likely need.
+   requires &#39;Alien::Autotools&#39;;
+   plugin &#39;Build::Autoconf&#39;;
+   build [
+     &#39;%{autoreconf} -vfi&#39;,
+     &#39;%{configure}&#39;,
+     &#39;%{make}&#39;,
+     &#39;%{make} install&#39;,
+   ];
+ };</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> provides the minimum tools requires for building <code>autoconf</code> based projects which do not come bundled with a working <code>configure</code> script. It currently delegates most of its responsibilities to <a href="/pod/Alien/autoconf.html" class="podlinkpod"
+>Alien::autoconf</a>, <a href="/pod/Alien/automake.html" class="podlinkpod"
+>Alien::automake</a>, <a href="/pod/Alien/libtool.html" class="podlinkpod"
+>Alien::libtool</a>, and <a href="/pod/Alien/m4.html" class="podlinkpod"
+>Alien::m4</a>.</p>
+
+<p>The most common use case from an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> is shown above where <code>autoreconf</code> is called from this <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>, which allows the <a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Autoconf</a> to then configure and build the alienized package.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bin_dir"
+>bin_dir</a></h2>
+
+<pre class="sh_perl"> my @dirs = Alien::Autotools-&#62;bin_dir;</pre>
+
+<p>Returns the list of directories that need to be added to <code>PATH</code> in order for the autotools to work correctly.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="aclocal_dir"
+>aclocal_dir</a></h2>
+
+<pre class="sh_perl"> my @dirs = Alien::Autotools-&#62;aclocal_dir;</pre>
+
+<p>Returns the list of directories that need to be added to <code>ACLOCAL_PATH</code> in order for the autotools to work correctly.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="versions"
+>versions</a></h2>
+
+<pre class="sh_perl"> my %versions = Alien::Autotools-&#62;versions;</pre>
+
+<p>Returns the versions of the various autotools that are available.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf_dir"
+>autoconf_dir</a></h2>
+
+<pre class="sh_perl"> # legacy interface
+ use Alien:::Autotools qw( autoconf_dir );
+ my $dir = autoconf_dir;</pre>
+
+<p>Returns the directory path to autoconf</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="automake_dir"
+>automake_dir</a></h2>
+
+<pre class="sh_perl"> # legacy interface
+ use Alien:::Autotools qw( automake_dir );
+ my $dir = automake_dir;</pre>
+
+<p>Returns the directory path to automake</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libtool_dir"
+>libtool_dir</a></h2>
+
+<pre class="sh_perl"> # legacy interface
+ use Alien:::Autotools qw( libtool_dir );
+ my $dir = libtool_dir;</pre>
+
+<p>Returns the directory path to libtool</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>This module is typically needed for other <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s for a share install that use the autotools / GNU build system without bundling a pre-built <code>configure</code> script. If possible it is better to use a version of the alienized package that includes a pre-built <code>configure</code> script.</p>
+
+<p>If you are a system vendor, then you should typically not need to package this module, check to see if the dependency that requires it can be built as a system install instead.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HELPERS"
+>HELPERS</a></h1>
+
+<p>This <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> provides all of the helpers provides by <a href="/pod/Alien/m4.html" class="podlinkpod"
+>Alien::m4</a>, <a href="/pod/Alien/autoconf.html" class="podlinkpod"
+>Alien::autoconf</a>, <a href="/pod/Alien/automake.html" class="podlinkpod"
+>Alien::automake</a> and <a href="/pod/Alien/libtool.html" class="podlinkpod"
+>Alien::libtool</a>. Each helper will execute the corresponding command. You will want to sue the helpers instead of using the command names directly because they will use the correct incantation on Windows. The following list is a subset of all of the helpers provided by this alien that are probably the most useful.</p>
+
+<dl>
+<dt><a name="m4"
+>m4</a></dt>
+
+<dd>
+<dt><a name="autoreconf"
+>autoreconf</a></dt>
+
+<dd>
+<dt><a name="automake"
+>automake</a></dt>
+
+<dd>
+<dt><a name="libtool"
+>libtool</a></dt>
+
+<dd>
+<dt><a name="libtoolize"
+>libtoolize</a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="Alien::autoconf"
+><a href="/pod/Alien/autoconf.html" class="podlinkpod"
+>Alien::autoconf</a></a></dt>
+
+<dd>
+<dt><a name="Alien::automake"
+><a href="/pod/Alien/automake.html" class="podlinkpod"
+>Alien::automake</a></a></dt>
+
+<dd>
+<dt><a name="Alien::libtool"
+><a href="/pod/Alien/libtool.html" class="podlinkpod"
+>Alien::libtool</a></a></dt>
+
+<dd>
+<dt><a name="Alien::m4"
+><a href="/pod/Alien/m4.html" class="podlinkpod"
+>Alien::m4</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Original author: Richard Sim&#245;es</p>
+
+<p>Current maintainer: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is Copyright (c) 2012-2022 by Richard Sim&#245;es.</p>
+
+<p>This is free software, licensed under:</p>
+
+<pre class="sh_perl">  The GNU Lesser General Public License, Version 3, June 2007</pre>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

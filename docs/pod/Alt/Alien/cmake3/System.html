@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alt::Alien::cmake3::System</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> Alt::Alien::cmake3::System</div>
+    <!--Alt::Alien::cmake3::System--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alt::Alien::cmake3::System - Simplified alternative to Alien::cmake3 that uses system cmake</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.0501</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> env PERL_ALT_INSTALL=OVERWRITE cpanm -n Alt::Alien::cmake3::System</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This distribution provides an alternative implementation of Alien::cmake3 that only works with a system cmake. It is intended for testing the core of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, which includes optional tests that use <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a>. The problem with using the real <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a> for testing the core of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> in CI is that <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a> also depends on <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. This module may also be useful for system integrators, although I discourage it for that use, as this module may not be as well supported as the real <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>The tests use <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a> which is now part of the same distribution as <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, so you have the same chicken and egg problem. It is recommended to use the <code>-n</code> option on cpanm to skip the testing phase.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2018 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

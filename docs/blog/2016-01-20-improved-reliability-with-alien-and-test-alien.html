@@ -18,7 +18,7 @@
 
 <p>The one major platform that didn’t work on the initial switch was of 
 course Strawberry Perl, but after some debugging and patches I got 
-<a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even 
+<a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even 
 submitted patches to upstream to the hunspell project, which were 
 accepted, so that in the future less patching will be required.  This is 
 what is great about Open Source when it works.</p>
@@ -41,7 +41,7 @@ testing Aliens when I wrote it.  For most such modules, this consisted
 of the hand rolled .t files that used the Config module and attempted to 
 build executables by invoking the compiler via system or qx.  Assuming 
 that an Alien module even had any tests.  Here is a simplified version 
-of the <a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a> test that I wrote for <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a>.</p>
+of the <a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a> test that I wrote for <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>.</p>
 
 <pre class="sh_perl">
 use Test::More;
@@ -76,7 +76,7 @@ main(int argc, char *argv[])
 </pre>
 
 <p>What this does is compile and link an executable using the flags 
-provided by <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a>.  It then runs it and ensures that it 
+provided by <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>.  It then runs it and ensures that it 
 doesn’t dump core, and returns a successful exit status.  Simple(ish) 
 for Alien right?  The problem is that there are a number of subtle edge 
 cases that become much more prominent when you are installing an Alien 
@@ -96,7 +96,7 @@ version number.  This increases the likelihood that the Alien module
 will actually be useful dramatically, and it catches errors with the 
 Alien module where they should be found, in the Alien module itself, not 
 in the downstream XS or FFI module.  Here are simplified tests, also for 
-<a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a>:</p>
+<a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>:</p>
 
 <pre class="sh_perl">
 # test for XS
@@ -167,18 +167,18 @@ ffi_ok { symbols => [qw( Hunspell_create Hunspell_destroy )] }, with_subtest {
 </pre>
 
 <p><a href="/pod/Test/Alien.html" class="module">Test::Alien</a> also has tests for tool oriented Alien modules, such as 
-<a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a> and <a href="https://metacpan.org/pod/Alien::patch" class="module">Alien::patch</a>.  <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> is designed to work 
+<a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="module">Alien::patch</a>.  <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> is designed to work 
 seamlessly with <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> modules, but can also be made to 
 work without much additional work with non <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Aliens" class="module">Aliens</a>.</p>
 
 <p>The other nice thing about the <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> interface is that its tests 
 will self skip if a compiler or <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> are not found.  This is 
-useful, as <a href="https://metacpan.org/pod/Text::Hunspell::FFI" class="module">Text::Hunspell::FFI</a> can use <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> without a 
+useful, as <a href="https://metacpan.org/pod/Text::Hunspell::FFI" class="module">Text::Hunspell::FFI</a> can use <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> without a 
 compiler if the hunspell system packages are installed, and conversely 
-<a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> can use <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> if <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> is not 
+<a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> can use <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> if <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> is not 
 installed.</p>
 
-<p>I used <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> in development versions of <a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> to 
+<p>I used <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> in development versions of <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> to 
 identify and correct bugs to make it more reliable.</p>
 
 <hr />

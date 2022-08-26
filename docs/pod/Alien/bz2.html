@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::bz2</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::bz2</div>
+    <!--Alien::bz2--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CONSTRUCTOR'>CONSTRUCTOR</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#new'>new</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#cflags'>cflags</a>
+    <li class='indexItem indexItem2'><a href='#libs'>libs</a>
+    <li class='indexItem indexItem2'><a href='#dlls'>dlls</a>
+    <li class='indexItem indexItem2'><a href='#version'>version</a>
+    <li class='indexItem indexItem2'><a href='#install_type'>install_type</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::bz2 - Build and make available bz2</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.24</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>Build.PL</p>
+
+<pre class="sh_perl"> use Alien::bz2;
+ use Module::Build;
+ 
+ my $alien = Alien::bz2-&#62;new;
+ my $build = Module::Build-&#62;new(
+   ...
+   extra_compiler_flags =&#62; [$alien-&#62;cflags],
+   extra_linker_flags   =&#62; [$alien-&#62;libs],
+   ...
+ );
+ 
+ $build-&#62;create_build_script;</pre>
+
+<p>Makefile.PL</p>
+
+<pre class="sh_perl"> use Alien::bz2;
+ use ExtUtils::MakeMaker;
+ 
+ my $alien = Alien::bz2;
+ WriteMakefile(
+   ...
+   CCFLAGS =&#62; scalar $alien-&#62;cflags,
+   LIBS   =&#62; [$alien-&#62;libs],
+ );</pre>
+
+<p>FFI::Platypus</p>
+
+<pre class="sh_perl"> use Alien::bz2;
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus-&#62;new(lib =&#62; [Alien::bz2-&#62;new-&#62;dlls]);
+ $ffi-&#62;attach( BZ2_bzlibVersion =&#62; [] =&#62; &#39;string&#39; );</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p><b>Note</b>: This class exists only for backwards compatibility only! I recommend that you use <a href="/pod/Alien/Libbz2.html" class="podlinkpod"
+>Alien::Libbz2</a> instead!</p>
+
+<p>If you just want to compress or decompress bzip2 data in Perl you probably want one of <a href="https://metacpan.org/pod/Compress%3A%3ABzip2" class="podlinkpod"
+>Compress::Bzip2</a>, <a href="https://metacpan.org/pod/Compress%3A%3ARaw%3A%3ABzip2" class="podlinkpod"
+>Compress::Raw::Bzip2</a> or <a href="https://metacpan.org/pod/IO%3A%3ACompress%3A%3ABzip2" class="podlinkpod"
+>IO::Compress::Bzip2</a>.</p>
+
+<p>This distribution installs bz2 so that it can be used by other Perl distributions. If already installed for your operating system, and it can be found, this distribution will use the bz2 that comes with your operating system, otherwise it will download it from the Internet, build and install it.</p>
+
+<p>If you set the environment variable <code>ALIEN_BZ2</code> to &#39;share&#39;, this distribution will ignore any system bz2 found, and build from source instead. This may be desirable if your operating system comes with a very old version of bz2 and an upgrade path for the system bz2 is not possible.</p>
+
+<p>This distribution also honors the <code>ALIEN_FORCE</code> environment variable used by <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Setting <code>ALIEN_FORCE</code> has the same effect as setting <code>ALIEN_BZ2</code> to &#39;share&#39;.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CONSTRUCTOR"
+>CONSTRUCTOR</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="new"
+>new</a></h2>
+
+<pre class="sh_perl"> my $alien = Alien::bz2-&#62;new;</pre>
+
+<p>Although not necessary, you may create an instance of <a href="/pod/Alien/bz2.html" class="podlinkpod"
+>Alien::bz2</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cflags"
+>cflags</a></h2>
+
+<pre class="sh_perl"> my $cflags = Alien::bz2-&#62;cflags;
+ my @cflags = Alien::bz2-&#62;cflags;</pre>
+
+<p>Returns the C compiler flags necessary to build against bz2.</p>
+
+<p>Returns flags as a list in list context and combined into a string in scalar context.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libs"
+>libs</a></h2>
+
+<pre class="sh_perl"> my $libs = Alien::bz2-&#62;libs;
+ my @libs = Alien::bz2-&#62;libs;</pre>
+
+<p>Returns the library flags necessary to build against bz2.</p>
+
+<p>Returns flags as a list in list context and combined into a string in scalar context.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="dlls"
+>dlls</a></h2>
+
+<pre class="sh_perl"> my @dlls = Alien::bz2-&#62;dlls;</pre>
+
+<p>Returns a list of dynamic libraries (usually a list of just one library) that make up bz2. This can be used for <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>.</p>
+
+<p>Returns just the first dynamic library found in scalar context.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="version"
+>version</a></h2>
+
+<pre class="sh_perl"> my $version = Alien::bz2-&#62;version;</pre>
+
+<p>Returns the version of bz2.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install_type"
+>install_type</a></h2>
+
+<pre class="sh_perl"> my $type = Alien::bz2-&#62;install_type;</pre>
+
+<p>Returns the install type, one of either <code>system</code> or <code>share</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Libbz2"
+><a href="/pod/Alien/Libbz2.html" class="podlinkpod"
+>Alien::Libbz2</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="Compress::Bzip2"
+><a href="https://metacpan.org/pod/Compress%3A%3ABzip2" class="podlinkpod"
+>Compress::Bzip2</a></a></dt>
+
+<dd>
+<dt><a name="Compress::Raw::Bzip2"
+><a href="https://metacpan.org/pod/Compress%3A%3ARaw%3A%3ABzip2" class="podlinkpod"
+>Compress::Raw::Bzip2</a></a></dt>
+
+<dd>
+<dt><a name="IO::Compress::Bzip2"
+><a href="https://metacpan.org/pod/IO%3A%3ACompress%3A%3ABzip2" class="podlinkpod"
+>IO::Compress::Bzip2</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

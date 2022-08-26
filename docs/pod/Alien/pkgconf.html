@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::pkgconf</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::pkgconf</div>
+    <!--Alien::pkgconf--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#cflags'>cflags</a>
+    <li class='indexItem indexItem2'><a href='#libs'>libs</a>
+    <li class='indexItem indexItem2'><a href='#dynamic_libs'>dynamic_libs</a>
+    <li class='indexItem indexItem2'><a href='#version'>version</a>
+    <li class='indexItem indexItem2'><a href='#bin_dir'>bin_dir</a>
+    <li class='indexItem indexItem2'><a href='#install_type'>install_type</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#pkgconf'>pkgconf</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#PLATFORM_NOTES'>PLATFORM NOTES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#Solaris'>Solaris</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#ACKNOWLEDGMENTS'>ACKNOWLEDGMENTS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::pkgconf - Discover or download and install pkgconf + libpkgconf</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use Alien::pkgconf;
+ 
+ my $cflags = Alien::pkgconf-&#62;cflags;
+ my $libs   = Alien::pkgconf-&#62;libs;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module provides you with the information that you need to invoke <code>pkgconf</code> or link against <code>libpkgconf</code>. It isn&#39;t intended to be used directly, but rather to provide the necessary package by a CPAN module that needs <code>libpkgconf</code>, such as <a href="/pod/PkgConfig/LibPkgConf.html" class="podlinkpod"
+>PkgConfig::LibPkgConf</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cflags"
+>cflags</a></h2>
+
+<pre class="sh_perl"> my $cflags = Alien::pkgconf-&#62;cflags;</pre>
+
+<p>The compiler flags for compiling against <code>libpkgconf</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libs"
+>libs</a></h2>
+
+<pre class="sh_perl"> my $libs = Alien::pkgconf-&#62;libs;</pre>
+
+<p>The linker flags for linking against <code>libpkgconf</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="dynamic_libs"
+>dynamic_libs</a></h2>
+
+<pre class="sh_perl"> my($dll) = Alien::pkgconf-&#62;dynamic_libs;</pre>
+
+<p>The <code>.so</code>, <code>.dll</code> or <code>.dynlib</code> shared or dynamic library which can be used via FFI.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="version"
+>version</a></h2>
+
+<pre class="sh_perl"> my $version = Alien::pkgconf-&#62;version;</pre>
+
+<p>The <code>libpkgconf</code> version.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bin_dir"
+>bin_dir</a></h2>
+
+<pre class="sh_perl"> my($dir) = Alien::pkgconf-&#62;bin_dir;</pre>
+
+<p>The directory where you can find <code>pkgconf</code>. If it is not already in the <code>PATH</code>. Adding this to <code>PATH</code> should make tools that require <code>pkgconf</code> work.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install_type"
+>install_type</a></h2>
+
+<pre class="sh_perl"> my $type = Alien::pkgconf-&#62;install_type;</pre>
+
+<p>The type of install, should be either <code>share</code> or <code>system</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HELPERS"
+>HELPERS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf"
+>pkgconf</a></h2>
+
+<pre class="sh_perl"> %{pkgconf}</pre>
+
+<p>The name of the <code>pkgconf</code> binary. This is usually just <code>pkgconf</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="PkgConfig::LibPkgConf"
+><a href="/pod/PkgConfig/LibPkgConf.html" class="podlinkpod"
+>PkgConfig::LibPkgConf</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="PLATFORM_NOTES"
+>PLATFORM NOTES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Solaris"
+>Solaris</a></h2>
+
+<p>You may need to have the GNU version of nm installed, which comes with GNU binutils.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ACKNOWLEDGMENTS"
+>ACKNOWLEDGMENTS</a></h1>
+
+<p>Thanks to the <code>pkgconf</code> developers for their efforts:</p>
+
+<p><a href="https://github.com/pkgconf/pkgconf/graphs/contributors" class="podlinkurl"
+>https://github.com/pkgconf/pkgconf/graphs/contributors</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis</p>
+
+<p>Contributors:</p>
+
+<p>Thibault Duponchelle (tib)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2016 Graham Ollis.</p>
+
+<p>This is free software; you may redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

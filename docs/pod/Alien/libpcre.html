@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::libpcre</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::libpcre</div>
+    <!--Alien::libpcre--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::libpcre - Find or download and install libpcre (The &#34;Perl Compatible&#34; Regular Expressions library)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.02</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your Makefile.PL:</p>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use Alien::Base::Wrapper ();
+
+ WriteMakefile(
+   Alien::Base::Wrapper-&#62;new(&#39;Alien::libpcre&#39;)-&#62;mm_args2(
+     # MakeMaker args
+     NAME =&#62; &#39;My::XS&#39;,
+     ...
+   ),
+ );</pre>
+
+<p>In your Build.PL:</p>
+
+<pre class="sh_perl"> use Module::Build;
+ use Alien::Base::Wrapper qw( Alien::libpcre !export );
+
+ my $builder = Module::Build-&#62;new(
+   ...
+   configure_requires =&#62; {
+     &#39;Alien::libpcre&#39; =&#62; &#39;0&#39;,
+     ...
+   },
+   Alien::Base::Wrapper-&#62;mb_args,
+   ...
+ );
+
+ $build-&#62;create_build_script;</pre>
+
+<p>In your <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> script or module:</p>
+
+<pre class="sh_perl"> use FFI::Platypus;
+ use Alien::libpcre;
+
+ my $ffi = FFI::Platypus-&#62;new(
+   lib =&#62; [ Alien::libpcre-&#62;dynamic_libs ],
+ );</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p><b>Note</b> that this <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> is for PCRE1, the deprecated older version of the Perl (in)Compatible Regular Expression (PCRE) library. It exists for projects that require the older version of PCRE. Currently the author uses it for source builds of <a href="https://metacpan.org/pod/Alien%3A%3Alibnewrelic" class="podlinkpod"
+>Alien::libnewrelic</a> and <a href="https://metacpan.org/pod/NewFangle" class="podlinkpod"
+>NewFangle</a>. If you need the newer currently supported version of PCRE see <a href="https://metacpan.org/pod/Alien%3A%3APCRE2" class="podlinkpod"
+>Alien::PCRE2</a>.</p>
+
+<p>This distribution provides PCRE1 so that it can be used by other Perl distributions that are on CPAN. It does this by first trying to detect an existing install of pcre on your system. If found it will use that. If it cannot be found, the source code will be downloaded from the internet and it will be installed in a private share location for the use of other modules.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>, <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, <a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>The pcre, is not, as the name might suggest, actually compatible with modern Perl regular expressions.</p>
+
+<p>On Debian based systems (including Ubuntu), the development package for PCRE1 is <code>libpcre3-dev</code>, which is quite confusing, but I am sure there was a good reason for it. If you want to do a <code>system</code> install use that package not the confusingly newer <code>libpcre2-dev</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2020 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

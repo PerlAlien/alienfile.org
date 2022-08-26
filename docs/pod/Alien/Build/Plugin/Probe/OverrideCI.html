@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Plugin::Probe::OverrideCI</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Probe.html">Probe</a>::OverrideCI</div>
+    <!--Alien::Build::Plugin::Probe::OverrideCI--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Plugin::Probe::OverrideCI - Override logic for continuous integration</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.03</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your .travis.yml:</p>
+
+<pre class="sh_perl"> language: perl
+ 
+ install:
+   - cpanm -n Alien::Build::Plugin::Probe::OverrideCI
+   - cpanm -n --installdeps .
+ 
+ env:
+   global:
+     - ALIEN_BUILD_PRELOAD=Probe::OverrideCI
+   matrix:
+     - ALIEN_INSTALL_TYPE_CI=share
+     - ALIEN_INSTALL_TYPE_CI=system</pre>
+
+<p>In your appveyor.yml</p>
+
+<pre class="sh_perl"> install:
+   - ... # however you install/select which Perl to use
+   - cpanm -n Alien::Build::Plugin::Probe::OverrideCI
+   - cpanm -n --installdeps .
+ 
+ environment:
+   ALIEN_BUILD_PRELOAD: Probe::OverrideCI
+   matrix:
+     - ALIEN_INSTALL_TYPE_CI: share
+       ALIEN_INSTALL_TYPE_CI: system</pre>
+
+<p>In your .github/workflows/main.yml</p>
+
+<pre class="sh_perl">  jobs:
+    perl:
+      env:
+        ALIEN_BUILD_PRELOAD: Probe::OverrideCI
+      strategy:
+        matrix:
+          install_type:
+            - share
+            - system
+          perl-version:
+            - &#39;5.30&#39;
+            - &#39;5.16&#39;
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install CI Dependencies
+          run: cpanm -n -q Alien::Build::Plugin::Probe::OverrideCI
+        - name: Install Project Dependencies
+          run: cpanm -n -q --installdeps .
+        - name: Configure Project
+          run: perl Makefile.PL
+          env:
+            ALIEN_INSTALL_TYPE_CI: ${{ matrix.install_type }}</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This plugin provides an easy way to test both share and system installs using a travis or appveyor environment matrix, without affecting the install type detection of prereqs. Thus if your library <code>Alien::libfoo</code> depends on <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> you can test both a system and share install for <code>Alien::libfoo</code> while building <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> using the default (usually system) install and saving build time.</p>
+
+<p>It does this using the appropriate environment variables from the CI tool to determine if the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> is in the build root. If you are in the build root, then we use the environment variable <code>ALIEN_INSTALL_TYPE_CI</code>, if we are not in the build root, then we fallback on the existing behavior (either <code>ALIEN_INSTALL_TYPE</code>, or the default for the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> itself).</p>
+
+<p>If you want to override the install type on a per-alien basis in a development or production environment (not CI), then <a href="/pod/Alien/Build/Plugin/Probe/Override.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::Override</a> may be useful for you.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Plugin::Probe::Override"
+><a href="/pod/Alien/Build/Plugin/Probe/Override.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::Override</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

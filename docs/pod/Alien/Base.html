@@ -122,7 +122,7 @@ name="SYNOPSIS"
    $eud-&#62;get_makefile_vars
  );</pre>
 
-<p>If you are using <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+<p>If you are using <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> instead of the recommended <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a>, then in your <code>MyLibrary::XS</code> module, you may need something like this in your main <code>.pm</code> file IF your library uses dynamic libraries:</p>
@@ -160,11 +160,11 @@ name="SYNOPSIS"
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p><b>NOTE</b>: <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+<p><b>NOTE</b>: <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> is no longer bundled with <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and has been spun off into a separate distribution. <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
 >Alien::Build::ModuleBuild</a> will be a prerequisite for <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> until October 1, 2017. If you are using <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Base</a> until October 1, 2017. If you are using <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> you need to make sure it is declared as a <code>configure_requires</code> in your <code>Build.PL</code>. You may want to also consider using <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> as a more modern alternative.</p>
@@ -231,7 +231,7 @@ name="DESCRIPTION"
 <p>In the same vein, if you are wanting to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> with an XS module using <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
->Dist::Zilla</a> it is highly recommended that you use <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AAlienBase%3A%3AWrapper" class="podlinkpod"
+>Dist::Zilla</a> it is highly recommended that you use <a href="/pod/Dist/Zilla/Plugin/AlienBase/Wrapper.html" class="podlinkpod"
 >Dist::Zilla::Plugin::AlienBase::Wrapper</a> for the same reasons.</p>
 
 <p>As of version 0.28, <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
@@ -433,12 +433,12 @@ name="alien_helper"
 <p>Returns a hash reference of helpers provided by the Alien module. The keys are helper names and the values are code references. The code references will be executed at command time and the return value will be interpolated into the command before execution. The default implementation returns an empty hash reference, and you are expected to override the method to create your own helpers.</p>
 
 <p>For use with commands specified in and <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> or in your <code>Build.Pl</code> when used with <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+>alienfile</a> or in your <code>Build.Pl</code> when used with <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a>.</p>
 
 <p>Helpers allow users of your Alien module to use platform or environment determined logic to compute command names or arguments in your installer logic. Helpers allow you to do this without making your Alien module a requirement when a build from source code is not necessary.</p>
 
-<p>As a concrete example, consider <a href="https://metacpan.org/pod/Alien%3A%3Agmake" class="podlinkpod"
+<p>As a concrete example, consider <a href="/pod/Alien/gmake.html" class="podlinkpod"
 >Alien::gmake</a>, which provides the helper <code>gmake</code>:</p>
 
 <pre class="sh_perl"> package Alien::gmake;
@@ -457,7 +457,7 @@ name="alien_helper"
    },
  }</pre>
 
-<p>Now consider <a href="https://metacpan.org/pod/Alien%3A%3Anasm" class="podlinkpod"
+<p>Now consider <a href="/pod/Alien/nasm.html" class="podlinkpod"
 >Alien::nasm</a>. <code>nasm</code> requires GNU Make to build from source code, but if the system <code>nasm</code> package is installed we don&#39;t need it. From the <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> of <code>Alien::nasm</code>:</p>
 
@@ -491,7 +491,7 @@ name="inline_auto_include"
 
 <p>List of header files to automatically include in inline C and C++ code when using <a href="https://metacpan.org/pod/Inline%3A%3AC" class="podlinkpod"
 >Inline::C</a> or <a href="https://metacpan.org/pod/Inline%3A%3ACPP" class="podlinkpod"
->Inline::CPP</a>. This is provided as a public interface primarily so that it can be overridden at run time. This can also be specified in your <code>Build.PL</code> with <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+>Inline::CPP</a>. This is provided as a public interface primarily so that it can be overridden at run time. This can also be specified in your <code>Build.PL</code> with <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> using the <code>alien_inline_auto_include</code> property.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'

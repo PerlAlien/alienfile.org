@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Base::ModuleBuild::API</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::API</div>
+    <!--Alien::Base::ModuleBuild::API--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#CONSTRUCTOR'>CONSTRUCTOR</a>
+    <li class='indexItem indexItem2'><a href='#PACKAGE_AND_ENVIRONMENT_VARIABLES'>PACKAGE AND ENVIRONMENT VARIABLES</a>
+    <li class='indexItem indexItem2'><a href='#CONFIG_DATA'>CONFIG DATA</a>
+    <li class='indexItem indexItem2'><a href='#COMMAND_INTERPOLATION'>COMMAND INTERPOLATION</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Base::ModuleBuild::API - API Reference for Alien:: Authors</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 1.15</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> instead.
+Like <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBUild" class="podlinkpod"
+>Alien::Base::ModuleBUild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>.
+Unlike <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModule%3A%3ABuild" class="podlinkpod"
+>Alien::Base::Module::Build</a> they are more easily customized and handle a number of corner cases better.
+For a good place to start,
+please see <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a>.
+Although the Alien-Base / Alien-Build team will continue to maintain this module,
+(we will continue to fix bugs where appropriate),
+we aren&#39;t adding any new features to this module.</p>
+
+<p>A list of extra properties and methods provided by <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> beyond those contained in <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AAPI" class="podlinkpod"
+>Module::Build::API</a>.
+Note that all property and method names are prefixed with <code>alien_</code> to prevent future collisions <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> builtins.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="CONSTRUCTOR"
+>CONSTRUCTOR</a></h2>
+
+<p><a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> adds several parameters to the <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AAPI#CONSTRUCTORS" class="podlinkpod"
+>new</a> constructor in <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>.
+Unless otherwise specified all of the parameters listed in <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AAPI" class="podlinkpod"
+>Module::Build::API</a> are available and behave identically to the description contained therein.</p>
+
+<dl>
+<dt><a name="alien_arch"
+>alien_arch</a></dt>
+
+<dd>
+<p>[version 0.019]</p>
+
+<p>Install module into an architecture specific directory.
+This is off by default,
+unless $ENV{ALIEN_ARCH} is true.
+Most Alien distributions will be installing binary code.
+If you are an integrator where the <code>@INC</code> path is shared by multiple Perls in a non-homogeneous environment you can set $ENV{ALIEN_ARCH} to 1 and Alien modules will be installed in architecture specific directories.</p>
+
+<dt><a name="alien_autoconf_with_pic"
+>alien_autoconf_with_pic</a></dt>
+
+<dd>
+<p>[version 0.005]</p>
+
+<p>Add <code>--with-pic</code> option to autoconf style <code>configure</code> script when called.
+This is the default,
+and normally a good practice.
+Normally autoconf will ignore this and any other options that it does not recognize,
+but some non-autoconf <code>configure</code> scripts may complain.</p>
+
+<dt><a name="alien_bin_requires"
+>alien_bin_requires</a></dt>
+
+<dd>
+<p>[version 0.006]</p>
+
+<p>Hash reference of modules (keys) and versions (values) that specifies <code>Alien</code> modules that provide binary tools that are required to build.
+Any <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> module that includes binaries should work.
+Also supported are <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a>,
+<a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
+>Alien::CMake</a>,
+<a href="https://metacpan.org/pod/Alien%3A%3ATinyCC" class="podlinkpod"
+>Alien::TinyCC</a> and <a href="/pod/Alien/Autotools.html" class="podlinkpod"
+>Alien::Autotools</a>.</p>
+
+<p>[version 0.007]</p>
+
+<p>These only become required for building if <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> determines that a source code build is required.</p>
+
+<dt><a name="alien_build_commands"
+>alien_build_commands</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>An arrayref of commands used to build the library in the directory specified in <code>alien_temp_dir</code>.
+Each command is first passed through the <a href="#COMMAND_INTERPOLATION" class="podlinkpod"
+>command interpolation engine</a>,
+so those variables may be used.
+The default is tailored to the GNU toolchain,
+i.e.
+AutoConf and Make; it is <code>[ &#39;%c --prefix=%s&#39;,
+&#39;make&#39; ]</code>.</p>
+
+<p>[version 0.009]</p>
+
+<p>Each command may be either a string or an array reference.
+If the array reference form is used then the multiple argument form of <code>system</code> is used.
+Prior to version 0.009,
+only the string form was supported.</p>
+
+<dt><a name="alien_env"
+>alien_env</a></dt>
+
+<dd>
+<p>[version 0.027]</p>
+
+<p>Environment overrides.
+Allows you to set environment variables as a hash reference that will override environment variables.
+You can use the same interpolated escape sequences and helpers that commands use.
+Set to undef to remove the variable.</p>
+
+<pre class="sh_perl"> ...
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_env =&#62; {
+     PERL =&#62; &#39;%X&#39;,     # sets the environment variable PERL to the location
+                       # of the Perl interpreter.
+     PERCENT =&#62; &#39;%%&#39;,  # evaluates to &#39;%&#39;
+     REMOVE =&#62; undef,  # remove the environment variable if it is defined
+   },
+   ...
+ );
+ ...</pre>
+
+<p>Please keep in mind that frequently users have a good reason to have set environment variables, and you should not override them without a good reason. An example of a good justification would be if a project has a Makefile that interacts badly with common environment variables. This can sometimes be a problem since Makefile variables can be overridden with environment variables.</p>
+
+<p>A useful pattern is to use a helper to only override an environment variable if it is not already set.</p>
+
+<pre class="sh_perl"> ...
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_helper =&#62; {
+     foo =&#62; &#39;$ENV{FOO}||&#34;my preferred value if not already set&#34;&#39;
+   },
+   alien_env =&#62; {
+     FOO =&#62; &#39;%{foo}&#39;,
+   },
+   ...
+ );
+ ...</pre>
+
+<p>A common pitfall with environment variables is that setting one to the empty string (<code>&#39;&#39;</code>) is not portable. On Unix it works fine as you would expect, but in Windows it actually unsets the environment variable, which may not be what you intend.</p>
+
+<pre class="sh_perl"> ...
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_env =&#62; {
+     # is allowed, but may not do what you intend
+     # on some platforms!
+     FOO =&#62; &#39;&#39;,
+   },
+ );
+ ...</pre>
+
+<dt><a name="alien_extra_site_config"
+>alien_extra_site_config</a></dt>
+
+<dd>
+<p>[version 0.030]</p>
+
+<p>Append extra values to the <code>config.site</code> file when using autoconf.</p>
+
+<p>When &#60;autoconf&#62; is detected, a <code>config.site</code> file is created with values appropriate for building software that can link against the Perl that you are building with. This is important on some platforms, for example 64 bit systems where the compilers generate 32 bit code by default. You can also add values to the <code>config.site</code> file using this directive.</p>
+
+<p>For values that are already provided by <code>Alien::Base::ModuleBuild</code>, your value will be appended after the existing value. For values that aren&#39;t provided, it will simply use your value by itself.</p>
+
+<p>For example if you needed to add a define to a CFLAGS, you might do something like this:</p>
+
+<pre class="sh_perl"> ...
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_extra_site_config =&#62; {
+     # CFLAGS is usually specified by A::B::MB
+     CFLAGS =&#62; &#39;-DFOO=1&#39;,
+     # BAR usually is not.
+     BAR =&#62; &#39;baz&#39;,
+   },
+   ...
+ );
+ ...</pre>
+
+<p>And the actual value for CFLAGS in the <code>config.site</code> might have values like this:</p>
+
+<pre class="sh_perl"> CFLAGS=-O3 -g -DFOO=1
+ BAR=baz</pre>
+
+<dt><a name="alien_ffi_name"
+>alien_ffi_name</a></dt>
+
+<dd>
+<p>[version 0.007]</p>
+
+<p>The name of the shared library for use with FFI. Provided for situations where the shared library name cannot be determined from the <code>pkg-config</code> name specified with <code>alien_name</code>. For example <code>libxml2</code> has a <code>pkg-config</code> of <code>libxml-2.0</code>, but a shared library name of <code>xml2</code>. By default alien_name is used with any <code>lib</code> prefix removed. For example <code>libarchive</code> to be translated into <code>archive</code> which is what you want for that package.</p>
+
+<dt><a name="alien_helper"
+>alien_helper</a></dt>
+
+<dd>
+<p>[version 0.020]</p>
+
+<p>Provide helpers to generate commands or arguments at build or install time. This property is a hash reference. The keys are the helper names and the values are strings containing Perl code that will be evaluated and interpolated into the command before execution. Because helpers are only needed when building a package from the source code, any dependency may be specified as an <code>alien_bin_requires</code>. For example:</p>
+
+<pre class="sh_perl"> ...
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_bin_requires =&#62; {
+     &#39;Alien::foo&#39; =&#62; 0,
+   },
+   alien_helper =&#62; {
+     &#39;foocommand&#39;  =&#62; &#39;Alien::foo-&#62;some_command&#39;,
+     &#39;fooargument&#39; =&#62; &#39;Alien::foo-&#62;some_argument&#39;,
+   },
+   alien_build_commands =&#62; [
+     &#39;%{foocommand} %{fooargument}&#39;,
+   ],
+   ...
+ );</pre>
+
+<p>[version 0.022]</p>
+
+<p>One helper that you get for free is <code>%{pkg_config}</code> which will be the pkg-config implementation chosen by <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>. This will either be the real pkg-config provided by the operating system (preferred) or <a href="https://metacpan.org/pod/PkgConfig" class="podlinkpod"
+>PkgConfig</a>, the pure perl implementation found on CPAN.</p>
+
+<dt><a name="alien_inline_auto_include"
+>alien_inline_auto_include</a></dt>
+
+<dd>
+<p>[version 0.006]</p>
+
+<p>Array reference containing the list of header files to be used automatically by <code>Inline::C</code> and <code>Inline::CPP</code>.</p>
+
+<dt><a name="alien_install_commands"
+>alien_install_commands</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>An arrayref of commands used to install it to the share directory specified by interpolation var <code>%s</code>. Each command is first passed through the <a href="#COMMAND_INTERPOLATION" class="podlinkpod"
+>command interpolation engine</a>, so those variables may be used. The default is tailored to the GNU toolchain, i.e. AutoConf and Make; it is <code>[ &#39;make install&#39; ]</code>.</p>
+
+<p>[version 0.009]</p>
+
+<p>Each command may be either a string or an array reference. If the array reference form is used then the multiple argument form of <code>system</code> is used. Prior to version 0.009, only the string form was supported.</p>
+
+<dt><a name="alien_install_type"
+>alien_install_type</a></dt>
+
+<dd>
+<p>[version 1.08]</p>
+
+<p>Set the install type. Legal values are <code>system</code> and <code>share</code>. The environment variable <code>ALIEN_INSTALL_TYPE</code> and <code>ALIEN_FORCE</code> will be used in preference over this property.</p>
+
+<dt><a name="alien_isolate_dynamic"
+>alien_isolate_dynamic</a></dt>
+
+<dd>
+<p>[version 0.005]</p>
+
+<p>If set to true, then dynamic libraries will be moved from the <code>lib</code> directory to a separate <code>dynamic</code> directory. This makes them available for FFI modules (see <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a>), while preferring static libraries when creating XS extensions.</p>
+
+<dt><a name="alien_msys"
+>alien_msys</a></dt>
+
+<dd>
+<p>[version 0.006]</p>
+
+<p>On windows wrap build and install commands in an <code>MSYS</code> environment using <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a>. This option will automatically add <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a> as a build requirement when building on Windows.</p>
+
+<dt><a name="alien_name"
+>alien_name</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>The name of the primary library which will be provided. This should be in the form to be passed to <code>pkg-config</code>. This name is available in the <a href="#COMMAND_INTERPOLATION" class="podlinkpod"
+>command interpolation</a> as <code>%n</code>.</p>
+
+<dt><a name="alien_provides_cflags"
+>alien_provides_cflags</a></dt>
+
+<dd>
+<dt><a name="alien_provides_libs"
+>alien_provides_libs</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>These parameters, if specified, augment the information found by <em>pkg-config</em>. If no package config data is found, these are used to generate the necessary information. In that case, if these are not specified, they are attempted to be created from found shared-object files and header files. They both are empty by default.</p>
+
+<dt><a name="alien_repository"
+>alien_repository</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>A hashref or arrayref of hashrefs defining the repositories used to find and fetch library tarballs (or zipballs etc.). These attributes are used to create <code>Alien::Base::ModuleBuild::Repository</code> objects (or more likely, subclasses thereof). Which class is created is governed by the <code>protocol</code> attribute and the <code>alien_repository_class</code> property below. Available attributes are:</p>
+
+<dl>
+<dt><a name="protocol"
+>protocol</a></dt>
+
+<dd>
+<p>One of <code>ftp</code>, <code>http</code> <code>https</code> or <code>local</code>. The first three are obvious, <code>local</code> allows packaging a tarball with the Alien:: module.</p>
+
+<p>If your repository is going to need <code>https</code>, make sure that you specify that, because it will inform <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> that you will need the prereqs for SSL (namely <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a> and <a href="https://metacpan.org/pod/IO%3A%3ASocket%3A%3ASSL" class="podlinkpod"
+>IO::Socket::SSL</a>).</p>
+
+<dt><a name="protocol_class"
+>protocol_class</a></dt>
+
+<dd>
+<p>Defines the protocol handler class. Defaults to &#39;Net::FTP&#39; or &#39;HTTP::Tiny&#39; as appropriate.</p>
+
+<dt><a name="host"
+>host</a></dt>
+
+<dd>
+<p>This is either the root server address for the FTP and HTTP classes (i.e. <code>my.server.com</code>)</p>
+
+<dt><a name="location"
+>location</a></dt>
+
+<dd>
+<p>This key is protocol specific. For FTP this contains the name of the folder to search. For HTTP this is the page to be searched for links; this is specified as a path relative to the <code>host</code>. For a local file, this specifies the folder containing the tarball relative to the <code>base_dir</code>.</p>
+
+<dt><a name="pattern"
+>pattern</a></dt>
+
+<dd>
+<p>This is a <code>qr</code> regex matching acceptable files found in the <code>location</code>. If the pattern contains a capture group, the captured string is interpreted as the version number. N.B. if no versions are found, the files are sorted by filename using version semantics, this mechanism is not likely to be as accurate as specifying a capture group.</p>
+
+<dt><a name="exact_filename"
+>exact_filename</a></dt>
+
+<dd>
+<p>This key may be specified in place of <code>pattern</code> when the filename of the tarball is known, in which case such a file is downloaded from the given <code>host</code> and <code>location</code>. Note that, in general, specifying a <code>pattern</code> gives more flexibility, but there may be cases when you find more convenient to use <code>exact_filename</code>.</p>
+
+<dt><a name="exact_version"
+>exact_version</a></dt>
+
+<dd>
+<p>This key may be specified with the <code>exact_filename</code> key when the version of the tarball is known.</p>
+
+<dt><a name="platform"
+>platform</a></dt>
+
+<dd>
+<p>This attribute is a string telling the repository validator which platform the repository serves. This may be the string <code>src</code> (the default) for platform-independent source files, or a string which matches the <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> method <code>os_type</code> (e.g. &#34;Windows&#34;, &#34;Unix&#34;, &#34;MacOS&#34;, &#34;VMS&#34;).</p>
+
+<dt><a name="c_compiler_required"
+>c_compiler_required</a></dt>
+
+<dd>
+<p>If true (the default), then a C compiler is required to build from source.</p>
+</dd>
+</dl>
+
+<dt><a name="alien_repository_class"
+>alien_repository_class</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>As the repositories in <code>alien_repository</code> are converted to objects, this hash controls the type of object that is created. The keys are the relevant protocol. This allows for easy subclassing any or all protocol classes. The defaults are as follows.</p>
+
+<pre class="sh_perl"> http    =&#62; &#39;Alien::Base::ModuleBuild::Repository::HTTP&#39;,
+ ftp     =&#62; &#39;Alien::Base::ModuleBuild::Repository::FTP&#39;,
+ local   =&#62; &#39;Alien::Base::ModuleBuild::Repository::Local&#39;,
+ default =&#62; &#39;Alien::Base::ModuleBuild::Repository&#39;,</pre>
+
+<p>Unlike most <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a> parameters, authors may specify only those keys which are to be overridden. If any of the above keys are not specified, the above defaults will be used.</p>
+
+<dt><a name="alien_repository_default"
+>alien_repository_default</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>This property is a shortcut for specifying multiple repositories with similar attributes. If a repository attribute is not defined in its <code>alien_repository</code> hashref, but that attribute is defined here, then this value will be used. This hashref is empty by default.</p>
+
+<dt><a name="alien_selection_method"
+>alien_selection_method</a></dt>
+
+<dd>
+<p>[not yet implemented]</p>
+
+<p>This is intended to choose the mechanism for selecting one file from many. The default name is <code>newest</code>.</p>
+
+<dt><a name="alien_share_dir"
+>alien_share_dir</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>The name of the folder which will both serve a stub share directory via <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>&#39;s <code>share_dir</code>/<code>dist_dir</code> parameter. This directory is added in a smart manner which attempts not to interfere with other author-defined <code>share_dir</code>s. The default name is <code>_share</code>. This folder will hold a README file which is then installed to the target installed share location. It is THAT location that the library will be installed to.</p>
+
+<dt><a name="alien_stage_install"
+>alien_stage_install</a></dt>
+
+<dd>
+<p>It might be tempting to use this option if you have a library or tool that hard codes paths from the install location inside the executable or library code. However, using this option relies on blib detection which is not very reliable, and can leave your install in an broken state if the package install step fails. If you really need this option, please consider instead migrating to <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, which has a much more reliable way of staging installs correctly.</p>
+
+<p>[version 0.016]</p>
+
+<p>Alien packages are installed directly into the blib directory by the `./Build&#39; command rather than to the final location during the `./Build install` step.</p>
+
+<p>[version 0.017]</p>
+
+<p>As of 0.017 this is the default.</p>
+
+<dt><a name="alien_temp_dir"
+>alien_temp_dir</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>The name of the temporary folder which will house the library when it is downloaded and built. The default name is <code>_alien</code>.</p>
+
+<dt><a name="alien_test_commands"
+>alien_test_commands</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>An arrayref of commands used to test the library. Each command is first passed through the <a href="#COMMAND_INTERPOLATION" class="podlinkpod"
+>command interpolation engine</a>, so those variables may be used. The default is to do no tests. The most common command used by the GNU toolchain is <code>[ &#39;make check&#39; ]</code>, but beware that is not supported by all packages.</p>
+
+<p>[version 0.009]</p>
+
+<p>Each command may be either a string or an array reference. If the array reference form is used, then the multiple argument form of system is used.</p>
+
+<dt><a name="alien_version_check"
+>alien_version_check</a></dt>
+
+<dd>
+<p>[version 0.001]</p>
+
+<p>A command to run to check the version of the library installed on the system. The default is <code>pkg-config --modversion %n</code>.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="PACKAGE_AND_ENVIRONMENT_VARIABLES"
+>PACKAGE AND ENVIRONMENT VARIABLES</a></h2>
+
+<p>A few global variables are used to set gross behavior. For each pair of variables, if both are set, the environment variable takes precedence.</p>
+
+<dl>
+<dt><a name="$ENV{ALIEN_ARCH}"
+>$ENV{ALIEN_ARCH}</a></dt>
+
+<dd>
+<p>[version 0.017]</p>
+
+<p>Setting this changes the default for alien_arch above. If the module specifies its own alien_arch in its <code>Build.PL</code> file then it will override this setting. Typically installing into an architecture specific directory is what you want to do, since most <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based distributions provide architecture specific binary code, so you should consider carefully before installing modules with this environment variable set to 0. This may be useful for integrators creating a single non-architecture specific RPM, .deb or similar package. In this case the integrator should ensure that the Alien package be installed with a system install_type and use the system package.</p>
+
+<dt><a name="$ENV{ALIEN_BLIB}"
+>$ENV{ALIEN_BLIB}</a></dt>
+
+<dd>
+<p>Setting this to true indicates that you don&#39;t intend to actually install your Alien::Base subclass, but rather use it from the built <em>blib</em> directory. This behavior is mostly to support automated testing from CPANtesters and should be automagically determined. If by chance you happen to trip the behavior accidentally, setting this environment variable to false (0) before building should prevent problems.</p>
+
+<dt><a name="$Alien::Base::ModuleBuild::Force"
+>$Alien::Base::ModuleBuild::Force</a></dt>
+
+<dd>
+<dt><a name="$ENV{ALIEN_FORCE}"
+>$ENV{ALIEN_FORCE}</a></dt>
+
+<dd>
+<p>Setting either to a true value will cause the builder to ignore a system-wide installation and build a local version of the library. This is the equivalent to setting $ENV{ALIEN_INSTALL_TYPE} to &#39;share&#39;. $ENV{ALIEN_INSTALL_TYPE} takes precedence.</p>
+
+<dt><a name="$ENV{ALIEN_INSTALL_TYPE}"
+>$ENV{ALIEN_INSTALL_TYPE}</a></dt>
+
+<dd>
+<p>Setting to <code>share</code> will ignore a system-wide installation and build a local version of the library. Setting to <code>system</code> will only use a system-wide installation and die if it cannot be found.</p>
+
+<dt><a name="$Alien::Base::ModuleBuild::Verbose"
+>$Alien::Base::ModuleBuild::Verbose</a></dt>
+
+<dd>
+<dt><a name="$ENV{ALIEN_VERBOSE}"
+>$ENV{ALIEN_VERBOSE}</a></dt>
+
+<dd>
+<p>Setting the either to a true value will output a little more info from within the module itself. At this point <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> is going to be fairly verbose without this enabled.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="CONFIG_DATA"
+>CONFIG DATA</a></h2>
+
+<p>The <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> system needs to store some data to be used in other phases of the build and eventual use. This is done via the mechanism provided by <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AConfigData" class="podlinkpod"
+>Module::Build::ConfigData</a>. During the build-phase this information is mutable and is available through the <code>Module::Build::config_data</code> method. As the build-phase ends the data is serialized and stored as <code>Alien::MyModule::ConfigData</code> (assuming you are authoring <code>Alien::MyModule</code>). Then during the use-phase, the <code>Alien::MyModule::ConfigData::config</code> method (via the <code>Alien::MyModule::config</code> wrapper) is used to query the information. This data is not strictly immutable, but it changing it involves file permissions and is best left alone.</p>
+
+<p>Config keys of interest are:</p>
+
+<dl>
+<dt><a name="name"
+>name</a></dt>
+
+<dd>
+<p>Holder for <code>alien_name</code> as needed by pkg-config.</p>
+
+<dt><a name="install_type"
+>install_type</a></dt>
+
+<dd>
+<p>Remembers if the library was found system-wide (value: <code>system</code>) or was installed during build (value: <code>share</code>).</p>
+
+<dt><a name="pkgconfig"
+>pkgconfig</a></dt>
+
+<dd>
+<p>A hashref of Alien::Base::PkgConfig objects created from <em>.pc</em> files found in <code>working_directory</code>. One extra object (whose key is <code>_manual</code> is created from the <code>alien_provides_*</code> information.</p>
+
+<dt><a name="version"
+>version</a></dt>
+
+<dd>
+<p>The version number installed or available.</p>
+
+<dt><a name="working_directory"
+>working_directory</a></dt>
+
+<dd>
+<p>Holder for the full path to the extracted source of the library. This is used to munge the pkg-config data later on.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="COMMAND_INTERPOLATION"
+>COMMAND INTERPOLATION</a></h2>
+
+<p>Before <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> executes system commands, it replaces a few special escape sequences with useful data. This is needed especially for referencing the full path to the <code>alien_share_dir</code> before this path is known. The available sequences are:</p>
+
+<dl>
+<dt><a name="%{helper}"
+>%{<i>helper</i>}</a></dt>
+
+<dd>
+<p>[version 0.020]</p>
+
+<p>Call the given helper, either provided by the <code>alien_helper</code> or <code>alien_bin_requires</code> property. See <a href="https://metacpan.org/pod/Alien%3A%3ABase%23alien_helper" class="podlinkpod"
+>Alien::Base#alien_helper</a>.</p>
+
+<dt><a name="%c"
+>%c</a></dt>
+
+<dd>
+<p>Platform independent incantation for running autoconf <code>configure</code> script. On *nix systems this is <code>./configure</code>, on Windows this is <code>sh configure</code>. On windows <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a> is injected as a dependency and all commands are executed in an <code>MSYS</code> environment.</p>
+
+<dt><a name="%n"
+>%n</a></dt>
+
+<dd>
+<p>Shortcut for the name stored in <code>alien_name</code></p>
+
+<pre class="sh_perl"> pkg-config --modversion %n</pre>
+
+<dt><a name="%p"
+>%p</a></dt>
+
+<dd>
+<p><b>deprecated</b></p>
+
+<p>Platform independent &#34;local command prefix&#34;. On *nix systems this is <code>./</code>, on Windows it is an empty string.</p>
+
+<pre class="sh_perl"> %pconfigure</pre>
+
+<p>Please note that this only works to run scripts on Unix, and does not work on Windows. It is thus, not fit for purpose and should not be used. As an alternative:</p>
+
+<dl>
+<dt><a name="autoconf_&#34;configure&#34;"
+>autoconf &#34;configure&#34;</a></dt>
+
+<dd>
+<p>If you are trying to invoke the autoconf configure script, use <code>%c</code> instead. This will use the correct incantation on either Unix like systems and on Windows.</p>
+
+<dt><a name="Some_other_script"
+>Some other script</a></dt>
+
+<dd>
+<p>Invoke the interpreter directly. For example, if you have a Python script use <code>python foo.py</code>, if you have a Perl script use &#34;%X foo.pl&#34;, if you have an sh script use &#34;sh foo.sh&#34;. These are all portable. For sh, be sure to set the <code>alien_msys</code> property so that it will work on Windows.</p>
+</dd>
+</dl>
+
+<dt><a name="%s"
+>%s</a></dt>
+
+<dd>
+<p>The full path to the installed location of the the share directory (builder method <code>alien_library_destination</code>). This is where the library should install itself; for autoconf style installs this will look like</p>
+
+<pre class="sh_perl"> --prefix=%s</pre>
+
+<p>This will be the local blib directory location if <code>alien_stage_install</code> is true (which is the default as of 0.17. This will be the final install location if <code>alien_stage_install</code> is false (which was the default prior to 0.17). Please see the documentation above on <code>alien_stage_install</code> which includes some caveats before you consider changing this option.</p>
+
+<dt><a name="%v"
+>%v</a></dt>
+
+<dd>
+<p>Captured version of the original archive.</p>
+
+<dt><a name="%x"
+>%x</a></dt>
+
+<dd>
+<p>The current Perl interpreter (aka $^X)</p>
+
+<dt><a name="%X"
+>%X</a></dt>
+
+<dd>
+<p>[version 0.027]</p>
+
+<p>The current Perl interpreter using the Unix style path separator <code>/</code> instead of the native Windows <code>\</code>.</p>
+
+<dt><a name="%%"
+>%%</a></dt>
+
+<dd>
+<p>A literal <code>%</code>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<ul>
+<li><a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AAPI" class="podlinkpod"
+>Module::Build::API</a></li>
+</ul>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Original author: Joel A Berger &#60;joel.a.berger@gmail.com&#62;</p>
+
+<p>Current maintainer: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Graham Ollis (plicease)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk2</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Petr Pisar (ppisar)</p>
+
+<p>Alberto Sim&#245;es (ambs)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2012-2020 by Joel A Berger.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

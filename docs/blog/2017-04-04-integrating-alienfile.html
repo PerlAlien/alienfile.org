@@ -87,15 +87,15 @@ though it is used in the <code>Makefile.PL</code> because that is one of the pre
 addedin by <code>mm_arg</code>.</p>
 
 <p>As mentioned earlier, alienfile is not tied to any one Perl installer, so if you prefer you 
-can use <a href="https://metacpan.org/pod/Module::Build" class="module">Module::Build</a> via <a href="https://metacpan.org/pod/Alien::Build::MB" class="module">Alien::Build::MB</a>.  I personally do not recommend this.  It 
-just adds extra prerequisite to your Alien.  The sole reason I wrote <a href="https://metacpan.org/pod/Alien::Build::MB" class="module">Alien::Build::MB</a> was to 
+can use <a href="https://metacpan.org/pod/Module::Build" class="module">Module::Build</a> via <a href="/pod/Alien/Build/MB.html" class="module">Alien::Build::MB</a>.  I personally do not recommend this.  It 
+just adds extra prerequisite to your Alien.  The sole reason I wrote <a href="/pod/Alien/Build/MB.html" class="module">Alien::Build::MB</a> was to 
 act as a proof of concept that: yes <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> can be used with any installer 
 that meets its requirements.  Including hopefully future installers that are more capable 
 than EUMM.  (<a href="https://metacpan.org/pod/Module::Build::Tiny" class="module">Module::Build::Tiny</a> will likely never be supported, as it is useful for a 
 different subset of things).</p>
 
 <p>If (like me) you do not like mucking about in <code>Makefile.PL</code> or <code>Build.PL</code> files you can 
-instead use the <a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="https://metacpan.org/pod/Dist::Zilla::Plugin::AlienBuild" class="module">Dist::Zilla::Plugin::AlienBuild</a>.</p>
+instead use the <a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="module">Dist::Zilla::Plugin::AlienBuild</a>.</p>
 
 <pre class="ini">
 [MakeMaker]
@@ -123,7 +123,7 @@ you need.  The only thing missing here really, (and I do not reproduce it here f
 of brevity) is documentation.  You should provide your users with enough information in the 
 form of POD to be able to use this module!  (See <a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a> for clues 
 as to what should be included).  If you are lazy like me, you will want to use the 
-<a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="https://metacpan.org/pod/Dist::Zilla::Plugin::AlienBase::Doc" class="module">Dist::Zilla::Plugin::AlienBase::Doc</a> to generate synopsis and 
+<a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="/pod/Dist/Zilla/Plugin/AlienBase/Doc.html" class="module">Dist::Zilla::Plugin::AlienBase::Doc</a> to generate synopsis and 
 description.</p>
 
 <p>You should of course also provide other common distribution files, such as a <code>MANIFEST</code> and a 

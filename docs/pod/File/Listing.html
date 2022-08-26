@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>File::Listing</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> File::Listing</div>
+    <!--File::Listing--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#FUNCTIONS'>FUNCTIONS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#parse_dir'>parse_dir</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>File::Listing - Parse directory listing</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 6.15</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use File::Listing qw(parse_dir);
+ $ENV{LANG} = &#34;C&#34;;  # dates in non-English locales not supported
+ foreach my $file (parse_dir(`ls -l`)) {
+     my ($name, $type, $size, $mtime, $mode) = @$file;
+     next if $type ne &#39;f&#39;; # plain file
+     #...
+ }
+ 
+ # directory listing can also be read from a file
+ open my $listing, &#34;zcat ls-lR.gz|&#34;;
+ $dir = parse_dir($listing, &#39;+0000&#39;);</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module exports a single function called <code>parse_dir</code>, which can be used to parse directory listings.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="FUNCTIONS"
+>FUNCTIONS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="parse_dir"
+>parse_dir</a></h2>
+
+<pre class="sh_perl"> my $dir = parse_dir( $listing );
+ my $dir = parse_dir( $listing, $time_zone );
+ my $dir = parse_dir( $listing, $time_zone, $type );
+ my $dir = parse_dir( $listing, $time_zone, $type, $error );
+ my @files = parse_dir( $listing );
+ my @files = parse_dir( $listing, $time_zone );
+ my @files = parse_dir( $listing, $time_zone, $type );
+ my @files = parse_dir( $listing, $time_zone, $type, $error );</pre>
+
+<p>The first parameter (<code>$listing</code>) is the directory listing to parse. It can be a scalar, a reference to an array of directory lines or a glob representing a filehandle to read the directory listing from.</p>
+
+<p>The second parameter (<code>$time_zone</code>) is the time zone to use when parsing time stamps in the listing. If this value is undefined, then the local time zone is assumed.</p>
+
+<p>The third parameter (<code>$type</code>) is the type of listing to assume. Currently supported formats are <code>&#39;unix&#39;</code>, <code>&#39;apache&#39;</code> and <code>&#39;dosftp&#39;</code>. The default value is <code>&#39;unix&#39;</code>. Ideally, the listing type should be determined automatically.</p>
+
+<p>The fourth parameter (<code>$error</code>) specifies how unparseable lines should be treated. Values can be <code>&#39;ignore&#39;</code>, <code>&#39;warn&#39;</code> or a code reference. Warn means that the perl warn() function will be called. If a code reference is passed, then this routine will be called and the return value from it will be incorporated in the listing. The default is <code>&#39;ignore&#39;</code>.</p>
+
+<p>Only the first parameter is mandatory.</p>
+
+<pre class="sh_perl"> # list context
+ foreach my $file (parse_dir($listing)) {
+     my($name, $type, $size, $mtime, $mode) = @$file;
+ }
+ 
+ # scalar context
+ my $dir = parse_dir($listing);
+ foreach my $file (@$dir) {
+     my($name, $type, $size, $mtime, $mode) = @$file;
+ }</pre>
+
+<p>The return value from parse_dir() is a list of directory entries. In a scalar context the return value is a reference to the list. The directory entries are represented by an array consisting of:</p>
+
+<dl>
+<dt><a name="name"
+>name</a></dt>
+
+<dd>
+<p>The name of the file.</p>
+
+<dt><a name="type"
+>type</a></dt>
+
+<dd>
+<p>One of: <code>f</code> file, <code>d</code> directory, <code>l</code> symlink, <code>?</code> unknown.</p>
+
+<dt><a name="size"
+>size</a></dt>
+
+<dd>
+<p>The size of the file.</p>
+
+<dt><a name="time"
+>time</a></dt>
+
+<dd>
+<p>The number of seconds since January 1, 1970.</p>
+
+<dt><a name="mode"
+>mode</a></dt>
+
+<dd>
+<p>Bitmask a la the mode returned by <code>stat</code>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="File::Listing::Ftpcopy"
+><a href="https://metacpan.org/pod/File%3A%3AListing%3A%3AFtpcopy" class="podlinkpod"
+>File::Listing::Ftpcopy</a></a></dt>
+
+<dd>
+<p>Provides the same interface but uses XS and the parser implementation from <code>ftpcopy</code>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Original author: Gisle Aas</p>
+
+<p>Current maintainer: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Adam Kennedy</p>
+
+<p>Adam Sjogren</p>
+
+<p>Alex Kapranoff</p>
+
+<p>Alexey Tourbin</p>
+
+<p>Andreas J. Koenig</p>
+
+<p>Bill Mann</p>
+
+<p>Bron Gondwana</p>
+
+<p>DAVIDRW</p>
+
+<p>Daniel Hedlund</p>
+
+<p>David E. Wheeler</p>
+
+<p>David Steinbrunner</p>
+
+<p>Erik Esterer</p>
+
+<p>FWILES</p>
+
+<p>Father Chrysostomos</p>
+
+<p>Gavin Peters</p>
+
+<p>Graeme Thompson</p>
+
+<p>Hans-H. Froehlich</p>
+
+<p>Ian Kilgore</p>
+
+<p>Jacob J</p>
+
+<p>Mark Stosberg</p>
+
+<p>Mike Schilli</p>
+
+<p>Ondrej Hanak</p>
+
+<p>Peter John Acklam</p>
+
+<p>Peter Rabbitson</p>
+
+<p>Robert Stone</p>
+
+<p>Rolf Grossmann</p>
+
+<p>Sean M. Burke</p>
+
+<p>Simon Legner</p>
+
+<p>Slaven Rezic</p>
+
+<p>Spiros Denaxas</p>
+
+<p>Steve Hay</p>
+
+<p>Todd Lipcon</p>
+
+<p>Tom Hukins</p>
+
+<p>Tony Finch</p>
+
+<p>Toru Yamaguchi</p>
+
+<p>Ville Skytt&#228;</p>
+
+<p>Yuri Karaban</p>
+
+<p>Zefram</p>
+
+<p>amire80</p>
+
+<p>jefflee</p>
+
+<p>john9art</p>
+
+<p>mschilli</p>
+
+<p>murphy</p>
+
+<p>phrstbrn</p>
+
+<p>ruff</p>
+
+<p>sasao</p>
+
+<p>uid39246</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 1996-2020 by Gisle Aas.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

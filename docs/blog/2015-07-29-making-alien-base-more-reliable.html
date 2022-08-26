@@ -39,7 +39,7 @@ had MSYS, <code>%pconfigure</code> won’t correctly invoke configure on Windows
 because that isn’t how you run a shell script on Windows.  So back in 
 version 0.005 we added the <code>%c</code> directive to mean “run configure however 
 that works on this platform”.  If AB sees that you are using <code>%c</code> it 
-will also make sure that <a href="https://metacpan.org/pod/Alien::MSYS" class="module">Alien::MSYS</a> gets added as a build 
+will also make sure that <a href="/pod/Alien/MSYS.html" class="module">Alien::MSYS</a> gets added as a build 
 requirement, if it is needed.  In many cases, adding Windows support for 
 your AB based Alien distribution may be as simple replacing 
 <code>%pconfigure</code> with <code>%c</code> and making AB 0.005 a prerequisite.</p>

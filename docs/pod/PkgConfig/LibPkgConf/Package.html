@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PkgConfig::LibPkgConf::Package</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> PkgConfig::<a href="/pod/PkgConfig/LibPkgConf.html">LibPkgConf</a>::Package</div>
+    <!--PkgConfig::LibPkgConf::Package--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#ATTRIBUTES'>ATTRIBUTES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#refcount'>refcount</a>
+    <li class='indexItem indexItem2'><a href='#id'>id</a>
+    <li class='indexItem indexItem2'><a href='#filename'>filename</a>
+    <li class='indexItem indexItem2'><a href='#realname'>realname</a>
+    <li class='indexItem indexItem2'><a href='#version'>version</a>
+    <li class='indexItem indexItem2'><a href='#description'>description</a>
+    <li class='indexItem indexItem2'><a href='#url'>url</a>
+    <li class='indexItem indexItem2'><a href='#pc_filedir'>pc_filedir</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#libs'>libs</a>
+    <li class='indexItem indexItem2'><a href='#libs_static'>libs_static</a>
+    <li class='indexItem indexItem2'><a href='#cflags'>cflags</a>
+    <li class='indexItem indexItem2'><a href='#cflags_static'>cflags_static</a>
+    <li class='indexItem indexItem2'><a href='#list_libs'>list_libs</a>
+    <li class='indexItem indexItem2'><a href='#list_libs_static'>list_libs_static</a>
+    <li class='indexItem indexItem2'><a href='#list_cflags'>list_cflags</a>
+    <li class='indexItem indexItem2'><a href='#list_cflags_static'>list_cflags_static</a>
+    <li class='indexItem indexItem2'><a href='#variable'>variable</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SUPPORT'>SUPPORT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>PkgConfig::LibPkgConf::Package - Represents a package</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use PkgConfig::LibPkgConf::Client;
+ 
+ my $client = PkgConfig::LibPkgConf::Client-&#62;new;
+ $client-&#62;env;
+ 
+ my $pkg = $client-&#62;find(&#39;libarchive&#39;);
+ 
+ # use with system in scalar form:
+ my $cflags = $pkg-&#62;cflags;
+ my $libs = $pkg-&#62;libs;
+ system &#34;$cc $cflags foo.c&#34;;
+ system &#34;$cc -o foo foo.o $libs&#34;;
+ 
+ # use with system in list form:
+ my @cflags = $pkg-&#62;list_cflags;
+ my @libs   = $pkg-&#62;list_libs;
+ system $cc, @cflags, &#39;foo.c&#39;;
+ system $cc, -p =&#62; &#39;foo&#39;, &#39;foo.o&#39;, @libs;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>The <a href="/pod/PkgConfig/LibPkgConf/Package.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Package</a> object stores package information. Part of the package information is the compiler and linker flags. This can be fetched as strings with <code>cflags</code> and <code>libs</code> and as a list with <code>list_cflags</code> and <code>list_libs</code>. In the string form, escapes are retained, but in list form the white space escapes are converted into spaces. That means if you are using the string form of <code>system</code>/<code>exec</code> you should use the string accessors, and if you are using the list form of <code>system</code>/<code>exec</code> you should use the list accessors.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ATTRIBUTES"
+>ATTRIBUTES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="refcount"
+>refcount</a></h2>
+
+<p>Internal reference count used by <code>pkgconf</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="id"
+>id</a></h2>
+
+<p>The id of the package.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="filename"
+>filename</a></h2>
+
+<p>The filename of the <code>.pc</code> file.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="realname"
+>realname</a></h2>
+
+<p>The real name for the package.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="version"
+>version</a></h2>
+
+<p>The version of the package.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="description"
+>description</a></h2>
+
+<p>Description of the package.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="url"
+>url</a></h2>
+
+<p>URL for the package.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pc_filedir"
+>pc_filedir</a></h2>
+
+<p>TODO</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libs"
+>libs</a></h2>
+
+<p>Library flags. This usually includes things like <code>-L/foo/lib</code> and <code>-lfoo</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libs_static"
+>libs_static</a></h2>
+
+<p>Static library flags.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cflags"
+>cflags</a></h2>
+
+<p>Compiler flags. This usually includes things like <code>-I/foo/include</code> and <code>-DFOO=1</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cflags_static"
+>cflags_static</a></h2>
+
+<p>Static compiler flags.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="list_libs"
+>list_libs</a></h2>
+
+<pre class="sh_perl"> my @fragments = $package-&#62;list_libs;</pre>
+
+<p>Library flags as a list of fragments <a href="/pod/PkgConfig/LibPkgConf/Fragment.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Fragment</a>. This is similar to the <code>libs</code> method above, but since it returns a list instead of a single string, it can be used to filter for specific flags. For example:</p>
+
+<pre class="sh_perl"> # equivalent to pkgconf --libs-only-L
+ my @lib_dirs = grep { $_-&#62;type eq &#39;L&#39; } $package-&#62;list_libs;
+ # equivalent to pkgconf --libs-only-l
+ my @libs = grep { $_-&#62;type eq &#39;l&#39; } $package-&#62;list_libs;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="list_libs_static"
+>list_libs_static</a></h2>
+
+<pre class="sh_perl"> my @fragments = $package-&#62;list_libs_static;</pre>
+
+<p>Similar to <code>list_libs</code>, but for the static libs flags.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="list_cflags"
+>list_cflags</a></h2>
+
+<pre class="sh_perl"> my @fragments = $package-&#62;list_cflags;</pre>
+
+<p>Compiler flags as a list of fragments <a href="/pod/PkgConfig/LibPkgConf/Fragment.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Fragment</a>. This is similar to the <code>cflags</code> method above, but since it returns a list instead of a single string, it can be used to filter for specific flags. For example:</p>
+
+<pre class="sh_perl"> # equivalent to pkgconf --cflags-only-I
+ my @include_dirs = grep { $_-&#62;type eq &#39;I&#39; } $package-&#62;list_cflags;
+ # equivalent to pkgconf --cflags-only-other
+ my @other_cflags = grep { $_-&#62;type ne &#39;I&#39; } $package-&#62;list_cflags;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="list_cflags_static"
+>list_cflags_static</a></h2>
+
+<pre class="sh_perl"> my @fragments = $package-&#62;list_cflags_static;</pre>
+
+<p>Similar to <code>list_cflags</code>, but for the static compiler flags.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="variable"
+>variable</a></h2>
+
+<pre class="sh_perl"> my $value = $package-&#62;variable($key);</pre>
+
+<p>Look up the value for the given variable. Returns the value if found, otherwise it will return undef (technically empty list).</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SUPPORT"
+>SUPPORT</a></h1>
+
+<p>IRC #native on irc.perl.org</p>
+
+<p>Project GitHub tracker:</p>
+
+<p><a href="https://github.com/plicease/PkgConfig-LibPkgConf/issues" class="podlinkurl"
+>https://github.com/plicease/PkgConfig-LibPkgConf/issues</a></p>
+
+<p>If you want to contribute, please open a pull request on GitHub:</p>
+
+<p><a href="https://github.com/plicease/PkgConfig-LibPkgConf/pulls" class="podlinkurl"
+>https://github.com/plicease/PkgConfig-LibPkgConf/pulls</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p>For additional related modules, see <a href="/pod/PkgConfig/LibPkgConf.html" class="podlinkpod"
+>PkgConfig::LibPkgConf</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis</p>
+
+<p>For additional contributors see <a href="/pod/PkgConfig/LibPkgConf.html" class="podlinkpod"
+>PkgConfig::LibPkgConf</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2016 Graham Ollis.</p>
+
+<p>This is free software; you may redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

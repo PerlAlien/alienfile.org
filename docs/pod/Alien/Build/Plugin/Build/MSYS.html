@@ -57,7 +57,7 @@ name="SYNOPSIS"
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This plugin sets up the MSYS environment for your build on Windows. It does not do anything on non-windows platforms. MSYS provides the essential tools for building software that is normally expected in a UNIX or POSIX environment. This like <code>sh</code>, <code>awk</code> and <code>make</code>. To provide MSYS, this plugin uses <a href="https://metacpan.org/pod/Alien%3A%3AMSYS" class="podlinkpod"
+<p>This plugin sets up the MSYS environment for your build on Windows. It does not do anything on non-windows platforms. MSYS provides the essential tools for building software that is normally expected in a UNIX or POSIX environment. This like <code>sh</code>, <code>awk</code> and <code>make</code>. To provide MSYS, this plugin uses <a href="/pod/Alien/MSYS.html" class="podlinkpod"
 >Alien::MSYS</a>.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -68,8 +68,8 @@ name="PROPERTIES"
 name="msys_version"
 >msys_version</a></h2>
 
-<p>The version of <a href="https://metacpan.org/pod/Alien%3A%3AMSYS" class="podlinkpod"
->Alien::MSYS</a> required if it is deemed necessary. If <a href="https://metacpan.org/pod/Alien%3A%3AMSYS" class="podlinkpod"
+<p>The version of <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a> required if it is deemed necessary. If <a href="/pod/Alien/MSYS.html" class="podlinkpod"
 >Alien::MSYS</a> isn&#39;t needed (if running under Unix, or MSYS2, for example) this will do nothing.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -82,7 +82,7 @@ name="make"
 
 <pre class="sh_perl"> %{make}</pre>
 
-<p>On windows the default <code>%{make}</code> helper is replace with the make that comes with <a href="https://metacpan.org/pod/Alien%3A%3AMSYS" class="podlinkpod"
+<p>On windows the default <code>%{make}</code> helper is replace with the make that comes with <a href="/pod/Alien/MSYS.html" class="podlinkpod"
 >Alien::MSYS</a>. This is almost certainly what you want, as most unix style make projects will not build with <code>nmake</code> or <code>dmake</code> typically used by Perl on Windows.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

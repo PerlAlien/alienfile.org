@@ -146,10 +146,10 @@ name="autoconf_without_configure_script"
 >build configure using autotools</a></dt>
 
 <dd>
-<p>The Alien <a href="https://metacpan.org/pod/Alien%3A%3AAutotools" class="podlinkpod"
+<p>The Alien <a href="/pod/Alien/Autotools.html" class="podlinkpod"
 >Alien::Autotools</a> is designed to provide autotools for building such packages from source. The advantage is that this is how the upstream developers intend on having their package built. The downside is that it is also adds more prereqs to your Alien. The silver lining is that if you require this Alien in the <code>share</code> block (as you should), then these prereqs will only be pulled in during a share install when they are needed.</p>
 
-<p>Please see the <a href="https://metacpan.org/pod/Alien%3A%3AAutotools" class="podlinkpod"
+<p>Please see the <a href="/pod/Alien/Autotools.html" class="podlinkpod"
 >Alien::Autotools</a> documentation for specifics on how it can be used in your <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a>.</p>
 
@@ -199,10 +199,10 @@ name="autoconf-like"
 name="CMake"
 >CMake</a></h3>
 
-<p>There is an alien <a href="https://metacpan.org/pod/Alien%3A%3Acmake3" class="podlinkpod"
+<p>There is an alien <a href="/pod/Alien/cmake3.html" class="podlinkpod"
 >Alien::cmake3</a> that provides <code>cmake</code> 3.x or better (It is preferred to the older <a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
 >Alien::CMake</a>). Though it is recommended that you use the <code>cmake</code> (<a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="podlinkpod"
->Alien::Build::Plugin::Build::CMake</a>) plugin instead of using <a href="https://metacpan.org/pod/Alien%3A%3Acmake3" class="podlinkpod"
+>Alien::Build::Plugin::Build::CMake</a>) plugin instead of using <a href="/pod/Alien/cmake3.html" class="podlinkpod"
 >Alien::cmake3</a>.</p>
 
 <pre class="sh_perl"> use alienfile;
@@ -243,7 +243,7 @@ name="vanilla_Makefiles"
    ],
  };</pre>
 
-<p>Some open source projects require GNU Make, and you can specify that, and <a href="https://metacpan.org/pod/Alien%3A%3Agmake" class="podlinkpod"
+<p>Some open source projects require GNU Make, and you can specify that, and <a href="/pod/Alien/gmake.html" class="podlinkpod"
 >Alien::gmake</a> will be pulled in on platforms that do not already have it.</p>
 
 <pre class="sh_perl"> plugin &#39;Build::Make&#39; =&#62; &#39;gmake&#39;;
@@ -358,7 +358,7 @@ name="Can/Should_I_write_a_tool_oriented_Alien_module?"
 >Can/Should I write a tool oriented Alien module?</a></h2>
 
 <p>Certainly. The original intent was to provide libraries, but tools are also quite doable using the <a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a> toolset. A good example of how to do this is <a href="https://metacpan.org/pod/Alien%3A%3Anasm" class="podlinkpod"
+>Alien::Build</a> toolset. A good example of how to do this is <a href="/pod/Alien/nasm.html" class="podlinkpod"
 >Alien::nasm</a>. You will want to use the &#39;Probe::CommandLine&#39;:</p>
 
 <pre class="sh_perl"> use alienfile;
@@ -466,7 +466,7 @@ name="&#34;cannot_open_shared_object_file&#34;_trying_to_load_XS"
 
 <p>This is usually because your XS or Alien tries to use dynamic libraries instead of static ones. Please consult the section about dynamic vs. static libraries in <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
 >Alien::Build::Manual::AlienAuthor</a>. The TL;DR is that <a href="/pod/Alien/Build/Plugin/Gather/IsolateDynamic.html" class="podlinkpod"
->Alien::Build::Plugin::Gather::IsolateDynamic</a> might help. If you are the Alien author and the package you are alienizing doesn&#39;t have a static option you can use <a href="https://metacpan.org/pod/Alien%3A%3ARole%3A%3ADino" class="podlinkpod"
+>Alien::Build::Plugin::Gather::IsolateDynamic</a> might help. If you are the Alien author and the package you are alienizing doesn&#39;t have a static option you can use <a href="/pod/Alien/Role/Dino.html" class="podlinkpod"
 >Alien::Role::Dino</a>, but please note the extended set of caveats!</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -548,7 +548,7 @@ name="How_do_I_use_Alien::Build_from_Dist::Zilla?"
 <p>For creating <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> based dist from <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
->Dist::Zilla</a> you can use the dzil plugin <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AAlienBuild" class="podlinkpod"
+>Dist::Zilla</a> you can use the dzil plugin <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
 >Dist::Zilla::Plugin::AlienBuild</a>.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -563,7 +563,7 @@ name="Cannot_find_either_a_share_directory_or_a_ConfigData_module"
  Can&#39;t locate Alien/libfoo/ConfigData.pm in @INC (you may need to install the Alien::libfoo::ConfigData module) (@INC contains: ...)</pre>
 
 <p>it means you are trying to use an Alien that hasn&#39;t been properly installed. An <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> based Alien needs to have either the share directory build during the install process or for older legacy <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Base</a> based Alien needs to have either the share directory build during the install process or for older legacy <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> based Aliens, a ConfigData module generated by <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a>.</p>
 

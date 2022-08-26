@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Env::ShellWords</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> Env::ShellWords</div>
+    <!--Env::ShellWords--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Env::ShellWords - Environment variables for arguments as array</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.02</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> # Tie Interface
+ use Env::ShellWords;
+ tie my @CFLAGS,  &#39;Env::ShellWords&#39;, &#39;CFLAGS&#39;;
+ tie my @LDFLAGS, &#39;Env::ShellWords&#39;, &#39;LDFLAGS&#39;;
+
+ # same thing with import interface:
+ use Env::ShellWords qw( @CFLAGS @LDFLAGS );
+
+ # usage:
+ $ENV{CFLAGS} = &#39;-DBAR=1&#39;;
+ unshift @CFLAGS, &#39;-I/foo/include&#39;;
+ push @CFLAGS, &#39;-DFOO=Define With Spaces&#39;;
+ 
+ # now:
+ # $ENV{CFLAGS} = &#39;-I/foo/include -DBAR=1 -DFOO=Define\\ With\\ Spaces&#39;;
+ 
+ unshift @LDFLAGS, &#39;-L/foo/lib&#39;;
+ push @LDFLAGS, &#39;-lfoo&#39;;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module provides an array like interface to environment variables that contain flags. For example Autoconf can uses the environment variables like <code>CFLAGS</code> or <code>LDFLAGS</code>, and this allows you to manipulate those variables without doing space quoting and other messy mucky stuff.</p>
+
+<p>The intent is to use this from <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> to deal with hierarchical prerequisites.</p>
+
+<p>You can provide split and join callbacks when you tie:</p>
+
+<pre class="sh_perl"> use Env::ShellWords;
+ # split on any space, ignore quotes
+ tie my @FOO, &#39;Env::ShellWords&#39;,
+   sub { split /\s+/, $_[0] },
+   sub { join &#39; &#39;, @_ };</pre>
+
+<p>Which may be useful if you have to split on words on an operating system with a different specification.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>Not especially fast. <code>undef</code> gets mapped to the empty string <code>&#39;&#39;</code> since <code>undef</code> doesn&#39;t have a meaning as an argument in a string.</p>
+
+<p>Writing to an environment variable using this interface is inherently lossy.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p><a href="https://metacpan.org/pod/Env" class="podlinkpod"
+>Env</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::GSL</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::GSL</div>
+    <!--Alien::GSL--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#COMPATIBILITY'>COMPATIBILITY</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#SOURCE_REPOSITORY'>SOURCE REPOSITORY</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::GSL - Easy installation of the GSL library</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl">  # Build.PL
+  use Alien::GSL;
+  use Module::Build 0.28; # need at least 0.28
+
+  my $builder = Module::Build-&#62;new(
+    configure_requires =&#62; {
+      &#39;Alien::GSL&#39; =&#62; &#39;1.00&#39;, # first Alien::Base-based release
+    },
+    ...
+    extra_compiler_flags =&#62; Alien::GSL-&#62;cflags,
+    extra_linker_flags   =&#62; Alien::GSL-&#62;libs,
+    ...
+  );
+
+  $builder-&#62;create_build_script;
+
+
+  # lib/MyLibrary/GSL.pm
+  package MyLibrary::GSL;
+
+  use Alien::GSL; # dynaload gsl
+
+  ...</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>Provides the Gnu Scientific Library (GSL) for use by Perl modules, installing it if necessary. This module relies heavily on the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> system to do so. To avoid documentation skew, the author asks the reader to learn about the capabilities provided by that module rather than repeating them here.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COMPATIBILITY"
+>COMPATIBILITY</a></h1>
+
+<p>Since version 1.00, <a href="/pod/Alien/GSL.html" class="podlinkpod"
+>Alien::GSL</a> relies on <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Releases before that version warned about alpha stability and therefore no compatibility has been provided. There were no reverse dependencies on CPAN at the time of the change.</p>
+
+<p>From version 1.00, compability is provided by the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> project itself which is quite concerned about keeping stability. Future versions are expected to maintain compatibilty and failure to do so is to be considered a bug. Of course this does not apply to the GSL library itself, though the author expects that the GNU project will provide the compatibility guarantees for that library as well.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<ul>
+<li><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></li>
+
+<li><a href="https://metacpan.org/pod/PDL%3A%3AModules#GNU_SCIENTIFIC_LIBRARY" class="podlinkpod"
+>&#34;GNU SCIENTIFIC LIBRARY&#34; in PDL::Modules</a></li>
+
+<li><a href="https://metacpan.org/pod/PerlGSL" class="podlinkpod"
+>PerlGSL</a></li>
+
+<li><a href="https://metacpan.org/pod/Math%3A%3AGSL" class="podlinkpod"
+>Math::GSL</a></li>
+</ul>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SOURCE_REPOSITORY"
+>SOURCE REPOSITORY</a></h1>
+
+<p><a href="https://github.com/PerlAlien/Alien-GSL" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-GSL</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Joel Berger, &#60;joel.a.berger@gmail.com&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>Copyright (C) 2011-2015 by Joel Berger</p>
+
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

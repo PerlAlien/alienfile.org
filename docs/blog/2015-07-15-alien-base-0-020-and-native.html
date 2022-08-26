@@ -48,12 +48,12 @@ Things that are doable, but present their own set of challenges include
 CMake, autoconf-like, and vanilla makefiles.  I’ve done my best to 
 illustrate the techniques to work with these technologies, usually only 
 a few lines of code need to be added to your <tt>Build.PL</tt>.  I wrote 
-<a href="https://metacpan.org/pod/Alien::Libbz2" class="module">Alien::Libbz2</a> while I was working on the FAQ to serve as a working 
+<a href="/pod/Alien/Libbz2.html" class="module">Alien::Libbz2</a> while I was working on the FAQ to serve as a working 
 example of a non-autoconf / non-pkg-config package, and also to verify 
 the techniques are correct.</p>
 
-<p>For those who use Dist::Zilla, I used <a href="https://metacpan.org/pod/Dist::Zilla::Plugin::Alien" class="module">Dist::Zilla::Plugin::Alien</a> when 
-writing <a href="https://metacpan.org/pod/Alien::Libbz2" class="module">Alien::Libbz2</a>, so it serves as a good example of how to 
+<p>For those who use Dist::Zilla, I used <a href="/pod/Dist/Zilla/Plugin/Alien.html" class="module">Dist::Zilla::Plugin::Alien</a> when 
+writing <a href="/pod/Alien/Libbz2.html" class="module">Alien::Libbz2</a>, so it serves as a good example of how to 
 bridge the worlds of Dist::Zilla and Alien.  While working on this, I 
 worked with Zakariyya Mughal to drive development of the plugin itself. <br />
 The plugin is now up to date once again feature wise with 
@@ -94,7 +94,7 @@ Alien::Base::ModuleBuild-&gt;new(
 typically fail on FreeBSD or OS X where the GNU version is usually 
 either gmake, or just not provided.  The core module Config comes with a 
 guess as to the correct name of GNU make, but I recommend not using it 
-as it is frequently wrong.  Instead you can use <a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a>, which 
+as it is frequently wrong.  Instead you can use <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a>, which 
 is itself an alien module that will detect a locally installed GNU make, 
 or build and install it for you.</p>
 
@@ -123,9 +123,9 @@ Unfortunately a code reference cannot be used, because of the
 limitations of Module::Build.</p>
 
 <p>Because makefile compatibility is a persistent problem with some 
-packages, <a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a> provides its own <tt>%{gmake}</tt> helper, 
+packages, <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> provides its own <tt>%{gmake}</tt> helper, 
 which you can use so long as you require a recent enough 
-<a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a>.</p>
+<a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a>.</p>
 
 <p><pre class="sh_perl">use Alien::Base::ModuleBuild;
 Alien::Base::ModuleBuild-&gt;new(
@@ -144,9 +144,9 @@ Alien::Base::ModuleBuild-&gt;new(
 </pre></p>
 
 <p>Prior to <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> 0.020 in order to include this sort of logic you 
-would have to use <a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a> in your <tt>Build.PL</tt>, which would 
+would have to use <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> in your <tt>Build.PL</tt>, which would 
 make it a configure_requires requirement.  This is undesirable, because 
-you won’t need <a href="https://metacpan.org/pod/Alien::gmake" class="module">Alien::gmake</a> if you are using the system version of a 
+you won’t need <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> if you are using the system version of a 
 library!  The <tt>alien_bin_requires</tt> are dynamic prerequisites that 
 are added only if you are building from source.</p>
 

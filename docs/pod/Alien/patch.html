@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::patch</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::patch</div>
+    <!--Alien::patch--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#exe'>exe</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#patch'>patch</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::patch - Find or build patch</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.15</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use Alien::patch ();
+ use Env qw( @PATH );
+ 
+ unshift @PATH, Alien::patch-&#62;bin_dir;
+ my $patch = Alien::patch-&#62;exe;
+ system &#34;$patch -p1 &#60; foo.patch&#34;;</pre>
+
+<p>Or in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>:</p>
+
+<pre class="sh_perl"> use alienfile;
+ ...
+ share {
+    ...
+    # Alien-Build knows to automatically pull in Alien::patch
+    # so you do not need to specify it as a prereq.
+    # The %{.install.patch} directory is a shortcut for the
+    # `patch&#39; directory in your dist, and gets copied into the
+    # dist share directory, so you can rebuild with `af&#39; after
+    # install.
+    patch [ &#39;%{patch} -p1 &#60; %{.install.patch}/mypatch.patch&#39; ];
+ };</pre>
+
+<p>Or with <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Build::ModuleBuild</a>:</p>
+
+<pre class="sh_perl"> use Alien::Base::ModuleBuild;
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_bin_requires =&#62; {
+     &#39;Alien::patch&#39; =&#62; &#39;0.08&#39;,
+   },
+   alien_build_commands =&#62; {
+     &#39;%{patch} -p1 &#60; foo.patch&#39;,
+   },
+   ...
+ )-&#62;create_build_script;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>Many environments provide the patch command, but a few do not. Using this module in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> (or elsewhere) you can make sure that patch will be available. If the system provides it, then great, this module is a no-op. If it does not, then it will download and install it into a private location so that it can be added to the <code>PATH</code> when this module is used.</p>
+
+<p>This class is a subclass of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, and works closely with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="exe"
+>exe</a></h2>
+
+<pre class="sh_perl"> my $exe = Alien::patch-&#62;exe;</pre>
+
+<p>Returns the command to run patch on your system. For now it simply adds the <code>--binary</code> option on Windows (<code>MSWin32</code> but not <code>cygwin</code>) which is usually what you want.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HELPERS"
+>HELPERS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="patch"
+>patch</a></h2>
+
+<pre class="sh_perl"> %{patch}</pre>
+
+<p>When used with <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> in a <code>alien_build_commands</code> or <code>alien_install_commands</code>, this helper will be replaced by either <code>patch</code> (Unix and cygwin) or <code>patch --binary</code> (MSWin32).</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+</dl>
+
+<p>1;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Zakariyya Mughal</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dist::Zilla::Plugin::AlienBase::Doc</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> Dist::Zilla::Plugin::AlienBase::Doc</div>
+    <!--Dist::Zilla::Plugin::AlienBase::Doc--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#ATTRIBUTES'>ATTRIBUTES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#class_name'>class_name</a>
+    <li class='indexItem indexItem2'><a href='#min_version'>min_version</a>
+    <li class='indexItem indexItem2'><a href='#type'>type</a>
+    <li class='indexItem indexItem2'><a href='#name'>name</a>
+    <li class='indexItem indexItem2'><a href='#see_also'>see_also</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Dist::Zilla::Plugin::AlienBase::Doc - Generate boilerplate documentation for Alien::Base subclass</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.32</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your dist.ini:</p>
+
+<pre class="sh_perl"> [AlienBase::Doc]
+ name = libfoo</pre>
+
+<p>In your Alien/Foo.pm:</p>
+
+<pre class="sh_perl"> package Alien::Foo;
+ 
+ use strict;
+ use warnings;
+ use base qw( Alien::Base );
+ 
+ # ALIEN SYNOPSIS
+ # ALIEN DESCRIPTION
+ # ALIEN SEE ALSO
+ 
+ 1;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This plugin generates some boiler plat documentation for your <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> module. It will find the special codes <code>ALIEN SYNOPSIS</code>, <code>ALIEN DESCRIPTION</code>, and <code>ALIEN SEE ALSO</code> and replace them with the appropriate boilerplate POD documentation for how to use the module. The generated synopsis and see also sections are probably good enough as is. The description is a little more basic, and you may want to write a more detailed description yourself. It is, at least, better than nothing though!</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ATTRIBUTES"
+>ATTRIBUTES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="class_name"
+>class_name</a></h2>
+
+<p>The name of the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> subclass. The default is based on the distribution&#39;s main module.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="min_version"
+>min_version</a></h2>
+
+<p>The minimum version to suggest using as a prereq.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="type"
+>type</a></h2>
+
+<p>Types of the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>. This can be specified multiple times. Valid types:</p>
+
+<dl>
+<dt><a name="library"
+>library</a></dt>
+
+<dd>
+<dt><a name="tool"
+>tool</a></dt>
+
+<dd>
+<dt><a name="ffi"
+>ffi</a></dt>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="name"
+>name</a></h2>
+
+<p>[required]</p>
+
+<p>The name of the alienized project. For example <code>libarchive</code> or <code>infozip</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="see_also"
+>see_also</a></h2>
+
+<p>List of modules to refer to in the <code>SEE ALSO</code> section. By default this is</p>
+
+<dl>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Manual::AlienUser"
+><a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This distribution provides {{ $name }} so that it can be used by other Perl distributions that are on CPAN. It does this by first trying to detect an existing install of {{ $name }} on your system. If found it will use that. If it cannot be found, the source code will be downloaded from the internet and it will be installed in a private share location for the use of other modules.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

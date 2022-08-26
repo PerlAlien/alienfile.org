@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PkgConfig::LibPkgConf::Client</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> PkgConfig::<a href="/pod/PkgConfig/LibPkgConf.html">LibPkgConf</a>::Client</div>
+    <!--PkgConfig::LibPkgConf::Client--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CONSTRUCTOR'>CONSTRUCTOR</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#new'>new</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#ATTRIBUTES'>ATTRIBUTES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#path'>path</a>
+    <li class='indexItem indexItem2'><a href='#filter_lib_dirs'>filter_lib_dirs</a>
+    <li class='indexItem indexItem2'><a href='#filter_include_dirs'>filter_include_dirs</a>
+    <li class='indexItem indexItem2'><a href='#sysroot_dir'>sysroot_dir</a>
+    <li class='indexItem indexItem2'><a href='#buildroot_dir'>buildroot_dir</a>
+    <li class='indexItem indexItem2'><a href='#maxdepth'>maxdepth</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#env'>env</a>
+    <li class='indexItem indexItem2'><a href='#find'>find</a>
+    <li class='indexItem indexItem2'><a href='#package_from_file'>package_from_file</a>
+    <li class='indexItem indexItem2'><a href='#scan_all'>scan_all</a>
+    <li class='indexItem indexItem2'><a href='#global'>global</a>
+    <li class='indexItem indexItem2'><a href='#error'>error</a>
+    <li class='indexItem indexItem2'><a href='#audit_set_log'>audit_set_log</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SUPPORT'>SUPPORT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>PkgConfig::LibPkgConf::Client - Query installed libraries for compiling and linking software</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use PkgConfig::LibPkgConf::Client;
+ 
+ my $client = PkgConfig::LibPkgConf::Client-&#62;new;
+ $client-&#62;env;
+ 
+ my $pkg = $client-&#62;find(&#39;libarchive&#39;);
+ my $cflags = $pkg-&#62;cflags;
+ my $libs = $pkg-&#62;libs;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>The <a href="/pod/PkgConfig/LibPkgConf/Client.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Client</a> objects store all necessary state for <code>libpkgconf</code> allowing for multiple instances to run in parallel.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CONSTRUCTOR"
+>CONSTRUCTOR</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="new"
+>new</a></h2>
+
+<pre class="sh_perl"> my $client = PkgConfig::LibPkgConf::Client-&#62;new(%opts);
+ my $client = PkgConfig::LibPkgConf::Client-&#62;new(\%opts);</pre>
+
+<p>Creates an instance of <a href="/pod/PkgConfig/LibPkgConf/Client.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Client</a>. Possible options include:</p>
+
+<dl>
+<dt><a name="path"
+>path</a></dt>
+
+<dd>
+<p>The search path to look for <code>.pc</code> files. This may be specified either as a string with the appropriate path separator character, or as a list reference. This will override the <code>pkgconf</code> compiled in defaults and the environment variables for <code>PKG_CONFIG_PATH</code> or <code>PKG_CONFIG_LIBDIR</code>.</p>
+
+<dt><a name="filter_lib_dirs"
+>filter_lib_dirs</a></dt>
+
+<dd>
+<p>List of directories to filter for libraries. This overrides the <code>pkgconf</code> compiled in default and environment variable for <code>PKG_CONFIG_SYSTEM_LIBRARY_PATH</code>.</p>
+
+<dt><a name="filter_include_dirs"
+>filter_include_dirs</a></dt>
+
+<dd>
+<p>List of directories to filter for include. This overrides the <code>pkgconf</code> compiled in default and environment variable for <code>PKG_CONFIG_SYSTEM_INCLUDE_PATH</code>.</p>
+</dd>
+</dl>
+
+<p>environment variables honored:</p>
+
+<dl>
+<dt><a name="PKG_CONFIG_PATH"
+>PKG_CONFIG_PATH</a></dt>
+
+<dd>
+<dt><a name="PKG_CONFIG_LIBDIR"
+>PKG_CONFIG_LIBDIR</a></dt>
+
+<dd>
+<dt><a name="PKG_CONFIG_SYSTEM_LIBRARY_PATH"
+>PKG_CONFIG_SYSTEM_LIBRARY_PATH</a></dt>
+
+<dd>
+<dt><a name="PKG_CONFIG_SYSTEM_INCLUDE_PATH"
+>PKG_CONFIG_SYSTEM_INCLUDE_PATH</a></dt>
+
+<dd>
+<dt><a name="PKG_CONFIG_ALLOW_SYSTEM_CFLAGS"
+>PKG_CONFIG_ALLOW_SYSTEM_CFLAGS</a></dt>
+
+<dd>
+<dt><a name="PKG_CONFIG_ALLOW_SYSTEM_LIBS"
+>PKG_CONFIG_ALLOW_SYSTEM_LIBS</a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ATTRIBUTES"
+>ATTRIBUTES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="path"
+>path</a></h2>
+
+<pre class="sh_perl"> my @path = $client-&#62;path;</pre>
+
+<p>The search path to look for <code>.pc</code> files.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="filter_lib_dirs"
+>filter_lib_dirs</a></h2>
+
+<pre class="sh_perl"> my @dirs = $client-&#62;filter_lib_dirs;</pre>
+
+<p>List of directories to filter for libraries.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="filter_include_dirs"
+>filter_include_dirs</a></h2>
+
+<pre class="sh_perl"> my @dirs = $client-&#62;filter_include_dirs;</pre>
+
+<p>List of directories to filter for includes.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="sysroot_dir"
+>sysroot_dir</a></h2>
+
+<pre class="sh_perl"> my $dir = $client-&#62;sysroot_dir;
+ $client-&#62;sysroot_dir($dir);</pre>
+
+<p>Get or set the sysroot directory.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="buildroot_dir"
+>buildroot_dir</a></h2>
+
+<pre class="sh_perl"> my $dir = $client-&#62;buildroot_dir;
+ $client-&#62;buildroot_dir($dir);</pre>
+
+<p>Get or set the buildroot directory.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="maxdepth"
+>maxdepth</a></h2>
+
+<pre class="sh_perl"> my $int = $client-&#62;maxdepth;
+ $client-&#62;maxdepth($int);</pre>
+
+<p>Get or set the maximum dependency depth. This is 2000 by default.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="env"
+>env</a></h2>
+
+<pre class="sh_perl"> my $client-&#62;env;</pre>
+
+<p>This method loads settings for the client object from the environment using the standard <code>pkg-config</code> or <code>pkgconf</code> environment variables. It honors the following list of environment variables:</p>
+
+<dl>
+<dt><a name="PKG_CONFIG_LOG"
+>PKG_CONFIG_LOG</a></dt>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="find"
+>find</a></h2>
+
+<pre class="sh_perl"> my $pkg = $client-&#62;find($package_name);</pre>
+
+<p>Searches the &#60;.pc&#62; file for the package with the given <code>$package_name</code>. If found returns an instance of <a href="/pod/PkgConfig/LibPkgConf/Package.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Package</a>. If not found returns <code>undef</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="package_from_file"
+>package_from_file</a></h2>
+
+<pre class="sh_perl"> my $pkg = $client-&#62;package_from_file($filename);</pre>
+
+<p>Load the specific &#60;.pc&#62; file.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="scan_all"
+>scan_all</a></h2>
+
+<pre class="sh_perl"> $client-&#62;scan_all(sub {
+   my($client, $package) = @_;
+   ...
+   return $bool;
+ });</pre>
+
+<p>Iterates through all packages and calls the given subroutine reference for each package. <code>$package</code> isa <a href="/pod/PkgConfig/LibPkgConf/Package.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Package</a>. The scan will continue so long as a non true value is returned (as <code>$bool</code>).</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="global"
+>global</a></h2>
+
+<pre class="sh_perl"> $client-&#62;global($key =&#62; $value);
+ my $value = $client-&#62;global($key);</pre>
+
+<p>Define or get the global variable.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="error"
+>error</a></h2>
+
+<pre class="sh_perl"> my $client-&#62;error($message);</pre>
+
+<p>Called when <code>libpkgconf</code> comes across a non-fatal error. By default the error is simply displayed as a warning using <a href="https://metacpan.org/pod/Carp" class="podlinkpod"
+>Carp</a>. The intention of this method is if you want to override that behavior, you will subclass <a href="/pod/PkgConfig/LibPkgConf/Client.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Client</a> and implement your own version of the <code>error</code> method.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="audit_set_log"
+>audit_set_log</a></h2>
+
+<pre class="sh_perl"> $client-&#62;audit_set_log($filename, $mode);</pre>
+
+<p>Opens a file with the C <code>fopen</code> style <code>$mode</code>, and uses it for the audit log. The file is managed entirely by the client class and will be closed when the object falls out of scope. Examples:</p>
+
+<pre class="sh_perl"> $client-&#62;audit_set_log(&#34;audit.log&#34;, &#34;a&#34;); # append to existing file
+ $client-&#62;audit_set_log(&#34;audit2.log&#34;, &#34;w&#34;); # new or replace file</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SUPPORT"
+>SUPPORT</a></h1>
+
+<p>IRC #native on irc.perl.org</p>
+
+<p>Project GitHub tracker:</p>
+
+<p><a href="https://github.com/plicease/PkgConfig-LibPkgConf/issues" class="podlinkurl"
+>https://github.com/plicease/PkgConfig-LibPkgConf/issues</a></p>
+
+<p>If you want to contribute, please open a pull request on GitHub:</p>
+
+<p><a href="https://github.com/plicease/PkgConfig-LibPkgConf/pulls" class="podlinkurl"
+>https://github.com/plicease/PkgConfig-LibPkgConf/pulls</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p>For additional related modules, see <a href="/pod/PkgConfig/LibPkgConf.html" class="podlinkpod"
+>PkgConfig::LibPkgConf</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis</p>
+
+<p>For additional contributors see <a href="/pod/PkgConfig/LibPkgConf.html" class="podlinkpod"
+>PkgConfig::LibPkgConf</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2016 Graham Ollis.</p>
+
+<p>This is free software; you may redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

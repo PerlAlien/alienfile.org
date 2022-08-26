@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::LibreSSL</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::LibreSSL</div>
+    <!--Alien::LibreSSL--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#Motivation'>Motivation</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::LibreSSL - Alien wrapper for LibreSSL (alternative to OpenSSL)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.06</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>EUMM:</p>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use Alien::Base::Wrapper qw( Alien::LibreSSL !export );
+ 
+ WriteMakefile(
+   ...
+   CONFIGURE =&#62; {
+     &#39;Alien::Build::Wrapper&#39; =&#62; 0,
+     &#39;Alien::LibreSSL&#39;       =&#62; 0,
+   },
+   Alien::Base::Wrapper-&#62;mm_args,
+ );</pre>
+
+<p>MB:</p>
+
+<pre class="sh_perl"> use Module::Build;
+ use Alien::Base::Wrapper qw( Alien::LibreSSL !export );
+ 
+ my $build = Module::Build-&#62;new(
+   ...
+   configure_requires =&#62; {
+     &#39;Alien::Build::Wrapper&#39; =&#62; 0,
+     &#39;Alien::LibreSSL&#39;       =&#62; 0,
+   },
+   Alien::Base::Wrapper-&#62;mb_args,
+   ...
+ );
+ 
+ $build-&#62;create_build_script;</pre>
+
+<p>Perl script:</p>
+
+<pre class="sh_perl"> use Alien::LibreSSL;
+ use Env qw( @PATH );
+ 
+ unshift @PATH, &#39;Alien::LibreSSL-&#62;bin_dir;
+ system &#39;openssl ...&#39;;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module provides an implementation of SSL. It will use the system SSL, if it can be found. If the system does not provide SSL, this alien will download and build LibreSSL, a drop in replacement for OpenSSL</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Motivation"
+>Motivation</a></h2>
+
+<p>SSL has lots of pitfalls. SSL on Perl has all of those pitfalls plus some more. Once you get <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a> you are mostly out of the woods. Getting <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a> to install can be problematic on some platforms. My hope is that some combination of this module and <a href="/pod/Alien/OpenSSL.html" class="podlinkpod"
+>Alien::OpenSSL</a> will one day make it easier to install <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>None of this applies to a system install where OpenSSL or LibreSSL is already installed.</p>
+
+<p>Retrieving LibreSSL or OpenSSL via the internet when you do not already have an SSL implementation introduces a bootstrapping problem. Newer versions of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> + <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> prefer the use of <code>curl</code> over <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a> because on some platforms it is more reliable. Further, this Alien will try to use <code>wget</code>. <code>curl</code> and <code>wget</code> will only be used if they support the <code>https</code> protocol. If neither <code>curl</code>, <code>wget</code> are available and <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a> isn&#39;t <i>already</i> installed, then this Alien will refuse to install because it has no safe way of retrieving LibreSSL from the internet. You can force an insecure install via <code>ftp</code> or <code>http</code> using the <code>ALIEN_OPENSSL_FTP</code> environment variable below, but that is NOT recommended.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ENVIRONMENT"
+>ENVIRONMENT</a></h1>
+
+<dl>
+<dt><a name="ALIEN_OPENSSL_FTP"
+>ALIEN_OPENSSL_FTP</a></dt>
+
+<dd>
+<p>Set to <code>1</code> to allow downloads via <code>ftp</code> or <code>http</code> (the default). Set to <code>0</code> to disallow insecure downloads over <code>ftp</code> or <code>http</code>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<dt><a name="Alien::OpenSSL"
+><a href="/pod/Alien/OpenSSL.html" class="podlinkpod"
+>Alien::OpenSSL</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

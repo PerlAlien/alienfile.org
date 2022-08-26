@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Plugin::Fetch::Rewrite</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Fetch.html">Fetch</a>::Rewrite</div>
+    <!--Alien::Build::Plugin::Fetch::Rewrite--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Plugin::Fetch::Rewrite - Alien::Build plugin to rewrite network requests to local resources</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.02</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your ~/.alienbuild/rc.pl:</p>
+
+<pre class="sh_perl"> postload &#39;Fetch::Rewrite&#39;;
+ 
+ sub rewrite {
+   my($build, $uri) = @_;
+   
+   # $build isa Alien::Build
+   # $uri isa URI
+   
+   if($uri-&#62;host eq &#39;ftp.gnu.org&#39;)
+   {
+     # if we see a request to ftp.gnu.org (either ftp or http)
+     # we redirect it to the local mirror at
+     # http://mirror.example.com/ftp.gnu.org
+     $uri-&#62;scheme(&#39;http&#39;);
+     $uri-&#62;host(&#39;mirror.example.com&#39;);
+     $uri-&#62;host(&#39;/ftp.gnu.org&#39; . $uri-&#62;path);
+   }
+ }
+ 
+ 1;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This plugin allows you to rewrite the URLs for remote networked resources to local resources. This is useful if you are building CPAN modules that rely on <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> distributions where you do not have system packages. It may also seem useful if you do not trust the remote resources, although please keep in mind that like a <code>Makefile.PL</code> or <code>Build.PL</code>, an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> is arbitrary Perl code, and should be appropriately vetted before being used in an environment with security requirements.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>This plugin is only able to rewrite URLs that are fetched through the standard <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> URL fetching interface, and only URLs that are supported by <a href="https://metacpan.org/pod/LWP%3A%3AUserAgent" class="podlinkpod"
+>LWP::UserAgent</a> and <a href="https://metacpan.org/pod/URI" class="podlinkpod"
+>URI</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

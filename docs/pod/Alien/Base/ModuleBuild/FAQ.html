@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Base::ModuleBuild::FAQ</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::FAQ</div>
+    <!--Alien::Base::ModuleBuild::FAQ--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#What_is_Alien_and_Alien%3A%3ABase%3F'>What is Alien and Alien::Base?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_specify_a_minimum_or_exact_version_requirement_for_packages_that_use_pkg-config%3F'>How do I specify a minimum or exact version requirement for packages that use pkg-config?</a>
+    <li class='indexItem indexItem2'><a href='#How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config%3F'>How to create an Alien module for packages that do not support pkg-config?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_test_my_package_once_it_is_built_(before_it_is_installed)%3F'>How do I test my package once it is built (before it is installed)?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_patch_packages_that_need_minor_(or_major)_alterations%3F'>How do I patch packages that need minor (or major) alterations?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_build_a_package_that_uses_build_system%3F'>How do I build a package that uses build system?</a>
+    <ul   class='indexList indexList3'>
+      <li class='indexItem indexItem3'><a href='#autoconf'>autoconf</a>
+      <li class='indexItem indexItem3'><a href='#autoconf-like'>autoconf-like</a>
+      <li class='indexItem indexItem3'><a href='#CMAKE'>CMAKE</a>
+      <li class='indexItem indexItem3'><a href='#vanilla_Makefiles%3F'>vanilla Makefiles?</a>
+      <li class='indexItem indexItem3'><a href='#GNU_Makefiles%3F'>GNU Makefiles?</a>
+    </ul>
+    <li class='indexItem indexItem2'><a href='#When_debugging_my_package_build%2C_I_get_different_results!'>When debugging my package build, I get different results!</a>
+    <li class='indexItem indexItem2'><a href='#Can%2FShould_I_write_a_tool_oriented_Alien_module_using_Alien%3A%3ABase_that_provides_executables_instead_of_a_library%3F'>Can/Should I write a tool oriented Alien module using Alien::Base that provides executables instead of a library?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_use_Alien%3A%3ABase_from_Dist%3A%3AZilla'>How do I use Alien::Base from Dist::Zilla</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_check_the_built_version_if_my_library_doesn%27t_provide_a_.pc_file.'>How do I check the built version if my library doesn&#39;t provide a .pc file.</a>
+    <li class='indexItem indexItem2'><a href='#I_have_question_not_listed_here!'>I have question not listed here!</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Base::ModuleBuild::FAQ - Frequently Asked Questions about Alien::Base::ModuleBuild</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 1.15</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> perldoc Alien::Base::FAQ</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> instead. Like <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBUild" class="podlinkpod"
+>Alien::Base::ModuleBUild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Unlike <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModule%3A%3ABuild" class="podlinkpod"
+>Alien::Base::Module::Build</a> they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAPI" class="podlinkpod"
+>Alien::Build::Manual::API</a>. Although the Alien-Base / Alien-Build team will continue to maintain this module, (we will continue to fix bugs where appropriate), we aren&#39;t adding any new features to this module.</p>
+
+<p>This document serves to answer the most frequently asked questions made by <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> authors.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="What_is_Alien_and_Alien::Base?"
+>What is Alien and Alien::Base?</a></h2>
+
+<p>Alien is a Perl namespace for defining dependencies in CPAN for libraries and tools which are not &#34;native&#34; to CPAN. For a manifesto style description of the Why, and How see <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>. <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> is a base class and framework for creating Alien distributions. The idea is to address as many of the common challenges to developing Alien modules in the base class to simplify the process.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_specify_a_minimum_or_exact_version_requirement_for_packages_that_use_pkg-config?"
+>How do I specify a minimum or exact version requirement for packages that use pkg-config?</a></h2>
+
+<p>The <code>alien_version_check</code> attribute to <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> will be executed to determine if the library is provided by the operating system. The default for this is <code>%{pkg_config} --modversion %n</code> which simply checks to see if any version of that package is available, and prints the version number. You can use the <code>--atleast-version</code>, <code>--exact-version</code> options to require a specific range of versions, but these flags do not work with the <code>--modversion</code> flag, so be sure to invoke separately.</p>
+
+<pre class="sh_perl"> use Alien::Base::ModuleBuild;
+ Alien::Base::ModuleBuild-&#62;new(
+   dist_name           =&#62; &#39;Alien::Foo&#39;,
+   alien_name          =&#62; &#39;foo&#39;,
+   configure_requires  =&#62; { &#39;Alien::Base::ModuleBuild&#39; =&#62; &#39;0.022&#39; }, # required for %{pkg_config}
+   alien_version_check =&#62; &#39;%{pkg_config} --atleast-version 1.2.3 %n &#38;&#38; %{pkg_config} --modversion %n&#39;,
+   ...
+ )-&#62;create_build_script;</pre>
+
+<p>It is better to use the built in <code>%{pkg_config}</code> helper as it will use the system provided pkg-config if it is available and fallback on the pure perl <a href="https://metacpan.org/pod/PkgConfig" class="podlinkpod"
+>PkgConfig</a> if not.</p>
+
+<p>You can also use <code>--exact-version</code> to specify an exact version.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?"
+>How to create an Alien module for packages that do not support pkg-config?</a></h2>
+
+<p>Although <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> assume packages come with a <code>pkg-config</code> <code>.pc</code> file to determine compiler and linker flags by default, you can implement an Alien module for packages that do use <code>pkg-config</code> by following these tasks:</p>
+
+<dl>
+<dt><a name="subclass_Alien::Base::ModuleBuild_and_implement_alien_check_installed_version"
+>subclass <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> and implement <code>alien_check_installed_version</code></a></dt>
+
+<dd>
+<p>Create a subclass of <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> and put it in the <code>inc</code> directory of your distribution so that it can be used during install but won&#39;t <i>be installed</i>.</p>
+
+<pre class="sh_perl"> # inc/My/ModuleBuild.pm
+ package My::ModuleBuild;
+ 
+ use parent &#39;Alien::Base::ModuleBuild&#39;;
+ 
+ sub alien_check_installed_version {
+   my($class) = @_;
+   
+   # determine if your library is already provided by the system
+   my $version = ...;
+   
+   # return false if the library is NOT provided by the system
+   return unless defined $version;
+   
+   # otherwise return the version detected
+   # (if you cannot determine the version it
+   #  is usually sufficient to return a true value)
+   return $version;
+ }</pre>
+
+<p>There are number of methods you can use to determine if the system provides your library. From Perl methods include <a href="https://metacpan.org/pod/Devel%3A%3ACheckLib" class="podlinkpod"
+>Devel::CheckLib</a>, <a href="https://metacpan.org/pod/ExtUtils%3A%3ACBuilder" class="podlinkpod"
+>ExtUtils::CBuilder</a>, <a href="https://metacpan.org/pod/ExtUtls%3A%3ACChecker" class="podlinkpod"
+>ExtUtls::CChecker</a>, <a href="https://metacpan.org/pod/Config%3A%3AAutoConf" class="podlinkpod"
+>Config::AutoConf</a>, <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+>FFI::CheckLib</a> among others. It is also frequently possible to determine if a library is installed using a <code>-config</code> suffixed program. For example <code>libxml2</code> comes with xml2-config which provides the existence, compiler and linker flags it needs. In my experience, however, most packages that provide a <code>-config</code> suffixed program also provide a <code>pkg-config</code> interface as well.</p>
+
+<dt><a name="implement_alien_check_built_version_in_your_Alien::Base::ModuleBuild_subclass"
+>implement <code>alien_check_built_version</code> in your <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> subclass</a></dt>
+
+<dd>
+<p>You should also implement <code>alien_check_build_version</code> which will be executed from the package build root once the package is successfully built.</p>
+
+<pre class="sh_perl"> # inc/My/ModuleBuild.pm
+ package My::ModuleBuild;
+ 
+ ...
+ 
+ sub alien_check_built_version {
+   my($self) = @_;
+   
+   my $version = ...
+   
+   # (Again, if you cannot determine the version,
+   #  it is usually sufficent to return a true value)
+   return $version;
+ }</pre>
+
+<dt><a name="set_alien_provides_cflags_and_alien_provides_libs_in_Build.PL."
+>set <code>alien_provides_cflags</code> and <code>alien_provides_libs</code> in <code>Build.PL</code>.</a></dt>
+
+<dd>
+<p>Add something like this to your <code>Build.PL</code>:</p>
+
+<pre class="sh_perl"> # Build.PL
+ use lib &#39;inc&#39;;
+ use My::ModuleBuild;
+ 
+ My::ModuleBuild-&#62;new(
+   ...
+   alien_provides_cflags =&#62; &#39;-I/usr/include/foo&#39;,
+   alien_provides_libs   =&#62; &#39;-L/usr/lib/foo -lfoo&#39;,
+   ...
+ );</pre>
+
+<p>Note that it is frequently sufficient to provide <code>alien_provides_libs</code> and the appropriate <code>-l</code> flag. These flags will be used in the event that the system package can be found. It is a good idea to verify that these flags do indeed work in <code>alien_check_installed_version</code> above.</p>
+</dd>
+</dl>
+
+<p>For a fully implemented example, see <a href="/pod/Alien/Libbz2.html" class="podlinkpod"
+>Alien::Libbz2</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_test_my_package_once_it_is_built_(before_it_is_installed)?"
+>How do I test my package once it is built (before it is installed)?</a></h2>
+
+<p>There are many ways to test Alien modules before (or after) they are installed, but instead of rolling your own, consider using <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a> which is light on dependencies and will test your module very closely to the way that it will actually be used. That is to say by building a mini XS or FFI extension and using it. It even has tests for tool oriented Alien distributions (like <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="podlinkpod"
+>Alien::patch</a>). Here is a short example, there are many others included with the <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a> documentation:</p>
+
+<pre class="sh_perl"> use Test2::V0;
+ use Test::Alien 0.05;
+ use Alien::Editline;
+ 
+ alien_ok &#39;Alien::Editline&#39;;
+ my $xs = do { local $/; &#60;DATA&#62; };
+ xs_ok $xs, with_subtest {
+   my($module) = @_;
+   ok $module-&#62;version;
+ };
+ 
+ done_testing;
+ 
+ __DATA__
+ 
+ #include &#34;EXTERN.h&#34;
+ #include &#34;perl.h&#34;
+ #include &#34;XSUB.h&#34;
+ #include &#60;editline/readline.h&#62;
+ 
+ /* having a string parameter that we ignore
+    allows us to call this as a class method */
+ const char *
+ version(const char *class)
+ {
+   return rl_library_version;
+ }
+ 
+ MODULE = TA_MODULE PACKAGE = TA_MODULE
+ 
+ const char *version(class);
+     const char *class;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_patch_packages_that_need_minor_(or_major)_alterations?"
+>How do I patch packages that need minor (or major) alterations?</a></h2>
+
+<p>One approach is to create a unified diff for patches that you want to apply and simply run patch on them. The <a href="/pod/Alien/patch.html" class="podlinkpod"
+>Alien::patch</a> and the <code>%{patch}</code> helper can be used like this:</p>
+
+<pre class="sh_perl"> # Build.PL
+ use Alien::Base::ModuleBuild;
+ 
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_bin_requires =&#62; {
+     &#39;Alien::patch&#39; =&#62; 0.06, # needed for %{patch} helper
+   },
+   alien_build_commands =&#62; [
+     &#39;%{patch} -p1 &#60; ../../patch/mypackage.patch&#39;,
+     ...
+   ],
+   ...
+ )-&#62;create_build_script;</pre>
+
+<p>Create a folder in your distribution root called <code>patch</code> and place the <code>mypackage.patch</code> file in there. Since the <code>patch</code> command will be executed in the package root instead of the distribution root, you need to use a relative path prefixed by <code>../..</code>. Here we use <a href="/pod/Alien/patch.html" class="podlinkpod"
+>Alien::patch</a> to provide patch even in environments where it is not provided.</p>
+
+<p>A more powerful approach to patching is to write a perl subroutine to modify the source after it has been extracted. One way to do this is to create a module in your distribution&#39;s inc directory that does the patching (modules in inc can be used during build/test but won&#39;t be installed):</p>
+
+<pre class="sh_perl"> # inc/My/AlienPatch.pm
+ package My::AlienPatch;
+ 
+ # add this sub to the main namespace
+ # so we don&#39;t need to quote or escape
+ # anything below
+ sub main::alien_patch {
+   # is executed in the package root,
+   # make what ever changes you need to
+   # to the source here.
+ }
+ 
+ 1;
+
+ # Build.PL
+ use Alien::Base::ModuleBuild;
+ 
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_build_commands =&#62; [
+     # %x will be replaced by path for calling Perl
+     # from the command line
+     &#34;%x -I../../inc -MMy::AlienPatch -e alien_patch&#34;,
+     ...
+   ],
+   ...
+ )-&#62;create_build_script;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_build_a_package_that_uses_build_system?"
+>How do I build a package that uses <i>build system</i>?</a></h2>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf"
+>autoconf</a></h3>
+
+<p>By default <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> assumes a package with an autoconf style <code>configure</code> script. The default is</p>
+
+<pre class="sh_perl"> # Build.PL
+ use Alien::Base::ModuleBuild;
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_build_commands =&#62; [
+     &#39;%c --prefix=%s&#39;,
+     &#39;make&#39;,
+   ],
+   alien_install_commands =&#62; [
+     &#39;make install&#39;,
+   ],
+   ...
+ )-&#62;create_build_script;</pre>
+
+<p>There are a couple of short cuts here, <code>%c</code> indicates the platform independent method for executing the <code>configure</code> script, plus any normal autoconf flags that are appropriate for Perl Alien libraries. The <code>%c</code> also tells <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> to use <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a> on Windows platforms and to add that as a dependency. The <code>%s</code> is a placeholder for the location to which the package will be installed. This is normally in a share directory specific to your distribution.</p>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf-like"
+>autoconf-like</a></h3>
+
+<p>If you see an error like this:</p>
+
+<pre class="sh_perl"> Unknown option &#34;--with-pic&#34;.</pre>
+
+<p>It may be because your package provides a <code>configure</code> script that provides an autoconf-style interface, but is not actually autoconf. <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> is aggressive in using the <code>--with-pic</code> option because when supported by autoconf it produces position independent code (important for reliably building XS extensions), and when not supported autoconf simply ignores the option. Unfortunately some autoconf-style <code>configure</code> scripts consider it an error when they see options that they do not recognize. You can tell <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> to not use the <code>--with-pic</code> option via the <code>alien_autoconf_with_pic</code> property:</p>
+
+<pre class="sh_perl"> # Build.PL
+ use Alien::Base::ModuleBuild;
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_autoconf_with_pic =&#62; 0,
+   ...
+ )-&#62;create_build_script;</pre>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="CMAKE"
+>CMAKE</a></h3>
+
+<p>You probably cannot count on CMake being available on most platforms. Fortunately, there is an alien distribution <a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
+>Alien::CMake</a> which will either use the CMake provided by the operating system, or download and install it for you. You can use this from your <code>Build.PL</code> with the <code>alien_bin_requires</code> property:</p>
+
+<pre class="sh_perl"> # Build.PL
+ use Alien::Base::ModuleBuild;
+ use Config;
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_bin_requires =&#62; {
+     &#39;Alien::CMake&#39; =&#62; 0.07,
+   },
+   alien_build_commands =&#62; [
+     # acutal required arguments may vary
+     &#34;cmake -G &#39;Unix Makefiles&#39; -DCMAKE_MAKE_PROGRAM=$Config{make} -DCMAKE_INSTALL_PREFIX:PATH=%s&#34;,
+     &#34;$Config{make}&#34;,
+   ],
+   alien_install_commands =&#62; [
+     &#34;$Config{make} install&#34;,
+   ],
+   ...
+ )-&#62;create_build_script;</pre>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="vanilla_Makefiles?"
+>vanilla Makefiles?</a></h3>
+
+<p>If you want to use the same <code>make</code> as Perl, you can use <a href="https://metacpan.org/pod/Config" class="podlinkpod"
+>Config</a>:</p>
+
+<pre class="sh_perl"> # Build.PL
+ use Alien::Base::ModuleBuild;
+ use Config;
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_build_commands =&#62; [
+     &#34;$Config{make}&#34;,
+   ],
+   alien_install_commands =&#62; [
+     &#34;$Config{make} install&#34;,
+   ],
+   ...
+ )-&#62;create_build_script;</pre>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="GNU_Makefiles?"
+>GNU Makefiles?</a></h3>
+
+<p>Some packages require GNU Make&#39;s unique syntax. Perl&#39;s <a href="https://metacpan.org/pod/Config" class="podlinkpod"
+>Config</a> provides an entry for <code>gmake</code>, but it is frequently wrong. Do not depend on it. Instead you can use <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> to provide a real GNU Make (either from the operating system, or built from source):</p>
+
+<pre class="sh_perl"> # Build.PL
+ use Alien::Base::ModuleBuild;
+ 
+ Alien::Base::ModuleBuild-&#62;new(
+   ...
+   alien_bin_requires =&#62; {
+     &#39;Alien::gmake&#39; =&#62; 0.11, # needed for %{gmake} helper
+   },
+   alien_build_commands =&#62; [
+     &#34;%{gmake}&#34;,
+   ],
+   alien_install_commands =&#62; [
+     &#34;%{gmake} install&#34;,
+   ],
+   ...
+ )-&#62;create_build_script;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="When_debugging_my_package_build,_I_get_different_results!"
+>When debugging my package build, I get different results!</a></h2>
+
+<p>If you get results from running the commands in your shell different to what happens when your <code>Alien::</code> distribution attempts to build, it may be because your environment is different than the one that your distribution is using. For example, if you use <a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
+>Alien::CMake</a> or <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> to build with specific tools that are provided by your operating system, <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Build::ModuleBuild</a> will adjust the path before executing build and install commands.</p>
+
+<p>In the alien build directory (usually <code>_alien</code>) you will find environment files that you can source into your shell (<code>env.csh</code> for tcsh and <code>env.sh</code> for bourne based shells), which should provide the identical environment used by the build process in order to troubleshoot the build manually.</p>
+
+<pre class="sh_perl"> % source _alien/env.sh</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Can/Should_I_write_a_tool_oriented_Alien_module_using_Alien::Base_that_provides_executables_instead_of_a_library?"
+>Can/Should I write a tool oriented Alien module using <code>Alien::Base</code> that provides executables instead of a library?</a></h2>
+
+<p>Certainly. The original intent was to provide libraries, but tools are also quite doable using the <code>Alien::Base</code> tool set. A simple minded example of this which is fairly easy to replicate is <a href="/pod/Alien/m4.html" class="podlinkpod"
+>Alien::m4</a>.</p>
+
+<p>In general, this means specifying a subclass in your <code>Build.PL</code> and bundling it in your distribution <code>inc</code> directory.</p>
+
+<p><code>Build.PL</code>:</p>
+
+<pre class="sh_perl"> ...
+ use lib &#39;inc&#39;;
+ use My::ModuleBuild;
+ 
+ My::ModuleBuild-&#62;new(
+   ...
+ )-&#62;create_build_script;</pre>
+
+<p><code>inc/My/ModuleBuild.pm</code>:</p>
+
+<pre class="sh_perl"> package My::ModuleBuild;
+ 
+ use strict;
+ use warnings;
+ use parent &#39;Alien::Base::ModuleBuild&#39;;
+ use Capture::Tiny qw( capture );
+ 
+ sub alien_check_installed_version
+ {
+   # see Alien::Base::ModuleBuild#alien_check_installed_version for details
+   
+   my($self) = @_;
+   my($stdout, $stderr) = capture { system &#39;mytool&#39;, &#39;--version&#39; };
+   
+   # return empty list if the tool is unavailable on the system,
+   # or unacceptable.
+   return if $! || ...;
+
+   # parse from stdout or stderr
+   my $version = ...;
+   return $version;
+ }
+ 
+ sub alien_check_built_version
+ {
+   # see Alien::Base::ModuleBuild#alien_check_built_version for details
+   
+   # return empty list if the tool version cannot be found, or if it
+   # is unacceptable.  Note that this will cause a failure, so &#34;unknown&#34;
+   # may be reasonable if the tool version cannot be determined.
+   return if ...;
+   
+   # determine from the tool itself, or the current directory.
+   my $version = ...;
+   return $version;
+ }
+ 
+ 1;</pre>
+
+<p>As usual your <code>Alien::MyTool</code> class will simply be a subclass of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. If you tool is installed in a <code>bin</code> directory, you are done, the default <code>bin_dir</code> implementation should work for you. Otherwise you may need to provide an alternate implementation:</p>
+
+<pre class="sh_perl"> package Alien::MyTool;
+ 
+ use strict;
+ use warnings;
+ use parent &#39;Alien::Base&#39;;
+ 
+ sub bin_dir
+ {
+   # see Alien::Base#bin_dir for details
+   # You only need to override the default implementation if your tool
+   # does not install into the standard &#34;bin&#34; directory.
+
+   my($class) = @_;
+   
+   # normally for system installs the tool should already be in your
+   # PATH, so return an empty list.
+   return if $class-&#62;install_type eq &#39;system&#39;;
+   
+   # install_type = share
+   my $dist_dir = $class-&#62;dist_dir;
+   return (&#34;$dist_dir/some/bin&#34;, &#34;$dist_dir/some/other/bin&#34;);
+ }
+ 
+ 1;</pre>
+
+<p>Now once your tool based Alien is installed you can use the <code>bin_dir</code> method to update the <code>PATH</code> as necessary:</p>
+
+<pre class="sh_perl"> use Alien::MyTool;
+ use Env qw( @PATH );
+ 
+ unshift @PATH, Alien::MyTool-&#62;bin_dir;
+ system &#39;mytool&#39;;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_use_Alien::Base_from_Dist::Zilla"
+>How do I use <code>Alien::Base</code> from <code>Dist::Zilla</code></a></h2>
+
+<p>For creating <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based dists from <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
+>Dist::Zilla</a> you can use the plugin <a href="/pod/Dist/Zilla/Plugin/Alien.html" class="podlinkpod"
+>Dist::Zilla::Plugin::Alien</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_check_the_built_version_if_my_library_doesn&#39;t_provide_a_.pc_file."
+>How do I check the built version if my library doesn&#39;t provide a <code>.pc</code> file.</a></h2>
+
+<p>The default implementation of <code>alien_check_built_version</code> uses several heuristics, but leans heavily on <code>pkg-config</code> style <code>.pc</code> files, so if your library or tool does not provide a <code>.pc</code>, the version may not be detected and your build may fail.</p>
+
+<p>A lot of libraries are bundled as tarballs with the version in the directory name that they are extracted into, and the current directory when <code>alien_check_built_version</code> is called is the build root, so you can use <code>File::chdir</code> as an easy way to determine the version number:</p>
+
+<pre class="sh_perl"> package My::ModuleBuild;
+ 
+ use strict;
+ use warnings;
+ use parent &#39;Alien::Base::ModuleBuild&#39;;
+ use File::chdir; # provides @CWD
+ 
+ sub alien_check_built_version
+ {
+   my $dir_name = $CWD[-1];
+   
+   if($dir_name =~ /^libfoo-([0-9\.]+)$/) {
+     return $1;
+   } else {
+     # Note that this will trigger a build failure
+     return;
+   }
+ }
+ 
+ 1;</pre>
+
+<p>Using <a href="https://metacpan.org/pod/File%3A%3Achdir" class="podlinkpod"
+>File::chdir</a> and <code>@CWD</code> is a common idiom in <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>, because <a href="https://metacpan.org/pod/File%3A%3Achdir" class="podlinkpod"
+>File::chdir</a> is already a dependency of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. For packages that do not provide a version number in the extracted directory, you may require some creativity.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="I_have_question_not_listed_here!"
+>I have question not listed here!</a></h2>
+
+<p>There are a number of forums available to people working on <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> modules:</p>
+
+<dl>
+<dt><a name="#native_on_irc.perl.org"
+><code>#native</code> on irc.perl.org</a></dt>
+
+<dd>
+<p>This is intended for native interfaces in general and so is a good place for questions about <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> generally or <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> specifically.</p>
+
+<dt><a name="mailing_list"
+>mailing list</a></dt>
+
+<dd>
+<p>The <code>perl5-alien</code> google group is intended for <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> issues generally, including <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>.</p>
+
+<p><a href="https://groups.google.com/forum/#!forum/perl5-alien" class="podlinkurl"
+>https://groups.google.com/forum/#!forum/perl5-alien</a></p>
+
+<dt><a name="Open_a_support_ticket"
+>Open a support ticket</a></dt>
+
+<dd>
+<p>If you have an issue with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> itself, then please open a support ticket on the project&#39;s GitHub issue tracker.</p>
+
+<p><a href="https://github.com/PerlAlien/Alien-Base-ModuleBuild/issues" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Base-ModuleBuild/issues</a></p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<ul>
+<li><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></li>
+
+<li><a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a></li>
+
+<li><a href="/pod/Alien/Base/ModuleBuild/API.html" class="podlinkpod"
+>Alien::Base::ModuleBuild::API</a></li>
+</ul>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Original author: Joel A Berger &#60;joel.a.berger@gmail.com&#62;</p>
+
+<p>Current maintainer: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Graham Ollis (plicease)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk2</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Petr Pisar (ppisar)</p>
+
+<p>Alberto Sim&#245;es (ambs)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2012-2020 by Joel A Berger.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

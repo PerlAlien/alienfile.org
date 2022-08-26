@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PkgConfig::LibPkgConf</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> PkgConfig::LibPkgConf</div>
+    <!--PkgConfig::LibPkgConf--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#FUNCTIONS'>FUNCTIONS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#pkgconf_exists'>pkgconf_exists</a>
+    <li class='indexItem indexItem2'><a href='#pkgconf_version'>pkgconf_version</a>
+    <li class='indexItem indexItem2'><a href='#pkgconf_cflags'>pkgconf_cflags</a>
+    <li class='indexItem indexItem2'><a href='#pkgconf_cflags_static'>pkgconf_cflags_static</a>
+    <li class='indexItem indexItem2'><a href='#pkgconf_libs'>pkgconf_libs</a>
+    <li class='indexItem indexItem2'><a href='#pkgconf_libs_static'>pkgconf_libs_static</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SUPPORT'>SUPPORT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#ACKNOWLEDGMENTS'>ACKNOWLEDGMENTS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>PkgConfig::LibPkgConf - Interface to .pc file interface via libpkgconf</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use PkgConfig::LibPkgConf;
+ 
+ if(pkgconf_exists(&#39;libarchive&#39;))
+ {
+   my $version = pkgconf_version(&#39;libarchive&#39;);
+   my $cflags  = pkgconf_cflags(&#39;libarchive&#39;);
+   my $libs    = pkgconf_libs(&#39;libarchive&#39;);
+ }</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>Many libraries in compiled languages such as C or C++ provide <code>.pc</code> files to specify the flags required for compiling and linking against those libraries. Traditionally, the command line program <code>pkg-config</code> is used to query these files. This module provides a Perl level API using <code>libpkgconf</code> to these files.</p>
+
+<p>This module provides a simplified interface for getting the existence, version, cflags and library flags needed for compiling against a package, using the default compiled in configuration of <code>pkgconf</code>. For a more powerful, but complicated interface see <a href="/pod/PkgConfig/LibPkgConf/Client.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Client</a>. In addition, <a href="/pod/PkgConfig/LibPkgConf/Util.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Util</a> provides some useful utility functions that are also provided by <code>pkgconf</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="FUNCTIONS"
+>FUNCTIONS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf_exists"
+>pkgconf_exists</a></h2>
+
+<pre class="sh_perl"> my $bool = pkgconf_exists $package_name;</pre>
+
+<p>Returns true if the package is available.</p>
+
+<p>Exported by default.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf_version"
+>pkgconf_version</a></h2>
+
+<pre class="sh_perl"> my $version = pkgconf_version $package_name;</pre>
+
+<p>Returns the version of the package, if it exists. Will throw an exception if not found.</p>
+
+<p>Exported by default.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf_cflags"
+>pkgconf_cflags</a></h2>
+
+<pre class="sh_perl"> my $cflags = pkgconf_cflags $package_name;</pre>
+
+<p>Returns the compiler flags for the package, if it exists. Will throw an exception if not found.</p>
+
+<p>Exported by default.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf_cflags_static"
+>pkgconf_cflags_static</a></h2>
+
+<pre class="sh_perl"> my $cflags = pkgconf_cflags_static $package_name;</pre>
+
+<p>Returns the static compiler flags for the package, if it exists. Will throw an exception if not found.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf_libs"
+>pkgconf_libs</a></h2>
+
+<pre class="sh_perl"> my $libs = pkgconf_libs $package_name;</pre>
+
+<p>Returns the linker library flags for the package, if it exists. Will throw an exception if not found.</p>
+
+<p>Exported by default.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf_libs_static"
+>pkgconf_libs_static</a></h2>
+
+<pre class="sh_perl"> my $libs = pkgconf_libs_static $package_name;</pre>
+
+<p>Returns the static linker library flags for the package, if it exists. Will throw an exception if not found.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SUPPORT"
+>SUPPORT</a></h1>
+
+<p>IRC #native on irc.perl.org</p>
+
+<p>Project GitHub tracker:</p>
+
+<p><a href="https://github.com/plicease/PkgConfig-LibPkgConf/issues" class="podlinkurl"
+>https://github.com/plicease/PkgConfig-LibPkgConf/issues</a></p>
+
+<p>If you want to contribute, please open a pull request on GitHub:</p>
+
+<p><a href="https://github.com/plicease/PkgConfig-LibPkgConf/pulls" class="podlinkurl"
+>https://github.com/plicease/PkgConfig-LibPkgConf/pulls</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<p>The best entry point to the low level <code>pkgconf</code> interface can be found via <a href="/pod/PkgConfig/LibPkgConf/Client.html" class="podlinkpod"
+>PkgConfig::LibPkgConf::Client</a>.</p>
+
+<p>Alternatives include:</p>
+
+<dl>
+<dt><a name="PkgConfig"
+><a href="https://metacpan.org/pod/PkgConfig" class="podlinkpod"
+>PkgConfig</a></a></dt>
+
+<dd>
+<p>Pure Perl implementation of <code>pkg-config</code> which can be used from the command line, or as an API from Perl. Does not require pkg-config in your path, so is a safe dependency for CPAN modules.</p>
+
+<dt><a name="ExtUtils::PkgConfig"
+><a href="https://metacpan.org/pod/ExtUtils%3A%3APkgConfig" class="podlinkpod"
+>ExtUtils::PkgConfig</a></a></dt>
+
+<dd>
+<p>Wrapper for the <code>pkg-config</code> command line interface. This module will fail to install if <code>pkg-config</code> cannot be found in the <code>PATH</code>, so it is not safe to use a dependency if you want your CPAN module to work on platforms where <code>pkg-config</code> is not installed.</p>
+
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<p>Provides tools for building non-Perl libraries and making them dependencies for your CPAN modules, even on platforms where the non-Perl libraries aren&#39;t already installed. Includes hooks for probing <code>pkg-config</code> <code>.pc</code> files using either <code>pkg-config</code> or <a href="https://metacpan.org/pod/PkgConfig" class="podlinkpod"
+>PkgConfig</a>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ACKNOWLEDGMENTS"
+>ACKNOWLEDGMENTS</a></h1>
+
+<p>Thanks to the <code>pkgconf</code> developers for their efforts:</p>
+
+<p><a href="https://github.com/pkgconf/pkgconf/graphs/contributors" class="podlinkurl"
+>https://github.com/pkgconf/pkgconf/graphs/contributors</a></p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis</p>
+
+<p>Contributors:</p>
+
+<p>A. Wilcox (awilfox)</p>
+
+<p>Petr Pisar (ppisar)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2016 Graham Ollis.</p>
+
+<p>This is free software; you may redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

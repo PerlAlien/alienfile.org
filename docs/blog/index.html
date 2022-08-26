@@ -115,7 +115,7 @@ sub MY::postamble {
 <p>By <b>Graham Ollis</b> on 28 March 2017</p>
 
 <p><a href="/pod/Alien/Base.html" class="module">Alien::Base</a> was first released in alpha form five years ago this month!  The good things 
-that <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> (runtime) and <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> (its installer ABMB) did when 
+that <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> (runtime) and <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> (its installer ABMB) did when 
 it was unleashed on the world are many, but chiefly:</p>
 
 <ol>
@@ -158,7 +158,7 @@ next few weeks I intend on writing a little about some of the new features of Al
 In the meantime, if you are interested, <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="module">Alien::Build::Manual::AlienAuthor</a> may help you get 
 started.</p>
 
-<p>A year ago I mentioned that we were planning on spinning <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> (AB::MB) 
+<p>A year ago I mentioned that we were planning on spinning <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> (AB::MB) 
 off from the main <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> distribution.  Now that we have a viable alternative, we 
 plan to split AB::MB off into its own distribution next week.  Alien::Base will specify 
 AB::MB as a prerequisite, until the first of October 2017.  At that time it will be removed 
@@ -181,11 +181,11 @@ been fixed, you will receive an error message like this:</p>
 
 <p>TL;DR - if you have an <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> module, please 
 update configure_requires so that it depends on 
-<a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> instead of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>, and (this part is 
+<a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> instead of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>, and (this part is 
 key) make a release.</p>
 
 <p>This is technically more correct, and it will also future proof your 
-module in the event that <a href="https://metacpan.org/pod/Alien::Base::ModuleBuild" class="module">Alien::Base::ModuleBuild</a> 
+module in the event that <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> 
 gets spun off from the rest of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.  There are 
 a number of motivations making such a move.  Please join us on 
 <a href="https://github.com/Perl5-Alien/Alien-Base/issues/157">GitHub</a>
@@ -206,7 +206,7 @@ if are interested in working on the next generation of of <a href="/pod/Alien/Ba
 
 <p>The one major platform that didn’t work on the initial switch was of 
 course Strawberry Perl, but after some debugging and patches I got 
-<a href="https://metacpan.org/pod/Alien::Hunspell" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even 
+<a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even 
 submitted patches to upstream to the hunspell project, which were 
 accepted, so that in the future less patching will be required.  This is 
 what is great about Open Source when it works.</p>
@@ -252,7 +252,7 @@ had MSYS, <code>%pconfigure</code> won’t correctly invoke configure on Windows
 because that isn’t how you run a shell script on Windows.  So back in 
 version 0.005 we added the <code>%c</code> directive to mean “run configure however 
 that works on this platform”.  If AB sees that you are using <code>%c</code> it 
-will also make sure that <a href="https://metacpan.org/pod/Alien::MSYS" class="module">Alien::MSYS</a> gets added as a build 
+will also make sure that <a href="/pod/Alien/MSYS.html" class="module">Alien::MSYS</a> gets added as a build 
 requirement, if it is needed.  In many cases, adding Windows support for 
 your AB based Alien distribution may be as simple replacing 
 <code>%pconfigure</code> with <code>%c</code> and making AB 0.005 a prerequisite.</p>
@@ -345,7 +345,7 @@ advantage of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> as we
 
 <ul>
 <li>Builds on Microsoft Windows are now doable, thanks to integration 
-with <a href="https://metacpan.org/pod/Alien::MSYS" class="module">Alien::MSYS</a> that provides the necessary tools to build autotools 
+with <a href="/pod/Alien/MSYS.html" class="module">Alien::MSYS</a> that provides the necessary tools to build autotools 
 based packages</li>
 </ul>
 

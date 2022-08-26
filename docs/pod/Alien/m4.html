@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::m4</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::m4</div>
+    <!--Alien::m4--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#exe'>exe</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#m4'>m4</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::m4 - Find or build GNU m4</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.21</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>From a Perl script</p>
+
+<pre class="sh_perl"> use Alien::m4;
+ use Env qw( @PATH );
+ unshift @PATH, Alien::m4-&#62;bin_dir;  # m4 is now in your path</pre>
+
+<p>From Alien::Base Build.PL</p>
+
+<pre class="sh_perl"> use Alien:Base::ModuleBuild;
+ my $builder = Module::Build-&#62;new(
+   ...
+   alien_bin_requires =&#62; {
+     &#39;Alien::m4&#39; =&#62; &#39;0.07&#39;,
+   },
+   ...
+ );
+ $builder-&#62;create_build_script;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This package can be used by other CPAN modules that require GNU m4.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="exe"
+>exe</a></h2>
+
+<pre class="sh_perl"> my $m4 = Alien::m4-&#62;exe;</pre>
+
+<p>Returns the &#34;name&#34; of m4. Normally this is <code>m4</code>, but on some platforms it may be gm4 or gnum4, or whatever is specified by <code>$ENV{M4}</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HELPERS"
+>HELPERS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="m4"
+>m4</a></h2>
+
+<pre class="sh_perl"> %{m4}</pre>
+
+<p>Returns the name of the m4 command. Usually just <code>m4</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>Why GNU m4? Many Unixen come with BSD or other variants of m4 which are perfectly good. Unfortunately, the main use case for this module is <a href="/pod/Alien/Autotools.html" class="podlinkpod"
+>Alien::Autotools</a> and friends. Autoconf requires the GNU m4, probably for political reasons, possibly for technical reasons. If you are using one of these Unixen, don&#39;t despair, you can usually install the GNU version of m4 either by building from source or by installing a binary package, with either the name <code>gm4</code> or <code>gnum4</code>, and this module will find it, and <a href="/pod/Alien/Autotools.html" class="podlinkpod"
+>Alien::Autotools</a> will be able to use it.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

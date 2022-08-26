@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Libxml2</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Libxml2</div>
+    <!--Alien::Libxml2--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Libxml2 - Install the C libxml2 library on your system</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.17</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your Makefile.PL:</p>
+
+<pre class="sh_perl"> use ExtUtils::MakeMaker;
+ use Alien::Base::Wrapper ();
+
+ WriteMakefile(
+   Alien::Base::Wrapper-&#62;new(&#39;Alien::Libxml2&#39;)-&#62;mm_args2(
+     # MakeMaker args
+     NAME =&#62; &#39;My::XS&#39;,
+     ...
+   ),
+ );</pre>
+
+<p>In your Build.PL:</p>
+
+<pre class="sh_perl"> use Module::Build;
+ use Alien::Base::Wrapper qw( Alien::Libxml2 !export );
+
+ my $builder = Module::Build-&#62;new(
+   ...
+   configure_requires =&#62; {
+     &#39;Alien::Libxml2&#39; =&#62; &#39;0&#39;,
+     ...
+   },
+   Alien::Base::Wrapper-&#62;mb_args,
+   ...
+ );
+
+ $build-&#62;create_build_script;</pre>
+
+<p>In your <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> script or module:</p>
+
+<pre class="sh_perl"> use FFI::Platypus;
+ use Alien::Libxml2;
+
+ my $ffi = FFI::Platypus-&#62;new(
+   lib =&#62; [ Alien::Libxml2-&#62;dynamic_libs ],
+ );</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module provides <code>libxml2</code> for other modules to use.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>There was an older existing <a href="https://metacpan.org/pod/Alien%3A%3ALibXML" class="podlinkpod"
+>Alien::LibXML</a>, but it uses the older <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
+>Alien::Build::ModuleBuild</a> and the author prefers this version which is based on the more robust <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> system.</p>
+
+<p><code>libxml2</code> has some optional prereqs, including <code>zlib</code> and <code>iconv</code>. For a <code>share</code> install you will want to make sure that these are installed prior to installing <a href="/pod/Alien/Libxml2.html" class="podlinkpod"
+>Alien::Libxml2</a> if you want to make use of features relying on them.</p>
+
+<p>For a system install, you want to make sure the development packages for <code>libxml2</code>, <code>zlib</code> and <code>iconv</code> are installed if <code>libxml2</code> has been configured to use them, otherwise <a href="https://metacpan.org/pod/XML%3A%3ALibXML" class="podlinkpod"
+>XML::LibXML</a> will not install as expected. If the tests for this module fail with a missing <code>iconv.h</code> or <code>zlib.h</code>, then this is likely the reason.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::LibXML"
+><a href="https://metacpan.org/pod/Alien%3A%3ALibXML" class="podlinkpod"
+>Alien::LibXML</a></a></dt>
+
+<dd>
+<p>Older Alien for the same library.</p>
+
+<dt><a name="XML::LibXML"
+><a href="https://metacpan.org/pod/XML%3A%3ALibXML" class="podlinkpod"
+>XML::LibXML</a></a></dt>
+
+<dd>
+<p>Perl interface to <code>libxml2</code>, which uses this <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Shlomi Fish (shlomif)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2013 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

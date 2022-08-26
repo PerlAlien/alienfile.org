@@ -10,6 +10,7 @@ use Template;
 use Path::Tiny qw( path );
 use Text::Markdown::Custom;
 use Pods;
+use Path::Tiny qw( path );
 
 my $root = path(__FILE__)->parent;
 
@@ -22,9 +23,10 @@ my $tt = Template->new(
 );
 
 my $pods = Pods->new;
-$pods->add_dist('https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-0.96.tar.gz');
-$pods->add_dist('https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-2.59.tar.gz');
-$pods->add_dist('https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/App-af-0.17.tar.gz');
+foreach my $url (path('tarballs.txt')->lines( { chomp => 1 } ))
+{
+  $pods->add_dist($url);
+}
 $pods->fs_root->remove_tree;
 $pods->generate_html;
 

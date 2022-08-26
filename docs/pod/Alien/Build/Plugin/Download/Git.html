@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Plugin::Download::Git</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Download.html">Download</a>::Git</div>
+    <!--Alien::Build::Plugin::Download::Git--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#PROPERTIES'>PROPERTIES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#filter'>filter</a>
+    <li class='indexItem indexItem2'><a href='#version'>version</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Plugin::Download::Git - Alien::Build plugin to download from git</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.09</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ meta-&#62;prop-&#62;{start_url} = &#39;http://example.com/project-foo.git&#39;;
+ plugin &#39;Download::Git&#39; =&#62;(
+   version =&#62; qr/^v([0-9\.]+)$/,
+ );</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This plugin downloads projects using git and selects the appropriate tag for building. Typically you want to build using the most recent production tag, not just whatever <code>master</code> happens to be at the moment.</p>
+
+<p>This plugin uses these plugins to do the heavy lifting:</p>
+
+<dl>
+<dt><a name="Alien::Build::Plugin::Fetch::Git"
+><a href="/pod/Alien/Build/Plugin/Fetch/Git.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Git</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Plugin::Prefer::SortVersions"
+><a href="/pod/Alien/Build/Plugin/Prefer/SortVersions.html" class="podlinkpod"
+>Alien::Build::Plugin::Prefer::SortVersions</a></a></dt>
+
+<dd>
+<dt><a name="ALien::Build::Plugin::Extract::Directory"
+><a href="https://metacpan.org/pod/ALien%3A%3ABuild%3A%3APlugin%3A%3AExtract%3A%3ADirectory" class="podlinkpod"
+>ALien::Build::Plugin::Extract::Directory</a></a></dt>
+</dl>
+
+<p>In fact this:</p>
+
+<pre class="sh_perl"> plugin &#39;Download::Git&#39; =&#62; (
+   filter  =&#62; $filter,
+   version =&#62; $version,
+ );</pre>
+
+<p>Is exactly the same as:</p>
+
+<pre class="sh_perl"> plugin &#39;Fetch::Git&#39;;
+ plugin &#39;Prefer::SortVersions&#39; =&#62; (
+   filter  =&#62; filter,
+   version =&#62; $version,
+ );
+ plugin &#39;Extract::Directory&#39;;</pre>
+
+<p>About the only time you would opt to use <a href="/pod/Alien/Build/Plugin/Fetch/Git.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Git</a> directly, (unless you are not into the whole brevity thing), is if you wanted to use something other that <a href="/pod/Alien/Build/Plugin/Prefer/SortVersions.html" class="podlinkpod"
+>Alien::Build::Plugin::Prefer::SortVersions</a> to choose which version you want to install.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="PROPERTIES"
+>PROPERTIES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="filter"
+>filter</a></h2>
+
+<p>his is a regular expression that lets you filter out tags that you do not want to consider downloading. For example, if the tags included name such as</p>
+
+<pre class="sh_perl"> v1.0.0
+ v1.1.2
+ old-feature-not-included
+ something-else/entirely</pre>
+
+<p>You could specify a filter of <code>qr/^v[0-9\.]+$/</code> to make sure only tags that appeared to be a version number are included.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="version"
+>version</a></h2>
+
+<p>Regular expression to parse out the version from tags. The regular expression should store the result in <code>$1</code>.</p>
+
+<p>In the previous example you might use the regular expression <code>qr/^v([0-9\.]+/</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Git"
+><a href="/pod/Alien/Build/Git.html" class="podlinkpod"
+>Alien::Build::Git</a></a></dt>
+
+<dd>
+<dt><a name="Alien::git"
+><a href="/pod/Alien/git.html" class="podlinkpod"
+>Alien::git</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017,2018,2019,2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

@@ -60,7 +60,7 @@ name="DESCRIPTION"
 <p>By default <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> provides a helper for the <code>make</code> that is used by Perl and <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
 >ExtUtils::MakeMaker</a> itself. This is handy, because it is the one make that you can mostly guarantee that you will have. Unfortunately it may be a <code>make</code> that isn&#39;t supported by the library or tool that you are trying to alienize. This is mostly a problem on Windows, where the supported <code>make</code>s for years were Microsoft&#39;s <code>nmake</code> and Sun&#39;s <code>dmake</code>, which many open source projects do not use. This plugin will alter the <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> recipe to use a different <code>make</code>. It may (as in the case of <code>gmake</code> / <a href="https://metacpan.org/pod/Alien%3A%3Agmake" class="podlinkpod"
+>alienfile</a> recipe to use a different <code>make</code>. It may (as in the case of <code>gmake</code> / <a href="/pod/Alien/gmake.html" class="podlinkpod"
 >Alien::gmake</a>) automatically download and install an alienized version of that <code>make</code> if it is not already installed.</p>
 
 <p>This plugin should NOT be used with other plugins that replace the <code>make</code> helper, like <a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="podlinkpod"

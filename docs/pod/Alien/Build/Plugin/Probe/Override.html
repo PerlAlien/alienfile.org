@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Plugin::Probe::Override</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Probe.html">Probe</a>::Override</div>
+    <!--Alien::Build::Plugin::Probe::Override--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Plugin::Probe::Override - Override on a per-alien basis</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.03</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>in your <code>~/.alienbuild/rc.pl</code>:</p>
+
+<pre class="sh_perl"> preload &#39;Probe::Override&#39;;
+ 
+ sub override {
+   my($dist) = @_;
+   return &#39;system&#39;  if $dist eq &#39;Alien-gmake&#39;;
+   return &#39;share&#39;   if $dist eq &#39;Alien-FFI&#39;;
+   return &#39;default&#39; if $dist eq &#39;Alien-libuv&#39;;  # lets the alienfile choose
+   return &#39;&#39;; # fall back on $ENV{ALIEN_INSTALL_TYPE}
+ };</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> plugin allows you to override the install type (either <code>share</code>, <code>system</code> or <code>default</code>) on a per-Alien basis. All you have to do is preload this plugin and then provide a subroutine override, which takes a dist name (similar to a module name, but with dashes instead of double colon). It should return one of:</p>
+
+<dl>
+<dt><a name="system"
+>system</a></dt>
+
+<dd>
+<p>For a system install</p>
+
+<dt><a name="share"
+>share</a></dt>
+
+<dd>
+<p>For a share install</p>
+
+<dt><a name="default"
+>default</a></dt>
+
+<dd>
+<p>Fallback on the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> default.</p>
+
+<dt><a name="&#39;&#39;"
+><code>&#39;&#39;</code></a></dt>
+
+<dd>
+<p>Fallback first on <code>ALIEN_INSTALL_TYPE</code> and then on the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> default.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Plugin::Probe::OverrideCI"
+><a href="/pod/Alien/Build/Plugin/Probe/OverrideCI.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::OverrideCI</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

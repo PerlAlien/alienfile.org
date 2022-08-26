@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Test::Alien::CPP</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> Test::<a href="/pod/Test/Alien.html">Alien</a>::CPP</div>
+    <!--Test::Alien::CPP--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#FUNCTIONS'>FUNCTIONS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#xs_ok'>xs_ok</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Test::Alien::CPP - Testing tools for Alien modules for projects that use C++</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 1.03</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use Test2::V0;
+ use Test::Alien::CPP;
+ use Alien::libmycpplib;
+ 
+ alien_ok &#39;ALien::libmycpplib&#39;;
+ my $xs = do { local $/; &#60;DATA&#62; };
+ xs_ok $xs, with_subtest {
+   my($module) = @_;
+   ok $module-&#62;version;
+ };
+ 
+ done_testing;
+ 
+ __DATA__
+ 
+ #include &#34;EXTERN.h&#34;
+ #include &#34;perl.h&#34;
+ #include &#34;XSUB.h&#34;
+ #include &#60;mycpplib.h&#62;
+ 
+ MODULE = TA_MODULE PACKAGE = TA_MODULE
+ 
+ const char *
+ version(klass)
+     const char *klass
+   CODE:
+     RETVAL = MyCppLib-&#62;version;
+   OUTPUT:
+     RETVAL</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module works exactly like <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a> except that it supports C++. All functions like <code>alien_ok</code>, etc that are exported by <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a> are exported by this module. The only difference is that <code>xs_ok</code> injects C++ support before delegating to <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="FUNCTIONS"
+>FUNCTIONS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="xs_ok"
+>xs_ok</a></h2>
+
+<pre class="sh_perl"> xs_ok $xs;
+ xs_ok $xs, $message;</pre>
+
+<p>Compiles, links the given <code>XS</code> / C++ code and attaches to Perl. See <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a> for further details on how this test works.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Test::Alien"
+><a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a></a></dt>
+
+<dd>
+<dt><a name="Test::Alien::CanCompileCpp"
+><a href="/pod/Test/Alien/CanCompileCpp.html" class="podlinkpod"
+>Test::Alien::CanCompileCpp</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

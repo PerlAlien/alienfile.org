@@ -139,8 +139,8 @@ name="DESCRIPTION"
 >Alien::Base</a> became as stable as it is today. In particular, <a href="https://metacpan.org/pod/Test%3A%3ACChecker" class="podlinkpod"
 >Test::CChecker</a> does its testing by creating an executable and running it. Unfortunately Perl uses extensions by creating dynamic libraries and linking them into the Perl process, which is different in subtle and error prone ways. This module attempts to test the libraries in the way that they will actually be used, via either <code>XS</code> or <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a>. It also provides a mechanism for testing binaries that are provided by the various <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> modules (for example <a href="https://metacpan.org/pod/Alien%3A%3Agmake" class="podlinkpod"
->Alien::gmake</a> and <a href="https://metacpan.org/pod/Alien%3A%3Apatch" class="podlinkpod"
+>Alien</a> modules (for example <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="podlinkpod"
 >Alien::patch</a>).</p>
 
 <p><a href="/pod/Alien.html" class="podlinkpod"
@@ -349,7 +349,7 @@ name="xs_ok"
 
 <p>The module name detected during the XS parsing phase will be passed in to the subtest. This is helpful when you are using a generated module name.</p>
 
-<p>If you need to test XS C++ interfaces, see <a href="https://metacpan.org/pod/Test%3A%3AAlien%3A%3ACPP" class="podlinkpod"
+<p>If you need to test XS C++ interfaces, see <a href="/pod/Test/Alien/CPP.html" class="podlinkpod"
 >Test::Alien::CPP</a>.</p>
 
 <p>Caveats: <code>xs_ok</code> uses <a href="https://metacpan.org/pod/ExtUtils%3A%3AParseXS" class="podlinkpod"
@@ -535,7 +535,7 @@ name="SEE_ALSO"
 
 <dd>
 <dt><a name="Test::Alien::CPP"
-><a href="https://metacpan.org/pod/Test%3A%3AAlien%3A%3ACPP" class="podlinkpod"
+><a href="/pod/Test/Alien/CPP.html" class="podlinkpod"
 >Test::Alien::CPP</a></a></dt>
 </dl>
 

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Git</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::Git</div>
+    <!--Alien::Build::Git--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Git - Alien::Build tools for interacting with git</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.09</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>Using helper from <a href="/pod/Alien/git.html" class="podlinkpod"
+>Alien::git</a>:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ share {
+ 
+   download [
+     [ &#39;%{git}&#39;, &#39;clone&#39;, &#39;http://example.com/project-foo.git&#39; ],
+   ];
+ 
+   ...
+ 
+ };</pre>
+
+<p>Using plugin <a href="/pod/Alien/Build/Plugin/Download/Git.html" class="podlinkpod"
+>Alien::Build::Plugin::Download::Git</a>:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ meta-&#62;prop-&#62;{start_url} = &#39;http://example.com/project-foo.git&#39;;
+ plugin &#39;Download::Git&#39; =&#62;(
+   version =&#62; qr/^v([0-9\.]+)$/,
+ );</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This module is documentation only for how to use <code>git</code> as a download source from <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. Depending on the project source that you are using and the way your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> is structured, you will want to use one of three modules that come with the distribution <code>Alien-Build-Git</code>. See the synopsis above and the modules in the SEE ALSO section below. To decide which you need.</p>
+
+<p>Also please carefully consider NOT using one of these modules. If you can, using http or ftp to download your target project will probably require fewer and less error-prone dependencies.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::git"
+><a href="/pod/Alien/git.html" class="podlinkpod"
+>Alien::git</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Plugin::Download::Git"
+><a href="/pod/Alien/Build/Plugin/Download/Git.html" class="podlinkpod"
+>Alien::Build::Plugin::Download::Git</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Plugin::Fetch::Git"
+><a href="/pod/Alien/Build/Plugin/Fetch/Git.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Git</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017,2018,2019,2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

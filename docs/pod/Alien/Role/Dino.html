@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Role::Dino</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Role.html">Role</a>::Dino</div>
+    <!--Alien::Role::Dino--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#HOW'>HOW</a>
+  <li class='indexItem indexItem1'><a href='#ETYMOLOGY'>ETYMOLOGY</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#rpath'>rpath</a>
+    <li class='indexItem indexItem2'><a href='#xs_load'>xs_load</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Role::Dino - Experimental support for dynamic share Alien install</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.07</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ share {
+   ...
+   plugin &#39;Gather::Dino&#39;;
+ }</pre>
+
+<p>Apply <a href="/pod/Alien/Role/Dino.html" class="podlinkpod"
+>Alien::Role::Dino</a> to your <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> subclass:</p>
+
+<pre class="sh_perl"> package Alien::libfoo;
+ 
+ use base qw( Alien::Base );
+ use Role::Tiny::With qw( with );
+ 
+ with &#39;Alien::Role::Dino&#39;;
+ 
+ 1;</pre>
+
+<p>And finally from the .pm side of your XS module:</p>
+
+<pre class="sh_perl"> package Foo::XS;
+ 
+ use Alien::libfoo;
+ 
+ our $VERSION = &#39;1.00&#39;;
+ 
+ # Note caveat: your Alien is now a run-time
+ # dependency of your XS module.
+ Alien::libfoo-&#62;xs_load(__PACKAGE__, $VERSION);
+ 
+ 1;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>Every now and then someone will ask me why thus and such <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> thing doesn&#39;t work with a dynamic library error. My usual response is can you make it work with static libraries? The reason for this is that <b>building</b> dynamic libraries for an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> <b>share</b> install introduce a number of challenges, and honestly I don&#39;t see the point of using them, if you can avoid it. So far I haven&#39;t actually seen a situation where it couldn&#39;t be avoided. Just to be clear: dynamic libraries are fine for Alien, and in fact desirable when you are using the system provided libraries. You get the patches and security fixes supplied by your operating system.</p>
+
+<p>Okay, so why not build a dynamic library for a <b>share</b> install?</p>
+
+<p>For this discussion, say you have an alienized library <code>Alien::libfoo</code> and an XS module that uses it called <code>Foo::XS</code> (as illustrated in the synopsis above).</p>
+
+<dl>
+<dt><a name="Your_Alien_becomes_a_run-time_dependency."
+>Your Alien becomes a run-time dependency.</a></dt>
+
+<dd>
+<p>When you link your <code>Foo::XS</code> module with a static library from <code>Alien::libfoo</code> it gets added into the DLL or <code>.so</code> file that the Perl toolchain produces. That means when you later use it, it doesn&#39;t need anything else. When you try to do the same thing with a dynamic library, you need that dynamic library, which is stored in a share directory of <code>Alien::libfoo</code>.</p>
+
+<p>For people who install out of CPAN this is probably not a big deal, but for operating system vendors (the people who integrate Perl modules into their operating system), it is a hassle because now you need this big build tool <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and the alien <code>Alien::libfoo</code> with extra dependencies during runtime. Normally you wouldn&#39;t need those packages installed for end-user use.</p>
+
+<dt><a name="Upgrades_can_and_will_break_your_XS_module."
+>Upgrades can and will break your XS module.</a></dt>
+
+<dd>
+<p>Again, when <code>Alien::libfoo</code> builds a static library and it gets linked into a DLL or <code>.so</code> for <code>Foo::XS</code>, it doesn&#39;t need the original library anymore. If you are using a dynamic library and you do the same thing it maybe works today, but say tomorrow you upgrade <code>Alien::libfoo</code> and it replaces the DLL or <code>.so</code> file with an incompatible API or ABI? Now your <code>Foo::XS</code> module has stopped working!</p>
+
+<dt><a name="Dynamic_libraries_are_not_portable"
+>Dynamic libraries are not portable</a></dt>
+
+<dd>
+<p>Dynamic libraries are widely supported on most modern operating systems, but each system provides a different interface. For example, Linux, Windows and OS X all have an environment variable that allows you to alter the search path for finding dynamic libraries, but all three have different extensions for dynamic libraries (OS X even has two!), the environment variables are called something different, and WHEN you can change them is different.</p>
+
+<p>The Perl core has code for loading dynamic libraries as part of its XS system on all platforms where you can build XS extensions dynamically. Unfortunately that code isn&#39;t quite reusable for use by Alien. Alien developers have limited time and access to many platforms, which means that many platforms will probably never get Alien support.</p>
+
+<p>Static libraries on the other hand pretty much work the same on all platforms. Even on Windows which likes to be different, static libraries are essentially the same as on Unix.</p>
+</dd>
+</dl>
+
+<p>So all that said, why have I written this module, which provides support for dynamic libraries? Well, maybe I am wrong, maybe it isn&#39;t that hard. Also, maybe you don&#39;t have a choice, maybe you have found a library that can ONLY be built using a dynamic library.</p>
+
+<p>What about you? Should you use this module? It has the worked <b>Experimental</b> in the description. The experimental aspect of this module should not worry you, because in the situation that your Alien finds the library from the system, nothing is different from the core <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. The only place it is different is if you have to do a share install, and hopefully you are only using it because you really can&#39;t build a static library. Thus you haven&#39;t really lost anything in stability, and at worst your Alien may work in places where it wouldn&#39;t otherwise.</p>
+
+<p>So in summary, the experimental aspect shouldn&#39;t worry you, the caveats above should!</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HOW"
+>HOW</a></h1>
+
+<p>How does it work? Use the bundled <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> plugin <a href="/pod/Alien/Build/Plugin/Gather/Dino.html" class="podlinkpod"
+>Alien::Build::Plugin::Gather::Dino</a>. That will find any dynamic library paths in your share directory in case they are needed at runtime. Then apply this role to you <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> subclass using <a href="https://metacpan.org/pod/Role%3A%3ATiny%3A%3AWith" class="podlinkpod"
+>Role::Tiny::With</a>. Instead of using <a href="https://metacpan.org/pod/XSLoader" class="podlinkpod"
+>XSLoader</a> or <a href="https://metacpan.org/pod/DynaLoader" class="podlinkpod"
+>DynaLoader</a> to load your XS module, use the <code>xs_load</code> from your <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>. Hopefully the synopsis above makes it clear.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ETYMOLOGY"
+>ETYMOLOGY</a></h1>
+
+<p>This module is named <b>Dino</b> being short for Dinosaur. I really like Dinosaurs (also friendly crocodiles and <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>platypuses</a> in case you hadn&#39;t noticed). &#34;Dino&#34; also has a similar sound to &#34;Dyna&#34; which is frequently used as a short name or prefix meaning &#34;dynamic&#34;. I didn&#39;t want to call it &#34;Dyna&#34; or &#34;Dynamic&#34; since it is only building a dynamic library for share installs. I didn&#39;t want to call it DynaShare because that was getting a bit wordy. So Dino.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="rpath"
+>rpath</a></h2>
+
+<pre class="sh_perl"> my @dirs = $alien-&#62;rpath;</pre>
+
+<p>Returns the list of directories that have non-system dynamic libraries in them. On some systems this is needed at compile time, on others it is needed at run time.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="xs_load"
+>xs_load</a></h2>
+
+<pre class="sh_perl"> $alien-&#62;xs_load($package, $version);
+ $alien-&#62;xs_load($package, $version, @other_dino_aliens);</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>Lots. In summary:</p>
+
+<dl>
+<dt><a name="Your_Alien_is_a_run-time_dependency_and_you_will_annoy_system_integrators"
+>Your Alien is a run-time dependency and you will annoy system integrators</a></dt>
+
+<dd>
+<dt><a name="Your_XS_can_be_broken_by_upgrades_to_your_Alien"
+>Your XS can be broken by upgrades to your Alien</a></dt>
+
+<dd>
+<dt><a name="Your_platform_may_not_be_supported"
+>Your platform may not be supported</a></dt>
+</dl>
+
+<p>Also, this module should start with the caveat section and then go from there. Most modules I write are not like that.</p>
+
+<p>These platforms seem to work: Linux, OS X, Windows, Cygwin, FreeBSD, NetBSD, OpenBSD, Debian kFreeBSD.</p>
+
+<p>Currently has <a href="/pod/Alien/Autotools.html" class="podlinkpod"
+>Alien::Autotools</a> as a prerequisite. I hope to remove that prereq asap.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Plugin::Gather::Dino"
+><a href="/pod/Alien/Build/Plugin/Gather/Dino.html" class="podlinkpod"
+>Alien::Build::Plugin::Gather::Dino</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

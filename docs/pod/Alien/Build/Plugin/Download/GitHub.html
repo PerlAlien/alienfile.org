@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Plugin::Download::GitHub</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Download.html">Download</a>::GitHub</div>
+    <!--Alien::Build::Plugin::Download::GitHub--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#PROPERTIES'>PROPERTIES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#github_user'>github_user</a>
+    <li class='indexItem indexItem2'><a href='#github_repo'>github_repo</a>
+    <li class='indexItem indexItem2'><a href='#include_assets'>include_assets</a>
+    <li class='indexItem indexItem2'><a href='#tags_only'>tags_only</a>
+    <li class='indexItem indexItem2'><a href='#version'>version</a>
+    <li class='indexItem indexItem2'><a href='#prefer'>prefer</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Plugin::Download::GitHub - Alien::Build plugin to download from GitHub</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.07</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use alienfile;
+
+ ...
+
+ share {
+ 
+   plugin &#39;Download::GitHub&#39; =&#62; (
+     github_user =&#62; &#39;PerlAlien&#39;,
+     github_repo =&#62; &#39;dontpanic&#39;,
+   );
+ 
+ };</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This plugin will download releases from GitHub. It is generally preferred over <a href="/pod/Alien/Build/Plugin/Download/Git.html" class="podlinkpod"
+>Alien::Build::Plugin::Download::Git</a> for packages that are released on GitHub, as it has much fewer dependencies and is more reliable.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="PROPERTIES"
+>PROPERTIES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="github_user"
+>github_user</a></h2>
+
+<p>The GitHub user or org that owns the repository. This property is required.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="github_repo"
+>github_repo</a></h2>
+
+<p>The GitHub repository name. This property is required.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="include_assets"
+>include_assets</a></h2>
+
+<p>Defaulting to false, this option designates whether to include the assets of releases in the list of candidates for download. This should be one of three types of values:</p>
+
+<dl>
+<dt><a name="true_value"
+>true value</a></dt>
+
+<dd>
+<p>The full list of assets will be included in the list of candidates.</p>
+
+<dt><a name="false_value"
+>false value</a></dt>
+
+<dd>
+<p>No assets will be included in the list of candidates.</p>
+
+<dt><a name="regular_expression"
+>regular expression</a></dt>
+
+<dd>
+<p>If a regular expression is provided, this will include assets that match by name.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="tags_only"
+>tags_only</a></h2>
+
+<p>Boolean value for those repositories that do not upgrade their tags to releases. There are two different endpoints. One for <a href="https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository" class="podlinkurl"
+>releases</a> and one for simple <a href="https://developer.github.com/v3/repos/#list-tags" class="podlinkurl"
+>tags</a>. The default is to interrogate the former for downloads. Passing a true value for <a href="#tags_only" class="podlinkpod"
+>&#34;tags_only&#34;</a> interrogates the latter for downloads.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="version"
+>version</a></h2>
+
+<p>Regular expression that can be used to extract a version from a GitHub tag. The default ( <code>qr/^v?(.*)$/</code> ) is reasonable for many GitHub repositories.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="prefer"
+>prefer</a></h2>
+
+<p>How to sort candidates for selection. This should be one of three types of values:</p>
+
+<dl>
+<dt><a name="code_reference"
+>code reference</a></dt>
+
+<dd>
+<p>This will be used as the prefer hook.</p>
+
+<dt><a name="true_value_(not_code_reference)"
+>true value (not code reference)</a></dt>
+
+<dd>
+<p>Use <a href="/pod/Alien/Build/Plugin/Prefer/SortVersions.html" class="podlinkpod"
+>Alien::Build::Plugin::Prefer::SortVersions</a>.</p>
+
+<dt><a name="false_value"
+>false value</a></dt>
+
+<dd>
+<p>Don&#39;t set any preference at all. The order returned from GitHub will be used if no other prefer plugins are specified. This may be reasonable for at least some GitHub repositories. This is the default.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ENVIRONMENT"
+>ENVIRONMENT</a></h1>
+
+<dl>
+<dt><a name="ALIEN_BUILD_GITHUB_TOKEN_GITHUB_TOKEN_GITHUB_PAT"
+>ALIEN_BUILD_GITHUB_TOKEN GITHUB_TOKEN GITHUB_PAT</a></dt>
+
+<dd>
+<p>If one of these environment variables are set, then the GitHub API Personal Access Token (PAT) will be used when connecting to the GitHub API.</p>
+
+<p>For security reasons, the PAT will be removed from the log. Some Fetch plugins (for example the <code>curl</code> plugin) will log HTTP requests headers so this will make sure that your PAT is not displayed in the log.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>The GitHub API is rate limited. Once you&#39;ve reach that limit, this plugin will be inoperative for a period of time until the limits reset. When using the GitHub API unauthenticated the limit is especially low. This is usually not a problem when used in production where you only need to use the API once for each <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>, but it can become a problem when testing an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> that uses this plugin in CI or via cpantesters. In this situation you can set the <code>ALIEN_BUILD_GITHUB_TOKEN</code> environment variable (or commonly used but unofficial <code>GITHUB_TOKEN</code> or <code>GITHUB_PAT</code>), and this plugin will use that in making API requests. If you are using GitHub Actions for CI, then you can use the <code>secrets.GITHUB_TOKEN</code> macro to get a PAT.</p>
+
+<p>If you do this it is recommended that you make some precautions where possible:</p>
+
+<dl>
+<dt><a name="Limit_permissions"
+>Limit permissions</a></dt>
+
+<dd>
+<p>Create a PAT with the bare minimum access permissions. Consider creating a separate GitHub account without access to anything, and use it to generate the PAT.</p>
+
+<dt><a name="Limit_scope_of_usage"
+>Limit scope of usage</a></dt>
+
+<dd>
+<p>The PAT is only needed (if it is needed at all) during the build stage of a share install. If you are doing this in GitHub Actions you can just set the environment variable for that stage:</p>
+
+<pre class="sh_perl"> perl Makefile.PL
+ env ALIEN_BUILD_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} make
+ make test</pre>
+
+<p>Or if you are using <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
+>Dist::Zilla</a></p>
+
+<pre class="sh_perl"> dzil listdeps --missing | cpanm -n
+ env ALIEN_BUILD_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} dzil test</pre>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2019 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

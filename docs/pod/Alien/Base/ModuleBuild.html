@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Base::ModuleBuild</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::ModuleBuild</div>
+    <!--Alien::Base::ModuleBuild--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#alien_check_installed_version'>alien_check_installed_version</a>
+    <li class='indexItem indexItem2'><a href='#alien_check_built_version'>alien_check_built_version</a>
+    <li class='indexItem indexItem2'><a href='#alien_extract_archive'>alien_extract_archive</a>
+    <li class='indexItem indexItem2'><a href='#alien_do_system'>alien_do_system</a>
+    <li class='indexItem indexItem2'><a href='#alien_do_commands'>alien_do_commands</a>
+    <li class='indexItem indexItem2'><a href='#alien_interpolate'>alien_interpolate</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#GUIDE_TO_DOCUMENTATION'>GUIDE TO DOCUMENTATION</a>
+  <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#THANKS'>THANKS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Base::ModuleBuild - A Module::Build subclass for building Alien:: modules and their libraries</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 1.15</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your Build.PL:</p>
+
+<pre class="sh_perl"> use Alien::Base::ModuleBuild;
+ 
+ my $builder = Alien::Base::ModuleBuild-&#62;new(
+   module_name =&#62; &#39;Alien::MyLibrary&#39;,
+ 
+   configure_requires =&#62; {
+     &#39;Alien::Base::ModuleBuild&#39; =&#62; &#39;0.005&#39;,
+     &#39;Module::Build&#39; =&#62; &#39;0.28&#39;
+   },
+   requires =&#62; {
+     &#39;Alien::Base&#39; =&#62; &#39;0.005&#39;,
+   },
+ 
+   alien_name =&#62; &#39;mylibrary&#39;, # the pkg-config name if you want
+                              # to use pkg-config to discover
+                              # system version of the mylibrary
+ 
+   alien_repository =&#62; {
+     protocol =&#62; &#39;http&#39;,
+     host     =&#62; &#39;myhost.org&#39;,
+     location =&#62; &#39;/path/to/tarballs&#39;,
+     pattern  =&#62; qr{^mylibrary-([0-9\.]+)\.tar\.gz$},
+   },
+ 
+   # this is the default:
+   alien_build_commands =&#62; [
+     &#34;%c --prefix=%s&#34;, # %c is a platform independent version of ./configure
+     &#34;make&#34;,
+   ],
+ 
+   # this is the default for install:
+   alien_install_commands =&#62; [
+     &#34;make install&#34;,
+   ],
+ 
+   alien_isolate_dynamic =&#62; 1,
+ );</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> instead. Like this module they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Unlike this module they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a>. Although the Alien-Base / Alien-Build team will continue to maintain this module, (we will continue to fix bugs where appropriate), we aren&#39;t adding any new features to this module.</p>
+
+<p>This is a subclass of <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>, that with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> allows for easy creation of Alien distributions. This module is used during the build step of your distribution. When properly configured it will</p>
+
+<dl>
+<dt><a name="use_pkg-config_to_find_and_use_the_system_version_of_the_library"
+>use pkg-config to find and use the system version of the library</a></dt>
+
+<dd>
+<dt><a name="download,_build_and_install_the_library_if_the_system_does_not_provide_it"
+>download, build and install the library if the system does not provide it</a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_check_installed_version"
+>alien_check_installed_version</a></h2>
+
+<p>[version 0.001]</p>
+
+<pre class="sh_perl"> my $version = $abmb-&#62;alien_check_installed_version;</pre>
+
+<p>This function determines if the library is already installed as part of the operating system, and returns the version as a string. If it can&#39;t be detected then it should return empty list.</p>
+
+<p>The default implementation relies on <code>pkg-config</code>, but you will probably want to override this with your own implementation if the package you are building does not use <code>pkg-config</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_check_built_version"
+>alien_check_built_version</a></h2>
+
+<p>[version 0.006]</p>
+
+<pre class="sh_perl"> my $version = $amb-&#62;alien_check_built_version;</pre>
+
+<p>This function determines the version of the library after it has been built from source. This function only gets called if the operating system version can not be found and the package is successfully built. The version is returned on success. If the version can&#39;t be detected then it should return empty list. Note that failing to detect a version is considered a failure and the corresponding <code>./Build</code> action will fail!</p>
+
+<p>Any string is valid as a version as far as <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> is concerned. The most useful value would be a number or dotted decimal that most software developers recognize and that software tools can differentiate. In some cases packages will not have a clear version number, in which case the string <code>unknown</code> would be a reasonable choice.</p>
+
+<p>The default implementation relies on <code>pkg-config</code>, and other heuristics, but you will probably want to override this with your own implementation if the package you are building does not use <code>pkg-config</code>.</p>
+
+<p>When this method is called, the current working directory will be the build root.</p>
+
+<p>If you see an error message like this:</p>
+
+<pre class="sh_perl"> Library looks like it installed, but no version was determined</pre>
+
+<p>After the package is built from source code then you probably need to provide an implementation for this method.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_extract_archive"
+>alien_extract_archive</a></h2>
+
+<p>[version 0.024]</p>
+
+<pre class="sh_perl">  my $dir = $amb-&#62;alien_extract_archive($filename);</pre>
+
+<p>This function unpacks the given archive and returns the directory containing the unpacked files.</p>
+
+<p>The default implementation relies on <a href="https://metacpan.org/pod/Archive%3A%3AExtract" class="podlinkpod"
+>Archive::Extract</a> that is able to handle most common formats. In order to handle other formats or archives requiring some special treatment you may want to override this method.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_do_system"
+>alien_do_system</a></h2>
+
+<p>[version 0.024]</p>
+
+<pre class="sh_perl">  my %result = $amb-&#62;alien_do_system($cmd)</pre>
+
+<p>Similar to <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3Ado_system" class="podlinkpod"
+>Module::Build::do_system</a>, also sets the path and several environment variables in accordance to the object configuration (i.e. <code>alien_bin_requires</code>) and performs the interpolation of the patterns described in <a href="/pod/Alien/Base/ModuleBuild/API.html#COMMAND_INTERPOLATION" class="podlinkpod"
+>&#34;COMMAND INTERPOLATION&#34; in Alien::Base::ModuleBuild::API</a>.</p>
+
+<p>Returns a set of key value pairs including <code>stdout</code>, <code>stderr</code>, <code>success</code> and <code>command</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_do_commands"
+>alien_do_commands</a></h2>
+
+<pre class="sh_perl"> $amb-&#62;alien_do_commands($phase);</pre>
+
+<p>Executes the commands for the given phase.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_interpolate"
+>alien_interpolate</a></h2>
+
+<pre class="sh_perl"> my $string = $amb-&#62;alien_interpolate($string);</pre>
+
+<p>Takes the input string and interpolates the results.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="GUIDE_TO_DOCUMENTATION"
+>GUIDE TO DOCUMENTATION</a></h1>
+
+<p>The documentation for <code>Module::Build</code> is broken up into sections:</p>
+
+<dl>
+<dt><a name="General_Usage_(Module::Build)"
+>General Usage (<a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>)</a></dt>
+
+<dd>
+<p>This is the landing document for <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>&#39;s parent class. It describes basic usage and background information. Its main purpose is to assist the user who wants to learn how to invoke and control <code>Module::Build</code> scripts at the command line.</p>
+
+<p>It also lists the extra documentation for its use. Users and authors of Alien:: modules should familiarize themselves with these documents. <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AAPI" class="podlinkpod"
+>Module::Build::API</a> is of particular importance to authors.</p>
+
+<dt><a name="Alien-Specific_Usage_(Alien::Base::ModuleBuild)"
+>Alien-Specific Usage (<a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>)</a></dt>
+
+<dd>
+<p>This is the document you are currently reading.</p>
+
+<dt><a name="Authoring_Reference_(Alien::Base::Authoring)"
+>Authoring Reference (<a href="/pod/Alien/Base/Authoring.html" class="podlinkpod"
+>Alien::Base::Authoring</a>)</a></dt>
+
+<dd>
+<p>This document describes the structure and organization of <code>Alien::Base</code> based projects, beyond that contained in <code>Module::Build::Authoring</code>, and the relevant concepts needed by authors who are writing <em>Build.PL</em> scripts for a distribution or controlling <code>Alien::Base::ModuleBuild</code> processes programmatically.</p>
+
+<p>Note that as it contains information both for the build and use phases of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> projects, it is located in the upper namespace.</p>
+
+<dt><a name="API_Reference_(Alien::Base::ModuleBuild::API)"
+>API Reference (<a href="/pod/Alien/Base/ModuleBuild/API.html" class="podlinkpod"
+>Alien::Base::ModuleBuild::API</a>)</a></dt>
+
+<dd>
+<p>This is a reference to the <code>Alien::Base::ModuleBuild</code> API beyond that contained in <code>Module::Build::API</code>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ENVIRONMENT"
+>ENVIRONMENT</a></h1>
+
+<dl>
+<dt><a name="ALIEN_VERBOSE"
+><b>ALIEN_VERBOSE</b></a></dt>
+
+<dd>
+<p>Enables verbose output from <a href="https://metacpan.org/pod/Module%3A%3ABuild%23do_system" class="podlinkpod"
+>M::B::do_system</a>.</p>
+
+<dt><a name="ALIEN_FORCE"
+><b>ALIEN_FORCE</b></a></dt>
+
+<dd>
+<p>Skips checking for an installed version and forces reinstalling the Alien target.</p>
+
+<dt><a name="ALIEN_INSTALL_TYPE"
+><b>ALIEN_INSTALL_TYPE</b></a></dt>
+
+<dd>
+<p>Set to &#39;share&#39; or &#39;system&#39; to override the install type. Set to &#39;default&#39; or unset to restore the default.</p>
+
+<dt><a name="ALIEN_ARCH"
+><b>ALIEN_ARCH</b></a></dt>
+
+<dd>
+<p>Set to a true value to install to an arch-specific directory.</p>
+
+<dt><a name="ALIEN_${MODULENAME}_REPO_${PROTOCOL}_${KEY}"
+><b>ALIEN_${MODULENAME}_REPO_${PROTOCOL}_${KEY}</b></a></dt>
+
+<dd>
+<p>Overrides $KEY in the given module&#39;s repository configuration matching $PROTOCOL. For example, <code>ALIEN_OPENSSL_REPO_FTP_HOST=ftp.example.com</code>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build::Manual::AlienAuthor"
+><a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a></a></dt>
+
+<dd>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="THANKS"
+>THANKS</a></h1>
+
+<p>Thanks also to</p>
+
+<dl>
+<dt><a name="Christian_Walde_(Mithaldu)"
+>Christian Walde (Mithaldu)</a></dt>
+
+<dd>
+<p>For productive conversations about component interoperability.</p>
+
+<dt><a name="kmx"
+>kmx</a></dt>
+
+<dd>
+<p>For writing Alien::Tidyp from which I drew many of my initial ideas.</p>
+
+<dt><a name="David_Mertens_(run4flat)"
+>David Mertens (run4flat)</a></dt>
+
+<dd>
+<p>For productive conversations about implementation.</p>
+
+<dt><a name="Mark_Nunberg_(mordy,_mnunberg)"
+>Mark Nunberg (mordy, mnunberg)</a></dt>
+
+<dd>
+<p>For graciously teaching me about rpath and dynamic loading,</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Original author: Joel A Berger &#60;joel.a.berger@gmail.com&#62;</p>
+
+<p>Current maintainer: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Graham Ollis (plicease)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk2</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Petr Pisar (ppisar)</p>
+
+<p>Alberto Sim&#245;es (ambs)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2012-2020 by Joel A Berger.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

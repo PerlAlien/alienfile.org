@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dist::Zilla::Plugin::Alien</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> Dist::Zilla::Plugin::Alien</div>
+    <!--Dist::Zilla::Plugin::Alien--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#ATTRIBUTES'>ATTRIBUTES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#repo'>repo</a>
+    <li class='indexItem indexItem2'><a href='#pattern'>pattern</a>
+    <li class='indexItem indexItem2'><a href='#exact_filename'>exact_filename</a>
+    <li class='indexItem indexItem2'><a href='#bins'>bins</a>
+    <li class='indexItem indexItem2'><a href='#name'>name</a>
+    <li class='indexItem indexItem2'><a href='#build_command'>build_command</a>
+    <li class='indexItem indexItem2'><a href='#install_command'>install_command</a>
+    <li class='indexItem indexItem2'><a href='#test_command'>test_command</a>
+    <li class='indexItem indexItem2'><a href='#isolate_dynamic'>isolate_dynamic</a>
+    <li class='indexItem indexItem2'><a href='#autoconf_with_pic'>autoconf_with_pic</a>
+    <li class='indexItem indexItem2'><a href='#inline_auto_include'>inline_auto_include</a>
+    <li class='indexItem indexItem2'><a href='#msys'>msys</a>
+    <li class='indexItem indexItem2'><a href='#bin_requires'>bin_requires</a>
+    <li class='indexItem indexItem2'><a href='#stage_install'>stage_install</a>
+    <li class='indexItem indexItem2'><a href='#helper'>helper</a>
+    <li class='indexItem indexItem2'><a href='#provides_cflags'>provides_cflags</a>
+    <li class='indexItem indexItem2'><a href='#provides_libs'>provides_libs</a>
+    <li class='indexItem indexItem2'><a href='#version_check'>version_check</a>
+    <li class='indexItem indexItem2'><a href='#env'>env</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#InstallRelease'>InstallRelease</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#BUGS'>BUGS</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Dist::Zilla::Plugin::Alien - Use Alien::Base with Dist::Zilla</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 0.024</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>In your <i>dist.ini</i>:</p>
+
+<pre class="sh_perl">  name = Alien-myapp
+
+  [Alien]
+  repo = http://myapp.org/releases
+  bins = myapp myapp_helper
+  # the following parameters are based on the dist name automatically
+  name = myapp
+  pattern_prefix = myapp-
+  pattern_version = ([\d\.]+)
+  pattern_suffix = \.tar\.gz
+  pattern = myapp-([\d\.]+)\.tar\.gz
+
+  # commands used to build (optional)
+  build_command = %c --prefix=%s
+  # ...
+
+  # commands uses to install (optional)
+  install_command = make install</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p><b>NOTE</b>: This module uses the older, and still supported, but not actively developed <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> interface for installing aliens. You should use <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a> for new <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s, and consider migration for older code as well.</p>
+
+<p>This is a simple wrapper around Alien::Base, to make it very simple to generate a distribution that uses it. You only need to make a module like in this case Alien::myapp which extends Alien::Base and additionally a url that points to the path where the downloadable .tar.gz of the application or library can be found. For more informations about the parameter, please checkout also the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> documentation. The <i>repo</i> paramter is automatically taken apart to supply the procotol, host and other parameters for <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>.</p>
+
+<p><b>Warning</b>: Please be aware that <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> uses <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>, which means you shouldn&#39;t have <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AMakeMaker" class="podlinkpod"
+>Dist::Zilla::Plugin::MakeMaker</a> loaded. For our case, this means, you can&#39;t just easily use it together with the common <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APluginBundle%3A%3ABasic" class="podlinkpod"
+>Dist::Zilla::PluginBundle::Basic</a>, because this includes it. As alternative you can use <a href="/pod/Dist/Zilla/PluginBundle/Alien.html" class="podlinkpod"
+>Dist::Zilla::PluginBundle::Alien</a> which is also included in this distribution.</p>
+
+<p>You should also consider using <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a> for new development, as it uses the more modern flexible installer <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ATTRIBUTES"
+>ATTRIBUTES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="repo"
+>repo</a></h2>
+
+<p>The only required parameter, defines the path for the packages of the product you want to alienfy. This must not include the filename.</p>
+
+<p>To indicate a local repository use the <code>file:</code> scheme:</p>
+
+<pre class="sh_perl">   # located in the base directory
+   repo = file:.
+
+   # located in the inc/ directory relative to the base
+   repo = file:inc</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pattern"
+>pattern</a></h2>
+
+<p>The pattern is used to define the filename to be expected from the repo of the alienfied product. It is set together out of <i>pattern_prefix</i>, <i>pattern_version</i> and <i>pattern_suffix</i>. <i>pattern_prefix</i> is by default <a href="#name" class="podlinkpod"
+>&#34;name&#34;</a> together with a dash.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="exact_filename"
+>exact_filename</a></h2>
+
+<p>Instead of providing a pattern you may use this to set the exact filename.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bins"
+>bins</a></h2>
+
+<p>A space or tab seperated list of all binaries that should be wrapped to be executable from the perl environment (if you use perlbrew or local::lib this also guarantees that its available via the PATH).</p>
+
+<p><b>NOTE</b>: If you set this, the build will use a custom subclass of <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> in order to only install the wrapper scripts for a share install.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="name"
+>name</a></h2>
+
+<p>The name of the Alien package, this is used for the pattern matching filename. If none is given, then the name of the distribution is used, but the <i>Alien-</i> is cut off.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="build_command"
+>build_command</a></h2>
+
+<p>The ordered sequence of commands used to build the distribution (passed to the <code>alien_build_commands</code> option). This is optional.</p>
+
+<pre class="sh_perl">  # configure then make
+  build_command = %c --prefix=%s
+  build_command = make</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install_command"
+>install_command</a></h2>
+
+<p>The ordered sequence of commands used to install the distribution (passed to the <code>alien_install_commands</code> option). This is optional.</p>
+
+<pre class="sh_perl">  install_command = make install</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="test_command"
+>test_command</a></h2>
+
+<p>The ordered sequence of commands used to test the distribution (passed to the <code>alien_test_commands</code> option). This is optional, and not often used.</p>
+
+<pre class="sh_perl">  test_command = make check</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="isolate_dynamic"
+>isolate_dynamic</a></h2>
+
+<p>If set to true, then dynamic libraries will be isolated from the static libraries when <code>install_type=share</code> is used. This is recommended for XS modules where static libraries are more reliable. Dynamic libraries (.dll, .so, etc) are still available and can easily be used by FFI modules.</p>
+
+<pre class="sh_perl">  isolate_dynamic = 1</pre>
+
+<p>Usage of this attribute will bump the requirement of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> up to 0.005 for your distribution.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf_with_pic"
+>autoconf_with_pic</a></h2>
+
+<p>If set to true (the default), then <code>--with-pic</code> will be passed to autoconf style <code>configure</code> scripts. This usually enables position independent code which is desirable if you are using static libraries to build XS modules. Usually, if the autoconf does not recognize <code>--with-pic</code> it will ignore it, but some <code>configure</code> scripts which are not managed by autoconf may complain and die with this option.</p>
+
+<pre class="sh_perl">  ; only if you know configure will die with --with-pic
+  autoconf_with_pic = 0</pre>
+
+<p>Usage of this attribute will bump the requirement of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> up to 0.005 for your distribution.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="inline_auto_include"
+>inline_auto_include</a></h2>
+
+<p>List of header files to automatically include (see <a href="https://metacpan.org/pod/Inline%3A%3AC%23auto_include" class="podlinkpod"
+>Inline::C#auto_include</a>) when the Alien module is used with <a href="https://metacpan.org/pod/Inline%3A%3AC" class="podlinkpod"
+>Inline::C</a> or <a href="https://metacpan.org/pod/Inline%3A%3ACPP" class="podlinkpod"
+>Inline::CPP</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="msys"
+>msys</a></h2>
+
+<p>Force the use of <a href="/pod/Alien/MSYS.html" class="podlinkpod"
+>Alien::MSYS</a> when building on Windows. Normally this is only done if <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> can detect that you are attempting to use an autotools style <code>configure</code> script.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bin_requires"
+>bin_requires</a></h2>
+
+<p>Require the use of a binary tool Alien distribution. You can optionally specify a version using the equal <code>=</code> sign.</p>
+
+<pre class="sh_perl"> [Alien]
+ bin_requires = Alien::patch
+ bin_requires = Alien::gmake = 0.03</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="stage_install"
+>stage_install</a></h2>
+
+<p>If set to true, Alien packages are installed directly into the blib directory by the `./Build&#39; command rather than to the final location during the `./Build install` step.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="helper"
+>helper</a></h2>
+
+<p>Defines helpers. You can specify the content of the helper (which will be evaluated in <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> during the build/install step) using the equal <code>=</code> sign.</p>
+
+<pre class="sh_perl"> [Alien]
+ helper = mytool = &#39;&#34;mytool --foo --bar&#34;&#39;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="provides_cflags"
+>provides_cflags</a></h2>
+
+<p>Sets the <code>alien_provides_cflags</code> property for <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="provides_libs"
+>provides_libs</a></h2>
+
+<p>Sets the <code>alien_provides_libs</code> property for <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="version_check"
+>version_check</a></h2>
+
+<p>Sets the <code>alien_version_check</code> property for <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="env"
+>env</a></h2>
+
+<p>Sets the <code>alien_env</code> property for <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>. You can specify the content of the environment using the equal <code>=</code> sign. Note that values are interpolated, and allow variables and helpers.</p>
+
+<pre class="sh_perl"> [Alien]
+ helper = path = &#39;require Config;$Config{path_sep}$ENV{PATH}&#39;
+ ; sets PATH to /extra/path:$PATH on UNIX, /extra/path;$PATH on Windows
+ env = PATH = /extra/path%{path}
+ ; sets FOO to 1
+ env = FOO = 1</pre>
+
+<p>There is no default value, so this is illegal:</p>
+
+<pre class="sh_perl"> [Alien]
+ ; won&#39;t build!
+ env = FOO</pre>
+
+<p>Note that setting an environment variable to the empty string (<code>&#39;&#39;</code>) is not portable. In particular it will work on Unix as you might expect, but in Windows it will actually unset the environment variable, which may not be what you intend.</p>
+
+<pre class="sh_perl"> [Alien]
+ ; works but not consistent
+ ; over all platforms
+ env = FOO =</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="InstallRelease"
+>InstallRelease</a></h1>
+
+<p>The method <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> is using would compile the complete Alien 2 times, if you use it in combination with <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AInstallRelease" class="podlinkpod"
+>Dist::Zilla::Plugin::InstallRelease</a>. One time at the test, and then again after release. With a small trick, you can avoid this. You can use <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3ARun" class="podlinkpod"
+>Dist::Zilla::Plugin::Run</a> to add an additional test which installs out of the unpacked distribution for the testing:</p>
+
+<pre class="sh_perl">  [Run::Test]
+  run_if_release = ./Build install</pre>
+
+<p>This will do the trick :). Be aware, that you need to add this plugin after <i>[ModuleBuild]</i>. You can use <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APluginBundle%3A%3AAuthor%3A%3AGETTY" class="podlinkpod"
+>Dist::Zilla::PluginBundle::Author::GETTY</a>, which directly use this trick in the right combination.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<p>Base class for aliens</p>
+
+<dt><a name="Alien::Base::ModuleBuild"
+><a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a></a></dt>
+
+<dd>
+<p>Installer this plugin uses for building <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s.</p>
+
+<dt><a name="alienfile_+_Alien::Build"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<p>Modern pluggable installer alternative to <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>.</p>
+
+<dt><a name="Dist::Zilla::Plugin::AlienBuild"
+><a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a></a></dt>
+
+<dd>
+<p>Alternative <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
+>Dist::Zilla</a> plugin that uses <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="BUGS"
+>BUGS</a></h1>
+
+<p>Please report any bugs or feature requests on the bugtracker website <a href="https://github.com/PerlAlien/Dist-Zilla-Plugin-Alien/issues" class="podlinkurl"
+>https://github.com/PerlAlien/Dist-Zilla-Plugin-Alien/issues</a></p>
+
+<p>When submitting a bug or request, please include a test-file or a patch to an existing test-file that illustrates the bug or desired feature.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Torsten Raudssus &#60;torsten@raudss.us&#62;</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2013 by Torsten Raudssus.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>
