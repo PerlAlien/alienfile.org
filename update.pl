@@ -12,21 +12,17 @@ use HTTP::Tiny::Mech;
 use MetaCPAN::Client;
 use Path::Tiny qw( path );
 
-my $ht = HTTP::Tiny->new(
-  default_headers => {
-    Authorization => "token $ENV{GITHUB_OAUTH_TOKEN}",
-  }
+my $ua = HTTP::Tiny::Mech->new(
+  mechua => WWW::Mechanize::Cached->new(
+    cache => CHI->new(
+      driver   => 'File',
+      root_dir => path(__FILE__)->parent->child('./.web-cache')->stringify,
+    ),
+  )
 );
 
 my $mcpan = MetaCPAN::Client->new(
-  ua => HTTP::Tiny::Mech->new(
-    mechua => WWW::Mechanize::Cached->new(
-      cache => CHI->new(
-        driver   => 'File',
-        root_dir => '/tmp/metacpan-cache',
-      ),
-    ),
-  ),
+  ua => $ua,
 );
 
 my %repos;
@@ -34,7 +30,7 @@ my %repos;
 my $page = 1;
 while(1)
 {
-  my $res = $ht->get("https://api.github.com/orgs/PerlAlien/repos?page=$page");
+  my $res = $ua->get("https://api.github.com/orgs/PerlAlien/repos?page=$page");
   if($res->{success})
   {
     $res = decode_json($res->{content});
@@ -63,4 +59,4 @@ while(1)
   }
 }
 
-path('tarballs.txt')->spew(join("\n", sort values %repos));
+path(__FILE__)->parent->child('.tarballs.txt')->spew(join("\n", sort values %repos));
