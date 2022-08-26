@@ -10,6 +10,7 @@ package Pods {
   use URI;
   use URI::file;
   use Path::Tiny ();
+  use JSON::MaybeXS qw( decode_json );
   use Template;
 
   sub new ($class) {
@@ -34,6 +35,10 @@ package Pods {
       my $peek = Archive::Libarchive::Peek->new(
         memory => \$tarball,
       );
+
+      my @pod_list;
+      my $dist_name;
+
       $peek->iterate(sub ($filename, $content, $e) {
         return unless $e->filetype eq 'reg';
 
@@ -54,6 +59,7 @@ package Pods {
               content => $content,
               href    => $self->url_prefix . $href,
             };
+            push @pod_list, $name;
           }
           else
           {
@@ -68,8 +74,24 @@ package Pods {
             content => $content,
             href    => $self->url_prefix . "$name.html",
           };
+          push @pod_list, $name;
+        }
+        elsif($filename =~  m{^[^/]+/META.json$})
+        {
+          my $meta = decode_json($content);
+          $dist_name = $meta->{name};
         }
       });
+
+      if($dist_name)
+      {
+        $self->{dist}->{$dist_name} = [ sort @pod_list ];
+      }
+      else
+      {
+        warn "unknown dist for $url";
+      }
+
     } else {
       die "error fetching $url: @{[ $res->status_line ]}";
     }
@@ -105,6 +127,7 @@ package Pods {
 
   sub generate_html ($self) {
 
+    # write out each pod file as .html
     foreach my $name (sort keys $self->{pod}->%*)
     {
       my $p = Pods::HTML->new;
@@ -140,11 +163,31 @@ package Pods {
       $path->spew_utf8($full_html);
     }
 
+    # write out data files, images, etc.
     foreach my $path (sort keys $self->{data}->%*) {
       my $content = $self->{data}->{$path};
       $path = $self->fs_root->child($path);
       $path->parent->mkpath;
       $path->spew_raw($content);
+    }
+
+    # generate the dist index
+    {
+      my @dists;
+    
+      foreach my $dist_name (sort keys $self->{dist}->%*)
+      {
+        push @dists, { name => $dist_name, pods => [ map { { href => $self->get_link($_), name => $_ } } $self->{dist}->{$dist_name}->@* ] };
+      }
+
+      my $html;
+      $self->tt->process('dist.html.tt', {
+        title => 'Documentation',
+        shjs  => "https://shjs.wdlabs.com",
+        dists => \@dists,
+      }, \$html);
+
+      $self->fs_root->child('index.html')->spew_utf8($html);
     }
   }
 

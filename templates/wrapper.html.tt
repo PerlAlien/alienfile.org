@@ -11,11 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    [% IF h1 %]
-      <div class="nx-header-title"><a href="/">🌻</a> [% h1 %]</div>
-    [% ELSE %]
-      <div class="nx-header-title"><a href="/">🌻</a> alienfile.org</div>
-    [% END %]
+    <div class="nx-header-title"><a href="/">🌻</a> [% IF sub %]<a href="[% sub.href %]">[% sub.text %]</a> [% END %][% IF h1 %][% h1 %][% ELSE %]alienfile.org[% END %]</div>
     [% content %]
     <div class="nx-footer">
       <p>Copyright &copy; 2022 Graham Ollis</p>

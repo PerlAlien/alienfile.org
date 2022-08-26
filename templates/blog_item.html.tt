@@ -1,0 +1,3 @@
+[%- SET sub.href = "/blog/" -%]
+[%- SET sub.text = "🪵" -%]
+[% markdown %]

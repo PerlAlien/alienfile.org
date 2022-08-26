@@ -1,1 +1,3 @@
+[%- SET sub.href = "/pod/" -%]
+[%- SET sub.text = "📖" -%]
 [% pod %]

@@ -1,0 +1,11 @@
+<ul class="dists">
+[% FOREACH dist IN dists %]
+  <li class="dist">[% dist.name %]
+    <ul class="pods">
+      [% FOREACH pod IN dist.pods %]
+        <li class="pod"><a href=[% pod.href %]>[% pod.name %]</a></li>
+      [% END %]
+    </ul>
+  </li>
+[% END %]
+</ul>
