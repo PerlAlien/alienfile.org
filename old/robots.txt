@@ -1,5 +1,0 @@
-Sitemap: https://perl5-alien.github.io/sitemap.xml
-User-Agent: *
-Disallow:
-
-

@@ -3,7 +3,7 @@ use warnings;
 use 5.020;
 use experimental qw( signatures postderef );
 
-package Pods {
+package XOR::Pods {
 
   use Archive::Libarchive::Peek;
   use URI;
@@ -11,16 +11,38 @@ package Pods {
   use Path::Tiny ();
   use JSON::MaybeXS qw( decode_json );
   use Template;
-  use Web;
+  use XOR::Web;
 
   sub new ($class) {
     bless {}, $class;
   }
 
+  sub web ($self, $new=undef) {
+    $self->{web} = $new if defined $new;
+    $self->{web} ||= XOR::Web->new;
+  }
+
+  sub current ($self, $new=undef) {
+    if(defined $new) {
+      $self->{current} = $new;
+    }
+    $self->{current};
+  }
+
+  sub fs_root ($self, $new=undef) {
+    $self->{fs_root} = $new if defined $new;
+    $self->{fs_root} ||= Path::Tiny->new('.')->absolute->child('docs', 'pod');
+  }
+
+  sub url_prefix ($self, $new=undef) {
+    $self->{url_prefix} = $new if defined $new;
+    $self->{url_prefix} ||= "/pod/"
+  }
+
   sub add_dist ($self, $location) {
     my $url = -f $location ? URI::file->new(Path::Tiny->new($location)->absolute->stringify) : URI->new($location);
     say "$url";
-    my $tarball = Web->get($url);
+    my $tarball = $self->web->get($url);
 
     my $peek = Archive::Libarchive::Peek->new(
       memory => \$tarball,
@@ -83,32 +105,15 @@ package Pods {
     }
   }
 
-  sub current ($self, $new=undef) {
-    if(defined $new) {
-      $self->{current} = $new;
-    }
-    $self->{current};
-  }
-
   sub tt ($self, $new=undef) {
     $self->{tt} = $new if defined $new;
     $self->{tt} ||= Template->new(
       WRAPPER            => 'wrapper.html.tt',
-      INCLUDE_PATH       => Path::Tiny->new(__FILE__)->parent->parent->child('templates')->stringify,
+      INCLUDE_PATH       => Path::Tiny->new('.')->absolute->child('templates')->stringify,
       render_die         => 1,
       TEMPLATE_EXTENSION => '.tt',
       ENCODING           => 'utf8',
     );
-  }
-
-  sub fs_root ($self, $new=undef) {
-    $self->{fs_root} = $new if defined $new;
-    $self->{fs_root} ||= Path::Tiny->new(__FILE__)->parent->parent->child('docs', 'pod');
-  }
-
-  sub url_prefix ($self, $new=undef) {
-    $self->{url_prefix} = $new if defined $new;
-    $self->{url_prefix} ||= "/pod/"
   }
 
   sub generate_html ($self) {
@@ -116,7 +121,7 @@ package Pods {
     # write out each pod file as .html
     foreach my $name (sort keys $self->{pod}->%*)
     {
-      my $p = Pods::HTML->new;
+      my $p = XOR::Pods::HTML->new;
       my $html;
       $p->output_string(\$html);
       $p->index(1);
@@ -217,7 +222,7 @@ package Pods {
 
 }
 
-package Pods::HTML {
+package XOR::Pods::HTML {
 
   use parent qw( Pod::Simple::HTML );
 

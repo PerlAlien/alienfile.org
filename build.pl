@@ -9,7 +9,7 @@ use experimental qw( signatures postderef );
 use Template;
 use Path::Tiny qw( path );
 use Text::Markdown::Custom;
-use Pods;
+use XOR::Pods;
 use Path::Tiny qw( path );
 
 my $root = path(__FILE__)->parent;
@@ -22,7 +22,7 @@ my $tt = Template->new(
   ENCODING           => 'utf8',
 );
 
-my $pods = Pods->new;
+my $pods = XOR::Pods->new;
 foreach my $url (path('.tarballs.txt')->lines( { chomp => 1 } ))
 {
   $pods->add_dist($url);
