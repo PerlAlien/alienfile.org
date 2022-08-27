@@ -8,7 +8,7 @@ download it from the internet and install it into a private share location so th
 Installing in a private share location is an important part of the Alien philosophy as we do not want to replace or corrupt 
 system libraries.
 
-The M<original manifesto|Alien#ORIGINAL_MANIFESTO> developed by A<ABERGMAN> states that no framework is to be imposed onto
+The M<original manifesto|Alien#ORIGINAL_MANIFESTO> developed by A<Artur Bergman|ABERGMAN> states that no framework is to be imposed onto
 Alien authors, which adds to the flexability of the Alien concept.  That said you should consider the M<Alien::Build> framework,
 which provides powerful tools for creating and maintaining Aliens.  It is very easy to build an M<Alien::Build> based
 Alien that alienizes a package that uses common build tools like M<autotools|Alien::Build::Plugin::Build::Autoconf>
