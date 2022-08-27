@@ -8,6 +8,7 @@ package XOR {
   use XOR::Web;
   use XOR::Markdown;
   use XOR::TarballList;
+  use XOR::Builder;
   use Path::Tiny ();
   use YAML ();
 
@@ -46,6 +47,11 @@ package XOR {
   sub tarball_list ($self)
   {
     $self->{tarball_list} ||= XOR::TarballList->new;
+  }
+
+  sub builder ($self)
+  {
+    $self->{builder} ||= XOR::Builder->new;
   }
 
   sub root ($self)
