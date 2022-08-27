@@ -4,10 +4,9 @@ This is the source for the [alienfile.org](https://alienfile.org) website.  The
 intent is to make this the go to place for information about Perl/Alien, and for
 these related Alien projects:
 
- * Alien::Base
- * [Alien::Base::ModuleBuild](/PerlAlien/Alien-Base-ModuleBuild)
- * Alien::Build
- * alienfile
+ * [Alien::Build](https://github.org/PerlAlien/Alien-Build)
+ * [Alien::Base::ModuleBuild](https://github.org/PerlAlien/Alien-Base-ModuleBuild)
+ * etc.
 
 ## Contributing.
 
