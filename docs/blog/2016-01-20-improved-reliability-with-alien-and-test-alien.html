@@ -14,11 +14,11 @@
     <div class="nx-header-title"><a href="/">🌻</a> <a href="/blog/">🪵</a> Improved reliability with Alien and Test::Alien</div>
     <p>By <b>Graham Ollis</b> on 20 January 2016</p>
 
-<p>The one major platform that didn’t work on the initial switch was of 
-course Strawberry Perl, but after some debugging and patches I got 
-<a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even 
-submitted patches to upstream to the hunspell project, which were 
-accepted, so that in the future less patching will be required.  This is 
+<p>The one major platform that didn’t work on the initial switch was of
+course Strawberry Perl, but after some debugging and patches I got
+<a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> and <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> to work there as well.  I even
+submitted patches to upstream to the hunspell project, which were
+accepted, so that in the future less patching will be required.  This is
 what is great about Open Source when it works.</p>
 
 <p>The results as recorded in the cpantesters matrix are stark:</p>
@@ -28,17 +28,17 @@ what is great about Open Source when it works.</p>
 <li><a href="http://matrix.cpantesters.org/?dist=Text-Hunspell%202.11">2.11 - the last version to use ExtUtils::PkgConfig</a></li>
 </ul>
 
-<p>In the process of working on all of this I finally gave up on 
-<a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a>.  I wrote this module to test Alien distributions, and 
-leveraged some capabilities from <a href="https://metacpan.org/pod/ExtUtils::CChecker" class="module">ExtUtils::CChecker</a>, which is designed 
-to probe and check compiler and linker flags from a Makefile.PL or 
+<p>In the process of working on all of this I finally gave up on
+<a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a>.  I wrote this module to test Alien distributions, and
+leveraged some capabilities from <a href="https://metacpan.org/pod/ExtUtils::CChecker" class="module">ExtUtils::CChecker</a>, which is designed
+to probe and check compiler and linker flags from a Makefile.PL or
 Build.PL file.</p>
 
-<p><a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a> was a huge improvement over existing state of affairs for 
-testing Aliens when I wrote it.  For most such modules, this consisted 
-of the hand rolled .t files that used the Config module and attempted to 
-build executables by invoking the compiler via system or qx.  Assuming 
-that an Alien module even had any tests.  Here is a simplified version 
+<p><a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a> was a huge improvement over existing state of affairs for
+testing Aliens when I wrote it.  For most such modules, this consisted
+of the hand rolled .t files that used the Config module and attempted to
+build executables by invoking the compiler via system or qx.  Assuming
+that an Alien module even had any tests.  Here is a simplified version
 of the <a href="https://metacpan.org/pod/Test::CChecker" class="module">Test::CChecker</a> test that I wrote for <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>.</p>
 
 <pre class="sh_perl">
@@ -73,27 +73,27 @@ main(int argc, char *argv[])
 }
 </pre>
 
-<p>What this does is compile and link an executable using the flags 
-provided by <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>.  It then runs it and ensures that it 
-doesn’t dump core, and returns a successful exit status.  Simple(ish) 
-for Alien right?  The problem is that there are a number of subtle edge 
-cases that become much more prominent when you are installing an Alien 
-module that decides that it needs to build the upstream package from 
-source.  The biggest difference between what this test tests, and how 
-the Alien module is actually used is that <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> creates a 
-dynamic library and links it to the running Perl process.  This means 
-that the test file catches errors specific to linking executables that 
-aren’t pertinent to usage in Perl.  It also means that this test file 
-does NOT catch errors that are specific to dynamic libraries, which ARE 
+<p>What this does is compile and link an executable using the flags
+provided by <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>.  It then runs it and ensures that it
+doesn’t dump core, and returns a successful exit status.  Simple(ish)
+for Alien right?  The problem is that there are a number of subtle edge
+cases that become much more prominent when you are installing an Alien
+module that decides that it needs to build the upstream package from
+source.  The biggest difference between what this test tests, and how
+the Alien module is actually used is that <a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> creates a
+dynamic library and links it to the running Perl process.  This means
+that the test file catches errors specific to linking executables that
+aren’t pertinent to usage in Perl.  It also means that this test file
+does NOT catch errors that are specific to dynamic libraries, which ARE
 pertinent to usage in Perl.</p>
 
-<p>So I wrote <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> to test <a href="/pod/Alien.html" class="module">Alien</a> modules in the way that they 
-are actually used.  Create an interface to make it easy to create a 
-mini-XS or FFI and run some basic tests like ensure you can query the 
-version number.  This increases the likelihood that the Alien module 
-will actually be useful dramatically, and it catches errors with the 
-Alien module where they should be found, in the Alien module itself, not 
-in the downstream XS or FFI module.  Here are simplified tests, also for 
+<p>So I wrote <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> to test <a href="/pod/Alien.html" class="module">Alien</a> modules in the way that they
+are actually used.  Create an interface to make it easy to create a
+mini-XS or FFI and run some basic tests like ensure you can query the
+version number.  This increases the likelihood that the Alien module
+will actually be useful dramatically, and it catches errors with the
+Alien module where they should be found, in the Alien module itself, not
+in the downstream XS or FFI module.  Here are simplified tests, also for
 <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a>:</p>
 
 <pre class="sh_perl">
@@ -134,7 +134,7 @@ Hunspell_destroy(handle);
     void *handle;
 </pre>
 
-<p>This tests that a basic dynamic extension can be built, and can create 
+<p>This tests that a basic dynamic extension can be built, and can create
 and destroy a simple hunspell instance without crashing.</p>
 
 <pre class="sh_perl">
@@ -164,19 +164,19 @@ ffi_ok { symbols => [qw( Hunspell_create Hunspell_destroy )] }, with_subtest {
 };
 </pre>
 
-<p><a href="/pod/Test/Alien.html" class="module">Test::Alien</a> also has tests for tool oriented Alien modules, such as 
-<a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="module">Alien::patch</a>.  <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> is designed to work 
-seamlessly with <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> modules, but can also be made to 
+<p><a href="/pod/Test/Alien.html" class="module">Test::Alien</a> also has tests for tool oriented Alien modules, such as
+<a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="module">Alien::patch</a>.  <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> is designed to work
+seamlessly with <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> modules, but can also be made to
 work without much additional work with non <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="https://metacpan.org/pod/Aliens" class="module">Aliens</a>.</p>
 
-<p>The other nice thing about the <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> interface is that its tests 
-will self skip if a compiler or <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> are not found.  This is 
-useful, as <a href="https://metacpan.org/pod/Text::Hunspell::FFI" class="module">Text::Hunspell::FFI</a> can use <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> without a 
-compiler if the hunspell system packages are installed, and conversely 
-<a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> can use <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> if <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a> is not 
+<p>The other nice thing about the <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> interface is that its tests
+will self skip if a compiler or <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> are not found.  This is
+useful, as <a href="https://uperl.github.io/pod/Text/Hunspell/FFI.html" class="module">Text::Hunspell::FFI</a> can use <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> without a
+compiler if the hunspell system packages are installed, and conversely
+<a href="https://metacpan.org/pod/Text::Hunspell" class="module">Text::Hunspell</a> can use <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> if <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> is not
 installed.</p>
 
-<p>I used <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> in development versions of <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> to 
+<p>I used <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> in development versions of <a href="/pod/Alien/Hunspell.html" class="module">Alien::Hunspell</a> to
 identify and correct bugs to make it more reliable.</p>
 
 <hr />

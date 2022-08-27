@@ -639,7 +639,7 @@ use parent qw( Exporter );
 
 *$ffi->attach( newrelic_init    => ['string','int' ] => 'bool'   );
 *$ffi->attach( newrelic_version => []                => 'string' );
- 
+
 if($ffi->find_symbol( 'newrelic_set_hostname' )) {
     $ffi->attach( newrelic_set_hostname => ['string'] => 'int' );
 } else {
@@ -661,7 +661,7 @@ use parent qw( Exporter );
 
 $ffi->attach( newrelic_init    => ['string','int' ] => 'bool'   );
 $ffi->attach( newrelic_version => []                => 'string' );
- 
+
 *if($ffi->find_symbol( 'newrelic_set_hostname' )) {
 *   $ffi->attach( newrelic_set_hostname => ['string'] => 'int' );
 *} else {
@@ -1097,7 +1097,7 @@ $ffi->mangler(sub { "newrelic_$_[0]" });
 *$ffi->type('object(NewFangle::App)' => 'newrelic_app_t');
 *$ffi->type('object(NewFangle::Transaction)' => 'newrelic_txn_t');
 
-$ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 
+$ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t',
                                           'unsigned short'] => 'newrelic_app_t' );
 $ffi->attach( start_web_transaction   => ['newrelic_app_t',
                                           'string'] => 'newrelic_txn_t'
@@ -1123,7 +1123,7 @@ $ffi->mangler(sub { "newrelic_$_[0]" });
 $ffi->type('object(NewFangle::App)' => 'newrelic_app_t');
 $ffi->type('object(NewFangle::Transaction)' => 'newrelic_txn_t');
 
-*$ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 
+*$ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t',
 *                                         'unsigned short'] => 'newrelic_app_t' );
 *$ffi->attach( start_web_transaction   => ['newrelic_app_t',
 *                                         'string'] => 'newrelic_txn_t'
@@ -1149,7 +1149,7 @@ $ffi->mangler(sub { "newrelic_$_[0]" });
 $ffi->type('object(NewFangle::App)' => 'newrelic_app_t');
 $ffi->type('object(NewFangle::Transaction)' => 'newrelic_txn_t');
 
-$ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 
+$ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t',
                                           'unsigned short'] => 'newrelic_app_t' );
 $ffi->attach( start_web_transaction   => ['newrelic_app_t',
                                           'string'] => 'newrelic_txn_t'

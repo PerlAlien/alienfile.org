@@ -561,7 +561,7 @@ name="runtime_prop"
 >ffi_name</a></dt>
 
 <dd>
-<p>The name DLL or shared object &#34;name&#34; to use when searching for dynamic libraries at runtime. This is passed into <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+<p>The name DLL or shared object &#34;name&#34; to use when searching for dynamic libraries at runtime. This is passed into <a href="https://pl.atypus.org/pod/FFI/CheckLib.html" class="podlinkpod"
 >FFI::CheckLib</a>, so if your library is something like <code>libarchive.so</code> or <code>archive.dll</code> you would set this to <code>archive</code>. This may be a string or an array of strings. This is typically set by a plugin in the gather stage (for either share or system installs).</p>
 
 <dt><a name="ffi_checklib"
@@ -577,14 +577,14 @@ name="runtime_prop"
 <dd>
 <pre class="sh_perl"> $build-&#62;runtime_prop-&#62;{ffi_checklib}-&#62;{share} = [ ... ];</pre>
 
-<p>Array of additional <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+<p>Array of additional <a href="https://pl.atypus.org/pod/FFI/CheckLib.html" class="podlinkpod"
 >FFI::CheckLib</a> flags to pass in to <code>find_lib</code> for a <code>share</code> install.</p>
 
 <dt><a name="system"
 >system</a></dt>
 
 <dd>
-<p>Array of additional <a href="https://metacpan.org/pod/FFI%3A%3ACheckLib" class="podlinkpod"
+<p>Array of additional <a href="https://pl.atypus.org/pod/FFI/CheckLib.html" class="podlinkpod"
 >FFI::CheckLib</a> flags to pass in to <code>find_lib</code> for a <code>system</code> install.</p>
 
 <p>Among other things, useful for specifying the <code>try_linker_script</code> flag:</p>

@@ -14,20 +14,20 @@
     <div class="nx-header-title"><a href="/">🌻</a> <a href="/blog/">🪵</a> The many ways to use Alien</div>
     <p>By <b>Graham Ollis</b> on 13 June 2017</p>
 
-<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">A while back</a> I introduced 
-the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context 
+<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">A while back</a> I introduced
+the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context
 the tool <code>xz</code> and the library <code>liblzma</code>.  I also went over how to test it with <a href="/pod/App/af.html" class="module">App::af</a>.
 <a href="http://blogs.perl.org/users/graham_ollis/2017/04/integrating-alienfile.html">The week after that</a>
-I showed how to integrate that alienfile into a fully functioning <a href="/pod/Alien.html" class="module">Alien</a> called <a href="https://metacpan.org/pod/Alien::xz" class="module">Alien::xz</a> 
-and promised to show how to then use that Alien from an XS or FFI module.  Today I am going to 
-do that. I am also going to show how to use a tool oriented Alien module.  (conveniently, 
-Alien::xz can be used in either library or tool oriented Alien mode). If you are more 
-interested in FFI or tool oriented mode feel free to skip down to the appropriate 
+I showed how to integrate that alienfile into a fully functioning <a href="/pod/Alien.html" class="module">Alien</a> called <a href="https://uperl.github.io/pod/Alien/xz.html" class="module">Alien::xz</a>
+and promised to show how to then use that Alien from an XS or FFI module.  Today I am going to
+do that. I am also going to show how to use a tool oriented Alien module.  (conveniently,
+Alien::xz can be used in either library or tool oriented Alien mode). If you are more
+interested in FFI or tool oriented mode feel free to skip down to the appropriate
 paragraph.</p>
 
-<p>First, lets suppose we have a very simple XS and Perl module that gives us the version of 
-liblzma. This admittedly doesn't do anything very useful without the rest of the library, but 
-it will help us test the basics of how to call a library that has been alienized.  (if you 
+<p>First, lets suppose we have a very simple XS and Perl module that gives us the version of
+liblzma. This admittedly doesn't do anything very useful without the rest of the library, but
+it will help us test the basics of how to call a library that has been alienized.  (if you
 need real LZMA support you should probably use <a href="https://metacpan.org/pod/IO::Compress::Lzma" class="module">IO::Compress::Lzma</a> of course).<!-- summary --></p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -66,7 +66,7 @@ const char *
 lzma_version_string()
 </pre>
 
-<p>I will also write a very short test to make sure that everything is working (this test will be 
+<p>I will also write a very short test to make sure that everything is working (this test will be
 used for every single version that I am going to show today):</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -85,16 +85,16 @@ note "version = $version";
 done_testing;
 </pre>
 
-<p>Now Perl's philosophy is of course <i>There's more than one way to do it</i>, so we can use a 
-variety of methods for building this as a Perl library.  First we will show how to use 
-<a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM), since it comes bundled with Perl.  The challenge with EUMM is 
-that setting the compiler and linker flags <i>in the correct order</i> can be tricky.  Without 
-a lot of effort it should work okay when you are using either the <b>system</b> or 
-<b>share</b> install for Alien::xz, but if you forced a <b>share</b> install using the 
-<code>ALIEN_INSTALL_TYPE</code> environment variable, then there is a very good chance that you will get 
-the flag order wrong and use the wrong version of the library or to use the <b>system</b> 
-library with your <b>share</b> install or vice versa.  If that happens, you are going to have 
-a bad day!  To avoid this, I've written <a href="/pod/Alien/Base/Wrapper.html" class="module">Alien::Base::Wrapper</a>, which generates the correct 
+<p>Now Perl's philosophy is of course <i>There's more than one way to do it</i>, so we can use a
+variety of methods for building this as a Perl library.  First we will show how to use
+<a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM), since it comes bundled with Perl.  The challenge with EUMM is
+that setting the compiler and linker flags <i>in the correct order</i> can be tricky.  Without
+a lot of effort it should work okay when you are using either the <b>system</b> or
+<b>share</b> install for Alien::xz, but if you forced a <b>share</b> install using the
+<code>ALIEN_INSTALL_TYPE</code> environment variable, then there is a very good chance that you will get
+the flag order wrong and use the wrong version of the library or to use the <b>system</b>
+library with your <b>share</b> install or vice versa.  If that happens, you are going to have
+a bad day!  To avoid this, I've written <a href="/pod/Alien/Base/Wrapper.html" class="module">Alien::Base::Wrapper</a>, which generates the correct
 flag order for you!  Here is the example:</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -118,7 +118,7 @@ WriteMakefile(
 );
 </pre>
 
-<p>Although not used here, one of the neat things about Alien::Base::Wrapper is that you can use 
+<p>Although not used here, one of the neat things about Alien::Base::Wrapper is that you can use
 multiple Aliens in one <code>Makefile.PL</code>:</p>
 
 <pre style="border: 1px solid lightgray; margin: 10px; padding: 10px; " class="sh_perl">
@@ -127,7 +127,7 @@ use Alien::Base::Wrapper qw( Alien::Foo Alien::Bar Alien::Baz );
 ...
 </pre>
 
-<p>But back to our LZMA::Example module.  We can now build the module and run using perl and 
+<p>But back to our LZMA::Example module.  We can now build the module and run using perl and
 <code>make</code>.</p>
 
 <pre style="border: 1px solid lightgray; margin: 10px; padding: 10px; white-space: pre-wrap; " class="console">
@@ -263,11 +263,11 @@ Result: PASS
 [DZ] all's well; removing .build/4IIoWEI6uU
 </pre>
 
-<p>As many may already know, an alternative way to write “XS” modules is by using <a href="https://metacpan.org/pod/Inline::C" class="module">Inline::C</a> or 
-<a href="https://metacpan.org/pod/Inline::CPP" class="module">Inline::CPP</a>.  One of the advantages to this is that the code can be compiled on demand as 
-needed.  Also all of your code can be contained within the Perl source file. Happily 
-<a href="/pod/Alien/Base.html" class="module">Alien::Base</a> and all library modules that use it work quite nicely with <a href="https://metacpan.org/pod/Inline" class="module">Inline</a>, and in 
-order to integrate the two you can use the <code>with</code> keyword when writing your Inline 
+<p>As many may already know, an alternative way to write “XS” modules is by using <a href="https://metacpan.org/pod/Inline::C" class="module">Inline::C</a> or
+<a href="https://metacpan.org/pod/Inline::CPP" class="module">Inline::CPP</a>.  One of the advantages to this is that the code can be compiled on demand as
+needed.  Also all of your code can be contained within the Perl source file. Happily
+<a href="/pod/Alien/Base.html" class="module">Alien::Base</a> and all library modules that use it work quite nicely with <a href="https://metacpan.org/pod/Inline" class="module">Inline</a>, and in
+order to integrate the two you can use the <code>with</code> keyword when writing your Inline
 module:</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -313,20 +313,20 @@ Files=1, Tests=1,  1 wallclock secs ( 0.03 usr  0.00 sys +  0.25 cusr  0.01 csys
 Result: PASS
 </pre>
 
-<p>One of the downsides to using Alien and Inline together like this is that the Alien module 
-becomes a run-time dependency for your module.  In the previous XS examples, Alien::xz was 
-only a configure time dependency.  This is likely mostly of concern to integrators building 
-operating system packages for Perl modules, but it might be something to think about as a 
+<p>One of the downsides to using Alien and Inline together like this is that the Alien module
+becomes a run-time dependency for your module.  In the previous XS examples, Alien::xz was
+only a configure time dependency.  This is likely mostly of concern to integrators building
+operating system packages for Perl modules, but it might be something to think about as a
 developer as well.</p>
 
-<p>Another way to call a library from Perl is to use FFI.  There are two usable FFI systems on 
-CPAN, <a href="https://metacpan.org/pod/FFI::Raw" class="module">FFI::Raw</a> and <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a>.  (I personally recommend Platypus over Raw).  FFI has 
-some advantages and disadvantages over XS: your code is in one Perl file, it does not even 
-need to be “built” or “installed” to be used, it introduces <i>some</i> additional complexity, 
-since both Platypus and Raw are implemented using XS, it needs any Aliens as run-time 
+<p>Another way to call a library from Perl is to use FFI.  There are two usable FFI systems on
+CPAN, <a href="https://pl.atypus.org/pod/FFI/Raw.html" class="module">FFI::Raw</a> and <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a>.  (I personally recommend Platypus over Raw).  FFI has
+some advantages and disadvantages over XS: your code is in one Perl file, it does not even
+need to be “built” or “installed” to be used, it introduces <i>some</i> additional complexity,
+since both Platypus and Raw are implemented using XS, it needs any Aliens as run-time
 dependencies (just as with Inline), etc.</p>
 
-<p>Here is an example of our LZMA module using <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a>:</p>
+<p>Here is an example of our LZMA module using <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a>:</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
 lib/LZMA/Example.pm (FFI)
@@ -366,11 +366,11 @@ Files=1, Tests=1,  1 wallclock secs ( 0.03 usr  0.00 sys +  0.25 cusr  0.01 csys
 Result: PASS
 </pre>
 
-<p>Now I also mentioned that some Aliens can be used as tool oriented Alien modules.  Alien::xz 
-is an example of a hybrid Alien which can be used as a library oriented Alien (it provides 
-liblzma) and as a tool oriented Alien (it provides the <code>xz</code> command line tool).  Some Aliens, 
-like <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> are tool oriented Aliens only, that is they provide a tool, but not 
-library.  Just to show how easy it is to use, lets write the same example module using the 
+<p>Now I also mentioned that some Aliens can be used as tool oriented Alien modules.  Alien::xz
+is an example of a hybrid Alien which can be used as a library oriented Alien (it provides
+liblzma) and as a tool oriented Alien (it provides the <code>xz</code> command line tool).  Some Aliens,
+like <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> are tool oriented Aliens only, that is they provide a tool, but not
+library.  Just to show how easy it is to use, lets write the same example module using the
 tool oriented mode:</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -415,25 +415,25 @@ Files=1, Tests=1,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.13 cusr  0.00 csys
 Result: PASS
 </pre>
 
-<p>Alien::xz (and all modules that use Alien::Base) provides a <code>bin_dir</code> method, which returns 
-the path to the tool if it is not already in the path, or empty list if the tool is already in 
-the path.  This means that once unshifted onto PATH, we can call it like any other command 
-line tool.  Some tools may have different names depending on the platform or the environment. <br />
-Alien::gmake, for example, provides GNU Make, which may be called either <code>gmake</code> or <code>make</code>. <br />
+<p>Alien::xz (and all modules that use Alien::Base) provides a <code>bin_dir</code> method, which returns
+the path to the tool if it is not already in the path, or empty list if the tool is already in
+the path.  This means that once unshifted onto PATH, we can call it like any other command
+line tool.  Some tools may have different names depending on the platform or the environment.
+Alien::gmake, for example, provides GNU Make, which may be called either <code>gmake</code> or <code>make</code>.
 It provides an <code>exe</code> method to tell you what the name is locally.</p>
 
-<p>So, as you can see in the Perl TMTOWTDI spirit, there are many different ways to utilize an 
-Alien module built using <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> + <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.  There are some 
-other systems out there like <a href="https://metacpan.org/pod/Module::Install" class="module">Module::Install</a> (MI) that I didn't demonstrate.  Because MI is 
-not being actively developed any longer and EUMM is preferred for new development, there may 
-be some out there using this older technology that could benefit from Alien.  Or some other 
-technology that I haven't thought of using with Alien yet.  If you are one of those people 
+<p>So, as you can see in the Perl TMTOWTDI spirit, there are many different ways to utilize an
+Alien module built using <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> + <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.  There are some
+other systems out there like <a href="https://metacpan.org/pod/Module::Install" class="module">Module::Install</a> (MI) that I didn't demonstrate.  Because MI is
+not being actively developed any longer and EUMM is preferred for new development, there may
+be some out there using this older technology that could benefit from Alien.  Or some other
+technology that I haven't thought of using with Alien yet.  If you are one of those people
 please do feel free to stop on by the #native channel on irc.perl.org, or open an issue on the
 <a href="https://github.com/plicease/Alien-Build/issues">Alien::Build issue tracker</a>.
-I have added the full working examples demonstrated here (with all the necessary support 
+I have added the full working examples demonstrated here (with all the necessary support
 files) to the <code>example/user</code> directory in <a href="/pod/Alien/Build.html" class="module">Alien::Build</a>.
-I have also written a manual on using Alien::Base based Aliens here: 
-<a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a>.  Next time I will demonstrate some specialized features, 
+I have also written a manual on using Alien::Base based Aliens here:
+<a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a>.  Next time I will demonstrate some specialized features,
 like how to use an Alien as a fallback prerequisite.</p>
 
 <hr />

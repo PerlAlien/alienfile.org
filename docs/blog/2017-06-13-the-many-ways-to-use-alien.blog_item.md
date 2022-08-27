@@ -2,20 +2,20 @@
 
 By <b>Graham Ollis</b> on 13 June 2017
 
-[A while back](http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html) I introduced 
-the M<alienfile> recipe system and we wrote a simple alienfile that provides in a CPAN context 
+[A while back](http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html) I introduced
+the M<alienfile> recipe system and we wrote a simple alienfile that provides in a CPAN context
 the tool `xz` and the library `liblzma`.  I also went over how to test it with M<App::af>.
 [The week after that](http://blogs.perl.org/users/graham_ollis/2017/04/integrating-alienfile.html)
-I showed how to integrate that alienfile into a fully functioning M<Alien> called M<Alien::xz> 
-and promised to show how to then use that Alien from an XS or FFI module.  Today I am going to 
-do that. I am also going to show how to use a tool oriented Alien module.  (conveniently, 
-Alien::xz can be used in either library or tool oriented Alien mode). If you are more 
-interested in FFI or tool oriented mode feel free to skip down to the appropriate 
+I showed how to integrate that alienfile into a fully functioning M<Alien> called M<Alien::xz>
+and promised to show how to then use that Alien from an XS or FFI module.  Today I am going to
+do that. I am also going to show how to use a tool oriented Alien module.  (conveniently,
+Alien::xz can be used in either library or tool oriented Alien mode). If you are more
+interested in FFI or tool oriented mode feel free to skip down to the appropriate
 paragraph.
 
-First, lets suppose we have a very simple XS and Perl module that gives us the version of 
-liblzma. This admittedly doesn't do anything very useful without the rest of the library, but 
-it will help us test the basics of how to call a library that has been alienized.  (if you 
+First, lets suppose we have a very simple XS and Perl module that gives us the version of
+liblzma. This admittedly doesn't do anything very useful without the rest of the library, but
+it will help us test the basics of how to call a library that has been alienized.  (if you
 need real LZMA support you should probably use M<IO::Compress::Lzma> of course).<!-- summary -->
 
 <center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -53,7 +53,7 @@ const char *
 lzma_version_string()
 </pre>
 
-I will also write a very short test to make sure that everything is working (this test will be 
+I will also write a very short test to make sure that everything is working (this test will be
 used for every single version that I am going to show today):
 
 <center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -72,16 +72,16 @@ note "version = $version";
 done_testing;
 </pre>
 
-Now Perl's philosophy is of course <i>There's more than one way to do it</i>, so we can use a 
-variety of methods for building this as a Perl library.  First we will show how to use 
-M<ExtUtils::MakeMaker> (EUMM), since it comes bundled with Perl.  The challenge with EUMM is 
-that setting the compiler and linker flags <i>in the correct order</i> can be tricky.  Without 
-a lot of effort it should work okay when you are using either the <b>system</b> or 
-<b>share</b> install for Alien::xz, but if you forced a <b>share</b> install using the 
-`ALIEN_INSTALL_TYPE` environment variable, then there is a very good chance that you will get 
-the flag order wrong and use the wrong version of the library or to use the <b>system</b> 
-library with your <b>share</b> install or vice versa.  If that happens, you are going to have 
-a bad day!  To avoid this, I've written M<Alien::Base::Wrapper>, which generates the correct 
+Now Perl's philosophy is of course <i>There's more than one way to do it</i>, so we can use a
+variety of methods for building this as a Perl library.  First we will show how to use
+M<ExtUtils::MakeMaker> (EUMM), since it comes bundled with Perl.  The challenge with EUMM is
+that setting the compiler and linker flags <i>in the correct order</i> can be tricky.  Without
+a lot of effort it should work okay when you are using either the <b>system</b> or
+<b>share</b> install for Alien::xz, but if you forced a <b>share</b> install using the
+`ALIEN_INSTALL_TYPE` environment variable, then there is a very good chance that you will get
+the flag order wrong and use the wrong version of the library or to use the <b>system</b>
+library with your <b>share</b> install or vice versa.  If that happens, you are going to have
+a bad day!  To avoid this, I've written M<Alien::Base::Wrapper>, which generates the correct
 flag order for you!  Here is the example:
 
 <center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -105,7 +105,7 @@ WriteMakefile(
 );
 </pre>
 
-Although not used here, one of the neat things about Alien::Base::Wrapper is that you can use 
+Although not used here, one of the neat things about Alien::Base::Wrapper is that you can use
 multiple Aliens in one `Makefile.PL`:
 
 <pre style="border: 1px solid lightgray; margin: 10px; padding: 10px; " class="sh_perl">
@@ -114,7 +114,7 @@ use Alien::Base::Wrapper qw( Alien::Foo Alien::Bar Alien::Baz );
 ...
 </pre>
 
-But back to our LZMA::Example module.  We can now build the module and run using perl and 
+But back to our LZMA::Example module.  We can now build the module and run using perl and
 `make`.
 
 <pre style="border: 1px solid lightgray; margin: 10px; padding: 10px; white-space: pre-wrap; " class="console">
@@ -249,11 +249,11 @@ Result: PASS
 [DZ] all's well; removing .build/4IIoWEI6uU
 </pre>
 
-As many may already know, an alternative way to write “XS” modules is by using M<Inline::C> or 
-M<Inline::CPP>.  One of the advantages to this is that the code can be compiled on demand as 
-needed.  Also all of your code can be contained within the Perl source file. Happily 
-M<Alien::Base> and all library modules that use it work quite nicely with M<Inline>, and in 
-order to integrate the two you can use the `with` keyword when writing your Inline 
+As many may already know, an alternative way to write “XS” modules is by using M<Inline::C> or
+M<Inline::CPP>.  One of the advantages to this is that the code can be compiled on demand as
+needed.  Also all of your code can be contained within the Perl source file. Happily
+M<Alien::Base> and all library modules that use it work quite nicely with M<Inline>, and in
+order to integrate the two you can use the `with` keyword when writing your Inline
 module:
 
 <center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -299,17 +299,17 @@ Result: PASS
 </pre>
 
 
-One of the downsides to using Alien and Inline together like this is that the Alien module 
-becomes a run-time dependency for your module.  In the previous XS examples, Alien::xz was 
-only a configure time dependency.  This is likely mostly of concern to integrators building 
-operating system packages for Perl modules, but it might be something to think about as a 
+One of the downsides to using Alien and Inline together like this is that the Alien module
+becomes a run-time dependency for your module.  In the previous XS examples, Alien::xz was
+only a configure time dependency.  This is likely mostly of concern to integrators building
+operating system packages for Perl modules, but it might be something to think about as a
 developer as well.
 
-Another way to call a library from Perl is to use FFI.  There are two usable FFI systems on 
-CPAN, M<FFI::Raw> and M<FFI::Platypus>.  (I personally recommend Platypus over Raw).  FFI has 
-some advantages and disadvantages over XS: your code is in one Perl file, it does not even 
-need to be “built” or “installed” to be used, it introduces <i>some</i> additional complexity, 
-since both Platypus and Raw are implemented using XS, it needs any Aliens as run-time 
+Another way to call a library from Perl is to use FFI.  There are two usable FFI systems on
+CPAN, M<FFI::Raw> and M<FFI::Platypus>.  (I personally recommend Platypus over Raw).  FFI has
+some advantages and disadvantages over XS: your code is in one Perl file, it does not even
+need to be “built” or “installed” to be used, it introduces <i>some</i> additional complexity,
+since both Platypus and Raw are implemented using XS, it needs any Aliens as run-time
 dependencies (just as with Inline), etc.
 
 Here is an example of our LZMA module using M<FFI::Platypus>:
@@ -351,11 +351,11 @@ Files=1, Tests=1,  1 wallclock secs ( 0.03 usr  0.00 sys +  0.25 cusr  0.01 csys
 Result: PASS
 </pre>
 
-Now I also mentioned that some Aliens can be used as tool oriented Alien modules.  Alien::xz 
-is an example of a hybrid Alien which can be used as a library oriented Alien (it provides 
-liblzma) and as a tool oriented Alien (it provides the `xz` command line tool).  Some Aliens, 
-like M<Alien::gmake> are tool oriented Aliens only, that is they provide a tool, but not 
-library.  Just to show how easy it is to use, lets write the same example module using the 
+Now I also mentioned that some Aliens can be used as tool oriented Alien modules.  Alien::xz
+is an example of a hybrid Alien which can be used as a library oriented Alien (it provides
+liblzma) and as a tool oriented Alien (it provides the `xz` command line tool).  Some Aliens,
+like M<Alien::gmake> are tool oriented Aliens only, that is they provide a tool, but not
+library.  Just to show how easy it is to use, lets write the same example module using the
 tool oriented mode:
 
 <center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -399,25 +399,25 @@ Files=1, Tests=1,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.13 cusr  0.00 csys
 Result: PASS
 </pre>
 
-Alien::xz (and all modules that use Alien::Base) provides a `bin_dir` method, which returns 
-the path to the tool if it is not already in the path, or empty list if the tool is already in 
-the path.  This means that once unshifted onto PATH, we can call it like any other command 
-line tool.  Some tools may have different names depending on the platform or the environment.  
-Alien::gmake, for example, provides GNU Make, which may be called either `gmake` or `make`.  
+Alien::xz (and all modules that use Alien::Base) provides a `bin_dir` method, which returns
+the path to the tool if it is not already in the path, or empty list if the tool is already in
+the path.  This means that once unshifted onto PATH, we can call it like any other command
+line tool.  Some tools may have different names depending on the platform or the environment.
+Alien::gmake, for example, provides GNU Make, which may be called either `gmake` or `make`.
 It provides an `exe` method to tell you what the name is locally.
 
-So, as you can see in the Perl TMTOWTDI spirit, there are many different ways to utilize an 
-Alien module built using M<alienfile> + M<Alien::Build> + M<Alien::Base>.  There are some 
-other systems out there like M<Module::Install> (MI) that I didn't demonstrate.  Because MI is 
-not being actively developed any longer and EUMM is preferred for new development, there may 
-be some out there using this older technology that could benefit from Alien.  Or some other 
-technology that I haven't thought of using with Alien yet.  If you are one of those people 
+So, as you can see in the Perl TMTOWTDI spirit, there are many different ways to utilize an
+Alien module built using M<alienfile> + M<Alien::Build> + M<Alien::Base>.  There are some
+other systems out there like M<Module::Install> (MI) that I didn't demonstrate.  Because MI is
+not being actively developed any longer and EUMM is preferred for new development, there may
+be some out there using this older technology that could benefit from Alien.  Or some other
+technology that I haven't thought of using with Alien yet.  If you are one of those people
 please do feel free to stop on by the #native channel on irc.perl.org, or open an issue on the
 [Alien::Build issue tracker](https://github.com/plicease/Alien-Build/issues).
-I have added the full working examples demonstrated here (with all the necessary support 
+I have added the full working examples demonstrated here (with all the necessary support
 files) to the `example/user` directory in M<Alien::Build>.
-I have also written a manual on using Alien::Base based Aliens here: 
-M<Alien::Build::Manual::AlienUser>.  Next time I will demonstrate some specialized features, 
+I have also written a manual on using Alien::Base based Aliens here:
+M<Alien::Build::Manual::AlienUser>.  Next time I will demonstrate some specialized features,
 like how to use an Alien as a fallback prerequisite.
 
 ---

@@ -2,11 +2,11 @@
 
 By <b>Graham Ollis</b> on 20 January 2016
 
-The one major platform that didn’t work on the initial switch was of 
-course Strawberry Perl, but after some debugging and patches I got 
-M<Alien::Hunspell> and M<Text::Hunspell> to work there as well.  I even 
-submitted patches to upstream to the hunspell project, which were 
-accepted, so that in the future less patching will be required.  This is 
+The one major platform that didn’t work on the initial switch was of
+course Strawberry Perl, but after some debugging and patches I got
+M<Alien::Hunspell> and M<Text::Hunspell> to work there as well.  I even
+submitted patches to upstream to the hunspell project, which were
+accepted, so that in the future less patching will be required.  This is
 what is great about Open Source when it works.
 
 The results as recorded in the cpantesters matrix are stark:
@@ -14,17 +14,17 @@ The results as recorded in the cpantesters matrix are stark:
   * <a href="http://matrix.cpantesters.org/?dist=Text-Hunspell%202.14">2.14 - the first version to insist in its Makefile.PL on a version of Alien::Hunspell that works on Windows</a>
   * <a href="http://matrix.cpantesters.org/?dist=Text-Hunspell%202.11">2.11 - the last version to use ExtUtils::PkgConfig</a>
 
-In the process of working on all of this I finally gave up on 
-M<Test::CChecker>.  I wrote this module to test Alien distributions, and 
-leveraged some capabilities from M<ExtUtils::CChecker>, which is designed 
-to probe and check compiler and linker flags from a Makefile.PL or 
+In the process of working on all of this I finally gave up on
+M<Test::CChecker>.  I wrote this module to test Alien distributions, and
+leveraged some capabilities from M<ExtUtils::CChecker>, which is designed
+to probe and check compiler and linker flags from a Makefile.PL or
 Build.PL file.
 
-M<Test::CChecker> was a huge improvement over existing state of affairs for 
-testing Aliens when I wrote it.  For most such modules, this consisted 
-of the hand rolled .t files that used the Config module and attempted to 
-build executables by invoking the compiler via system or qx.  Assuming 
-that an Alien module even had any tests.  Here is a simplified version 
+M<Test::CChecker> was a huge improvement over existing state of affairs for
+testing Aliens when I wrote it.  For most such modules, this consisted
+of the hand rolled .t files that used the Config module and attempted to
+build executables by invoking the compiler via system or qx.  Assuming
+that an Alien module even had any tests.  Here is a simplified version
 of the M<Test::CChecker> test that I wrote for M<Alien::Hunspell>.
 
 <pre class="sh_perl">
@@ -59,27 +59,27 @@ main(int argc, char *argv[])
 }
 </pre>
 
-What this does is compile and link an executable using the flags 
-provided by M<Alien::Hunspell>.  It then runs it and ensures that it 
-doesn’t dump core, and returns a successful exit status.  Simple(ish) 
-for Alien right?  The problem is that there are a number of subtle edge 
-cases that become much more prominent when you are installing an Alien 
-module that decides that it needs to build the upstream package from 
-source.  The biggest difference between what this test tests, and how 
-the Alien module is actually used is that M<Text::Hunspell> creates a 
-dynamic library and links it to the running Perl process.  This means 
-that the test file catches errors specific to linking executables that 
-aren’t pertinent to usage in Perl.  It also means that this test file 
-does NOT catch errors that are specific to dynamic libraries, which ARE 
+What this does is compile and link an executable using the flags
+provided by M<Alien::Hunspell>.  It then runs it and ensures that it
+doesn’t dump core, and returns a successful exit status.  Simple(ish)
+for Alien right?  The problem is that there are a number of subtle edge
+cases that become much more prominent when you are installing an Alien
+module that decides that it needs to build the upstream package from
+source.  The biggest difference between what this test tests, and how
+the Alien module is actually used is that M<Text::Hunspell> creates a
+dynamic library and links it to the running Perl process.  This means
+that the test file catches errors specific to linking executables that
+aren’t pertinent to usage in Perl.  It also means that this test file
+does NOT catch errors that are specific to dynamic libraries, which ARE
 pertinent to usage in Perl.
 
-So I wrote M<Test::Alien> to test M<Alien> modules in the way that they 
-are actually used.  Create an interface to make it easy to create a 
-mini-XS or FFI and run some basic tests like ensure you can query the 
-version number.  This increases the likelihood that the Alien module 
-will actually be useful dramatically, and it catches errors with the 
-Alien module where they should be found, in the Alien module itself, not 
-in the downstream XS or FFI module.  Here are simplified tests, also for 
+So I wrote M<Test::Alien> to test M<Alien> modules in the way that they
+are actually used.  Create an interface to make it easy to create a
+mini-XS or FFI and run some basic tests like ensure you can query the
+version number.  This increases the likelihood that the Alien module
+will actually be useful dramatically, and it catches errors with the
+Alien module where they should be found, in the Alien module itself, not
+in the downstream XS or FFI module.  Here are simplified tests, also for
 M<Alien::Hunspell>:
 
 <pre class="sh_perl">
@@ -120,7 +120,7 @@ Hunspell_destroy(handle);
     void *handle;
 </pre>
 
-This tests that a basic dynamic extension can be built, and can create 
+This tests that a basic dynamic extension can be built, and can create
 and destroy a simple hunspell instance without crashing.
 
 <pre class="sh_perl">
@@ -150,19 +150,19 @@ ffi_ok { symbols => [qw( Hunspell_create Hunspell_destroy )] }, with_subtest {
 };
 </pre>
 
-M<Test::Alien> also has tests for tool oriented Alien modules, such as 
-M<Alien::gmake> and M<Alien::patch>.  M<Test::Alien> is designed to work 
-seamlessly with M<Alien::Base> based M<Alien> modules, but can also be made to 
+M<Test::Alien> also has tests for tool oriented Alien modules, such as
+M<Alien::gmake> and M<Alien::patch>.  M<Test::Alien> is designed to work
+seamlessly with M<Alien::Base> based M<Alien> modules, but can also be made to
 work without much additional work with non M<Alien::Base> based M<Aliens>.
 
-The other nice thing about the M<Test::Alien> interface is that its tests 
-will self skip if a compiler or M<FFI::Platypus> are not found.  This is 
-useful, as M<Text::Hunspell::FFI> can use M<Alien::Hunspell> without a 
-compiler if the hunspell system packages are installed, and conversely 
-M<Text::Hunspell> can use M<Alien::Hunspell> if M<FFI::Platypus> is not 
+The other nice thing about the M<Test::Alien> interface is that its tests
+will self skip if a compiler or M<FFI::Platypus> are not found.  This is
+useful, as M<Text::Hunspell::FFI> can use M<Alien::Hunspell> without a
+compiler if the hunspell system packages are installed, and conversely
+M<Text::Hunspell> can use M<Alien::Hunspell> if M<FFI::Platypus> is not
 installed.
 
-I used M<Test::Alien> in development versions of M<Alien::Hunspell> to 
+I used M<Test::Alien> in development versions of M<Alien::Hunspell> to
 identify and correct bugs to make it more reliable.
 
 ---

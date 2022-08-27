@@ -5,7 +5,7 @@ This is for both libraries (potentially any language) and tools (such as code ge
 To this end the `Alien::` namespace on [CPAN](https://metacpan.org/about) has been reserved for modules that provide such
 dependencies.  A well behaved Alien should probe the system to see if the library or tool is already installed.  If not, it should
 download it from the internet and install it into a private share location so that it can be used by other Perl modules.
-Installing in a private share location is an important part of the Alien philosophy as we do not want to replace or corrupt 
+Installing in a private share location is an important part of the Alien philosophy as we do not want to replace or corrupt
 system libraries.
 
 The M<original manifesto|Alien#ORIGINAL_MANIFESTO> developed by A<Artur Bergman|ABERGMAN> states that no framework is to be imposed onto

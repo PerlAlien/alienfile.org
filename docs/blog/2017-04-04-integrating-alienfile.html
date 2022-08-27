@@ -14,19 +14,19 @@
     <div class="nx-header-title"><a href="/">🌻</a> <a href="/blog/">🪵</a> Integrating alienfile</div>
     <p>By <b>Graham Ollis</b> on 4 April 2017</p>
 
-<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">Last week</a> I 
-introduced the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the 
-tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="/pod/App/af.html" class="module">App::af</a>. Today we 
-are going to take that alienfile and integrate it into a fully functional <a href="/pod/Alien.html" class="module">Alien</a> 
+<p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">Last week</a> I
+introduced the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the
+tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="/pod/App/af.html" class="module">App::af</a>. Today we
+are going to take that alienfile and integrate it into a fully functional <a href="/pod/Alien.html" class="module">Alien</a>
 distribution.</p>
 
-<p>The main motiviation for <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> was to separate the alien detection 
-and installer code from the perl installer code.  (In fact your alienfile is fully usable 
-without any Perl installer at all; you can use your alienfile from a Perl script or Perl 
+<p>The main motiviation for <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> was to separate the alien detection
+and installer code from the perl installer code.  (In fact your alienfile is fully usable
+without any Perl installer at all; you can use your alienfile from a Perl script or Perl
 module using Alien::Build directly).</p>
 
-<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> to provide 
-the thin layer of functionality needed between <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM) and 
+<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> to provide
+the thin layer of functionality needed between <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM) and
 <a href="/pod/Alien/Build.html" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
 
 <pre class="sh_perl">
@@ -65,34 +65,34 @@ sub MY::postamble {
 
 <!-- summary -->
 
-<p>Most of this will be pretty recognizable to anyone who has hand crafted a <code>Makefile.PL</code> 
-before.  After constructing the basic arguments that will be passed to <code>WriteMakefile</code>, we 
-create an instance of <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> and pass the arguments into the <code>mm_args</code> method, 
-which returns a modified version of those arguments.  This method will decide if it can find 
-<code>xz</code> and <code>liblzma</code> from what is provided by the operating system, or if it should build the 
-tool and library from source.  To make this decision it consults the alienfile.  There are 
-dynamic prerequisite that depend on the outcome of this decision.  Typcially a build from 
-source may pull in additional prerequisite to download or unpack an archive in an unusual 
-format, or perhaps the build system requires an extra module or two.  A system install may 
-also require additional modules, although that is less common.  At the bottom of the 
-<code>Makefile.PL</code> we add a postamble to the <code>Makefile</code>.  This will add the make targets needed to 
+<p>Most of this will be pretty recognizable to anyone who has hand crafted a <code>Makefile.PL</code>
+before.  After constructing the basic arguments that will be passed to <code>WriteMakefile</code>, we
+create an instance of <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> and pass the arguments into the <code>mm_args</code> method,
+which returns a modified version of those arguments.  This method will decide if it can find
+<code>xz</code> and <code>liblzma</code> from what is provided by the operating system, or if it should build the
+tool and library from source.  To make this decision it consults the alienfile.  There are
+dynamic prerequisite that depend on the outcome of this decision.  Typcially a build from
+source may pull in additional prerequisite to download or unpack an archive in an unusual
+format, or perhaps the build system requires an extra module or two.  A system install may
+also require additional modules, although that is less common.  At the bottom of the
+<code>Makefile.PL</code> we add a postamble to the <code>Makefile</code>.  This will add the make targets needed to
 build <code>xz</code>.</p>
 
-<p>Note that we declare <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> as a prerequisite because our Alien class will be a subclass 
-of that.  We also declare EUMM as a configure time prerequisite which is a good practice for any 
-EUMM dist.  We do NOT need to declare <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> as a configure time prerequisite even 
+<p>Note that we declare <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> as a prerequisite because our Alien class will be a subclass
+of that.  We also declare EUMM as a configure time prerequisite which is a good practice for any
+EUMM dist.  We do NOT need to declare <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> as a configure time prerequisite even
 though it is used in the <code>Makefile.PL</code> because that is one of the prerequisite that are
 addedin by <code>mm_arg</code>.</p>
 
-<p>As mentioned earlier, alienfile is not tied to any one Perl installer, so if you prefer you 
-can use <a href="https://metacpan.org/pod/Module::Build" class="module">Module::Build</a> via <a href="/pod/Alien/Build/MB.html" class="module">Alien::Build::MB</a>.  I personally do not recommend this.  It 
-just adds extra prerequisite to your Alien.  The sole reason I wrote <a href="/pod/Alien/Build/MB.html" class="module">Alien::Build::MB</a> was to 
-act as a proof of concept that: yes <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> can be used with any installer 
-that meets its requirements.  Including hopefully future installers that are more capable 
-than EUMM.  (<a href="https://metacpan.org/pod/Module::Build::Tiny" class="module">Module::Build::Tiny</a> will likely never be supported, as it is useful for a 
+<p>As mentioned earlier, alienfile is not tied to any one Perl installer, so if you prefer you
+can use <a href="https://metacpan.org/pod/Module::Build" class="module">Module::Build</a> via <a href="/pod/Alien/Build/MB.html" class="module">Alien::Build::MB</a>.  I personally do not recommend this.  It
+just adds extra prerequisite to your Alien.  The sole reason I wrote <a href="/pod/Alien/Build/MB.html" class="module">Alien::Build::MB</a> was to
+act as a proof of concept that: yes <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> can be used with any installer
+that meets its requirements.  Including hopefully future installers that are more capable
+than EUMM.  (<a href="https://metacpan.org/pod/Module::Build::Tiny" class="module">Module::Build::Tiny</a> will likely never be supported, as it is useful for a
 different subset of things).</p>
 
-<p>If (like me) you do not like mucking about in <code>Makefile.PL</code> or <code>Build.PL</code> files you can 
+<p>If (like me) you do not like mucking about in <code>Makefile.PL</code> or <code>Build.PL</code> files you can
 instead use the <a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="module">Dist::Zilla::Plugin::AlienBuild</a>.</p>
 
 <pre class="ini">
@@ -101,7 +101,7 @@ instead use the <a href="https://metacpan.org/pod/Dist::Zilla" class="module">Di
 ; a little shorter than the Makefile.PL above eh?
 </pre>
 
-<p>The next thing that we need is the actual Perl module!  We will call that <code>lib/Alien/xz.pm</code>, 
+<p>The next thing that we need is the actual Perl module!  We will call that <code>lib/Alien/xz.pm</code>,
 and will look like this:</p>
 
 <pre class="sh_perl">
@@ -116,16 +116,16 @@ our $VERSION = '1.00';
 1;
 </pre>
 
-<p>Not a lot is there?  For most Aliens you will find that the base class does everything that 
-you need.  The only thing missing here really, (and I do not reproduce it here for the sake 
-of brevity) is documentation.  You should provide your users with enough information in the 
-form of POD to be able to use this module!  (See <a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a> for clues 
-as to what should be included).  If you are lazy like me, you will want to use the 
-<a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="/pod/Dist/Zilla/Plugin/AlienBase/Doc.html" class="module">Dist::Zilla::Plugin::AlienBase::Doc</a> to generate synopsis and 
+<p>Not a lot is there?  For most Aliens you will find that the base class does everything that
+you need.  The only thing missing here really, (and I do not reproduce it here for the sake
+of brevity) is documentation.  You should provide your users with enough information in the
+form of POD to be able to use this module!  (See <a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a> for clues
+as to what should be included).  If you are lazy like me, you will want to use the
+<a href="https://metacpan.org/pod/Dist::Zilla" class="module">Dist::Zilla</a> plugin <a href="/pod/Dist/Zilla/Plugin/AlienBase/Doc.html" class="module">Dist::Zilla::Plugin::AlienBase::Doc</a> to generate synopsis and
 description.</p>
 
-<p>You should of course also provide other common distribution files, such as a <code>MANIFEST</code> and a 
-<code>Changes</code> file, but all of that is beyond the scope of this document.  (Always wanted to say 
+<p>You should of course also provide other common distribution files, such as a <code>MANIFEST</code> and a
+<code>Changes</code> file, but all of that is beyond the scope of this document.  (Always wanted to say
 that).</p>
 
 <p>Now we can install our Alien like any other distribution.  Create the make file:</p>
@@ -147,8 +147,8 @@ Alien::Build::Plugin::Core::Download&gt; setting version based on archive to 5.2
 Alien::Build::Plugin::Core::Download&gt; downloaded xz-5.2.3.tar.gz
 </pre>
 
-<p>(hint, if you are testing this and the system <code>xz</code> and <code>liblzma</code> are being detected, the 
-download step will be a noisy NOOP.  You can set <code>ALIEN_INSTALL_TYPE</code> to <code>share</code> to override 
+<p>(hint, if you are testing this and the system <code>xz</code> and <code>liblzma</code> are being detected, the
+download step will be a noisy NOOP.  You can set <code>ALIEN_INSTALL_TYPE</code> to <code>share</code> to override
 this and force a source code build.)</p>
 
 <p>You can then build <code>xz</code> and <code>liblzma</code> using the <code>alien_build</code> target:</p>
@@ -168,7 +168,7 @@ checking host system type... x86_64-apple-darwin15.6.0
 
 <p>(copious output not included).</p>
 
-<p>You can also just do a regular <code>make all</code> and it will build the <code>alien_download</code> and 
+<p>You can also just do a regular <code>make all</code> and it will build the <code>alien_download</code> and
 <code>alien_build</code> targets, along with the necessary Perl specific targets.</p>
 
 <p>Now we are ready to run the tests:</p>
@@ -176,17 +176,17 @@ checking host system type... x86_64-apple-darwin15.6.0
 <pre class="console">
 % make test
 PERL_DL_NONLAZY=1 "/Users/ollisg/opt/perl/5.24.0/bin/perl" "-MExtUtils::Command::MM" "-MTest::Harness" "-e" "undef *Test::Harness::Switches; test_harness(0, 'blib/lib', 'blib/arch')" t/*.t
-t/run.t ...... ok   
-t/xs.t ....... ok   
+t/run.t ...... ok
+t/xs.t ....... ok
 All tests successful.
 Files=2, Tests=7,  1 wallclock secs ( 0.03 usr  0.01 sys +  0.70 cusr  0.56 csys =  1.30 CPU)
 Result: PASS
 </pre>
 
-<p>I waited until now to remind you that you need tests!  It is important to know that the Alien 
-will work with your XS module.  You don't want to find out it doesn't work when you are 
-installing that.  The best way to do this is to use <a href="/pod/Test/Alien.html" class="module">Test::Alien</a>, which tests your Alien 
-with that same tools that your Alien will actually be used with.  Here is a very basic 
+<p>I waited until now to remind you that you need tests!  It is important to know that the Alien
+will work with your XS module.  You don't want to find out it doesn't work when you are
+installing that.  The best way to do this is to use <a href="/pod/Test/Alien.html" class="module">Test::Alien</a>, which tests your Alien
+with that same tools that your Alien will actually be used with.  Here is a very basic
 <a href="/pod/Test/Alien.html" class="module">Test::Alien</a> test that ensures the alienized <code>liblzma</code> works correctly with XS:</p>
 
 <pre class="sh_perl">
@@ -234,8 +234,8 @@ run_ok(['xz', '--version'])
 done_testing;
 </pre>
 
-<p>You are all done writing your Alien.  Although it may seem like you went through a lot, this 
-is a lot less work than if you tried to roll your own Alien.  Now we can finally install our 
+<p>You are all done writing your Alien.  Although it may seem like you went through a lot, this
+is a lot less work than if you tried to roll your own Alien.  Now we can finally install our
 Alien, and just eyeball test that it works from the command line.</p>
 
 <pre class="console">
@@ -244,16 +244,16 @@ Alien, and just eyeball test that it works from the command line.</p>
 % perl -MAlien::xz -E 'say Alien::xz-&gt;version'
 5.2.3
 % perl -MAlien::xz -E 'say Alien::xz-&gt;cflags'
--I/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz/include 
+-I/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz/include
 % perl -MAlien::xz -E 'say Alien::xz-&gt;libs'
--L/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz/lib -llzma 
+-L/Users/ollisg/opt/perl/5.24.0/my/dev/lib/perl5/darwin-2level/auto/share/dist/Alien-xz/lib -llzma
 </pre>
 
-<p>Next time we will use the Alien that we have crafted here from an XS or FFI module, which is 
+<p>Next time we will use the Alien that we have crafted here from an XS or FFI module, which is
 ultimately the reason for all of this prep work.</p>
 
-<p><b>Correction</b>: a previous version of this blogity blog incorrectly referred to 
-<a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> as a dynamic prerequisite.  It is always added so it is strictly speaking a 
+<p><b>Correction</b>: a previous version of this blogity blog incorrectly referred to
+<a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> as a dynamic prerequisite.  It is always added so it is strictly speaking a
 static prerequisite.</p>
 
 <hr />
