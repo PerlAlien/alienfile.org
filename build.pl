@@ -47,11 +47,7 @@ $root->child('docs')->visit(
     my $title = 'alienfile.org';
     my $h1;
 
-    if($lines[0] =~ m/^##+\s*(\S.*)$/)
-    {
-      $title = $1;
-    }
-    elsif($lines[0] =~ m/^#\s*(\S.*)$/)
+    if($lines[0] =~ m/^#+\s*(\S.*)$/)
     {
       $h1 = $title = $1;
       shift @lines;
