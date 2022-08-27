@@ -5,7 +5,7 @@ intent is to make this the go to place for information about Perl/Alien, and for
 these related Alien projects:
 
  * Alien::Base
- * Alien::Base::ModuleBuild
+ * [Alien::Base::ModuleBuild](/PerlAlien/Alien-Base-ModuleBuild)
  * Alien::Build
  * alienfile
 
