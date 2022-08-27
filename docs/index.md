@@ -8,13 +8,51 @@ download it from the internet and install it into a private share location so th
 Installing in a private share location is an important part of the Alien philosophy as we do not want to replace or corrupt
 system libraries.
 
-The M<original manifesto|Alien#ORIGINAL_MANIFESTO> developed by A<Artur Bergman|ABERGMAN> states that no framework is to be imposed onto
-Alien authors, which adds to the flexability of the Alien concept.  That said you should consider the M<Alien::Build> framework,
-which provides powerful tools for creating and maintaining Aliens.  It is very easy to build an M<Alien::Build> based
-Alien that alienizes a package that uses common build tools like M<autotools|Alien::Build::Plugin::Build::Autoconf>
-and M<CMake|Alien::Build::Plugin::Build::CMake>.  It is also extensible through its M<plugin|Alien::Build::Plugin> system
-allowing other build systems to be added.  The M<Alien::Build> project also comes with a large and growing manual.  The
-manual has three main sections depending on how you need to use M<Alien::Build> and a FAQ.
+The M<original manifesto|Alien#ORIGINAL_MANIFESTO> developed by A<Artur Bergman|ABERGMAN> imposes no frameworks, which
+adds to the flexability of the Alien concept. A<Joel Berger|JBERGER> created M<Alien::Base> which is a framework for
+developing M<Alien>s with support for the most common build tools.  This evolved into M<Alien::Build> which provides
+powerful tools for creating and maintaining Aliens.  It is very easy to build an M<Alien::Build> based Alien that
+alienizes a package that uses common build tools like M<autotools|Alien::Build::Plugin::Build::Autoconf> and
+M<CMake|Alien::Build::Plugin::Build::CMake>.
+
+The key architectural philosophy of the M<Alien::Base> / M<Alien::Build> system is that the bulk of the work is done
+in the build phase of the M<Alien>, and the runtime is delegated mostly or entirely to the M<Alien::Base> base class.
+In the M<Alien::Build> system the build time recipe for finding or building the alienized library is in the
+M<alienfile>.  Here is an example M<alienfile> for [libarchive](https://libarchive.org):
+
+```perl
+use alienfile;
+plugin 'PkgConfig' => 'libarchive';
+share {
+  start_url 'http://libarchive.org/downloads/';
+  plugin Download => (
+    filter => qr/^libarchive-.*\.tar\.gz$/,
+    version => qr/([0-9\.]+)/,
+  );
+  plugin Extract => 'tar.gz';
+  plugin 'Build::Autoconf';
+  plugin 'Gather::IsolateDynamic';
+  build [
+    '%{configure}',
+    '%{make}',
+    '%{make} install',
+  ];
+};
+```
+
+The runtime is simply an empty subclass that inherrits from M<Alien::Base>:
+
+```perl
+package Alien::libarchive;
+use strict;
+use warnings;
+use parent qw( Alien::Base );
+1;
+```
+
+M<Alien::Build> is also extensible through its M<plugin|Alien::Build::Plugin> system allowing other build systems to be
+added.  The M<Alien::Build> project also comes with a large and growing manual.  The manual has three main sections
+depending on how you need to use M<Alien::Build> and a FAQ.
 
  * 📖 M<Alien::Build::Manual::AlienAuthor> - for would be authors of new M<Aliens|Alien>
  * 📖 M<Alien::Build::Manual::AlienUser> - for users of an existing M<Alien>
