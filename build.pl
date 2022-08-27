@@ -8,8 +8,7 @@ use 5.026;
 use experimental qw( signatures postderef );
 use Template;
 use Path::Tiny qw( path );
-use Text::Markdown::Custom;
-use XOR::Pods;
+use XOR;
 use Path::Tiny qw( path );
 
 my $root = path(__FILE__)->parent;
@@ -22,15 +21,13 @@ my $tt = Template->new(
   ENCODING           => 'utf8',
 );
 
-my $pods = XOR::Pods->new;
+my $pods = XOR->new->pods;
 foreach my $url (path('.tarballs.txt')->lines( { chomp => 1 } ))
 {
   $pods->add_dist($url);
 }
 $pods->fs_root->remove_tree;
 $pods->generate_html;
-
-Text::Markdown::Custom->pods($pods);
 
 $root->child('docs')->visit(
   sub ($md_path, $) {
@@ -62,7 +59,7 @@ $root->child('docs')->visit(
       {
         title     => $title,
         h1        => $h1,
-        markdown  => Text::Markdown::Custom->new->markdown(join('', @lines)),
+        markdown  => XOR->new->markdown->markdown(join('', @lines)),
         directory => $md_path->parent,
         shjs      => "https://shjs.wdlabs.com",
       },
