@@ -10,7 +10,7 @@ these related Alien projects:
 
 ## Contributing.
 
- 1. Install developer deps with `cpanm --installdeps .`  Note that the build tools for the website XOR are not on cpan, you can download it from [dist.wdlabs.com](https://dist.wdlabs.com).
+ 1. Install developer deps with `cpanm --installdeps .`
  2. Edit the .md or .tt files as appropriate.
  3. Do NOT edit the .html files as these are generated.
  4. Run `./build.pl` to generate html and other files.
