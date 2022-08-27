@@ -7,6 +7,7 @@ package XOR {
   use XOR::Pods;
   use XOR::Web;
   use XOR::Markdown;
+  use XOR::TarballList;
   use YAML ();
 
   sub new ($class)
@@ -39,6 +40,11 @@ package XOR {
       TEMPLATE_EXTENSION => '.tt',
       ENCODING           => 'utf8',
     );
+  }
+
+  sub tarball_list ($self)
+  {
+    $self->{tarball_list} ||= XOR::TarballList->new;
   }
 
 }

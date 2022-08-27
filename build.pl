@@ -14,7 +14,7 @@ my $root = path(__FILE__)->parent;
 my $tt = XOR->new->tt;
 my $pods = XOR->new->pods;
 
-foreach my $url (path('.tarballs.txt')->lines( { chomp => 1 } ))
+foreach my $url (XOR->new->tarball_list->get('PerlAlien')->@*)
 {
   $pods->add_dist($url);
 }
