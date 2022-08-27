@@ -11,15 +11,10 @@ package XOR::Pods {
   use Path::Tiny ();
   use JSON::MaybeXS qw( decode_json );
   use Template;
-  use XOR::Web;
+  use XOR;
 
   sub new ($class) {
     bless {}, $class;
-  }
-
-  sub web ($self, $new=undef) {
-    $self->{web} = $new if defined $new;
-    $self->{web} ||= XOR::Web->new;
   }
 
   sub current ($self, $new=undef) {
@@ -42,7 +37,7 @@ package XOR::Pods {
   sub add_dist ($self, $location) {
     my $url = -f $location ? URI::file->new(Path::Tiny->new($location)->absolute->stringify) : URI->new($location);
     say "$url";
-    my $tarball = $self->web->get($url);
+    my $tarball = XOR->new->web->get($url);
 
     my $peek = Archive::Libarchive::Peek->new(
       memory => \$tarball,
@@ -103,17 +98,6 @@ package XOR::Pods {
     {
       warn "unknown dist for $url";
     }
-  }
-
-  sub tt ($self, $new=undef) {
-    $self->{tt} = $new if defined $new;
-    $self->{tt} ||= Template->new(
-      WRAPPER            => 'wrapper.html.tt',
-      INCLUDE_PATH       => Path::Tiny->new('.')->absolute->child('templates')->stringify,
-      render_die         => 1,
-      TEMPLATE_EXTENSION => '.tt',
-      ENCODING           => 'utf8',
-    );
   }
 
   sub generate_html ($self) {
@@ -178,7 +162,7 @@ package XOR::Pods {
       }
 
       my $full_html;
-      $self->tt->process('pod.html.tt', {
+      XOR->new->tt->process('pod.html.tt', {
         title => $name,
         h1    => $h1,
         pod   => $html,
@@ -206,7 +190,7 @@ package XOR::Pods {
       }
 
       my $html;
-      $self->tt->process('dist.html.tt', {
+      XOR->new->tt->process('dist.html.tt', {
         title => 'Documentation',
         shjs  => "https://shjs.wdlabs.com",
         dists => \@dists,

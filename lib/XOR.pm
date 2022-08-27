@@ -30,6 +30,17 @@ package XOR {
     $self->{markdown} ||= XOR::Markdown->new;
   }
 
+  sub tt ($self)
+  {
+    $self->{tt} ||= Template->new(
+      WRAPPER            => 'wrapper.html.tt',
+      INCLUDE_PATH       => Path::Tiny->new('.')->absolute->child('templates')->stringify,
+      render_die         => 1,
+      TEMPLATE_EXTENSION => '.tt',
+      ENCODING           => 'utf8',
+    );
+  }
+
 }
 
 1;

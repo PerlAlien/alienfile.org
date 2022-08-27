@@ -6,22 +6,14 @@ use FindBin ();
 use lib "$FindBin::Bin/lib";
 use 5.026;
 use experimental qw( signatures postderef );
-use Template;
-use Path::Tiny qw( path );
 use XOR;
 use Path::Tiny qw( path );
 
 my $root = path(__FILE__)->parent;
 
-my $tt = Template->new(
-  WRAPPER            => 'wrapper.html.tt',
-  INCLUDE_PATH       => $root->child('templates')->stringify,
-  render_die         => 1,
-  TEMPLATE_EXTENSION => '.tt',
-  ENCODING           => 'utf8',
-);
-
+my $tt = XOR->new->tt;
 my $pods = XOR->new->pods;
+
 foreach my $url (path('.tarballs.txt')->lines( { chomp => 1 } ))
 {
   $pods->add_dist($url);
