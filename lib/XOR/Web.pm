@@ -18,14 +18,19 @@ package XOR::Web {
 
   sub ua ($self)
   {
-    $self->{ua} ||= HTTP::Tiny::Mech->new(
-      mechua => WWW::Mechanize::Cached->new(
-        cache => CHI->new(
-          driver   => 'File',
-          root_dir => path('.')->absolute->child('./.web-cache')->stringify,
-        ),
-      )
-    );
+    $self->{ua} ||= do {
+      my $dir = path('~/.xor/cache');
+      $dir->mkpath;
+      $dir->chmod(0700);
+      HTTP::Tiny::Mech->new(
+        mechua => WWW::Mechanize::Cached->new(
+          cache => CHI->new(
+            driver   => 'File',
+            root_dir => $dir->stringify,
+          ),
+        )
+      );
+    };
   }
 
   sub mcpan ($self)
