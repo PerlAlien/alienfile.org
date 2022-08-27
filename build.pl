@@ -2,17 +2,16 @@
 
 use strict;
 use warnings;
-use FindBin ();
-use lib "$FindBin::Bin/lib";
+use lib 'lib';
 use 5.026;
-use experimental qw( signatures postderef );
+use experimental qw( signatures );
 use XOR;
 use Path::Tiny qw( path );
 
-my $root = path(__FILE__)->parent;
+my $xor = XOR->new( root => '.' );
 
-my $tt = XOR->new->tt;
-my $pods = XOR->new->pods;
+my $tt = $xor->tt;
+my $pods = $xor->pods;
 
 foreach my $url (XOR->new->tarball_list->get('PerlAlien')->@*)
 {
@@ -21,7 +20,7 @@ foreach my $url (XOR->new->tarball_list->get('PerlAlien')->@*)
 $pods->fs_root->remove_tree;
 $pods->generate_html;
 
-$root->child('docs')->visit(
+$xor->root->child('docs')->visit(
   sub ($md_path, $) {
     return unless $md_path->basename =~ /\.md$/;
 
@@ -42,7 +41,7 @@ $root->child('docs')->visit(
       shift @lines;
     }
 
-    my $template_path = $root->child("templates/$template_name.html.tt");
+    my $template_path = $xor->root->child("templates/$template_name.html.tt");
     say "$md_path ($template_path)";
     die "no such tempalte $template_path" unless -f $template_path;
 

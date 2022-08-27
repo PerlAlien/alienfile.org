@@ -8,12 +8,13 @@ package XOR {
   use XOR::Web;
   use XOR::Markdown;
   use XOR::TarballList;
+  use Path::Tiny ();
   use YAML ();
 
-  sub new ($class)
+  sub new ($class, %args)
   {
     state $singleton;
-    $singleton ||= bless {}, __PACKAGE__;
+    $singleton ||= bless { root => Path::Tiny->new($args{root})->absolute }, __PACKAGE__;
   }
 
   sub pods ($self)
@@ -35,7 +36,7 @@ package XOR {
   {
     $self->{tt} ||= Template->new(
       WRAPPER            => 'wrapper.html.tt',
-      INCLUDE_PATH       => Path::Tiny->new('.')->absolute->child('templates')->stringify,
+      INCLUDE_PATH       => $self->root->child('templates')->stringify,
       render_die         => 1,
       TEMPLATE_EXTENSION => '.tt',
       ENCODING           => 'utf8',
@@ -45,6 +46,11 @@ package XOR {
   sub tarball_list ($self)
   {
     $self->{tarball_list} ||= XOR::TarballList->new;
+  }
+
+  sub root ($self)
+  {
+    $self->{root};
   }
 
 }

@@ -24,9 +24,8 @@ package XOR::Pods {
     $self->{current};
   }
 
-  sub fs_root ($self, $new=undef) {
-    $self->{fs_root} = $new if defined $new;
-    $self->{fs_root} ||= Path::Tiny->new('.')->absolute->child('docs', 'pod');
+  sub fs_root ($self) {
+    $self->{fs_root} ||= XOR->new->root->child('docs', 'pod');
   }
 
   sub url_prefix ($self, $new=undef) {
