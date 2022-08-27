@@ -18,7 +18,6 @@ package XOR::Web {
 
   sub ua ($self)
   {
-    $self = $self->new unless ref $self;
     $self->{ua} ||= HTTP::Tiny::Mech->new(
       mechua => WWW::Mechanize::Cached->new(
         cache => CHI->new(
@@ -31,14 +30,11 @@ package XOR::Web {
 
   sub mcpan ($self)
   {
-    $self = $self->new unless ref $self;
     $self->{mcpan} ||= MetaCPAN::Client->new(ua => $self->ua);
   }
 
   sub get ($self, $url)
   {
-    $self = $self->new unless ref $self;
-
     $url = URI->new($url) unless ref $url;
 
     if($url->scheme eq 'file')
