@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use 5.026;
-use lib 'lib';
 use Plack::Builder;
 use Path::Tiny qw( path );
 use Plack::App::XOR;

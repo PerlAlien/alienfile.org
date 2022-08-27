@@ -2,8 +2,11 @@
 
 use strict;
 use warnings;
-use lib 'lib';
 use XOR;
 
-my $xor = XOR->new( root => '.' );
+my $xor = XOR->new(
+  root => '.',
+  org  => 'PerlAlien',
+  site_name => 'alienfile.org',
+);
 $xor->builder->build;
