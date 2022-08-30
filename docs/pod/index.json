@@ -565,6 +565,24 @@
       ]
    },
    {
+      "name" : "Alien-Build-Plugin-Fetch-HostAllowList",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/Build/Plugin/Fetch/HostAllowList.html",
+            "name" : "Alien::Build::Plugin::Fetch::HostAllowList"
+         }
+      ]
+   },
+   {
+      "name" : "Alien-Build-Plugin-Fetch-HostBlockList",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/Build/Plugin/Fetch/HostBlockList.html",
+            "name" : "Alien::Build::Plugin::Fetch::HostBlockList"
+         }
+      ]
+   },
+   {
       "name" : "Alien-Build-Plugin-Fetch-Prompt",
       "pods" : [
          {
