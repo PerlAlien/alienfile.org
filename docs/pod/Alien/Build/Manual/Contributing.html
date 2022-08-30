@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::Manual::Contributing</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Manual.html">Manual</a>::Contributing</div>
     <!--Alien::Build::Manual::Contributing--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -49,7 +49,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -153,8 +153,8 @@ name="avoid_dependencies"
 name="interface_agnostic"
 >interface agnostic</a></h3>
 
-<p>One of the challenges with <a href="https://metacpan.org/pod/Alien%3A%3ABuil%3A%3AModuleBuild" class="podlinkpod"
->Alien::Buil::ModuleBuild</a> was that <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+<p>One of the challenges with <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> was that <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a> was pulled from the core. In addition, there is a degree of hostility toward <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a> in some corners of the Perl community. I agree with Joel Berger&#39;s rationale for choosing <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a> at the time, as I believe its interface more easily lends itself to building <a href="/pod/Alien.html" class="podlinkpod"
@@ -182,8 +182,8 @@ name="interface_agnostic"
 name="plugable"
 >plugable</a></h3>
 
-<p>The actual logic that probes the system, downloads source and builds it should be as pluggable as possible. One of the challenges with <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
->Alien::Build::ModuleBuild</a> was that it was designed to work well with software that works with <code>autoconf</code> and <code>pkg-config</code>. While you can build with other tools, you have to know a bit of how the installer logic works, and which hooks need to be tweaked.</p>
+<p>The actual logic that probes the system, downloads source and builds it should be as pluggable as possible. One of the challenges with <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> was that it was designed to work well with software that works with <code>autoconf</code> and <code>pkg-config</code>. While you can build with other tools, you have to know a bit of how the installer logic works, and which hooks need to be tweaked.</p>
 
 <p><a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> has plugins for <code>autoconf</code>, <code>pkgconf</code> (successor of <code>pkg-config</code>), vanilla Makefiles, and CMake. If your build system doesn&#39;t have a plugin, then all you have to do is write one! Plugins that prove their worth may be merged into the <a href="/pod/Alien/Build.html" class="podlinkpod"
@@ -214,12 +214,16 @@ name="ACKNOWLEDGEMENT"
 name="SEE_ALSO"
 >SEE ALSO</a></h1>
 
-<p><a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a>, <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
->Alien::Build::MM</a>, <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
->Alien::Build::Plugin</a>, <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a>, <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a></p>
+<dl>
+<dt><a name="Alien::Build::Manual"
+><a href="/pod/Alien/Build/Manual.html" class="podlinkpod"
+>Alien::Build::Manual</a></a></dt>
+
+<dd>
+<p>Other <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> manuals.</p>
+</dd>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"

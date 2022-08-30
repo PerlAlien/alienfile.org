@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Manual::Security</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Manual.html">Manual</a>::Security</div>
+    <!--Alien::Build::Manual::Security--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#no_warranty'>no warranty</a>
+    <li class='indexItem indexItem2'><a href='#Alien%3A%3ABuild_vs._CPAN'>Alien::Build vs. CPAN</a>
+    <li class='indexItem indexItem2'><a href='#Restricting_Alien%3A%3ABuild_by_environment'>Restricting Alien::Build by environment</a>
+    <li class='indexItem indexItem2'><a href='#ALIEN_INSTALL_NETWORK'>ALIEN_INSTALL_NETWORK</a>
+    <li class='indexItem indexItem2'><a href='#Security_Related_Plugins'>Security Related Plugins</a>
+    <li class='indexItem indexItem2'><a href='#local_configuration'>local configuration</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Manual::Security - General alien author documentation</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.65</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> perldoc Alien::Build::Manual::Security</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>You are rightly concerned that an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> might be downloading something random off the internet. This manual will describe some of the real risks and go over how you can mitigate them.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="no_warranty"
+>no warranty</a></h2>
+
+<p><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> provides <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> authors with tools to add external non-Perl dependencies to CPAN modules. It is open source software that is entirely volunteer driven, meaning the people writing this software are not getting compensated monetarily for the work. As such, we do our best not to intentionally introduce security vulnerabilities into our modules, or their dependencies. But it is also not our responsibility either. If you are operating in an environment where you need absolute security, you need to carefully audit <i>all</i> of the software that you use.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Alien::Build_vs._CPAN"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> vs. <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a></a></h2>
+
+<p>I suppose you could argue that <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s and <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s in general are inherently less secure than the the Perl modules on <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> that don&#39;t download random stuff off the internet. Worse yet, <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s might be downloading from insecure sources like <code>http</code> or <code>ftp</code>.</p>
+
+<p>This argument falls apart pretty quickly when you realize that</p>
+
+<ol>
+<li>Perl modules from <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> are in fact random stuff off the internet. Most modules, when installed execute a <code>Makefile.PL</code> which can execute completely arbitrary Perl code. Without a proper audit or firewalls that <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> code could be making connections to insecure sources like <code>http</code> if they are not themselves doing something nefarious.</li>
+
+<li>By default, the most frequently used <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> client <a href="https://metacpan.org/pod/cpanm" class="podlinkpod"
+>App::cpanminus</a> uses <code>http</code> to fetch <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> modules. So unless you have specifically configured it to connect to a secure source you are downloading even more random stuff than usual off the internet.</li>
+</ol>
+
+<p>The TL;DR is that if you are using a Perl module, whether it be <code>Foo::PP</code>, <code>Foo::XS</code> or <code>Alien::libfoo</code> and you are concerned about security you need to audit all of your Perl modules, not just the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> ones.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Restricting_Alien::Build_by_environment"
+>Restricting <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> by environment</a></h2>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="ALIEN_INSTALL_NETWORK"
+>ALIEN_INSTALL_NETWORK</a></h2>
+
+<p>Okay, granted you need to audit software for security regardless of if it is <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>, you still don&#39;t like the idea of downloading external dependencies and you can&#39;t firewall just the <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> module installs.</p>
+
+<p><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s respect a number of environment variables that at least give you some control over how aggresive <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> will be at fetching random stuff off the internet.</p>
+
+<dl>
+<dt><a name="ALIEN_DOWNLOAD_RULE"
+><code>ALIEN_DOWNLOAD_RULE</code></a></dt>
+
+<dd>
+<p>This environment variable configures how <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> will deal with insecure protocols and files that do not include a cryptographic signature.</p>
+
+<p>Part of the design of the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> system is that it typically tries to download the latest version of a package instead of a fixed version, so that the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> doesn&#39;t need to be updated when a new alienized package is released. This means that we frequently have to rely on TLS or bundled alienized packages to ensure that the alienized package is fetched securely.</p>
+
+<p>Recently (as of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> 2.59) we started supporting cryptographic signatures defined in <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>s, but they are not yet very common, and they only really work when a single alienized package URL is hard coded into the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> instead of the more typical mode of operation where the latest version is downloaded.</p>
+
+<dl>
+<dt><a name="warn"
+>warn</a></dt>
+
+<dd>
+<p>This mode will warn you if an <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> attempts to fetch a alienized package insecurely. It will also warn you if a package doesn&#39;t have a cryptographic signature. Neither of these things wild stop the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> from being installed.</p>
+
+<p>This is unfortunately currently the default mode of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, for historical reasons. Once plugins and <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s are updated to either use secure fetch (TLS or bundled alienized packages), or cryptographic signatures, the default will be changed to <code>digest_or_encrypt</code>.</p>
+
+<dt><a name="digest_or_encrypt"
+>digest_or_encrypt</a></dt>
+
+<dd>
+<p>This mode will require that before an alienized package is extracted that it is either fetched via a secure protocol (<code>http</code> or <code>file</code>), or the package matches a cryptographic signature.</p>
+
+<p>This will likely be the default for <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> in the near future, but it doesn&#39;t hurt to set it now, if you don&#39;t mind submitting tickets to <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s or <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>plugins</a> that don&#39;t support this mode yet.</p>
+</dd>
+</dl>
+
+<dt><a name="ALIEN_INSTALL_NETWORK"
+><code>ALIEN_INSTALL_NETWORK</code></a></dt>
+
+<dd>
+<p>By design <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s should use local installs of libraries and tools before downloading source from the internet. Setting this environment variable to false, will instruct <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> to not attempt to fetch the alienized package off the internet if it is not available locally or as a bundled package.</p>
+
+<p>This is similar to setting <code>ALIEN_INSTALL_TYPE</code> to <code>system</code> (see below), except it does allow <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s that bundle their alienized package inside the <a href="https://metacpan.org/pod/CPAN" class="podlinkpod"
+>CPAN</a> package tarball.</p>
+
+<p>Some <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s will not install properly at first, but when they error you can install the system package and try to re-install the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>.</p>
+
+<dt><a name="ALIEN_INSTALL_TYPE"
+><code>ALIEN_INSTALL_TYPE</code></a></dt>
+
+<dd>
+<p>Setting <code>ALIEN_INSTALL_TYPE</code> to <code>system</code> is similar to setting <code>ALIEN_INSTALL_NETWORK</code> to false, except that bundled alienized packages will also be rejected. This environment variable is really intended for use by operating system vendors packaging <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s, or for <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> developer testing (in CI for example). For some who want to restrict how <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s install this might be the right tool to reach for.</p>
+</dd>
+</dl>
+
+<p>Note that this is definitely best effort. If the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> author makes a mistake or is malicious they could override these environment variables inside the <code>Makefile.PL</code>, so you still need to audit any software to ensure that it doesn&#39;t fetch source off the internet.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Security_Related_Plugins"
+>Security Related Plugins</a></h2>
+
+<p>There are a number of plugins that give the user or installer control over how <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> behaves, and may be useful for rudimentary security.</p>
+
+<dl>
+<dt><a name="Alien::Build::Plugin::Fetch::Prompt"
+><a href="/pod/Alien/Build/Plugin/Fetch/Prompt.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Prompt</a></a></dt>
+
+<dd>
+<p>This plugin will prompt before fetching any remote files. This only really works when you are installing <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s interactively.</p>
+
+<dt><a name="Alien::Build::Plugin::Fetch::HostAllowList"
+><a href="/pod/Alien/Build/Plugin/Fetch/HostAllowList.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::HostAllowList</a></a></dt>
+
+<dd>
+<p>This plugin will only allow fetching from hosts that are in an allow list.</p>
+
+<dt><a name="Alien::Build::Plugin::Fetch::HostBlockList"
+><a href="/pod/Alien/Build/Plugin/Fetch/HostBlockList.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::HostBlockList</a></a></dt>
+
+<dd>
+<p>This plugin will not allow fetching from hosts that are in a block list.</p>
+
+<dt><a name="Alien::Build::Plugin::Fetch::Rewrite"
+><a href="/pod/Alien/Build/Plugin/Fetch/Rewrite.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Rewrite</a></a></dt>
+
+<dd>
+<p>This plugin can re-write fetched URLs before the request is made. This can be useful if you have a local mirror of certain sources that you want to use instead of fetching from the wider internet.</p>
+
+<dt><a name="Alien::Build::Plugin::Probe::Override"
+><a href="/pod/Alien/Build/Plugin/Probe/Override.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::Override</a></a></dt>
+
+<dd>
+<p>This plugin can override the <code>ALIEN_INSTALL_TYPE</code> on a perl-Alien basis. This can be useful if you want to install some <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s in <code>share</code> mode, but generally want to enforce <code>system</code> mode.</p>
+</dd>
+</dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="local_configuration"
+>local configuration</a></h2>
+
+<p>You can configure the way <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s are installed with the local configuration file <code>~/.alienbuild/rc.pl</code>. See <a href="/pod/Alien/Build/rc.html" class="podlinkpod"
+>Alien::Build::rc</a> for details.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>This whole document is caveats, but if you haven&#39;t gotten it by now then, fundamentally if you need to use Perl modules securely then you need to audit the code for security vulnerabilities. If you think that the security of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s that depend on it, then <i>patches welcome</i>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build::Manual"
+><a href="/pod/Alien/Build/Manual.html" class="podlinkpod"
+>Alien::Build::Manual</a></a></dt>
+
+<dd>
+<p>Other <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> manuals.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>[
+        <a href="https://alienfile.org">alienfile.org</a> |
+        <a href="https://pl.atypus.org">pl.atypus.org</a> |
+        <a href="https://perlwasm.github.io">perlwasm</a> |
+        <a href="https://uperl.github.io">uperl</a>
+      ] Copyright &copy; 2022 Graham Ollis</p>
+    </div>
+  </body>
+</html>

@@ -36,7 +36,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -54,19 +54,43 @@ name="DESCRIPTION"
 >Alien::Build::Plugin::Download::Negotiate</a> plugin which will automatically load the appropriate Decode plugins.</p>
 
 <dl>
-<dt><a name="Alien::Build::Plugin::Decode::HTML"
-><a href="/pod/Alien/Build/Plugin/Decode/HTML.html" class="podlinkpod"
->Alien::Build::Plugin::Decode::HTML</a></a></dt>
-
-<dd>
 <dt><a name="Alien::Build::Plugin::Decode::DirListing"
 ><a href="/pod/Alien/Build/Plugin/Decode/DirListing.html" class="podlinkpod"
 >Alien::Build::Plugin::Decode::DirListing</a></a></dt>
 
 <dd>
+<p>Default decoder for FTP file listings, that uses the pure-perl <a href="/pod/File/Listing.html" class="podlinkpod"
+>File::Listing</a>.</p>
+
 <dt><a name="Alien::Build::Plugin::Decode::DirListingFtpcopy"
 ><a href="/pod/Alien/Build/Plugin/Decode/DirListingFtpcopy.html" class="podlinkpod"
 >Alien::Build::Plugin::Decode::DirListingFtpcopy</a></a></dt>
+
+<dd>
+<p>Another decoder for FTP file listings, that uses the XS module <a href="https://uperl.github.io/pod/File/Listing/Ftpcopy.html" class="podlinkpod"
+>File::Listing::Ftpcopy</a>.</p>
+
+<dt><a name="Alien::Build::Plugin::Decode::HTML"
+><a href="/pod/Alien/Build/Plugin/Decode/HTML.html" class="podlinkpod"
+>Alien::Build::Plugin::Decode::HTML</a></a></dt>
+
+<dd>
+<p>Older decoder for HTML file listings, which uses the XS module <a href="https://metacpan.org/pod/HTML%3A%3ALinkExtor" class="podlinkpod"
+>HTML::LinkExtor</a>. This used to be the default decoder until <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> version 1.75. In some cases, this will be used as the HTML decoder if you configure with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> prior to 1.75 and but upgrade to a more recent version for the build stage of your <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></p>
+
+<dt><a name="Alien::Build::Plugin::Decode::Mojo"
+><a href="/pod/Alien/Build/Plugin/Decode/Mojo.html" class="podlinkpod"
+>Alien::Build::Plugin::Decode::Mojo</a></a></dt>
+
+<dd>
+<p>Newer decoder for HTML file listings, which uses the pure-perl <a href="https://metacpan.org/pod/Mojo%3A%3ADOM" class="podlinkpod"
+>Mojo::DOM</a> or <a href="https://metacpan.org/pod/Mojo%3A%3ADOM58" class="podlinkpod"
+>Mojo::DOM58</a>. This became the default decoder at <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> version 1.75.</p>
+</dd>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

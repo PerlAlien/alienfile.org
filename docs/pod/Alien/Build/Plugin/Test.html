@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Alien::Build::Plugin::Core::Gather</title>
+    <title>Alien::Build::Plugin::Test</title>
     <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
     <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
     <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
@@ -11,8 +11,8 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Core.html">Core</a>::Gather</div>
-    <!--Alien::Build::Plugin::Core::Gather--><a name='___top' class='dummyTopAnchor' ></a>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::Test</div>
+    <!--Alien::Build::Plugin::Test--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
 <ul   class='indexList indexList1'>
@@ -30,7 +30,7 @@
 name="NAME"
 >NAME</a></h1>
 
-<p>Alien::Build::Plugin::Core::Gather - Core gather plugin</p>
+<p>Alien::Build::Plugin::Test - Probe Alien::Build plugins</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="VERSION"
@@ -43,21 +43,39 @@ name="SYNOPSIS"
 >SYNOPSIS</a></h1>
 
 <pre class="sh_perl"> use alienfile;
- # already loaded</pre>
+ plugin &#39;Test::Mock&#39; =&#62; (
+   probe    =&#62; &#39;share&#39;,
+   download =&#62; 1,
+   extract  =&#62; 1,
+   build    =&#62; 1,
+   gather   =&#62; 1,
+ );</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This plugin helps make the gather stage work.</p>
+<p>Test plugins are used in unit tests for <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and possibly its plugins.</p>
+
+<dl>
+<dt><a name="Alien::Build::Plugin::Test::Mock"
+><a href="/pod/Alien/Build/Plugin/Test/Mock.html" class="podlinkpod"
+>Alien::Build::Plugin::Test::Mock</a></a></dt>
+
+<dd>
+<p>Mocks common steps in an <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+</dd>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SEE_ALSO"
 >SEE ALSO</a></h1>
 
 <p><a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a>, <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a></p>
+>Alien::Build</a>, <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>Alien::Build::Plugin</a></p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"

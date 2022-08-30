@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::Manual::PluginAuthor</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Manual.html">Manual</a>::PluginAuthor</div>
     <!--Alien::Build::Manual::PluginAuthor--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -20,12 +20,19 @@
   <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
   <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
   <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#Writing_plugins'>Writing plugins</a>
+    <li class='indexItem indexItem2'><a href='#Modifying_hooks'>Modifying hooks</a>
+    <li class='indexItem indexItem2'><a href='#Testing_plugins'>Testing plugins</a>
+    <li class='indexItem indexItem2'><a href='#Negotiator_plugins'>Negotiator plugins</a>
+    <li class='indexItem indexItem2'><a href='#Hooks'>Hooks</a>
+  </ul>
   <li class='indexItem indexItem1'><a href='#HOOKS'>HOOKS</a>
   <ul   class='indexList indexList2'>
     <li class='indexItem indexItem2'><a href='#build_hook'>build hook</a>
     <li class='indexItem indexItem2'><a href='#build_ffi_hook'>build_ffi hook</a>
     <li class='indexItem indexItem2'><a href='#decode_hook'>decode hook</a>
-    <li class='indexItem indexItem2'><a href='#check_digest'>check_digest</a>
+    <li class='indexItem indexItem2'><a href='#check_digest_hook'>check_digest hook</a>
     <li class='indexItem indexItem2'><a href='#clean_install'>clean_install</a>
     <li class='indexItem indexItem2'><a href='#download_hook'>download hook</a>
     <li class='indexItem indexItem2'><a href='#extract_hook'>extract hook</a>
@@ -39,6 +46,7 @@
     <li class='indexItem indexItem2'><a href='#prefer_hook'>prefer hook</a>
     <li class='indexItem indexItem2'><a href='#probe_hook'>probe hook</a>
   </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
 </ul>
@@ -54,7 +62,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -198,7 +206,13 @@ name="DESCRIPTION"
 
 <p>This document explains how to write <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> plugins using the <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
->Alien::Build::Plugin</a> base class. Plugins use <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>Alien::Build::Plugin</a> base class.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Writing_plugins"
+>Writing plugins</a></h2>
+
+<p>Plugins use <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
 >Alien::Build::Plugin</a>, which sets the appropriate base class, and provides you with the <code>has</code> property builder. <code>has</code> takes two arguments, the name of the property and the default value. (As with <a href="https://metacpan.org/pod/Moose" class="podlinkpod"
 >Moose</a> and <a href="https://metacpan.org/pod/Moo" class="podlinkpod"
 >Moo</a>, you should use a code reference to specify default values for non-string defaults). No <b>not</b> set this as your plugin&#39;s base class directly:</p>
@@ -229,6 +243,10 @@ name="DESCRIPTION"
 
 <p>Hooks get the <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> instance as their first argument, and depending on the hook may get additional arguments.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Modifying_hooks"
+>Modifying hooks</a></h2>
 
 <p>You can also modify hooks using <code>before_hook</code>, <code>around_hook</code> and <code>after_hook</code>, similar to <a href="https://metacpan.org/pod/Moose" class="podlinkpod"
 >Moose</a> modifiers:</p>
@@ -263,6 +281,10 @@ name="DESCRIPTION"
    );
  }</pre>
 
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Testing_plugins"
+>Testing plugins</a></h2>
+
 <p>You can and should write tests for your plugin. The best way to do this is using <a href="/pod/Test/Alien/Build.html" class="podlinkpod"
 >Test::Alien::Build</a>, which allows you to write an inline <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> in your test. Here is an example:</p>
@@ -284,6 +306,45 @@ name="DESCRIPTION"
  my $alien = alien_build_ok;
  
  # you can interrogate $alien, it is an instance of L&#60;Alien::Base&#62;.</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Negotiator_plugins"
+>Negotiator plugins</a></h2>
+
+<p>A Negotiator plugin doesn&#39;t itself typically implement anything on its own, but picks the best plugin to achieve a particular goal.</p>
+
+<p>The &#34;best&#34; plugin can in some cases vary depending on the platform or tools that are available. For example The <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="podlinkpod"
+>download negotiator</a> might choose to use the fetch plugin that relies on the command line <code>curl</code>, or it might choose the fetch plugin that relies on the Perl module <a href="https://metacpan.org/pod/HTTP%3A%3ATiny" class="podlinkpod"
+>HTTP::Tiny</a> depending on the platform and what is already installed. (For either to be useful they have to support SSL).</p>
+
+<p>The Negotiator plugin is by convention named something like <code>Alien::Build::Plugin::*::Negotiate</code>, but is typically invoked without the <code>::Negotiate</code> suffix. For example:</p>
+
+<pre class="sh_perl"> plugin &#39;Download&#39;; # is short for Alien::Build::Plugin::Download::Negotiator</pre>
+
+<p>Here is a simple example of a negotiator which picks <code>curl</code> if already installed and <a href="https://metacpan.org/pod/HTTP%3A%3ATiny" class="podlinkpod"
+>HTTP::Tiny</a> otherwise. (The actual download plugin is a lot smarter and complicated than this, but this is a good simplified example).</p>
+
+<pre class="sh_perl"> package Alien::Build::Plugin::Download::Negotiate;
+ 
+ use strict;
+ use warnings;
+ use Alien::Build::Plugin;
+ use File::Which qw( which );
+ 
+ sub init
+ {
+   my($self, $meta) = @_;
+ 
+   if(which(&#39;curl&#39;)) {
+     $meta-&#62;apply_plugin(&#39;Fetch::Curl&#39;);
+   } else {
+     $meta-&#62;apply_plugin(&#39;Fetch::HTTPTiny&#39;);
+   }
+ }</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Hooks"
+>Hooks</a></h2>
 
 <p>The remainder of this document is a reference for the hooks that you can register. Generally speaking you can register any hook that you like, but some care must be taken as some hooks have default behavior that will be overridden when you register a hook. The hooks are presented in alphabetical order. The execution order is shown in the flowchart above (if you are browsing the HTML version of this document), or the Perlish pseudo code in the synopsis section.</p>
 
@@ -311,8 +372,8 @@ name="build_ffi_hook"
    ...
  });</pre>
 
-<p>This is the same as <a href="https://metacpan.org/pod/build#build_hook" class="podlinkpod"
->&#34;build hook&#34; in build</a>, except it fires only on a FFI build.</p>
+<p>This is the same as <a href="#build_hook" class="podlinkpod"
+>build</a>, except it fires only on a FFI build.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="decode_hook"
@@ -327,8 +388,8 @@ name="decode_hook"
 >fetch hook</a> for the specification of the input and response hash references.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
-name="check_digest"
->check_digest</a></h2>
+name="check_digest_hook"
+>check_digest hook</a></h2>
 
 <pre class="sh_perl"> # implement the well known FOO-92 digest
  $meta-&#62;register_hook( check_digest =&#62; sub {
@@ -445,6 +506,7 @@ name="fetch_hook"
    filename =&#62; $filename,
    content  =&#62; $content,
    version  =&#62; $version,  # optional, if known
+   protocol =&#62; $protocol, # AB 2.60 optional, but recommended
  };
  
  # content of file stored in the filesystem
@@ -454,6 +516,7 @@ name="fetch_hook"
    path     =&#62; $path,     # full file system path to file
    version  =&#62; $version,  # optional, if known
    tmp      =&#62; $tmp,      # optional
+   protocol =&#62; $protocol, # AB 2.60 optional, but recommended
  };</pre>
 
 <p><code>$tmp</code> if set will indicate if the file is temporary or not, and can be used by <a href="/pod/Alien/Build.html" class="podlinkpod"
@@ -474,25 +537,36 @@ name="fetch_hook"
      # version: OPTIONAL, may be provided by some fetch or prefer
      { filename =&#62; $filename1, url =&#62; $url1, version =&#62; $version1 },
      { filename =&#62; $filename2, url =&#62; $url2, version =&#62; $version2 },
-   ]
+   ],
+   protocol =&#62; $protocol, # AB 2.60 optional, but recommended
  };</pre>
 
 <p>or if the listing is in HTML format as a hash reference containing the HTML information:</p>
 
 <pre class="sh_perl"> return {
    type =&#62; &#39;html&#39;,
-   charset =&#62; $charset, # optional
-   base    =&#62; $base,    # the base URL: used for computing relative URLs
-   content =&#62; $content, # the HTML content
+   charset  =&#62; $charset, # optional
+   base     =&#62; $base,    # the base URL: used for computing relative URLs
+   content  =&#62; $content, # the HTML content
+   protocol =&#62; $protocol, # optional, but recommended
  };</pre>
 
 <p>or a directory listing (usually produced by an FTP servers) as a hash reference:</p>
 
 <pre class="sh_perl"> return {
-   type    =&#62; &#39;dir_listing&#39;,
-   base    =&#62; $base,
-   content =&#62; $content,
+   type     =&#62; &#39;dir_listing&#39;,
+   base     =&#62; $base,
+   content  =&#62; $content,
+   protocol =&#62; $protocol, # AB 2.60 optional, but recommended
  };</pre>
+
+<p>[version 2.60]</p>
+
+<p>For all of these responses <code>$protocol</code> is optional, since it was not part of the original spec, however it is strongly recommended that you include this field, because future versions of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> will use this to determine if a file was downloaded securely (that is via a secure protocol such as SSL).</p>
+
+<p>Some plugins (like <a href="/pod/Alien/Build/Plugin/Decode.html" class="podlinkpod"
+>decode plugins </a>) trans late a file hash from one type to another, they should maintain the <code>$protocol</code> from the old to the new representation of the file.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="gather_ffi_hook"
@@ -614,6 +688,21 @@ name="probe_hook"
 >gather_system</a> hook.</p>
 
 <p>Multiple probe hooks can be given. These will be used in sequence, stopping at the first that detects a system installation.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build::Manual"
+><a href="/pod/Alien/Build/Manual.html" class="podlinkpod"
+>Alien::Build::Manual</a></a></dt>
+
+<dd>
+<p>Other <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> manuals.</p>
+</dd>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"

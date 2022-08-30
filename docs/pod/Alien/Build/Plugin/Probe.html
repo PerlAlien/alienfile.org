@@ -36,7 +36,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -60,6 +60,11 @@ name="SYNOPSIS"
    version =&#62; qr/gzip ([0-9\.]+)/,
  );</pre>
 
+<p>Use <code>vcpkg</code> for Visual C++ Perl:</p>
+
+<pre class="sh_perl"> use alienfile;
+ plugin &#39;Probe::Vcpkg&#39; =&#62; &#39;libffi&#39;;</pre>
+
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
@@ -72,9 +77,24 @@ name="DESCRIPTION"
 >Alien::Build::Plugin::Probe::CBuilder</a></a></dt>
 
 <dd>
+<p>Use <a href="https://metacpan.org/pod/ExtUtils%3A%3ACBuilder" class="podlinkpod"
+>ExtUtils::CBuilder</a> to probe for existing installed library.</p>
+
 <dt><a name="Alien::Build::Plugin::Probe::CommandLine"
 ><a href="/pod/Alien/Build/Plugin/Probe/CommandLine.html" class="podlinkpod"
 >Alien::Build::Plugin::Probe::CommandLine</a></a></dt>
+
+<dd>
+<p>Execute commands to probe for existing tools.</p>
+
+<dt><a name="Alien::Build::Plugin::Probe::Vcpkg"
+><a href="/pod/Alien/Build/Plugin/Probe/Vcpkg.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::Vcpkg</a></a></dt>
+
+<dd>
+<p>Use <a href="https://uperl.github.io/pod/Win32/Vcpkg.html" class="podlinkpod"
+>Win32::Vcpkg</a> to probe for existing installed library.</p>
+</dd>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

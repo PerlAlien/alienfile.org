@@ -48,7 +48,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -112,13 +112,6 @@ name="DESCRIPTION"
 <dd>
 <p>Tools already included.</p>
 
-<dt><a name="Alien::Build::Plugin::Download"
-><a href="/pod/Alien/Build/Plugin/Download.html" class="podlinkpod"
->Alien::Build::Plugin::Download</a></a></dt>
-
-<dd>
-<p>Methods for retrieving from the internet.</p>
-
 <dt><a name="Alien::Build::Plugin::Decode"
 ><a href="/pod/Alien/Build/Plugin/Decode.html" class="podlinkpod"
 >Alien::Build::Plugin::Decode</a></a></dt>
@@ -131,7 +124,14 @@ name="DESCRIPTION"
 >Alien::Build::Plugin::Digest</a></a></dt>
 
 <dd>
-<p>Check cryptographic signatures on downloaded files.</p>
+<p>Tools for checking cryptographic signatures during a <code>share</code> install.</p>
+
+<dt><a name="Alien::Build::Plugin::Download"
+><a href="/pod/Alien/Build/Plugin/Download.html" class="podlinkpod"
+>Alien::Build::Plugin::Download</a></a></dt>
+
+<dd>
+<p>Methods for retrieving from the internet.</p>
 
 <dt><a name="Alien::Build::Plugin::Extract"
 ><a href="/pod/Alien/Build/Plugin/Extract.html" class="podlinkpod"
@@ -147,6 +147,20 @@ name="DESCRIPTION"
 <dd>
 <p>Normally use Download plugins which will pick the correct Fetch plugins.</p>
 
+<dt><a name="Alien::Build::Plugin::Gather"
+><a href="/pod/Alien/Build/Plugin/Gather.html" class="podlinkpod"
+>Alien::Build::Plugin::Gather</a></a></dt>
+
+<dd>
+<p>Plugins that modify or enhance the gather step.</p>
+
+<dt><a name="Alien::Build::Plugin::PkgConfig"
+><a href="/pod/Alien/Build/Plugin/PkgConfig.html" class="podlinkpod"
+>Alien::Build::Plugin::PkgConfig</a></a></dt>
+
+<dd>
+<p>Plugins that work with <code>pkg-config</code> or libraries that provide the same functionality.</p>
+
 <dt><a name="Alien::Build::Plugin::Prefer"
 ><a href="/pod/Alien/Build/Plugin/Prefer.html" class="podlinkpod"
 >Alien::Build::Plugin::Prefer</a></a></dt>
@@ -160,6 +174,14 @@ name="DESCRIPTION"
 
 <dd>
 <p>Look for packages already installed on the system.</p>
+
+<dt><a name="Alien::Build::Plugin::Probe"
+><a href="/pod/Alien/Build/Plugin/Probe.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe</a></a></dt>
+
+<dd>
+<p>Plugins useful for unit testing <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> itself, or plugins for it.</p>
 </dd>
 </dl>
 

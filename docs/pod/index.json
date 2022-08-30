@@ -185,6 +185,10 @@
             "name" : "Alien::Build::MM"
          },
          {
+            "href" : "/pod/Alien/Build/Manual.html",
+            "name" : "Alien::Build::Manual"
+         },
+         {
             "href" : "/pod/Alien/Build/Manual/Alien.html",
             "name" : "Alien::Build::Manual::Alien"
          },
@@ -207,6 +211,10 @@
          {
             "href" : "/pod/Alien/Build/Manual/PluginAuthor.html",
             "name" : "Alien::Build::Manual::PluginAuthor"
+         },
+         {
+            "href" : "/pod/Alien/Build/Manual/Security.html",
+            "name" : "Alien::Build::Manual::Security"
          },
          {
             "href" : "/pod/Alien/Build/Plugin.html",
@@ -377,8 +385,16 @@
             "name" : "Alien::Build::Plugin::Fetch::Wget"
          },
          {
+            "href" : "/pod/Alien/Build/Plugin/Gather.html",
+            "name" : "Alien::Build::Plugin::Gather"
+         },
+         {
             "href" : "/pod/Alien/Build/Plugin/Gather/IsolateDynamic.html",
             "name" : "Alien::Build::Plugin::Gather::IsolateDynamic"
+         },
+         {
+            "href" : "/pod/Alien/Build/Plugin/PkgConfig.html",
+            "name" : "Alien::Build::Plugin::PkgConfig"
          },
          {
             "href" : "/pod/Alien/Build/Plugin/PkgConfig/CommandLine.html",
@@ -431,6 +447,10 @@
          {
             "href" : "/pod/Alien/Build/Plugin/Probe/Vcpkg.html",
             "name" : "Alien::Build::Plugin::Probe::Vcpkg"
+         },
+         {
+            "href" : "/pod/Alien/Build/Plugin/Test.html",
+            "name" : "Alien::Build::Plugin::Test"
          },
          {
             "href" : "/pod/Alien/Build/Plugin/Test/Mock.html",

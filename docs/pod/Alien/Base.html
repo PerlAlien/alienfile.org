@@ -63,7 +63,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -162,8 +162,8 @@ name="DESCRIPTION"
 
 <p><b>NOTE</b>: <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> is no longer bundled with <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> and has been spun off into a separate distribution. <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
->Alien::Build::ModuleBuild</a> will be a prerequisite for <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and has been spun off into a separate distribution. <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> will be a prerequisite for <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> until October 1, 2017. If you are using <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> you need to make sure it is declared as a <code>configure_requires</code> in your <code>Build.PL</code>. You may want to also consider using <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and <a href="/pod/alienfile.html" class="podlinkpod"
@@ -225,8 +225,8 @@ name="DESCRIPTION"
 >Module::Build</a>, it is highly recommended that you use <a href="/pod/Alien/Base/Wrapper.html" class="podlinkpod"
 >Alien::Base::Wrapper</a>, rather than using the <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> directly, because it handles a number of sharp edges and avoids pitfalls common when trying to use an <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> directly with <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakMaker" class="podlinkpod"
->ExtUtils::MakMaker</a>.</p>
+>Alien</a> directly with <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a>.</p>
 
 <p>In the same vein, if you are wanting to use an <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
@@ -342,10 +342,10 @@ name="version_cmp"
 
 <pre class="sh_perl">  $cmp = Alien::MyLibrary-&#62;version_cmp($x, $y)</pre>
 
-<p>Comparison method used by <a href="https://metacpan.org/pod/atleast_version" class="podlinkpod"
->atleast_version</a>, <a href="https://metacpan.org/pod/exact_version" class="podlinkpod"
->exact_version</a> and <a href="https://metacpan.org/pod/max_version" class="podlinkpod"
->max_version</a>. May be useful to implement custom comparisons, or for subclasses to overload to get different version comparison semantics than the default rules, for packages that have some other rules than the <em>pkg-config</em> behaviour.</p>
+<p>Comparison method used by <a href="#atleast_version" class="podlinkpod"
+>&#34;atleast_version&#34;</a>, <a href="#exact_version" class="podlinkpod"
+>&#34;exact_version&#34;</a> and <a href="#max_version" class="podlinkpod"
+>&#34;max_version&#34;</a>. May be useful to implement custom comparisons, or for subclasses to overload to get different version comparison semantics than the default rules, for packages that have some other rules than the <em>pkg-config</em> behaviour.</p>
 
 <p>Should return a number less than, equal to, or greater than zero; similar in behaviour to the <code>&#60;=&#62;</code> and <code>cmp</code> operators.</p>
 
@@ -379,9 +379,8 @@ name="config"
 
 <pre class="sh_perl"> my $value = Alien::MyLibrary-&#62;config($key);</pre>
 
-<p>Returns the configuration data as determined during the install of <a href="https://metacpan.org/pod/Alien%3A%3AMyLibrary" class="podlinkpod"
->Alien::MyLibrary</a>. For the appropriate config keys, see <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBuild%3A%3AAPI%23CONFIG-DATA" class="podlinkpod"
->Alien::Base::ModuleBuild::API#CONFIG-DATA</a>.</p>
+<p>Returns the configuration data as determined during the install of <code>Alien::MyLibrary</code>. For the appropriate config keys, see <a href="/pod/Alien/Base/ModuleBuild/API.html#CONFIG_DATA" class="podlinkpod"
+>&#34;CONFIG DATA&#34; in Alien::Base::ModuleBuild::API</a>.</p>
 
 <p>This is not typically used by <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and <a href="/pod/alienfile.html" class="podlinkpod"
@@ -573,9 +572,9 @@ name="SUPPORT_AND_CONTRIBUTING"
 <p>If you find a bug, please report it on the projects issue tracker on GitHub:</p>
 
 <dl>
-<dt><a name="https://github.com/PerlAlien/Alien-Base/issues"
-><a href="https://github.com/PerlAlien/Alien-Base/issues" class="podlinkurl"
->https://github.com/PerlAlien/Alien-Base/issues</a></a></dt>
+<dt><a name="https://github.com/PerlAlien/Alien-Build/issues"
+><a href="https://github.com/PerlAlien/Alien-Build/issues" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Build/issues</a></a></dt>
 </dl>
 
 <p>Development is discussed on the projects google groups. This is also a reasonable place to post a question if you don&#39;t want to open an issue in GitHub.</p>
@@ -589,9 +588,9 @@ name="SUPPORT_AND_CONTRIBUTING"
 <p>If you have implemented a new feature or fixed a bug, please open a pull request.</p>
 
 <dl>
-<dt><a name="https://github.com/PerlAlien/Alien-Base/pulls"
-><a href="https://github.com/PerlAlien/Alien-Base/pulls" class="podlinkurl"
->https://github.com/PerlAlien/Alien-Base/pulls</a></a></dt>
+<dt><a name="https://github.com/PerlAlien/Alien-Build/pulls"
+><a href="https://github.com/PerlAlien/Alien-Build/pulls" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Build/pulls</a></a></dt>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

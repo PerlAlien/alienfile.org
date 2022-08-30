@@ -36,7 +36,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -56,24 +56,60 @@ name="DESCRIPTION"
 >Alien::Build::Plugin::Download::Negotiate</a> plugin, which will pick the best plugins for your given URL.</p>
 
 <dl>
+<dt><a name="Alien::Build::Plugin::Fetch::CurlCommand"
+><a href="/pod/Alien/Build/Plugin/Fetch/CurlCommand.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::CurlCommand</a></a></dt>
+
+<dd>
+<p>Fetch using the <code>curl</code> command.</p>
+
 <dt><a name="Alien::Build::Plugin::Fetch::HTTPTiny"
 ><a href="/pod/Alien/Build/Plugin/Fetch/HTTPTiny.html" class="podlinkpod"
 >Alien::Build::Plugin::Fetch::HTTPTiny</a></a></dt>
 
 <dd>
-<dt><a name="Alien::Build::Plugin::Fetch::Local"
-><a href="/pod/Alien/Build/Plugin/Fetch/Local.html" class="podlinkpod"
->Alien::Build::Plugin::Fetch::Local</a></a></dt>
+<p>Fetch using <a href="https://metacpan.org/pod/HTTP%3A%3ATiny" class="podlinkpod"
+>HTTP::Tiny</a>.</p>
 
-<dd>
 <dt><a name="Alien::Build::Plugin::Fetch::LWP"
 ><a href="/pod/Alien/Build/Plugin/Fetch/LWP.html" class="podlinkpod"
 >Alien::Build::Plugin::Fetch::LWP</a></a></dt>
 
 <dd>
+<p>Fetch using <a href="https://metacpan.org/pod/LWP%3A%3AUserAgent" class="podlinkpod"
+>LWP::UserAgent</a>.</p>
+
+<dt><a name="Alien::Build::Plugin::Fetch::Local"
+><a href="/pod/Alien/Build/Plugin/Fetch/Local.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Local</a></a></dt>
+
+<dd>
+<p>Fetch from a local file. This is typically used to bundle packages with your <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>.</p>
+
+<dt><a name="Alien::Build::Plugin::Fetch::LocalDir"
+><a href="/pod/Alien/Build/Plugin/Fetch/LocalDir.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::LocalDir</a></a></dt>
+
+<dd>
+<p>Fetch from a local directory. This is typically used to bundle packages with your <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>.</p>
+
 <dt><a name="Alien::Build::Plugin::Fetch::NetFTP"
 ><a href="/pod/Alien/Build/Plugin/Fetch/NetFTP.html" class="podlinkpod"
 >Alien::Build::Plugin::Fetch::NetFTP</a></a></dt>
+
+<dd>
+<p>Fetch using <a href="https://metacpan.org/pod/Net%3A%3AFTP" class="podlinkpod"
+>Net::FTP</a>. Use of FTP should be discouraged as of this writing (August 2022).</p>
+
+<dt><a name="Alien::Build::Plugin::Fetch::Wget"
+><a href="/pod/Alien/Build/Plugin/Fetch/Wget.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::Wget</a></a></dt>
+
+<dd>
+<p>Fetch using <code>wget</code>.</p>
+</dd>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

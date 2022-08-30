@@ -36,7 +36,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -53,23 +53,34 @@ name="SYNOPSIS"
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>Digest plugins checks the cryptographic signatures of downloaded files. Typically you will probably want to use SHA256 via the <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3ADigest%3A%3ANegotiator" class="podlinkpod"
+<p>Digest plugins checks the cryptographic signatures of downloaded files. Typically you will probably want to use SHA256 via the <a href="/pod/Alien/Build/Plugin/Digest/Negotiate.html" class="podlinkpod"
 >Digest Negotiator plugin</a>.</p>
 
 <dl>
-<dt><a name="Alien::Build::Plugin::Digest::Negotiator"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3ADigest%3A%3ANegotiator" class="podlinkpod"
->Alien::Build::Plugin::Digest::Negotiator</a></a></dt>
+<dt><a name="Alien::Build::Plugin::Digest::Negotiate"
+><a href="/pod/Alien/Build/Plugin/Digest/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::Digest::Negotiate</a></a></dt>
 
 <dd>
+<p>Negotiate the most appropriate plugin to calculate digest.</p>
+
 <dt><a name="Alien::Build::Plugin::Digest::SHA"
 ><a href="/pod/Alien/Build/Plugin/Digest/SHA.html" class="podlinkpod"
 >Alien::Build::Plugin::Digest::SHA</a></a></dt>
 
 <dd>
+<p>Use the XS based <a href="https://metacpan.org/pod/Digest%3A%3ASHA" class="podlinkpod"
+>Digest::SHA</a> for computing SHA digests. This is the default since <a href="https://metacpan.org/pod/Digest%3A%3ASHA" class="podlinkpod"
+>Digest::SHA</a> comes with recent versions of Perl.</p>
+
 <dt><a name="Alien::Build::Plugin::Digest::SHAPP"
 ><a href="/pod/Alien/Build/Plugin/Digest/SHAPP.html" class="podlinkpod"
 >Alien::Build::Plugin::Digest::SHAPP</a></a></dt>
+
+<dd>
+<p>Use the pure-perl based <a href="https://metacpan.org/pod/Digest%3A%3ASHA%3A%3APurePerl" class="podlinkpod"
+>Digest::SHA::PurePerl</a> for computing SHA digests.</p>
+</dd>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

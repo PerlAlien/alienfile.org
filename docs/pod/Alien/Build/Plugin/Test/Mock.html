@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::Test::Mock</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Test.html">Test</a>::Mock</div>
     <!--Alien::Build::Plugin::Test::Mock--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -27,6 +27,7 @@
     <li class='indexItem indexItem2'><a href='#extract'>extract</a>
     <li class='indexItem indexItem2'><a href='#build'>build</a>
     <li class='indexItem indexItem2'><a href='#gather'>gather</a>
+    <li class='indexItem indexItem2'><a href='#check_digest'>check_digest</a>
   </ul>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
@@ -43,7 +44,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -170,6 +171,27 @@ name="gather"
  );</pre>
 
 <p>This adds a gather hook (for both <code>share</code> and <code>system</code>) that adds the given runtime properties, or if a true non-hash value is provided, some reasonable runtime properties for testing.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="check_digest"
+>check_digest</a></h2>
+
+<pre class="sh_perl"> plugin &#39;Test::Mock&#39; =&#62; (
+   check_digest =&#62; 1,  # the default
+ );</pre>
+
+<p>This adds a check_digest hook that uses fake algorithm FAKE that hashes everything to <code>deadbeaf</code>. The mock download above will set the digest for download_details so that this will pass the signature check.</p>
+
+<pre class="sh_perl"> plugin &#39;Test::Mock&#39; =&#62; (
+   check_digest =&#62; sub {
+     my($build, $file, $algo, $digest) = @_;
+     ...
+   },
+ );</pre>
+
+<p>If you give it a code reference then you can write your own faux digest. See the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#check_digest_hook" class="podlinkpod"
+>check_digest hook</a> in <a href="/pod/Alien/Build/Manual/PluginAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::PluginAuthor</a> for details.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"

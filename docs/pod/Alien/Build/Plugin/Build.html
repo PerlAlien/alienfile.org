@@ -36,7 +36,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -64,9 +64,44 @@ name="DESCRIPTION"
 >Alien::Build::Plugin::Build::Autoconf</a></a></dt>
 
 <dd>
+<p>For dealing with packages that are configured using autotools, or an autotools-like <code>configure</code> script.</p>
+
+<dt><a name="Alien::Build::Plugin::Build::CMake"
+><a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::CMake</a></a></dt>
+
+<dd>
+<p>For dealing with packages that are configured and built using CMake.</p>
+
+<dt><a name="Alien::Build::Plugin::Build::Copy"
+><a href="/pod/Alien/Build/Plugin/Build/Copy.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Copy</a></a></dt>
+
+<dd>
+<p>For dealing with packages that do not require any build, and can just be copied into their final location.</p>
+
 <dt><a name="Alien::Build::Plugin::Build::MSYS"
 ><a href="/pod/Alien/Build/Plugin/Build/MSYS.html" class="podlinkpod"
 >Alien::Build::Plugin::Build::MSYS</a></a></dt>
+
+<dd>
+<p>For dealing with packages that require MSYS on Windows in order to build. This plugin is typically a no-op on other platforms.</p>
+
+<dt><a name="Alien::Build::Plugin::Build::Make"
+><a href="/pod/Alien/Build/Plugin/Build/Make.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Make</a></a></dt>
+
+<dd>
+<p>For dealing with packages that require Make to build. Several flavors of Make are supported, including GNU Make and BSD Make.</p>
+
+<dt><a name="Alien::Build::Plugin::Build::SearchDep"
+><a href="/pod/Alien/Build/Plugin/Build/SearchDep.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::SearchDep</a></a></dt>
+
+<dd>
+<p>Add other <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s as dependencies.</p>
+</dd>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

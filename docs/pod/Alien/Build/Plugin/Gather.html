@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Alien::Build::Plugin::Core::Gather</title>
+    <title>Alien::Build::Plugin::Gather</title>
     <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
     <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
     <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
@@ -11,8 +11,8 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Core.html">Core</a>::Gather</div>
-    <!--Alien::Build::Plugin::Core::Gather--><a name='___top' class='dummyTopAnchor' ></a>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::Gather</div>
+    <!--Alien::Build::Plugin::Gather--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
 <ul   class='indexList indexList1'>
@@ -30,7 +30,7 @@
 name="NAME"
 >NAME</a></h1>
 
-<p>Alien::Build::Plugin::Core::Gather - Core gather plugin</p>
+<p>Alien::Build::Plugin::Gather - Gather Alien::Build plugins</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="VERSION"
@@ -43,21 +43,32 @@ name="SYNOPSIS"
 >SYNOPSIS</a></h1>
 
 <pre class="sh_perl"> use alienfile;
- # already loaded</pre>
+ plugin &#39;Gather::IsolateDynamic&#39;;  # just as an example</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This plugin helps make the gather stage work.</p>
+<p>Gather plugins enhance <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> recipes at the gather stage, either during a <code>system</code> or <code>share</code> install.</p>
+
+<dl>
+<dt><a name="Alien::Build::Plugin::Gather::IsolateDynamic"
+><a href="/pod/Alien/Build/Plugin/Gather/IsolateDynamic.html" class="podlinkpod"
+>Alien::Build::Plugin::Gather::IsolateDynamic</a></a></dt>
+
+<dd>
+<p>Isolate dynamic libraries (<code>.so</code>, &#60;.DLL&#62; or &#60;.dylib&#62;) so that they aren&#39;t used by XS.</p>
+</dd>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SEE_ALSO"
 >SEE ALSO</a></h1>
 
 <p><a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a>, <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a></p>
+>Alien::Build</a>, <a href="/pod/Alien/Build/Plugin.html" class="podlinkpod"
+>Alien::Build::Plugin</a></p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"

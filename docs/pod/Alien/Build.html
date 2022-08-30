@@ -39,6 +39,7 @@
     <li class='indexItem indexItem2'><a href='#checkpoint'>checkpoint</a>
     <li class='indexItem indexItem2'><a href='#root'>root</a>
     <li class='indexItem indexItem2'><a href='#install_type'>install_type</a>
+    <li class='indexItem indexItem2'><a href='#download_rule'>download_rule</a>
     <li class='indexItem indexItem2'><a href='#set_prefix'>set_prefix</a>
     <li class='indexItem indexItem2'><a href='#set_stage'>set_stage</a>
     <li class='indexItem indexItem2'><a href='#requires'>requires</a>
@@ -89,7 +90,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.59</p>
+<p>version 2.65</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -158,6 +159,14 @@ name="DESCRIPTION"
 <p>This is for the brave souls who want to write plugins that will work with <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> + <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a>.</p>
+
+<dt><a name="Alien::Build::Manual::Security"
+><a href="/pod/Alien/Build/Manual/Security.html" class="podlinkpod"
+>Alien::Build::Manual::Security</a></a></dt>
+
+<dd>
+<p>If you are concerned that <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>s might be downloading tarballs off the internet, then this is the place for you. This will discuss some of the risks of downloading (really any) software off the internet and will give you some tools to remediate these risks.</p>
 </dd>
 </dl>
 
@@ -271,6 +280,13 @@ name="meta_prop"
 >Alien::Build::MB</a>, that the library or tool contains architecture dependent files and so should be stored in an architecture dependent location. If not specified by your <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> then it will be set to true.</p>
 
+<dt><a name="check_digest"
+>check_digest</a></dt>
+
+<dd>
+<p>True if cryptographic digest should be checked when files are fetched or downloaded. This is set by <a href="/pod/Alien/Build/Plugin/Digest/Negotiate.html" class="podlinkpod"
+>Digest negotiator plugin</a>.</p>
+
 <dt><a name="destdir"
 >destdir</a></dt>
 
@@ -292,6 +308,24 @@ name="meta_prop"
 
 <dd>
 <p>Same as <code>destdir_filter</code> except applies to <code>build_ffi</code> instead of <code>build</code>.</p>
+
+<dt><a name="digest"
+>digest</a></dt>
+
+<dd>
+<p>This properties contains the cryptographic digests (if any) that should be used when verifying any fetched and downloaded files. It is a hash reference where the key is the filename and the value is an array reference containing a pair of values, the first being the algorithm (&#39;SHA256&#39; is recommended) and the second is the actual digest. The special filename <code>*</code> may be specified to indicate that any downloaded file should match that digest. If there are both real filenames and the <code>*</code> placeholder, the real filenames will be used for filenames that match and any other files will use the placeholder. Example:</p>
+
+<pre class="sh_perl"> $build-&#62;meta_prop-&#62;{digest} = {
+   &#39;foo-1.00.tar.gz&#39; =&#62; [ SHA256 =&#62; &#39;9feac593aa49a44eb837de52513a57736457f1ea70078346c60f0bfc5f24f2c1&#39; ],
+   &#39;foo-1.01.tar.gz&#39; =&#62; [ SHA256 =&#62; &#39;6bbde6a7f10ae5924cf74afc26ff5b7bc4b4f9dfd85c6b534c51bd254697b9e7&#39; ],
+   &#39;*&#39;               =&#62; [ SHA256 =&#62; &#39;33a20aae3df6ecfbe812b48082926d55391be4a57d858d35753ab1334b9fddb3&#39; ],
+ };</pre>
+
+<p>Cryptographic signatures will only be checked if the <a href="#check_digest" class="podlinkpod"
+>check_digest meta property</a> is set and if the <a href="/pod/Alien/Build/Plugin/Digest/Negotiate.html" class="podlinkpod"
+>Digest negotiator plugin</a> is loaded. (The Digest negotiator can be used directly, but is also loaded automatically if you use the <a href="/pod/alienfile.html#digest" class="podlinkpod"
+>digest directive</a> is used by the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>).</p>
 
 <dt><a name="env"
 >env</a></dt>
@@ -420,15 +454,38 @@ name="install_prop"
 >autoconf_prefix</a></dt>
 
 <dd>
-<p>The prefix as understood by autoconf. This is only different on Windows Where MSYS is used and paths like <code>C:/foo</code> are represented as <code>/C/foo</code> which are understood by the MSYS tools, but not by Perl. You should only use this if you are using <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3AAutoconf" class="podlinkpod"
->Alien::Build::Plugin::Autoconf</a> in your <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a>. This is set during before the build hook is run.</p>
+<p>The prefix as understood by autoconf. This is only different on Windows Where MSYS is used and paths like <code>C:/foo</code> are represented as <code>/C/foo</code> which are understood by the MSYS tools, but not by Perl. You should only use this if you are using <a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Autoconf</a> in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>. This is set during before the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#build_hook" class="podlinkpod"
+>build hook</a> is run.</p>
 
 <dt><a name="download"
 >download</a></dt>
 
 <dd>
 <p>The location of the downloaded archive (tar.gz, or similar) or directory. This will be undefined until the archive is actually downloaded.</p>
+
+<dt><a name="download_detail"
+>download_detail</a></dt>
+
+<dd>
+<p>This property contains optional details about a downloaded file. This property is populated by <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> core. This property is a hash reference. The key is the path to the file that has been downloaded and the value is a hash reference with additional detail. All fields are optional.</p>
+
+<dl>
+<dt><a name="digest"
+>digest</a></dt>
+
+<dd>
+<p>This, if available, with the cryptographic signature that was successfully matched against the downloaded file. It is an array reference with a pair of values, the algorithm (typically something like <code>SHA256</code>) and the digest.</p>
+
+<dt><a name="protocol"
+>protocol</a></dt>
+
+<dd>
+<p>This, if available, will be the URL protocol used to fetch the downloaded file.</p>
+</dd>
+</dl>
 
 <dt><a name="env"
 >env</a></dt>
@@ -609,7 +666,8 @@ name="runtime_prop"
 >install_type</a></dt>
 
 <dd>
-<p>The install type. This is set by AB core after the probe hook is executed. Is one of:</p>
+<p>The install type. This is set by AB core after the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#probe_hook" class="podlinkpod"
+>probe hook</a> is executed. Is one of:</p>
 
 <dl>
 <dt><a name="system"
@@ -730,6 +788,52 @@ name="install_type"
 <p>This will return the install type. (See the like named install property above for details). This method will call <code>probe</code> if it has not already been called.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
+name="download_rule"
+>download_rule</a></h2>
+
+<pre class="sh_perl"> my $rule = $build-&#62;download_rule;</pre>
+
+<p>This returns install rule as a string. This is determined by the environment and should be one of:</p>
+
+<dl>
+<dt><a name="warn"
+><code>warn</code></a></dt>
+
+<dd>
+<p>Warn only if fetching via non secure source (secure sources include <code>https</code>, and bundled files, may include other encrypted protocols in the future).</p>
+
+<dt><a name="digest"
+><code>digest</code></a></dt>
+
+<dd>
+<p>Require that any downloaded source package have a cryptographic signature in the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> and that signature matches what was downloaded.</p>
+
+<dt><a name="encrypt"
+><code>encrypt</code></a></dt>
+
+<dd>
+<p>Require that any downloaded source package is fetched via secure source.</p>
+
+<dt><a name="digest_or_encrypt"
+><code>digest_or_encrypt</code></a></dt>
+
+<dd>
+<p>Require that any downloaded source package is <b>either</b> fetched via a secure source <b>or</b> has a cryptographic signature in the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> and that signature matches what was downloaded.</p>
+
+<dt><a name="digest_and_encrypt"
+><code>digest_and_encrypt</code></a></dt>
+
+<dd>
+<p>Require that any downloaded source package is <b>both</b> fetched via a secure source <b>and</b> has a cryptographic signature in the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> and that signature matches what was downloaded.</p>
+</dd>
+</dl>
+
+<p>The current default is <code>warn</code>, but in the near future this will be upgraded to <code>digest_or_encrypt</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
 name="set_prefix"
 >set_prefix</a></h2>
 
@@ -820,7 +924,8 @@ name="fetch"
 <pre class="sh_perl"> my $res = $build-&#62;fetch;
  my $res = $build-&#62;fetch($url, %options);</pre>
 
-<p>Fetch a resource using the fetch hook. Returns the same hash structure described below in the hook documentation.</p>
+<p>Fetch a resource using the fetch hook. Returns the same hash structure described below in the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#fetch_hook" class="podlinkpod"
+>fetch hook</a> documentation.</p>
 
 <p>[version 2.39]</p>
 
@@ -866,8 +971,8 @@ name="check_digest"
 ><code>HASH</code></a></dt>
 
 <dd>
-<p>A Hash reference containing information about a file. See <a href="/pod/Alien/Build/Manual/PluginAuthor.html#fech_hook" class="podlinkpod"
->the fetch hook</a> for details on the format.</p>
+<p>A Hash reference containing information about a file. See the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#fetch_hook" class="podlinkpod"
+>fetch hook</a> for details on the format.</p>
 </dd>
 </dl>
 
@@ -879,7 +984,8 @@ name="decode"
 
 <pre class="sh_perl"> my $decoded_res = $build-&#62;decode($res);</pre>
 
-<p>Decode the HTML or file listing returned by <code>fetch</code>. Returns the same hash structure described below in the hook documentation.</p>
+<p>Decode the HTML or file listing returned by <code>fetch</code>. Returns the same hash structure described below in the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#decode_hook" class="podlinkpod"
+>decode hook</a> documentation.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="prefer"
@@ -887,7 +993,8 @@ name="prefer"
 
 <pre class="sh_perl"> my $sorted_res = $build-&#62;prefer($res);</pre>
 
-<p>Filter and sort candidates. The preferred candidate will be returned first in the list. The worst candidate will be returned last. Returns the same hash structure described below in the hook documentation.</p>
+<p>Filter and sort candidates. The preferred candidate will be returned first in the list. The worst candidate will be returned last. Returns the same hash structure described below in the <a href="/pod/Alien/Build/Manual/PluginAuthor.html#prefer_hook" class="podlinkpod"
+>prefer hook</a> documentation.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="extract"
@@ -920,7 +1027,8 @@ name="build"
 >system</a></dt>
 
 <dd>
-<p>The <code>gather_system</code> hook will be executed.</p>
+<p>The <a href="/pod/Alien/Build/Manual/PluginAuthor.html#gather_system_hook" class="podlinkpod"
+>gather_system hook</a> will be executed.</p>
 </dd>
 </dl>
 
@@ -1113,6 +1221,50 @@ name="ENVIRONMENT"
 >Alien::Build</a> responds to these environment variables:</p>
 
 <dl>
+<dt><a name="ALIEN_BUILD_LOG"
+>ALIEN_BUILD_LOG</a></dt>
+
+<dd>
+<p>The default log class used. See <a href="/pod/Alien/Build/Log.html" class="podlinkpod"
+>Alien::Build::Log</a> and <a href="/pod/Alien/Build/Log/Default.html" class="podlinkpod"
+>Alien::Build::Log::Default</a>.</p>
+
+<dt><a name="ALIEN_BUILD_PKG_CONFIG"
+>ALIEN_BUILD_PKG_CONFIG</a></dt>
+
+<dd>
+<p>Override the logic in <a href="/pod/Alien/Build/Plugin/PkgConfig/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::PkgConfig::Negotiate</a> which chooses the best <code>pkg-config</code> plugin.</p>
+
+<dt><a name="ALIEN_BUILD_POSTLOAD"
+>ALIEN_BUILD_POSTLOAD</a></dt>
+
+<dd>
+<p>semicolon separated list of plugins to automatically load after parsing your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<dt><a name="ALIEN_BUILD_PRELOAD"
+>ALIEN_BUILD_PRELOAD</a></dt>
+
+<dd>
+<p>semicolon separated list of plugins to automatically load before parsing your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<dt><a name="ALIEN_BUILD_RC"
+>ALIEN_BUILD_RC</a></dt>
+
+<dd>
+<p>Perl source file which can override some global defaults for <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>, by, for example, setting preload and postload plugins.</p>
+
+<dt><a name="ALIEN_DOWNLOAD_RULE"
+>ALIEN_DOWNLOAD_RULE</a></dt>
+
+<dd>
+<p>This value determines the rules by which types of downloads are allowed. The legal values listed under <a href="#download_rule" class="podlinkpod"
+>&#34;download_rule&#34;</a>, plus <code>default</code> which will be the default for the current version of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>. For this version that default is <code>warn</code>.</p>
+
 <dt><a name="ALIEN_INSTALL_NETWORK"
 >ALIEN_INSTALL_NETWORK</a></dt>
 
@@ -1140,42 +1292,6 @@ name="ENVIRONMENT"
 >Alien</a> if the environment variable <code>ALIEN_INSTALL_TYPE</code> is set to any value. The rationale is that by setting this environment variable the user is aware that <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules may be installed and have indicated consent. The actual implementation of this, by its nature would have to be in the consuming CPAN module.</p>
 
-<dt><a name="ALIEN_BUILD_LOG"
->ALIEN_BUILD_LOG</a></dt>
-
-<dd>
-<p>The default log class used. See <a href="/pod/Alien/Build/Log.html" class="podlinkpod"
->Alien::Build::Log</a> and <a href="/pod/Alien/Build/Log/Default.html" class="podlinkpod"
->Alien::Build::Log::Default</a>.</p>
-
-<dt><a name="ALIEN_BUILD_RC"
->ALIEN_BUILD_RC</a></dt>
-
-<dd>
-<p>Perl source file which can override some global defaults for <a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a>, by, for example, setting preload and postload plugins.</p>
-
-<dt><a name="ALIEN_BUILD_PKG_CONFIG"
->ALIEN_BUILD_PKG_CONFIG</a></dt>
-
-<dd>
-<p>Override the logic in <a href="/pod/Alien/Build/Plugin/PkgConfig/Negotiate.html" class="podlinkpod"
->Alien::Build::Plugin::PkgConfig::Negotiate</a> which chooses the best <code>pkg-config</code> plugin.</p>
-
-<dt><a name="ALIEN_BUILD_PRELOAD"
->ALIEN_BUILD_PRELOAD</a></dt>
-
-<dd>
-<p>semicolon separated list of plugins to automatically load before parsing your <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a>.</p>
-
-<dt><a name="ALIEN_BUILD_POSTLOAD"
->ALIEN_BUILD_POSTLOAD</a></dt>
-
-<dd>
-<p>semicolon separated list of plugins to automatically load after parsing your <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a>.</p>
-
 <dt><a name="DESTDIR"
 >DESTDIR</a></dt>
 
@@ -1193,8 +1309,8 @@ name="ENVIRONMENT"
 >ftp_proxy, all_proxy</a></dt>
 
 <dd>
-<p>If these environment variables are set, it may influence the Download negotiation plugin <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3APlugin%3A%3ADownaload%3A%3ANegotiate" class="podlinkpod"
->Alien::Build::Plugin::Downaload::Negotiate</a>. Other proxy variables may be used by some Fetch plugins, if they support it.</p>
+<p>If these environment variables are set, it may influence the Download negotiation plugin <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::Download::Negotiate</a>. Other proxy variables may be used by some Fetch plugins, if they support it.</p>
 </dd>
 </dl>
 
