@@ -39,7 +39,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.65</p>
+<p>version 2.68</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -52,7 +52,7 @@ name="SYNOPSIS"
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This module provides an <code>alien_diag</code> method that prints out diagnostics useful for cpantesters for other bug reports that gives a quick summary of the important settings like <code>clfags</code> and <code>libs</code>.</p>
+<p>This module provides an <code>alien_diag</code> method that prints out diagnostics useful for cpantesters and other bug reports that gives a quick summary of the important settings like <code>clfags</code> and <code>libs</code>.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="FUNCTIONS"
@@ -62,9 +62,33 @@ name="FUNCTIONS"
 name="alien_diag"
 >alien_diag</a></h2>
 
-<pre class="sh_perl"> alien_diag $alien;</pre>
+<pre class="sh_perl"> alien_diag @aliens;</pre>
 
-<p>prints out diagnostics.</p>
+<p>prints out diagnostics for each given alien. Each alien must be the class name of an alien.</p>
+
+<p>[version 2.68]</p>
+
+<pre class="sh_perl"> alien_diag @aliens, \%options;</pre>
+
+<p>Starting with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> 2.68, you can provide an option hash to adjust the behavior of <code>alien_diag</code>. Valid options are:</p>
+
+<dl>
+<dt><a name="properties"
+>properties</a></dt>
+
+<dd>
+<p>Additional properties to display in the diagnostic. Useful when you have an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> with custom properties defined in the subclass.</p>
+
+<dt><a name="list_properties"
+>list_properties</a></dt>
+
+<dd>
+<p>Additional properties that are returned as a list to display in the diagnostic. Useful when you have an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> with customer properties that return a list.</p>
+</dd>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"

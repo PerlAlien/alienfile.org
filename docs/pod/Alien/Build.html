@@ -90,7 +90,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.65</p>
+<p>version 2.68</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -356,8 +356,8 @@ name="meta_prop"
 <p>Hash reference. Contains information about the platform beyond just <code>$^O</code>.</p>
 
 <dl>
-<dt><a name="compiler_type"
->compiler_type</a></dt>
+<dt><a name="platform.compiler_type"
+>platform.compiler_type</a></dt>
 
 <dd>
 <p>Refers to the type of flags that the compiler accepts. May be expanded in the future, but for now, will be one of:</p>
@@ -379,8 +379,8 @@ name="meta_prop"
 
 <p>The main difference is that with Visual C++ <code>-LIBPATH</code> should be used instead of <code>-L</code>, and static libraries should have the <code>.LIB</code> suffix instead of <code>.a</code>.</p>
 
-<dt><a name="system_type"
->system_type</a></dt>
+<dt><a name="platform.system_type"
+>platform.system_type</a></dt>
 
 <dd>
 <p><code>$^O</code> is frequently good enough to make platform specific logic in your <a href="/pod/alienfile.html" class="podlinkpod"
@@ -473,14 +473,14 @@ name="install_prop"
 >Alien::Build</a> core. This property is a hash reference. The key is the path to the file that has been downloaded and the value is a hash reference with additional detail. All fields are optional.</p>
 
 <dl>
-<dt><a name="digest"
->digest</a></dt>
+<dt><a name="download_detail.digest"
+>download_detail.digest</a></dt>
 
 <dd>
 <p>This, if available, with the cryptographic signature that was successfully matched against the downloaded file. It is an array reference with a pair of values, the algorithm (typically something like <code>SHA256</code>) and the digest.</p>
 
-<dt><a name="protocol"
->protocol</a></dt>
+<dt><a name="download_detail.protocol"
+>download_detail.protocol</a></dt>
 
 <dd>
 <p>This, if available, will be the URL protocol used to fetch the downloaded file.</p>
@@ -508,16 +508,16 @@ name="install_prop"
 <p>Hash containing information on a previously installed Alien of the same name, if available. This may be useful in cases where you want to reuse the previous install if it is still sufficient.</p>
 
 <dl>
-<dt><a name="prefix"
->prefix</a></dt>
+<dt><a name="old.prefix"
+>old.prefix</a></dt>
 
 <dd>
 <p>[deprecated]</p>
 
 <p>The prefix for the previous install. Versions prior to 1.42 unfortunately had this in typo form of <code>preifx</code>.</p>
 
-<dt><a name="runtime"
->runtime</a></dt>
+<dt><a name="old.runtime"
+>old.runtime</a></dt>
 
 <dd>
 <p>[deprecated]</p>
@@ -628,8 +628,8 @@ name="runtime_prop"
 <p>This property contains two sub properties:</p>
 
 <dl>
-<dt><a name="share"
->share</a></dt>
+<dt><a name="ffi_checklib.share"
+>ffi_checklib.share</a></dt>
 
 <dd>
 <pre class="sh_perl"> $build-&#62;runtime_prop-&#62;{ffi_checklib}-&#62;{share} = [ ... ];</pre>
@@ -637,8 +637,8 @@ name="runtime_prop"
 <p>Array of additional <a href="https://pl.atypus.org/pod/FFI/CheckLib.html" class="podlinkpod"
 >FFI::CheckLib</a> flags to pass in to <code>find_lib</code> for a <code>share</code> install.</p>
 
-<dt><a name="system"
->system</a></dt>
+<dt><a name="ffi_checklib.system"
+>ffi_checklib.system</a></dt>
 
 <dd>
 <p>Array of additional <a href="https://pl.atypus.org/pod/FFI/CheckLib.html" class="podlinkpod"
