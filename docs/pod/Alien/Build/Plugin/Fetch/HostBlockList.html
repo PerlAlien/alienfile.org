@@ -41,7 +41,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 0.01</p>
+<p>version 0.02</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -54,10 +54,7 @@ name="SYNOPSIS"
 
 <p>Using from <code>~/.alienbuild/rc.pl</code>:</p>
 
-<pre class="sh_perl"> preload sub {
-   my($meta) = @_;
-   $meta-&#62;apply_plugin(&#39;Fetch::HostBlockList&#39;, block_hosts =&#62; [qw( badsite1.com badsite2.org )])
- };</pre>
+<pre class="sh_perl"> preload_preload &#39;Fetch::HostBlockList&#39;, block_hosts =&#62; [qw( badsite1.com badsite2.org )];</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"

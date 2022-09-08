@@ -25,6 +25,7 @@
     <li class='indexItem indexItem2'><a href='#allow_hosts'>allow_hosts</a>
   </ul>
   <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
 </ul>
@@ -40,7 +41,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 0.01</p>
+<p>version 0.02</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -53,10 +54,7 @@ name="SYNOPSIS"
 
 <p>Using from <code>~/.alienbuild/rc.pl</code>:</p>
 
-<pre class="sh_perl"> preload sub {
-   my($meta) = @_;
-   $meta-&#62;apply_plugin(&#39;Fetch::HostAllowList&#39;, allow_hosts =&#62; [qw( github.com ftp.gnu.org )])
- };</pre>
+<pre class="sh_perl"> preload_plugin &#39;Fetch::HostAllowList&#39;, allow_hosts =&#62; [qw( github.com ftp.gnu.org )];</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
@@ -80,7 +78,7 @@ name="PROPERTIES"
 name="allow_hosts"
 >allow_hosts</a></h2>
 
-<pre class="sh_perl"> plugin &#39;Fetch::HostALlowList&#39;, allow_hosts =&#62; \@hosts;</pre>
+<pre class="sh_perl"> plugin &#39;Fetch::HostAllowList&#39;, allow_hosts =&#62; \@hosts;</pre>
 
 <p>The list of domains that are allowed. Should be provided as an array reference. If not provided, then <code>ALIEN_BUILD_HOST_ALLOW</code> will be used (see below).</p>
 
@@ -95,6 +93,30 @@ name="ENVIRONMENT"
 <dd>
 <p>Comma separated list of hosts to allow. If not specified when the plugin is applied then this list will be used.</p>
 </dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build::Plugin::Fetch::HostBlockList"
+><a href="/pod/Alien/Build/Plugin/Fetch/HostBlockList.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::HostBlockList</a></a></dt>
+
+<dd>
+<dt><a name="Alien::Build"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a></a></dt>
+
+<dd>
+<dt><a name="alienfile"
+><a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a></a></dt>
+
+<dd>
+<dt><a name="LAlien::Build::rc&#62;"
+>LAlien::Build::rc&#62;</a></dt>
 </dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'

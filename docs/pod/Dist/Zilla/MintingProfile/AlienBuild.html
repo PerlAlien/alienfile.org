@@ -20,6 +20,7 @@
   <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
   <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
   <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#CAVEATS'>CAVEATS</a>
   <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
@@ -36,7 +37,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 0.06</p>
+<p>version 0.07</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -55,6 +56,14 @@ name="DESCRIPTION"
 >[@Starter]</a> or <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APluginBundle%3A%3AStarter%3A%3AGit" class="podlinkpod"
 >[@Starter::Git]</a> bundle plus the <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
 >[AlienBuild]</a> plugin.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CAVEATS"
+>CAVEATS</a></h1>
+
+<p>This module indirectly requires both <a href="https://pl.atypus.org/pod/Alien/FFI.html" class="podlinkpod"
+>Alien::FFI</a> and <a href="https://metacpan.org/pod/Alien%3A%3AArchive3" class="podlinkpod"
+>Alien::Archive3</a>. If you do not want to build them from source, or do not have internet access where the build is happening you will want to pre-install <code>libffi</code> and <code>libarchive</code>. On Debian based systems, you can do that with <code>sudo apt-get update &#38;&#38; sudo apt-get install libffi-dev libarchive-dev</code>. Note that libarchive 3.2.0 is required for a system install so if you have an older Debian or Ubuntu system you should upgrade your operating system.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SEE_ALSO"
@@ -101,7 +110,7 @@ name="AUTHOR"
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2021 by Graham Ollis.</p>
+<p>This software is copyright (c) 2021-2022 by Graham Ollis.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 
