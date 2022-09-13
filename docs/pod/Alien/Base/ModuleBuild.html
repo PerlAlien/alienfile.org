@@ -28,6 +28,8 @@
     <li class='indexItem indexItem2'><a href='#alien_do_system'>alien_do_system</a>
     <li class='indexItem indexItem2'><a href='#alien_do_commands'>alien_do_commands</a>
     <li class='indexItem indexItem2'><a href='#alien_interpolate'>alien_interpolate</a>
+    <li class='indexItem indexItem2'><a href='#alien_install_network'>alien_install_network</a>
+    <li class='indexItem indexItem2'><a href='#alien_download_rule'>alien_download_rule</a>
   </ul>
   <li class='indexItem indexItem1'><a href='#GUIDE_TO_DOCUMENTATION'>GUIDE TO DOCUMENTATION</a>
   <li class='indexItem indexItem1'><a href='#ENVIRONMENT'>ENVIRONMENT</a>
@@ -48,7 +50,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 1.15</p>
+<p>version 1.17</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -74,7 +76,7 @@ name="SYNOPSIS"
                               # system version of the mylibrary
  
    alien_repository =&#62; {
-     protocol =&#62; &#39;http&#39;,
+     protocol =&#62; &#39;https&#39;,
      host     =&#62; &#39;myhost.org&#39;,
      location =&#62; &#39;/path/to/tarballs&#39;,
      pattern  =&#62; qr{^mylibrary-([0-9\.]+)\.tar\.gz$},
@@ -178,8 +180,8 @@ name="alien_do_system"
 
 <pre class="sh_perl">  my %result = $amb-&#62;alien_do_system($cmd)</pre>
 
-<p>Similar to <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3Ado_system" class="podlinkpod"
->Module::Build::do_system</a>, also sets the path and several environment variables in accordance to the object configuration (i.e. <code>alien_bin_requires</code>) and performs the interpolation of the patterns described in <a href="/pod/Alien/Base/ModuleBuild/API.html#COMMAND_INTERPOLATION" class="podlinkpod"
+<p>Similar to <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AAPI#do_system(%24cmd%2C_%40args)" class="podlinkpod"
+>Module::Build&#39;s do_system</a>, also sets the path and several environment variables in accordance to the object configuration (i.e. <code>alien_bin_requires</code>) and performs the interpolation of the patterns described in <a href="/pod/Alien/Base/ModuleBuild/API.html#COMMAND_INTERPOLATION" class="podlinkpod"
 >&#34;COMMAND INTERPOLATION&#34; in Alien::Base::ModuleBuild::API</a>.</p>
 
 <p>Returns a set of key value pairs including <code>stdout</code>, <code>stderr</code>, <code>success</code> and <code>command</code>.</p>
@@ -199,6 +201,26 @@ name="alien_interpolate"
 <pre class="sh_perl"> my $string = $amb-&#62;alien_interpolate($string);</pre>
 
 <p>Takes the input string and interpolates the results.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_install_network"
+>alien_install_network</a></h2>
+
+<p>[version 1.16]</p>
+
+<pre class="sh_perl"> my $bool = $amb-&#62;alien_install_network;</pre>
+
+<p>Returns true if downloading source from the internet is allowed. This is true unless <code>ALIEN_INSTALL_NETWORK</code> is defined and false.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="alien_download_rule"
+>alien_download_rule</a></h2>
+
+<p>[version 1.16]</p>
+
+<pre class="sh_perl"> my $rule = $amb-&#62;alien_download_rule;</pre>
+
+<p>This will return one of <code>warn</code>, <code>digest</code>, <code>encrypt</code>, <code>digest_or_encrypt</code> or <code>digest_and_encrypt</code>. This is based on the <code>ALIEN_DOWNLOAD_RULE</code> environment variable.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="GUIDE_TO_DOCUMENTATION"
@@ -241,6 +263,27 @@ name="GUIDE_TO_DOCUMENTATION"
 
 <dd>
 <p>This is a reference to the <code>Alien::Base::ModuleBuild</code> API beyond that contained in <code>Module::Build::API</code>.</p>
+
+<dt><a name="Using_the_resulting_Alien_(Alien::Build::Manual::AlienUser)"
+>Using the resulting <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> (<a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a>)</a></dt>
+
+<dd>
+<p>Once you have an <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> you or your users can review this manual for how to use it. Generally speaking you should have some useful usage information in your <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>&#39;s POD, but some authors choose to direct their users to this manual instead.</p>
+
+<dt><a name="Using_Alien::Build_instead_(Alien::Build::Manual)"
+>Using <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instead (<a href="/pod/Alien/Build/Manual.html" class="podlinkpod"
+>Alien::Build::Manual</a>)</a></dt>
+
+<dd>
+<p>As mentioned at the top, you are encouraged to use the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> system instead. This manual is a starting point for the other <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> documentation.</p>
 </dd>
 </dl>
 
@@ -249,12 +292,52 @@ name="ENVIRONMENT"
 >ENVIRONMENT</a></h1>
 
 <dl>
-<dt><a name="ALIEN_VERBOSE"
-><b>ALIEN_VERBOSE</b></a></dt>
+<dt><a name="ALIEN_ARCH"
+><b>ALIEN_ARCH</b></a></dt>
 
 <dd>
-<p>Enables verbose output from <a href="https://metacpan.org/pod/Module%3A%3ABuild%23do_system" class="podlinkpod"
->M::B::do_system</a>.</p>
+<p>Set to a true value to install to an arch-specific directory.</p>
+
+<dt><a name="ALIEN_DOWNLOAD_RULE"
+><b>ALIEN_DOWNLOAD_RULE</b></a></dt>
+
+<dd>
+<p>This controls security options for fetching alienized packages over the internet. The legal values are:</p>
+
+<dl>
+<dt><a name="warn"
+><code>warn</code></a></dt>
+
+<dd>
+<p>Warn if the package is either unencrypted or lacks a digest. This is currently the default, but will change in the near future.</p>
+
+<dt><a name="digest"
+><code>digest</code></a></dt>
+
+<dd>
+<p>Fetch will not happen unless there is a digest for the alienized package.</p>
+
+<dt><a name="encrypt"
+><code>encrypt</code></a></dt>
+
+<dd>
+<p>Fetch will not happen unless via an encrypted protocol like <code>https</code>, or if the package is bundled with the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>.</p>
+
+<dt><a name="digest_or_encrypt"
+><code>digest_or_encrypt</code></a></dt>
+
+<dd>
+<p>Fetch will only happen if the alienized package has a cryptographic signature digest, or if an encrypted protocol like <code>https</code> is used, or if the package is bundled with the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>. This will be the default in the near future.</p>
+
+<dt><a name="digest_and_encrypt"
+><code>digest_and_encrypt</code></a></dt>
+
+<dd>
+<p>Fetch will only happen if the alienized package has a cryptographic signature digest, and is fetched via a secure protocol (like <code>https</code>). Bundled packages are also considered fetch via a secure protocol, but will still require a digest.</p>
+</dd>
+</dl>
 
 <dt><a name="ALIEN_FORCE"
 ><b>ALIEN_FORCE</b></a></dt>
@@ -262,17 +345,24 @@ name="ENVIRONMENT"
 <dd>
 <p>Skips checking for an installed version and forces reinstalling the Alien target.</p>
 
+<dt><a name="ALIEN_INSTALL_NETWORK"
+><b>ALIEN_INSTALL_NETWORK</b></a></dt>
+
+<dd>
+<p>If true (the default if not defined), then network installs will be allowed. Set to <code>0</code> or another false value to turn off network installs.</p>
+
 <dt><a name="ALIEN_INSTALL_TYPE"
 ><b>ALIEN_INSTALL_TYPE</b></a></dt>
 
 <dd>
-<p>Set to &#39;share&#39; or &#39;system&#39; to override the install type. Set to &#39;default&#39; or unset to restore the default.</p>
+<p>Set to <code>share</code> or <code>system</code> to override the install type. Set to <code>default</code> or unset to restore the default.</p>
 
-<dt><a name="ALIEN_ARCH"
-><b>ALIEN_ARCH</b></a></dt>
+<dt><a name="ALIEN_VERBOSE"
+><b>ALIEN_VERBOSE</b></a></dt>
 
 <dd>
-<p>Set to a true value to install to an arch-specific directory.</p>
+<p>Enables verbose output from <a href="https://metacpan.org/pod/Module%3A%3ABuild%23do_system" class="podlinkpod"
+>M::B::do_system</a>.</p>
 
 <dt><a name="ALIEN_${MODULENAME}_REPO_${PROTOCOL}_${KEY}"
 ><b>ALIEN_${MODULENAME}_REPO_${PROTOCOL}_${KEY}</b></a></dt>
@@ -378,7 +468,7 @@ name="AUTHOR"
 
 <p>Nicholas Shipp (nshp)</p>
 
-<p>Petr Pisar (ppisar)</p>
+<p>Petr P&#237;sa&#345; (ppisar)</p>
 
 <p>Alberto Sim&#245;es (ambs)</p>
 
@@ -386,7 +476,7 @@ name="AUTHOR"
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2012-2020 by Joel A Berger.</p>
+<p>This software is copyright (c) 2012-2022 by Joel A Berger.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 

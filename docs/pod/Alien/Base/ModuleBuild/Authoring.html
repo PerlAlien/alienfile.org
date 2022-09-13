@@ -46,7 +46,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 1.15</p>
+<p>version 1.17</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
@@ -59,8 +59,8 @@ name="DESCRIPTION"
 Like <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>.
-Unlike <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModule%3A%3ABuild" class="podlinkpod"
->Alien::Base::Module::Build</a> they are more easily customized and handle a number of corner cases better.
+Unlike <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> they are more easily customized and handle a number of corner cases better.
 For a good place to start,
 please see <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
 >Alien::Build::Manual::AlienAuthor</a>.
@@ -144,7 +144,7 @@ name="Alien::Base_for_Building"
 <pre class="sh_perl"> # file: Some-Module-MyLibrary/Build.PL
  use Module::Build;
  use Alien::MyLibrary;
-
+ 
  my $alien = Alien::MyLibrary-&#62;new;
  my $builder = Module::Build-&#62;new(
    ...
@@ -164,22 +164,22 @@ name="Alien::Base_for_Run-Time_Provision"
 
 <pre class="sh_perl"> # file: Alien-MyLibrary/lib/Alien/MyLibrary.pm
  package Alien::MyLibrary;
-
+ 
  use parent &#39;Alien::Base&#39;;
-
+ 
  1;</pre>
 
 <p>Finally, <code>Alien::MyLibrary</code> must also be called by <code>Some::Library::MyLibrary</code> before <code>DynaLoader::bootstrap</code> or <code>XSLoader::load</code>. The <code>use</code> directive is recommended, however if you must use <code>require</code> then be sure to call the <code>import</code> method too. Without this <code>import</code> call, the loader doesn&#39;t know where to find <em>libmylibrary.so</em>.</p>
 
 <pre class="sh_perl"> # file: Some-Module-MyLibrary/lib/Some/Module/MyLibrary.pm
  package Some::Module::MyLibrary;
-
+ 
  use Alien::MyLibrary;
  our $VERSION = &#39;0.54&#39;;
-
+ 
  require XSLoader;
  XSLoader::load(&#39;Some::Module::MyLibrary&#39;, $VERSION);
-
+ 
  # your code</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -270,7 +270,7 @@ name="AUTHOR"
 
 <p>Nicholas Shipp (nshp)</p>
 
-<p>Petr Pisar (ppisar)</p>
+<p>Petr P&#237;sa&#345; (ppisar)</p>
 
 <p>Alberto Sim&#245;es (ambs)</p>
 
@@ -278,7 +278,7 @@ name="AUTHOR"
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2012-2020 by Joel A Berger.</p>
+<p>This software is copyright (c) 2012-2022 by Joel A Berger.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 

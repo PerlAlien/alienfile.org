@@ -56,7 +56,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 1.15</p>
+<p>version 1.17</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -71,11 +71,11 @@ name="DESCRIPTION"
 <p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> instead. Like <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModuleBUild" class="podlinkpod"
->Alien::Base::ModuleBUild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a>. Unlike <a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AModule%3A%3ABuild" class="podlinkpod"
->Alien::Base::Module::Build</a> they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAPI" class="podlinkpod"
->Alien::Build::Manual::API</a>. Although the Alien-Base / Alien-Build team will continue to maintain this module, (we will continue to fix bugs where appropriate), we aren&#39;t adding any new features to this module.</p>
+>alienfile</a> instead. Like <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Unlike <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="/pod/Alien/Base/ModuleBuild/API.html" class="podlinkpod"
+>Alien::Base::ModuleBuild::API</a>. Although the Alien-Base / Alien-Build team will continue to maintain this module, (we will continue to fix bugs where appropriate), we aren&#39;t adding any new features to this module.</p>
 
 <p>This document serves to answer the most frequently asked questions made by <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> authors.</p>
@@ -133,13 +133,13 @@ name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?
  
  sub alien_check_installed_version {
    my($class) = @_;
-   
+ 
    # determine if your library is already provided by the system
    my $version = ...;
-   
+ 
    # return false if the library is NOT provided by the system
    return unless defined $version;
-   
+ 
    # otherwise return the version detected
    # (if you cannot determine the version it
    #  is usually sufficient to return a true value)
@@ -148,8 +148,8 @@ name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?
 
 <p>There are number of methods you can use to determine if the system provides your library. From Perl methods include <a href="https://metacpan.org/pod/Devel%3A%3ACheckLib" class="podlinkpod"
 >Devel::CheckLib</a>, <a href="https://metacpan.org/pod/ExtUtils%3A%3ACBuilder" class="podlinkpod"
->ExtUtils::CBuilder</a>, <a href="https://metacpan.org/pod/ExtUtls%3A%3ACChecker" class="podlinkpod"
->ExtUtls::CChecker</a>, <a href="https://metacpan.org/pod/Config%3A%3AAutoConf" class="podlinkpod"
+>ExtUtils::CBuilder</a>, <a href="https://metacpan.org/pod/ExtUtils%3A%3ACChecker" class="podlinkpod"
+>ExtUtils::CChecker</a>, <a href="https://metacpan.org/pod/Config%3A%3AAutoConf" class="podlinkpod"
 >Config::AutoConf</a>, <a href="https://pl.atypus.org/pod/FFI/CheckLib.html" class="podlinkpod"
 >FFI::CheckLib</a> among others. It is also frequently possible to determine if a library is installed using a <code>-config</code> suffixed program. For example <code>libxml2</code> comes with xml2-config which provides the existence, compiler and linker flags it needs. In my experience, however, most packages that provide a <code>-config</code> suffixed program also provide a <code>pkg-config</code> interface as well.</p>
 
@@ -167,9 +167,9 @@ name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?
  
  sub alien_check_built_version {
    my($self) = @_;
-   
+ 
    my $version = ...
-   
+ 
    # (Again, if you cannot determine the version,
    #  it is usually sufficent to return a true value)
    return $version;
@@ -282,7 +282,7 @@ name="How_do_I_patch_packages_that_need_minor_(or_major)_alterations?"
  }
  
  1;
-
+ 
  # Build.PL
  use Alien::Base::ModuleBuild;
  
@@ -424,8 +424,8 @@ name="When_debugging_my_package_build,_I_get_different_results!"
 
 <p>If you get results from running the commands in your shell different to what happens when your <code>Alien::</code> distribution attempts to build, it may be because your environment is different than the one that your distribution is using. For example, if you use <a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
 >Alien::CMake</a> or <a href="/pod/Alien/gmake.html" class="podlinkpod"
->Alien::gmake</a> to build with specific tools that are provided by your operating system, <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AModuleBuild" class="podlinkpod"
->Alien::Build::ModuleBuild</a> will adjust the path before executing build and install commands.</p>
+>Alien::gmake</a> to build with specific tools that are provided by your operating system, <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> will adjust the path before executing build and install commands.</p>
 
 <p>In the alien build directory (usually <code>_alien</code>) you will find environment files that you can source into your shell (<code>env.csh</code> for tcsh and <code>env.sh</code> for bourne based shells), which should provide the identical environment used by the build process in order to troubleshoot the build manually.</p>
 
@@ -462,14 +462,14 @@ name="Can/Should_I_write_a_tool_oriented_Alien_module_using_Alien::Base_that_pro
  sub alien_check_installed_version
  {
    # see Alien::Base::ModuleBuild#alien_check_installed_version for details
-   
+ 
    my($self) = @_;
    my($stdout, $stderr) = capture { system &#39;mytool&#39;, &#39;--version&#39; };
-   
+ 
    # return empty list if the tool is unavailable on the system,
    # or unacceptable.
    return if $! || ...;
-
+ 
    # parse from stdout or stderr
    my $version = ...;
    return $version;
@@ -478,12 +478,12 @@ name="Can/Should_I_write_a_tool_oriented_Alien_module_using_Alien::Base_that_pro
  sub alien_check_built_version
  {
    # see Alien::Base::ModuleBuild#alien_check_built_version for details
-   
+ 
    # return empty list if the tool version cannot be found, or if it
    # is unacceptable.  Note that this will cause a failure, so &#34;unknown&#34;
    # may be reasonable if the tool version cannot be determined.
    return if ...;
-   
+ 
    # determine from the tool itself, or the current directory.
    my $version = ...;
    return $version;
@@ -505,13 +505,13 @@ name="Can/Should_I_write_a_tool_oriented_Alien_module_using_Alien::Base_that_pro
    # see Alien::Base#bin_dir for details
    # You only need to override the default implementation if your tool
    # does not install into the standard &#34;bin&#34; directory.
-
+ 
    my($class) = @_;
-   
+ 
    # normally for system installs the tool should already be in your
    # PATH, so return an empty list.
    return if $class-&#62;install_type eq &#39;system&#39;;
-   
+ 
    # install_type = share
    my $dist_dir = $class-&#62;dist_dir;
    return (&#34;$dist_dir/some/bin&#34;, &#34;$dist_dir/some/other/bin&#34;);
@@ -554,7 +554,7 @@ name="How_do_I_check_the_built_version_if_my_library_doesn&#39;t_provide_a_.pc_f
  sub alien_check_built_version
  {
    my $dir_name = $CWD[-1];
-   
+ 
    if($dir_name =~ /^libfoo-([0-9\.]+)$/) {
      return $1;
    } else {
@@ -664,7 +664,7 @@ name="AUTHOR"
 
 <p>Nicholas Shipp (nshp)</p>
 
-<p>Petr Pisar (ppisar)</p>
+<p>Petr P&#237;sa&#345; (ppisar)</p>
 
 <p>Alberto Sim&#245;es (ambs)</p>
 
@@ -672,7 +672,7 @@ name="AUTHOR"
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2012-2020 by Joel A Berger.</p>
+<p>This software is copyright (c) 2012-2022 by Joel A Berger.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 
