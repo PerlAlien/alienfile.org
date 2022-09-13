@@ -1,4 +1,4 @@
-requires 'XOR', url => "https://dist.wdlabs.com/XOR-0.02.tar.gz";
+requires 'XOR', '0.04';
 requires 'Plack::Builder';
 requires 'Path::Tiny';
 
