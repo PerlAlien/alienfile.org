@@ -1,15 +1,10 @@
 #!/usr/bin/env perl
-
+# warning, this file is generated
 use strict;
 use warnings;
-use 5.026;
 use Plack::Builder;
-use Path::Tiny qw( path );
-use Plack::App::XOR;
-
-my $docs = path(__FILE__)->sibling('docs')->absolute;
+use Plack::App::GitHubPages::Faux;
 builder {
-  enable "XOR::DirIndex", root => $docs;
   enable "XOR::NoCache";
-  Plack::App::XOR->new(root => $docs)->to_app;
+  Plack::App::GitHubPages::Faux->new( root => "docs" )->to_app;
 };
