@@ -23,6 +23,39 @@
   
   
   <article>
+    <h2><a href="2022-09-21-reining-in-unruely-aliens.html">Reining In Unruely Aliens</a></h2>
+
+<p>By <b>Graham Ollis</b> on 21 September 2022</p>
+
+<p>When I have talked to Perl developers about the Alien technique, some are
+rightly concerned about the security implications of downloading arbitrary
+stuff off the internet.  My response to this has always to point out that
+if you are installing modules from CPAN then you are doing the same.</p>
+
+<p>In fact the default for one of the most popular cpan clients is to use an
+unencrypted http connection to fetch modules off the internet.  The default
+for the Perl's in core HTTP client is to not verify server identity making
+man in the middle attackes much easier.  There are historical reasons for
+these decisions, but overall I think these are examples of how Perl is
+increasingly out of step with the rest of the internet.</p>
+
+<p>The team responsible for <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> and <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a>
+plan on making it easier for users to control the security model for
+downloading and installing alienized packages for <a href="/pod/Alien.html" class="module">Alien</a>s that use them.
+We also plan on changing the default model to err on the side of more
+secure.  None of these changes is a substitue for properly auditing
+the open source code that you use, if your threat model dictates that.
+At the end of the day, although there are a few Perl modules that can
+be installed statically, the vast majoirty still rely on executing a
+<code>Makefile.PL</code> or <code>Build.PL</code> which is arbitrary Perl code.</p>
+
+<p><a href="2022-09-21-reining-in-unruely-aliens.html">... read more</a></p>
+
+  </article>
+
+  
+  
+  <article>
     <h2><a href="2017-06-13-the-many-ways-to-use-alien.html">The many ways to use Alien</a></h2>
 
 <p>By <b>Graham Ollis</b> on 13 June 2017</p>
