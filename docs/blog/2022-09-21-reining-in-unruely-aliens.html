@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reining In Unruely Aliens</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="https://hatch.wdlabs.com/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/blog/">🪵</a> Reining In Unruely Aliens</div>
+    <p>By <b>Graham Ollis</b> on 21 September 2022</p>
+
+<p>When I have talked to Perl developers about the Alien technique, some are
+rightly concerned about the security implications of downloading arbitrary
+stuff off the internet.  My response to this has always to point out that
+if you are installing modules from CPAN then you are doing the same.</p>
+
+<p>In fact the default for one of the most popular cpan clients is to use an
+unencrypted http connection to fetch modules off the internet.  The default
+for the Perl's in core HTTP client is to not verify server identity making
+man in the middle attackes much easier.  There are historical reasons for
+these decisions, but overall I think these are examples of how Perl is
+increasingly out of step with the rest of the internet.</p>
+
+<p>The team responsible for <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> and <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a>
+plan on making it easier for users to control the security model for
+downloading and installing alienized packages for <a href="/pod/Alien.html" class="module">Alien</a>s that use them.
+We also plan on changing the default model to err on the side of more
+secure.  None of these changes is a substitue for properly auditing
+the open source code that you use, if your threat model dictates that.
+At the end of the day, although there are a few Perl modules that can
+be installed statically, the vast majoirty still rely on executing a
+<code>Makefile.PL' or</code>Build.PL` which is arbitrary Perl code.</p>
+
+<p>The TL;DR is that if you are an Alien author, or if you are the author
+of an <a href="/pod/Alien/Build/Plugin.html" class="module">Alien::Build plugin</a> you should check to
+see if your modules still work when <code>ALIEN_DOWNLOAD_RULE</code> is set to
+<code>digest_or_encrypt</code>, which will soon become the new default.  This
+will require that alienized packages be either</p>
+
+<ul>
+<li>Downloaded using a secure protocol such as <code>https</code></li>
+<li>Checked with a cryptographic signature included in the <a href="/pod/alienfile.html" class="module">alienfile</a> (or <code>Build.PL</code> for <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> based aliens)</li>
+<li>Bundled within the <a href="/pod/Alien.html" class="module">Alien</a> itself.</li>
+</ul>
+
+<p>For more details on the security implications please see
+<a href="https://metacpan.org/pod/Alien::Build::Manual::Secirty" class="module">Alien::Build::Manual::Secirty</a>.</p>
+
+<p>I have already gone through all of the plugins that I am aware of and
+fixed them.  (Unfortunately even plugins that do not modify the
+fetch or download stages of L<Alien::Build> are potentially susceptible
+because their tests often need to fake the fetch and download steps
+and may do so in a way that seems unsafe to L<Alien::Build>).  I will
+also go through all of the aliens that I have control over to make sure
+they work with this new default.</p>
+
+<p>None of this completely removes the peril of downloading arbitrary
+software off the internet, but it does improve the default security
+model, and gives the end user more control over the security model
+via the <code>ALIEN_DOWNLOAD_RULE</code> environment variable.</p>
+
+
+    <div class="nx-footer">
+      <p>
+        [
+            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://alienfile.org">alienfile.org</a> |
+            <a href="https://pl.atypus.org">pl.atypus.org</a> |
+            <a href="https://perlwasm.github.io">perlwasm</a> |
+            <a href="https://uperl.github.io">uperl</a>
+        ]
+        Copyright &copy; 2022 Graham Ollis
+      </p>
+    </div>
+  </body>
+</html>
