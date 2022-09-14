@@ -22,7 +22,7 @@ secure.  None of these changes is a substitue for properly auditing
 the open source code that you use, if your threat model dictates that.
 At the end of the day, although there are a few Perl modules that can
 be installed statically, the vast majoirty still rely on executing a
-`Makefile.PL' or `Build.PL` which is arbitrary Perl code.
+`Makefile.PL` or `Build.PL` which is arbitrary Perl code.
 
 The TL;DR is that if you are an Alien author, or if you are the author
 of an M<Alien::Build plugin|Alien::Build::Plugin> you should check to
