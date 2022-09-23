@@ -90,7 +90,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.68</p>
+<p>version 2.70</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -416,6 +416,69 @@ name="meta_prop"
 </dl>
 
 <p>Note that <code>cygwin</code> and <code>msys</code> are considered <code>unix</code> even though they run on windows!</p>
+
+<dt><a name="platform.cpu.count"
+>platform.cpu.count</a></dt>
+
+<dd>
+<p>Contains a non-negative integer of available (possibly virtual) CPUs on the system. This can be used by build plugins to build in parallel. The environment variable <code>ALIEN_CPU_COUNT</code> can be set to override the CPU count.</p>
+
+<dt><a name="platform.cpu.arch.name"
+>platform.cpu.arch.name</a></dt>
+
+<dd>
+<p>Contains a normalized name for the architecture of the current Perl. This can be used by fetch plugins to determine which binary packages to download. The value may be one of the following, but this list will be expanded as needed.</p>
+
+<dl>
+<dt><a name="armel"
+><code>armel</code></a></dt>
+
+<dd>
+<p>32-bit ARM soft-float</p>
+
+<dt><a name="armhf"
+><code>armhf</code></a></dt>
+
+<dd>
+<p>32-bit ARM hard-float</p>
+
+<dt><a name="aarch64"
+><code>aarch64</code></a></dt>
+
+<dd>
+<p>64-bit ARM</p>
+
+<dt><a name="ppc"
+><code>ppc</code></a></dt>
+
+<dd>
+<p>32-bit PowerPC (big-endian)</p>
+
+<dt><a name="ppc64"
+><code>ppc64</code></a></dt>
+
+<dd>
+<p>64-bit PowerPC (big-endian)</p>
+
+<dt><a name="x86"
+><code>x86</code></a></dt>
+
+<dd>
+<p>32-bit Intel (i386, i486, i686)</p>
+
+<dt><a name="x86_64"
+><code>x86_64</code></a></dt>
+
+<dd>
+<p>64-bit Intel (AMD64)</p>
+
+<dt><a name="unknown"
+><code>unknown</code></a></dt>
+
+<dd>
+<p>Unable to detect architecture. Please report this if needed.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 

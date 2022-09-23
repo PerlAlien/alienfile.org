@@ -50,7 +50,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.68</p>
+<p>version 2.70</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -205,8 +205,8 @@ name="WriteMakefile"
 >WriteMakefile</a></h2>
 
 <pre class="sh_perl"> use Alien::Base::Wrapper qw( WriteMakefile );
- WriteMakefile(%args, alien_requires =&#62; %aliens);
- WriteMakefile(%args, alien_requires =&#62; @aliens);</pre>
+ WriteMakefile(%args, alien_requires =&#62; \%aliens);
+ WriteMakefile(%args, alien_requires =&#62; \@aliens);</pre>
 
 <p>This is a thin wrapper around <code>WriteMakefile</code> from <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
 >ExtUtils::MakeMaker</a>, which adds the given aliens to the configure requirements and sets the appropriate compiler and linker flags.</p>

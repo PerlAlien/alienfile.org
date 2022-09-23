@@ -49,7 +49,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.68</p>
+<p>version 2.70</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -186,7 +186,7 @@ name="Using_commands"
    $? == 0 ? &#39;system&#39; : &#39;share&#39;;
  };</pre>
 
-<p>The Perl code should return &#39;system&#39; if the library is installed, and &#39;share&#39; if not. (Other directives should return a true value on success, and a false value). You can also throw an exception with <code>die</code> to indicate a failure.</p>
+<p>The Perl code should return &#39;system&#39; if the library is installed, and &#39;share&#39; if not. (Other directives should return a true value on success, and a false value on failure). You can also throw an exception with <code>die</code> to indicate a failure.</p>
 
 <p>The next part of the <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> is the <code>share</code> block, which is used to group the directives which are used to download and install the library or tool in the event that it is not already installed.</p>
