@@ -46,7 +46,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 0.07</p>
+<p>version 0.08</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -177,6 +177,8 @@ name="ENVIRONMENT"
 name="CAVEATS"
 >CAVEATS</a></h1>
 
+<p>This plugin does not support, and will not work if <code>ALIEN_DOWNLOAD_RULE</code> is set to either <code>digest_and_encrypt</code> or <code>digest</code>.</p>
+
 <p>The GitHub API is rate limited. Once you&#39;ve reach that limit, this plugin will be inoperative for a period of time until the limits reset. When using the GitHub API unauthenticated the limit is especially low. This is usually not a problem when used in production where you only need to use the API once for each <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>, but it can become a problem when testing an <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> that uses this plugin in CI or via cpantesters. In this situation you can set the <code>ALIEN_BUILD_GITHUB_TOKEN</code> environment variable (or commonly used but unofficial <code>GITHUB_TOKEN</code> or <code>GITHUB_PAT</code>), and this plugin will use that in making API requests. If you are using GitHub Actions for CI, then you can use the <code>secrets.GITHUB_TOKEN</code> macro to get a PAT.</p>
@@ -222,7 +224,7 @@ name="AUTHOR"
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2019 by Graham Ollis.</p>
+<p>This software is copyright (c) 2019-2022 by Graham Ollis.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 
