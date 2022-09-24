@@ -563,6 +563,15 @@
       ]
    },
    {
+      "name" : "Alien-Build-Plugin-Download-GitLab",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/Build/Plugin/Download/GitLab.html",
+            "name" : "Alien::Build::Plugin::Download::GitLab"
+         }
+      ]
+   },
+   {
       "name" : "Alien-Build-Plugin-Extract-Libarchive",
       "pods" : [
          {
