@@ -349,6 +349,10 @@
             "name" : "Alien::Build::Plugin::Extract::Directory"
          },
          {
+            "href" : "/pod/Alien/Build/Plugin/Extract/File.html",
+            "name" : "Alien::Build::Plugin::Extract::File"
+         },
+         {
             "href" : "/pod/Alien/Build/Plugin/Extract/Negotiate.html",
             "name" : "Alien::Build::Plugin::Extract::Negotiate"
          },
