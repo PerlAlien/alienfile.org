@@ -23,6 +23,32 @@
   
   
   <article>
+    <h2><a href="2022-10-21-plain-download-plugin-github.html">Plain Download Plugin + GitHub</a></h2>
+
+<p>By <em>Graham Ollis</em> on 21 October 2022</p>
+
+<p>Recently, GitHub changed their release pages such that the download
+links are no longer parseable without JavaScript.  This unfortunately
+breaks the use of the plain <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="module">Download negotiation plugin</a>
+which picks the best plugins to download and parse the HTML to get the
+download links.  The symptom is that your <a href="/pod/Alien.html" class="module">Alien</a> which was previously
+working dies on a diagnostic like this:</p>
+
+<p><code>
+no matching files in listing at /opt/perl-5.36.0/lib/site_perl/5.36.0/Alien/Build/Plugin/Core/Download.pm line 43.
+</code></p>
+
+<p>Fortunately there is an alternative!  The <a href="/pod/Alien/Build/Plugin/Download/GitHub.html" class="module">Download::GitHub</a>
+plugin uses the GitHub API to get the releases.  The TL;DR is that if you have
+something like this:</p>
+
+<p><a href="2022-10-21-plain-download-plugin-github.html">... read more</a></p>
+
+  </article>
+
+  
+  
+  <article>
     <h2><a href="2017-06-13-the-many-ways-to-use-alien.html">The many ways to use Alien</a></h2>
 
 <p>By <b>Graham Ollis</b> on 13 June 2017</p>

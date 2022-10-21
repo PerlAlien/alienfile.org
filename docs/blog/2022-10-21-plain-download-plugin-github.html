@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plain Download Plugin + GitHub</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="https://hatch.wdlabs.com/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/blog/">🪵</a> Plain Download Plugin + GitHub</div>
+    <p>By <em>Graham Ollis</em> on 21 October 2022</p>
+
+<p>Recently, GitHub changed their release pages such that the download
+links are no longer parseable without JavaScript.  This unfortunately
+breaks the use of the plain <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="module">Download negotiation plugin</a>
+which picks the best plugins to download and parse the HTML to get the
+download links.  The symptom is that your <a href="/pod/Alien.html" class="module">Alien</a> which was previously
+working dies on a diagnostic like this:</p>
+
+<p><code>
+no matching files in listing at /opt/perl-5.36.0/lib/site_perl/5.36.0/Alien/Build/Plugin/Core/Download.pm line 43.
+</code></p>
+
+<p>Fortunately there is an alternative!  The <a href="/pod/Alien/Build/Plugin/Download/GitHub.html" class="module">Download::GitHub</a>
+plugin uses the GitHub API to get the releases.  The TL;DR is that if you have
+something like this:</p>
+
+<p><pre class="sh_perl">share {
+  start_url 'https://github.com/org/repo/releases';
+  plugin 'Download' =&gt; (
+    filter  =&gt; qr/^v.*\.tar\.gz$/,
+    version =&gt; qr/([0-9\.]+)/,
+  );
+  plugin Extract =&gt; 'tar.gz';
+  ...
+}
+</pre></p>
+
+<p>You instead want to do something like this:</p>
+
+<p><pre class="sh_perl">share {
+  plugin 'Download::GitHub' =&gt; (
+    github_user =&gt; 'org',
+    github_repo =&gt; 'repo',
+  );
+  ...
+}
+</pre></p>
+
+<p>Note that you no longer need to specify a <code>start_url</code> or the
+<a href="/pod/Alien/Build/Plugin/Extract/Negotiate.html" class="module">Extract negotiation plugin</a>,
+because the <a href="/pod/Alien/Build/Plugin/Download/GitHub.html" class="module">Download::GitHub plugin</a>
+does that for you.</p>
+
+<p>The <a href="/pod/Alien/Build/Plugin/Download/GitHub.html" class="module">Download::GitHub plugin</a>
+has a number of advanced options, like fetching assets from the release
+or tarballs from arbitrary tags, so please review the documentation.
+Depending on how the alienized package is organized upstream you may
+have to adapt!</p>
+
+
+    <div class="nx-footer">
+      <p>
+        [
+            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://alienfile.org">alienfile.org</a> |
+            <a href="https://pl.atypus.org">pl.atypus.org</a> |
+            <a href="https://perlwasm.github.io">perlwasm</a> |
+            <a href="https://uperl.github.io">uperl</a>
+        ]
+        Copyright &copy; 2022 Graham Ollis
+      </p>
+    </div>
+  </body>
+</html>
