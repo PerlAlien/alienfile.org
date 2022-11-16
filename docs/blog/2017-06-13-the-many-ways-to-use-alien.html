@@ -320,13 +320,13 @@ operating system packages for Perl modules, but it might be something to think a
 developer as well.</p>
 
 <p>Another way to call a library from Perl is to use FFI.  There are two usable FFI systems on
-CPAN, <a href="https://pl.atypus.org/pod/FFI/Raw.html" class="module">FFI::Raw</a> and <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a>.  (I personally recommend Platypus over Raw).  FFI has
+CPAN, <a href="https://pl.atypus.org/pod/FFI/Raw.html" class="module">FFI::Raw</a> and <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a>.  (I personally recommend Platypus over Raw).  FFI has
 some advantages and disadvantages over XS: your code is in one Perl file, it does not even
 need to be “built” or “installed” to be used, it introduces <i>some</i> additional complexity,
 since both Platypus and Raw are implemented using XS, it needs any Aliens as run-time
 dependencies (just as with Inline), etc.</p>
 
-<p>Here is an example of our LZMA module using <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a>:</p>
+<p>Here is an example of our LZMA module using <a href="https://metacpan.org/pod/FFI::Platypus" class="module">FFI::Platypus</a>:</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
 lib/LZMA/Example.pm (FFI)

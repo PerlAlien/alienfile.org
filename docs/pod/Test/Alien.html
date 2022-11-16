@@ -103,7 +103,7 @@ name="SYNOPSIS"
  const char *version(class);
      const char *class;</pre>
 
-<p>Test that your library works with <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
+<p>Test that your library works with <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a>:</p>
 
 <pre class="sh_perl"> use Test2::V0;
@@ -137,18 +137,18 @@ name="DESCRIPTION"
 >Test::CChecker</a>. The main downside to that module is that it is heavily influenced by and uses <a href="https://metacpan.org/pod/ExtUtils%3A%3ACChecker" class="podlinkpod"
 >ExtUtils::CChecker</a>, which is a tool for checking at install time various things about your compiler. It was also written before <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> became as stable as it is today. In particular, <a href="https://metacpan.org/pod/Test%3A%3ACChecker" class="podlinkpod"
->Test::CChecker</a> does its testing by creating an executable and running it. Unfortunately Perl uses extensions by creating dynamic libraries and linking them into the Perl process, which is different in subtle and error prone ways. This module attempts to test the libraries in the way that they will actually be used, via either <code>XS</code> or <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
+>Test::CChecker</a> does its testing by creating an executable and running it. Unfortunately Perl uses extensions by creating dynamic libraries and linking them into the Perl process, which is different in subtle and error prone ways. This module attempts to test the libraries in the way that they will actually be used, via either <code>XS</code> or <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a>. It also provides a mechanism for testing binaries that are provided by the various <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> modules (for example <a href="/pod/Alien/gmake.html" class="podlinkpod"
 >Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="podlinkpod"
 >Alien::patch</a>).</p>
 
 <p><a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> modules can actually be useable without a compiler, or without <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
->FFI::Platypus</a> (for example, if the library is provided by the system, and you are using <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
+>Alien</a> modules can actually be useable without a compiler, or without <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
+>FFI::Platypus</a> (for example, if the library is provided by the system, and you are using <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a>, or if you are building from source and you are using <code>XS</code>), so tests with missing prerequisites are automatically skipped. For example, <a href="#xs_ok" class="podlinkpod"
 >&#34;xs_ok&#34;</a> will automatically skip itself if a compiler is not found, and <a href="#ffi_ok" class="podlinkpod"
->&#34;ffi_ok&#34;</a> will automatically skip itself if <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
+>&#34;ffi_ok&#34;</a> will automatically skip itself if <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a> is not installed.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -368,7 +368,7 @@ name="ffi_ok"
  ffi_ok \%opt;
  ffi_ok \%opt, $message;</pre>
 
-<p>Test that <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
+<p>Test that <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a> works.</p>
 
 <p><code>\%opt</code> is a hash reference with these keys (all optional):</p>
@@ -407,7 +407,7 @@ name="ffi_ok"
 </dl>
 
 <p>As with <a href="#xs_ok" class="podlinkpod"
->&#34;xs_ok&#34;</a> above, you can use the <code>with_subtest</code> keyword to specify a subtest to be run if <code>ffi_ok</code> succeeds (it will skip otherwise). The <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="podlinkpod"
+>&#34;xs_ok&#34;</a> above, you can use the <code>with_subtest</code> keyword to specify a subtest to be run if <code>ffi_ok</code> succeeds (it will skip otherwise). The <a href="https://metacpan.org/pod/FFI%3A%3APlatypus" class="podlinkpod"
 >FFI::Platypus</a> instance is passed into the subtest as the first argument. For example:</p>
 
 <pre class="sh_perl"> ffi_ok with_subtest {
