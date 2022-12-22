@@ -21,16 +21,16 @@ Installing in a private share location is an important part of the Alien philoso
 system libraries.</p>
 
 <p>The <a href="/pod/Alien.html#ORIGINAL_MANIFESTO" class="module">original manifesto</a> developed by <a href="https://metacpan.org/author/ABERGMAN" class="cpan_author">Artur Bergman</a> imposes no frameworks, which
-adds to the flexability of the Alien concept. <a href="https://metacpan.org/author/JBERGER" class="cpan_author">Joel Berger</a> created <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> which is a framework for
-developing <a href="/pod/Alien.html" class="module">Alien</a>s with support for the most common build tools.  This evolved into <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> which provides
-powerful tools for creating and maintaining Aliens.  It is very easy to build an <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> based Alien that
-alienizes a package that uses common build tools like <a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="module">autotools</a> and
-<a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="module">CMake</a>.</p>
+adds to the flexability of the Alien concept. <a href="https://metacpan.org/author/JBERGER" class="cpan_author">Joel Berger</a> created <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> which is a framework for
+developing <a href="/pod/Alien.html" class="module">Alien</a>s with support for the most common build tools.  This evolved into <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> which provides
+powerful tools for creating and maintaining Aliens.  It is very easy to build an <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> based Alien that
+alienizes a package that uses common build tools like <a href="https://metacpan.org/pod/Alien::Build::Plugin::Build::Autoconf" class="module">autotools</a> and
+<a href="https://metacpan.org/pod/Alien::Build::Plugin::Build::CMake" class="module">CMake</a>.</p>
 
-<p>The key architectural philosophy of the <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> / <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> system is that the bulk of the work is done
-in the build phase of the <a href="/pod/Alien.html" class="module">Alien</a>, and the runtime is delegated mostly or entirely to the <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> base class.
-In the <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> system the build time recipe for finding or building the alienized library is in the
-<a href="/pod/alienfile.html" class="module">alienfile</a>.  Here is an example <a href="/pod/alienfile.html" class="module">alienfile</a> for <a href="https://libarchive.org">libarchive</a>:</p>
+<p>The key architectural philosophy of the <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> / <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> system is that the bulk of the work is done
+in the build phase of the <a href="/pod/Alien.html" class="module">Alien</a>, and the runtime is delegated mostly or entirely to the <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> base class.
+In the <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> system the build time recipe for finding or building the alienized library is in the
+<a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a>.  Here is an example <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> for <a href="https://libarchive.org">libarchive</a>:</p>
 
 <p><pre class="sh_perl">use alienfile;
 plugin 'PkgConfig' =&gt; 'libarchive';
@@ -51,7 +51,7 @@ share {
 };
 </pre></p>
 
-<p>The runtime is simply an empty subclass that inherrits from <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>:</p>
+<p>The runtime is simply an empty subclass that inherrits from <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>:</p>
 
 <p><pre class="sh_perl">package Alien::libarchive;
 use strict;
@@ -60,15 +60,15 @@ use parent qw( Alien::Base );
 1;
 </pre></p>
 
-<p><a href="/pod/Alien/Build.html" class="module">Alien::Build</a> is also extensible through its <a href="/pod/Alien/Build/Plugin.html" class="module">plugin</a> system allowing other build systems to be
-added.  The <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> project also comes with a large and growing manual.  The manual has three main sections
-depending on how you need to use <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> and a FAQ.</p>
+<p><a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> is also extensible through its <a href="https://metacpan.org/pod/Alien::Build::Plugin" class="module">plugin</a> system allowing other build systems to be
+added.  The <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> project also comes with a large and growing manual.  The manual has three main sections
+depending on how you need to use <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> and a FAQ.</p>
 
 <ul>
-<li>📖 <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="module">Alien::Build::Manual::AlienAuthor</a> - for would be authors of new <a href="/pod/Alien.html" class="module">Aliens</a></li>
-<li>📖 <a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a> - for users of an existing <a href="/pod/Alien.html" class="module">Alien</a></li>
-<li>📖 <a href="/pod/Alien/Build/Manual/PluginAuthor.html" class="module">Alien::Build::Manual::PluginAuthor</a> - for developers who want to extend <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> using its plugin system</li>
-<li>📖 <a href="/pod/Alien/Build/Manual/FAQ.html" class="module">Alien::Build::Manual::FAQ</a> - the Frequently Asked Questions</li>
+<li>📖 <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienAuthor" class="module">Alien::Build::Manual::AlienAuthor</a> - for would be authors of new <a href="/pod/Alien.html" class="module">Aliens</a></li>
+<li>📖 <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienUser" class="module">Alien::Build::Manual::AlienUser</a> - for users of an existing <a href="/pod/Alien.html" class="module">Alien</a></li>
+<li>📖 <a href="https://metacpan.org/pod/Alien::Build::Manual::PluginAuthor" class="module">Alien::Build::Manual::PluginAuthor</a> - for developers who want to extend <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> using its plugin system</li>
+<li>📖 <a href="https://metacpan.org/pod/Alien::Build::Manual::FAQ" class="module">Alien::Build::Manual::FAQ</a> - the Frequently Asked Questions</li>
 </ul>
 
 <h2>Resources hosted here</h2>

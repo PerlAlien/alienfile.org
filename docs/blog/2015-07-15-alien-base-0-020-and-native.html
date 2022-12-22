@@ -14,7 +14,7 @@
     <div class="nx-header-title"><a href="/">🌻</a> <a href="/blog/">🪵</a> Alien::Base 0.020 and #native</div>
     <p>By <b>Graham Ollis</b> on 15 July 2015</p>
 
-<p>This week we rolled out the latest version of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> which
+<p>This week we rolled out the latest version of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> which
 includes a new feature and a bug fix.  The most important change in this
 version are the two new avenues of communication that we have adopted,
 so I will discuss that first.</p>
@@ -22,7 +22,7 @@ so I will discuss that first.</p>
 <p>The first is that we have established the
 <a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native</a>
 channel on irc.perl.org to discuss interactions with native interfaces.
-This includes <a href="/pod/Alien.html" class="module">Alien</a> in general, <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> specifically, and we
+This includes <a href="/pod/Alien.html" class="module">Alien</a> in general, <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> specifically, and we
 also intend it to be a place to discuss <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> (Foreign
 Function Interface or <a href="https://metacpan.org/pod/NativeCall" class="module">NativeCall</a>), as there is a degree of overlap
 for the people involved.  You can now click on a big red button from the
@@ -31,15 +31,15 @@ to start asking questions (or complain at us if that is what needs
 doing).</p>
 
 <p>The second communication improvement is the creation of an Alien::Base
-FAQ (see <a href="/pod/Alien/Base/FAQ.html" class="module">Alien::Base::FAQ</a>).  I promised this last year but only
+FAQ (see <a href="https://metacpan.org/pod/Alien::Base::FAQ" class="module">Alien::Base::FAQ</a>).  I promised this last year but only
 recently got around to writing it.  It consists of a number of questions
 (and corresponding answers) that I personally had when I was trying to
-figure out how to develop my own <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based Alien
+figure out how to develop my own <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based Alien
 distributions.  I’m hoping this guide will help those that are getting
 started now.</p>
 
 <p>One thing that working on the FAQ reminded me of is that although it is
-relatively simple to create and maintain an <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based Alien
+relatively simple to create and maintain an <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based Alien
 distribution if your package uses autoconf and pkg-config, it is a
 little more challenging if your package does not use these tools.
 Things that are doable, but present their own set of challenges include
@@ -55,7 +55,7 @@ writing <a href="/pod/Alien/Libbz2.html" class="module">Alien::Libbz2</a>, so it
 bridge the worlds of Dist::Zilla and Alien.  While working on this, I
 worked with Zakariyya Mughal to drive development of the plugin itself.
 The plugin is now up to date once again feature wise with
-<a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.</p>
+<a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.</p>
 
 <p>Aside from the new IRC channel and the FAQ, we have always had a mailing
 list and use the project GitHub to track issues and pull requests.  With
@@ -141,14 +141,14 @@ Alien::Base::ModuleBuild-&gt;new(
 )-&gt;create_build_script;
 </pre></p>
 
-<p>Prior to <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> 0.020 in order to include this sort of logic you
+<p>Prior to <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> 0.020 in order to include this sort of logic you
 would have to use <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> in your <tt>Build.PL</tt>, which would
 make it a configure_requires requirement.  This is undesirable, because
 you won’t need <a href="/pod/Alien/gmake.html" class="module">Alien::gmake</a> if you are using the system version of a
 library!  The <tt>alien_bin_requires</tt> are dynamic prerequisites that
 are added only if you are building from source.</p>
 
-<p>Next week I intend on writing about <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>, and this time I will
+<p>Next week I intend on writing about <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>, and this time I will
 focus system integrators, distribution packagers and destdir.  See you
 then.</p>
 

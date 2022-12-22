@@ -15,7 +15,7 @@
     <p>By <b>Graham Ollis</b> on 13 June 2017</p>
 
 <p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">A while back</a> I introduced
-the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context
+the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context
 the tool <code>xz</code> and the library <code>liblzma</code>.  I also went over how to test it with <a href="/pod/App/af.html" class="module">App::af</a>.
 <a href="http://blogs.perl.org/users/graham_ollis/2017/04/integrating-alienfile.html">The week after that</a>
 I showed how to integrate that alienfile into a fully functioning <a href="/pod/Alien.html" class="module">Alien</a> called <a href="https://uperl.github.io/pod/Alien/xz.html" class="module">Alien::xz</a>
@@ -94,7 +94,7 @@ a lot of effort it should work okay when you are using either the <b>system</b> 
 <code>ALIEN_INSTALL_TYPE</code> environment variable, then there is a very good chance that you will get
 the flag order wrong and use the wrong version of the library or to use the <b>system</b>
 library with your <b>share</b> install or vice versa.  If that happens, you are going to have
-a bad day!  To avoid this, I've written <a href="/pod/Alien/Base/Wrapper.html" class="module">Alien::Base::Wrapper</a>, which generates the correct
+a bad day!  To avoid this, I've written <a href="https://metacpan.org/pod/Alien::Base::Wrapper" class="module">Alien::Base::Wrapper</a>, which generates the correct
 flag order for you!  Here is the example:</p>
 
 <p><center><pre style="margin: 10px 10px 0 10px; padding: 10px; background-color: blue; color: white; ">
@@ -266,7 +266,7 @@ Result: PASS
 <p>As many may already know, an alternative way to write “XS” modules is by using <a href="https://metacpan.org/pod/Inline::C" class="module">Inline::C</a> or
 <a href="https://metacpan.org/pod/Inline::CPP" class="module">Inline::CPP</a>.  One of the advantages to this is that the code can be compiled on demand as
 needed.  Also all of your code can be contained within the Perl source file. Happily
-<a href="/pod/Alien/Base.html" class="module">Alien::Base</a> and all library modules that use it work quite nicely with <a href="https://metacpan.org/pod/Inline" class="module">Inline</a>, and in
+<a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> and all library modules that use it work quite nicely with <a href="https://metacpan.org/pod/Inline" class="module">Inline</a>, and in
 order to integrate the two you can use the <code>with</code> keyword when writing your Inline
 module:</p>
 
@@ -423,7 +423,7 @@ Alien::gmake, for example, provides GNU Make, which may be called either <code>g
 It provides an <code>exe</code> method to tell you what the name is locally.</p>
 
 <p>So, as you can see in the Perl TMTOWTDI spirit, there are many different ways to utilize an
-Alien module built using <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> + <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.  There are some
+Alien module built using <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> + <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.  There are some
 other systems out there like <a href="https://metacpan.org/pod/Module::Install" class="module">Module::Install</a> (MI) that I didn't demonstrate.  Because MI is
 not being actively developed any longer and EUMM is preferred for new development, there may
 be some out there using this older technology that could benefit from Alien.  Or some other
@@ -431,9 +431,9 @@ technology that I haven't thought of using with Alien yet.  If you are one of th
 please do feel free to stop on by the #native channel on irc.perl.org, or open an issue on the
 <a href="https://github.com/plicease/Alien-Build/issues">Alien::Build issue tracker</a>.
 I have added the full working examples demonstrated here (with all the necessary support
-files) to the <code>example/user</code> directory in <a href="/pod/Alien/Build.html" class="module">Alien::Build</a>.
+files) to the <code>example/user</code> directory in <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.
 I have also written a manual on using Alien::Base based Aliens here:
-<a href="/pod/Alien/Build/Manual/AlienUser.html" class="module">Alien::Build::Manual::AlienUser</a>.  Next time I will demonstrate some specialized features,
+<a href="https://metacpan.org/pod/Alien::Build::Manual::AlienUser" class="module">Alien::Build::Manual::AlienUser</a>.  Next time I will demonstrate some specialized features,
 like how to use an Alien as a fallback prerequisite.</p>
 
 <hr />
