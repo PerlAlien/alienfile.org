@@ -73,6 +73,6 @@ depending on how you need to use M<Alien::Build> and a FAQ.
 ## External Links
 
  * #️ [#native on irc.perl.org](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?)
- * 🐦 [@AlienPerl](https://twitter.com/AlienPerl) - the official twitter acount of the Perl Alien Project
+ * 🌏 <a rel="me" href="https://fosstodon.org/@PerlAlien">@PerlAlien@fosstodon.org</a>
  * 👽 [PerlAlien organization on GitHub](https://github.com/PerlAlien)
  * 👽 [Alien::Build on metacpan](https://metacpan.org/pod/Alien::Build)
