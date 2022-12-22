@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Base::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::API</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::API</div>
     <!--Alien::Base::ModuleBuild::API--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -48,16 +48,16 @@ name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
 <p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a>s that you use <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> and <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+>Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> instead.
 Like <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a> they work with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>.
 Unlike <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> they are more easily customized and handle a number of corner cases better.
 For a good place to start,
-please see <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlienAuthor" class="podlinkpod"
+please see <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
 >Alien::Build::Manual::AlienAuthor</a>.
 Although the Alien-Base / Alien-Build team will continue to maintain this module,
 (we will continue to fix bugs where appropriate),
@@ -112,7 +112,7 @@ but some non-autoconf <code>configure</code> scripts may complain.</p>
 <p>[version 0.006]</p>
 
 <p>Hash reference of modules (keys) and versions (values) that specifies <code>Alien</code> modules that provide binary tools that are required to build.
-Any <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+Any <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> module that includes binaries should work.
 Also supported are <a href="/pod/Alien/MSYS.html" class="podlinkpod"
 >Alien::MSYS</a>,
@@ -458,7 +458,7 @@ Set to undef to remove the variable.</p>
 >alien_stage_install</a></dt>
 
 <dd>
-<p>It might be tempting to use this option if you have a library or tool that hard codes paths from the install location inside the executable or library code. However, using this option relies on blib detection which is not very reliable, and can leave your install in an broken state if the package install step fails. If you really need this option, please consider instead migrating to <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+<p>It might be tempting to use this option if you have a library or tool that hard codes paths from the install location inside the executable or library code. However, using this option relies on blib detection which is not very reliable, and can leave your install in an broken state if the package install step fails. If you really need this option, please consider instead migrating to <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a>, which has a much more reliable way of staging installs correctly.</p>
 
 <p>[version 0.016]</p>
@@ -513,7 +513,7 @@ name="PACKAGE_AND_ENVIRONMENT_VARIABLES"
 <dd>
 <p>[version 0.017]</p>
 
-<p>Setting this changes the default for alien_arch above. If the module specifies its own alien_arch in its <code>Build.PL</code> file then it will override this setting. Typically installing into an architecture specific directory is what you want to do, since most <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>Setting this changes the default for alien_arch above. If the module specifies its own alien_arch in its <code>Build.PL</code> file then it will override this setting. Typically installing into an architecture specific directory is what you want to do, since most <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> based distributions provide architecture specific binary code, so you should consider carefully before installing modules with this environment variable set to 0. This may be useful for integrators creating a single non-architecture specific RPM, .deb or similar package. In this case the integrator should ensure that the Alien package be installed with a system install_type and use the system package.</p>
 
 <dt><a name="$ENV{ALIEN_BLIB}"
@@ -546,7 +546,7 @@ name="PACKAGE_AND_ENVIRONMENT_VARIABLES"
 >$ENV{ALIEN_VERBOSE}</a></dt>
 
 <dd>
-<p>Setting the either to a true value will output a little more info from within the module itself. At this point <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>Setting the either to a true value will output a little more info from within the module itself. At this point <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> is going to be fairly verbose without this enabled.</p>
 </dd>
 </dl>
@@ -555,7 +555,7 @@ name="PACKAGE_AND_ENVIRONMENT_VARIABLES"
 name="CONFIG_DATA"
 >CONFIG DATA</a></h2>
 
-<p>The <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>The <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> system needs to store some data to be used in other phases of the build and eventual use. This is done via the mechanism provided by <a href="https://metacpan.org/pod/Module%3A%3ABuild%3A%3AConfigData" class="podlinkpod"
 >Module::Build::ConfigData</a>. During the build-phase this information is mutable and is available through the <code>Module::Build::config_data</code> method. As the build-phase ends the data is serialized and stored as <code>Alien::MyModule::ConfigData</code> (assuming you are authoring <code>Alien::MyModule</code>). Then during the use-phase, the <code>Alien::MyModule::ConfigData::config</code> method (via the <code>Alien::MyModule::config</code> wrapper) is used to query the information. This data is not strictly immutable, but it changing it involves file permissions and is best left alone.</p>
 

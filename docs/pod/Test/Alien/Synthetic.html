@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Test::Alien::Synthetic</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="https://hatch.wdlabs.com/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> Test::<a href="/pod/Test/Alien.html">Alien</a>::Synthetic</div>
+    <!--Test::Alien::Synthetic--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#ATTRIBUTES'>ATTRIBUTES</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#cflags'>cflags</a>
+    <li class='indexItem indexItem2'><a href='#cflags_static'>cflags_static</a>
+    <li class='indexItem indexItem2'><a href='#libs'>libs</a>
+    <li class='indexItem indexItem2'><a href='#libs_static'>libs_static</a>
+    <li class='indexItem indexItem2'><a href='#dynamic_libs'>dynamic_libs</a>
+    <li class='indexItem indexItem2'><a href='#bin_dir'>bin_dir</a>
+    <li class='indexItem indexItem2'><a href='#runtime_prop'>runtime_prop</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#EXAMPLE'>EXAMPLE</a>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Test::Alien::Synthetic - A mock alien object for testing</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.75</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> use Test2::V0;
+ use Test::Alien;
+ 
+ my $alien = synthetic {
+   cflags =&#62; &#39;-I/foo/bar/include&#39;,
+   libs   =&#62; &#39;-L/foo/bar/lib -lbaz&#39;,
+ };
+ 
+ alien_ok $alien;
+ 
+ done_testing;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This class is used to model a synthetic <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> class that implements the minimum <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> interface needed by <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a>.</p>
+
+<p>It can be useful if you have a non-<a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> distribution that you need to test.</p>
+
+<p><b>NOTE</b>: The name of this class may move in the future, so do not refer to this class name directly. Instead create instances of this class using the <a href="https://metacpan.org/pod/Test%3A%3AAlien%23synthetic" class="podlinkpod"
+>Test::Alien#synthetic</a> function.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="ATTRIBUTES"
+>ATTRIBUTES</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cflags"
+>cflags</a></h2>
+
+<p>String containing the compiler flags</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cflags_static"
+>cflags_static</a></h2>
+
+<p>String containing the static compiler flags</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libs"
+>libs</a></h2>
+
+<p>String containing the linker and library flags</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="libs_static"
+>libs_static</a></h2>
+
+<p>String containing the static linker and library flags</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="dynamic_libs"
+>dynamic_libs</a></h2>
+
+<p>List reference containing the dynamic libraries.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bin_dir"
+>bin_dir</a></h2>
+
+<p>Tool binary directory.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="runtime_prop"
+>runtime_prop</a></h2>
+
+<p>Runtime properties.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="EXAMPLE"
+>EXAMPLE</a></h1>
+
+<p>Here is a complete example using <a href="https://uperl.github.io/pod/Alien/Libarchive.html" class="podlinkpod"
+>Alien::Libarchive</a> which is a non-<a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> distribution.</p>
+
+<pre class="sh_perl"> use strict;
+ use warnings;
+ use Test2::V0;
+ use Test::Alien;
+ use Alien::Libarchive;
+ 
+ my $real = Alien::Libarchive-&#62;new;
+ my $alien = synthetic {
+   cflags       =&#62; scalar $real-&#62;cflags,
+   libs         =&#62; scalar $real-&#62;libs,
+   dynamic_libs =&#62; [$real-&#62;dlls],
+ };
+ 
+ alien_ok $alien;
+ 
+ xs_ok do { local $/; &#60;DATA&#62; }, with_subtest {
+   my($module) = @_;
+   my $ptr = $module-&#62;archive_read_new;
+   like $ptr, qr{^[0-9]+$};
+   $module-&#62;archive_read_free($ptr);
+ };
+ 
+ ffi_ok { symbols =&#62; [qw( archive_read_new )] }, with_subtest {
+   my($ffi) = @_;
+   my $new  = $ffi-&#62;function(archive_read_new =&#62; [] =&#62; &#39;opaque&#39;);
+   my $free = $ffi-&#62;function(archive_read_close =&#62; [&#39;opaque&#39;] =&#62; &#39;void&#39;);
+   my $ptr = $new-&#62;();
+   like $ptr, qr{^[0-9]+$};
+   $free-&#62;($ptr);
+ };
+ 
+ done_testing;
+ 
+ __DATA__
+ 
+ #include &#34;EXTERN.h&#34;
+ #include &#34;perl.h&#34;
+ #include &#34;XSUB.h&#34;
+ #include &#60;archive.h&#62;
+ 
+ MODULE = TA_MODULE PACKAGE = TA_MODULE
+ 
+ void *archive_read_new(class);
+     const char *class;
+   CODE:
+     RETVAL = (void*) archive_read_new();
+   OUTPUT:
+     RETVAL
+ 
+ void archive_read_free(class, ptr);
+     const char *class;
+     void *ptr;
+   CODE:
+     archive_read_free(ptr);</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Test::Alien"
+><a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a></a></dt>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<p>Florian Weimer</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>
+        [
+            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://alienfile.org">alienfile.org</a> |
+            <a href="https://pl.atypus.org">pl.atypus.org</a> |
+            <a href="https://perlwasm.github.io">perlwasm</a> |
+            <a href="https://uperl.github.io">uperl</a>
+        ]
+        Copyright &copy; 2022 Graham Ollis
+      </p>
+    </div>
+  </body>
+</html>

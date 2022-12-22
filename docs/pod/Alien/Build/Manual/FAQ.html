@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Manual::FAQ</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="https://hatch.wdlabs.com/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Manual.html">Manual</a>::FAQ</div>
+    <!--Alien::Build::Manual::FAQ--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#QUESTIONS'>QUESTIONS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#What_is_Alien%2C_Alien%3A%3ABase_and_Alien%3A%3ABuild%3F'>What is Alien, Alien::Base and Alien::Build?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_build_a_package_that_uses_build_system'>How do I build a package that uses build system</a>
+    <ul   class='indexList indexList3'>
+      <li class='indexItem indexItem3'><a href='#autoconf'>autoconf</a>
+      <li class='indexItem indexItem3'><a href='#autoconf_without_configure_script'>autoconf without configure script</a>
+      <li class='indexItem indexItem3'><a href='#autoconf-like'>autoconf-like</a>
+      <li class='indexItem indexItem3'><a href='#CMake'>CMake</a>
+      <li class='indexItem indexItem3'><a href='#vanilla_Makefiles'>vanilla Makefiles</a>
+    </ul>
+    <li class='indexItem indexItem2'><a href='#How_do_I_probe_for_a_package_that_uses_pkg-config%3F'>How do I probe for a package that uses pkg-config?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_specify_a_minimum_or_exact_version_requirement_for_packages_that_use_pkg-config%3F'>How do I specify a minimum or exact version requirement for packages that use pkg-config?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_probe_for_a_package_that_uses_multiple_.pc_files%3F'>How do I probe for a package that uses multiple .pc files?</a>
+    <li class='indexItem indexItem2'><a href='#How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config%3F'>How to create an Alien module for packages that do not support pkg-config?</a>
+    <ul   class='indexList indexList3'>
+      <li class='indexItem indexItem3'><a href='#Packages_that_provide_a_configuration_script'>Packages that provide a configuration script</a>
+      <li class='indexItem indexItem3'><a href='#Packages_that_require_a_compile_test'>Packages that require a compile test</a>
+    </ul>
+    <li class='indexItem indexItem2'><a href='#Can%2FShould_I_write_a_tool_oriented_Alien_module%3F'>Can/Should I write a tool oriented Alien module?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_test_my_package_once_it_is_built_(before_it_is_installed)%3F'>How do I test my package once it is built (before it is installed)?</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_patch_packages_that_need_alterations%3F'>How do I patch packages that need alterations?</a>
+    <li class='indexItem indexItem2'><a href='#The_flags_that_a_plugin_produces_are_wrong!'>The flags that a plugin produces are wrong!</a>
+    <li class='indexItem indexItem2'><a href='#%22cannot_open_shared_object_file%22_trying_to_load_XS'>&#34;cannot open shared object file&#34; trying to load XS</a>
+    <li class='indexItem indexItem2'><a href='#599_Internal_Exception_errors_downloading_packages_from_the_internet'>599 Internal Exception errors downloading packages from the internet</a>
+    <li class='indexItem indexItem2'><a href='#Network_fetch_is_turned_off'>Network fetch is turned off</a>
+    <li class='indexItem indexItem2'><a href='#I_would_really_prefer_you_not_download_stuff_off_the_internet'>I would really prefer you not download stuff off the internet</a>
+    <li class='indexItem indexItem2'><a href='#For_testing_I_would_like_to_test_both_system_and_share_installs!'>For testing I would like to test both system and share installs!</a>
+    <li class='indexItem indexItem2'><a href='#How_do_I_use_Alien%3A%3ABuild_from_Dist%3A%3AZilla%3F'>How do I use Alien::Build from Dist::Zilla?</a>
+    <li class='indexItem indexItem2'><a href='#Cannot_find_either_a_share_directory_or_a_ConfigData_module'>Cannot find either a share directory or a ConfigData module</a>
+    <li class='indexItem indexItem2'><a href='#I_have_a_question_not_listed_here!'>I have a question not listed here!</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Manual::FAQ - Frequently Asked Questions about Alien::Build</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.75</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<pre class="sh_perl"> perldoc Alien::Build::Manual::FAQ</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This document serves to answer the most frequently asked questions made by developers creating <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> modules using <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="QUESTIONS"
+>QUESTIONS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="What_is_Alien,_Alien::Base_and_Alien::Build?"
+>What is Alien, Alien::Base and Alien::Build?</a></h2>
+
+<p>Alien in a Perl namespace for defining dependencies in CPAN for libraries and tools which are not &#34;native&#34; to CPAN. For a manifesto style description of the Why, and How see <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>. <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> is a base class for the <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> runtime. <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> is a tool for probing the operating system for existing libraries and tools, and downloading, building and installing packages. <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> is a recipe format for describing how to probe, download, build and install a package.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_build_a_package_that_uses_build_system"
+>How do I build a package that uses <i>build system</i></a></h2>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf"
+>autoconf</a></h3>
+
+<p>Use the autoconf plugin (<a href="/pod/Alien/Build/Plugin/Build/Autoconf.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Autoconf</a>). If your package provides a pkg-config <code>.pc</code> file, then you can also use the PkgConfig plugin (<a href="/pod/Alien/Build/Plugin/PkgConfig/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::PkgConfig::Negotiate</a>).</p>
+
+<pre class="sh_perl"> use alienfile
+ plugin PkgConfig =&#62; &#39;libfoo&#39;;
+ share {
+   start_url =&#62; &#39;http://example.org/dist&#39;;
+   plugin Download =&#62; (
+     version =&#62; qr/libfoo-([0-9\.])\.tar\.gz$/,
+   );
+   plugin Extract =&#62; &#39;tar.gz&#39;;
+   plugin &#39;Build::Autoconf&#39;;
+ };</pre>
+
+<p>If you need to provide custom flags to configure, you can do that too:</p>
+
+<pre class="sh_perl"> share {
+   plugin &#39;Build::Autoconf&#39;;
+   build [
+     &#39;%{configure} --disable-shared --enable-foo&#39;,
+     &#39;%{make}&#39;,
+     &#39;%{make} install&#39;,
+   ];
+ };</pre>
+
+<p>If your package requires GNU Make, use <code>%{gmake}</code> instead of <code>%{make}</code>.</p>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf_without_configure_script"
+>autoconf without configure script</a></h3>
+
+<p>A number of Open Source projects are using autotools, but do not provide the <code>configure</code> script. When alienizing these types of packages you have a few choices:</p>
+
+<dl>
+<dt><a name="build_configure_using_autotools"
+>build configure using autotools</a></dt>
+
+<dd>
+<p>The Alien <a href="/pod/Alien/Autotools.html" class="podlinkpod"
+>Alien::Autotools</a> is designed to provide autotools for building such packages from source. The advantage is that this is how the upstream developers intend on having their package built. The downside is that it is also adds more prereqs to your Alien. The silver lining is that if you require this Alien in the <code>share</code> block (as you should), then these prereqs will only be pulled in during a share install when they are needed.</p>
+
+<p>Please see the <a href="/pod/Alien/Autotools.html" class="podlinkpod"
+>Alien::Autotools</a> documentation for specifics on how it can be used in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>.</p>
+
+<dt><a name="patch_the_package_locally_before_build"
+>patch the package locally before build</a></dt>
+
+<dd>
+<p>You can use the <a href="/pod/alienfile.html#patch" class="podlinkpod"
+>&#34;patch&#34; in alienfile</a> directive to patch the alienized package locally before building. This can sometimes be challenging because Autotools uses timestamps in order to decide what needs to be rebuilt, and patching can sometimes confuse it into thinking more needs to be rebuilt than what actually does.</p>
+
+<dt><a name="build_configure_and_tarball"
+>build configure and tarball</a></dt>
+
+<dd>
+<p>You can also build the configure script during development of your alien, generate the tarball and provide it somewhere like GitHub and use that as the source instead of the original source. This should usually be a last resort if the other two methods prove too difficult.</p>
+</dd>
+</dl>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="autoconf-like"
+>autoconf-like</a></h3>
+
+<p>If you see an error like this:</p>
+
+<pre class="sh_perl"> Unknown option &#34;--with-pic&#34;.</pre>
+
+<p>It is because the autoconf plugin uses the <code>--with-pic</code> option by default, since it makes sense most of the time, and autoconf usually ignores options that it does not recognize. Some autoconf style build systems fail when they see an option that they do not recognize. You can turn this behavior off for these packages:</p>
+
+<pre class="sh_perl"> plugin &#39;Build::Autoconf&#39; =&#62; (
+   with_pic =&#62; 0,
+ );</pre>
+
+<p>Another thing about the autoconf plugin is that it uses <code>DESTDIR</code> to do a double staged install. If you see an error like &#34;nothing was installed into destdir&#34;, that means that your package does not support <code>DESTDIR</code>. You should instead use the MSYS plugin and use a command sequence to do the build like this:</p>
+
+<pre class="sh_perl"> share {
+   plugin &#39;Build::MSYS&#39;;
+   build [
+     # explicitly running configure with &#34;sh&#34; will make sure that
+     # it works on windows as well as UNIX.
+     &#39;sh configure --prefix=%{.install.prefix} --disable-shared&#39;,
+     &#39;%{make}&#39;,
+     &#39;%{make} install&#39;,
+   ];
+ };</pre>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="CMake"
+>CMake</a></h3>
+
+<p>There is an alien <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a> that provides <code>cmake</code> 3.x or better (It is preferred to the older <a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
+>Alien::CMake</a>). Though it is recommended that you use the <code>cmake</code> (<a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::CMake</a>) plugin instead of using <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a>.</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ share {
+   plugin &#39;Build::CMake&#39;;
+   build [
+     # this is the default build step, if you do not specify one.
+     [ &#39;%{cmake}&#39;,
+         @{ meta-&#62;prop-&#62;{plugin_build_cmake}-&#62;{args} },
+         # ... put extra cmake args here ...
+         &#39;.&#39;
+     ],
+     &#39;%{make}&#39;,
+     &#39;%{make} install&#39;,
+   ];
+ };</pre>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="vanilla_Makefiles"
+>vanilla Makefiles</a></h3>
+
+<p><a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> provides a helper (<code>%{make}</code>) for the <code>make</code> that is used by Perl and <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> (EUMM). Unfortunately the <code>make</code> supported by Perl and EUMM on Windows (<code>nmake</code> and <code>dmake</code>) are not widely supported by most open source projects. (Thankfully recent perls and EUMM support GNU Make on windows now).</p>
+
+<p>You can use the <code>make</code> plugin (<a href="/pod/Alien/Build/Plugin/Build/Make.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Make</a>) to tell the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> system which make the project that you are alienizing requires.</p>
+
+<pre class="sh_perl"> plugin &#39;Build::Make&#39; =&#62; &#39;umake&#39;;
+ # umake makes %{make} either GNU Make or BSD Make on Unix and GNU Make on Windows.
+ build {
+   build [
+     # You can use the Perl config compiler and cflags using the %{perl.config...} helper
+     [ &#39;%{make}&#39;, &#39;CC=%{perl.config.cc}&#39;, &#39;CFLAGS=%{perl.config.cccdlflags} %{perl.config.optimize}&#39; ],
+     [ &#39;%{make}&#39;, &#39;install&#39;, &#39;PREFIX=%{.install.prefix}&#39; ],
+   ],
+ };</pre>
+
+<p>Some open source projects require GNU Make, and you can specify that, and <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> will be pulled in on platforms that do not already have it.</p>
+
+<pre class="sh_perl"> plugin &#39;Build::Make&#39; =&#62; &#39;gmake&#39;;
+ ...</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_probe_for_a_package_that_uses_pkg-config?"
+>How do I probe for a package that uses pkg-config?</a></h2>
+
+<p>Use the <code>pkg-config</code> plugin (<a href="/pod/Alien/Build/Plugin/PkgConfig/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::PkgConfig::Negotiate</a>):</p>
+
+<pre class="sh_perl"> use alienfile;
+ plugin &#39;PkgConfig&#39; =&#62; (
+   pkg_name =&#62; &#39;libfoo&#39;,
+ );</pre>
+
+<p>It will probe for a system version of the library. It will also add the appropriate <code>version</code> <code>cflags</code> and <code>libs</code> properties on either a <code>system</code> or <code>share</code> install.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_specify_a_minimum_or_exact_version_requirement_for_packages_that_use_pkg-config?"
+>How do I specify a minimum or exact version requirement for packages that use pkg-config?</a></h2>
+
+<p>The various pkg-config plugins all support atleast_version, exact_version and maximum_version fields, which have the same meaning as the <code>pkg-config</code> command line interface:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;PkgConfig&#39;, pkg_name =&#62; &#39;foo&#39;, atleast_version =&#62; &#39;1.2.3&#39;;</pre>
+
+<p>or</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;PkgConfig&#39;, pkg_name =&#62; foo, exact_version =&#62; &#39;1.2.3&#39;;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_probe_for_a_package_that_uses_multiple_.pc_files?"
+>How do I probe for a package that uses multiple .pc files?</a></h2>
+
+<p>Each of the <code>PkgConfig</code> plugins will take an array reference instead of a string:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;PkgConfig&#39; =&#62; ( pkg_name =&#62; [ &#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39; ] );</pre>
+
+<p>The first <code>pkg_name</code> given will be used by default once your alien is installed. To get the configuration for <code>foo</code> and <code>bar</code> you can use the <a href="/pod/Alien/Base.html#alt" class="podlinkpod"
+>Alien::Base alt method</a>:</p>
+
+<pre class="sh_perl"> use Alien::libfoo;
+ 
+ $cflags = Alien::libfoo-&#62;cflags;               # compiler flags for &#39;foo&#39;
+ $cflags = Alien::libfoo-&#62;alt(&#39;bar&#39;)-&#62;cflags ;  # compiler flags for &#39;bar&#39;
+ $cflags = Alien::libfoo-&#62;alt(&#39;baz&#39;)-&#62;cflags ;  # compiler flags for &#39;baz&#39;</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?"
+>How to create an Alien module for packages that do not support pkg-config?</a></h2>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="Packages_that_provide_a_configuration_script"
+>Packages that provide a configuration script</a></h3>
+
+<p>Many packages provide a command that you can use to get the appropriate version, compiler and linker flags. For those packages you can just use the commands in your <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>. Something like this:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ probe [ &#39;foo-config --version&#39; ];
+ 
+ share {
+   ...
+ 
+   build [
+     &#39;%{make} PREFIX=%{.runtime.prefix}&#39;,
+     &#39;%{make} install PREFIX=%{.runtime.prefix}&#39;,
+   ];
+ };
+ 
+ gather [
+   [ &#39;foo-config&#39;, &#39;--version&#39;, \&#39;%{.runtime.version}&#39; ],
+   [ &#39;foo-config&#39;, &#39;--cflags&#39;,  \&#39;%{.runtime.cflags}&#39;  ],
+   [ &#39;foo-config&#39;, &#39;--libs&#39;,    \&#39;%{.runtime.libs}&#39;    ],
+ ];</pre>
+
+<h3><a class='u' href='#___top' title='click to go to top of document'
+name="Packages_that_require_a_compile_test"
+>Packages that require a compile test</a></h3>
+
+<p>Some packages just expect you do know that <code>-lfoo</code> will work. For those you can use the <code>cbuilder</code> plugin (<a href="/pod/Alien/Build/Plugin/Probe/CBuilder.html" class="podlinkpod"
+>Alien::Build::Plugin::Probe::CBuilder</a>).</p>
+
+<pre class="sh_perl"> use alienfile;
+ plugin &#39;Probe::CBuilder&#39; =&#62; (
+   cflags =&#62; &#39;-I/opt/libfoo/include&#39;,
+   libs   =&#62; &#39;-L/opt/libfoo/lib -lfoo&#39;,
+ );
+ 
+ share {
+   ...
+   gather sub {
+     my($build) = @_;
+     my $prefix = $build-&#62;runtime_prop-&#62;{prefix};
+     $build-&#62;runtime_prop-&#62;{cflags} = &#34;-I$prefix/include &#34;;
+     $build-&#62;runtime_prop-&#62;{libs}   = &#34;-L$prefix/lib -lfoo &#34;;
+   };
+ }</pre>
+
+<p>This plugin will build a small program with these flags and test that it works. (There are also options to provide a program that can make simple tests to ensure the library works). If the probe works, it will set the compiler and linker flags. (There are also options for extracting the version from the test program). If you do a share install you will need to set the compiler and linker flags yourself in the gather step, if you aren&#39;t using a build plugin that will do that for you.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Can/Should_I_write_a_tool_oriented_Alien_module?"
+>Can/Should I write a tool oriented Alien module?</a></h2>
+
+<p>Certainly. The original intent was to provide libraries, but tools are also quite doable using the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> toolset. A good example of how to do this is <a href="/pod/Alien/nasm.html" class="podlinkpod"
+>Alien::nasm</a>. You will want to use the &#39;Probe::CommandLine&#39;:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;Probe::CommandLine&#39; =&#62; (
+   command =&#62; &#39;gzip&#39;,
+ );</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_test_my_package_once_it_is_built_(before_it_is_installed)?"
+>How do I test my package once it is built (before it is installed)?</a></h2>
+
+<p>Use <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Test::Alien</a>. It has extensive documentation, and integrates nicely with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_patch_packages_that_need_alterations?"
+>How do I patch packages that need alterations?</a></h2>
+
+<p>If you have a diff file you can use patch:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ probe sub { &#39;share&#39; }; # replace with appropriate probe
+ 
+ share {
+   ...
+   patch [ &#39;%{patch} -p1 &#60; %{.install.patch}/mypatch.diff&#39; ];
+   build [ ... ] ;
+ }
+ 
+ ...</pre>
+
+<p>You can also patch using Perl if that is easier:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ probe sub { &#39;share&#39; };
+ 
+ share {
+   ...
+   patch sub {
+     my($build) = @_;
+     # make changes to source prior to build
+   };
+   build [ ... ];
+ };</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="The_flags_that_a_plugin_produces_are_wrong!"
+>The flags that a plugin produces are wrong!</a></h2>
+
+<p>Sometimes, the compiler or linker flags that the PkgConfig plugin comes up with are not quite right. (Frequently this is actually because a package maintainer is providing a broken <code>.pc</code> file). (Other plugins may also have problems). You could replace the plugin&#39;s <code>gather</code> step but a better way is to provide a subroutine callback to be called after the gather stage is complete. You can do this with the <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> <code>after</code> directive:</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;PkgConfig&#39; =&#62; &#39;libfoo&#39;;
+ 
+ share {
+   ...
+   after &#39;gather&#39; =&#62; sub {
+     my($build) = @_;
+     $build-&#62;runtime_prop-&#62;{libs}        .= &#34; -lbar&#34;;        # libfoo also requires libbar
+     $build-&#62;runtime_prop-&#62;{libs_static} .= &#34; -lbar -lbaz&#34;;  # libfoo also requires libbaz under static linkage
+   };
+ };</pre>
+
+<p>Sometimes you only need to do this on certain platforms. You can adjust the logic based on <code>$^O</code> appropriately.</p>
+
+<pre class="sh_perl"> use alienfile;
+ 
+ plugin &#39;PkgConfig&#39; =&#62; &#39;libfoo&#39;;
+ 
+ share {
+   ...
+   after &#39;gather&#39; =&#62; sub {
+     my($build) = @_;
+     if($^O eq &#39;MSWin32&#39;) {
+       $build-&#62;runtime_prop-&#62;{libs} .= &#34; -lpsapi&#34;;
+     }
+   };
+ };</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="&#34;cannot_open_shared_object_file&#34;_trying_to_load_XS"
+>&#34;cannot open shared object file&#34; trying to load XS</a></h2>
+
+<p>The error looks something like this:</p>
+
+<pre class="sh_perl"> t/acme_alien_dontpanic2.t ....... 1/?
+ # Failed test &#39;xs&#39;
+ # at t/acme_alien_dontpanic2.t line 13.
+ #   XSLoader failed
+ #     Can&#39;t load &#39;/home/cip/.cpanm/work/1581635869.456/Acme-Alien-DontPanic2-2.0401/_alien/tmp/test-alien-lyiQNX/auto/Test/Alien/XS/Mod0/Mod0.so&#39; for module Test::Alien::XS::Mod0: libdontpanic.so.0: cannot open shared object file: No such file or directory at /opt/perl/5.30.1/lib/5.30.1/x86_64-linux/DynaLoader.pm line 193.
+ #  at /home/cip/perl5/lib/perl5/Test/Alien.pm line 414.
+ # Compilation failed in require at /home/cip/perl5/lib/perl5/Test/Alien.pm line 414.
+ # BEGIN failed--compilation aborted at /home/cip/perl5/lib/perl5/Test/Alien.pm line 414.
+ t/acme_alien_dontpanic2.t ....... Dubious, test returned 1 (wstat 256, 0x100)
+ Failed 1/6 subtests
+ t/acme_alien_dontpanic2__ffi.t .. ok</pre>
+
+<p>This error happened at test time for the Alien, but depending on your environment and Alien it might happen later and the actual diagnostic wording might vary.</p>
+
+<p>This is usually because your XS or Alien tries to use dynamic libraries instead of static ones. Please consult the section about dynamic vs. static libraries in <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a>. The TL;DR is that <a href="/pod/Alien/Build/Plugin/Gather/IsolateDynamic.html" class="podlinkpod"
+>Alien::Build::Plugin::Gather::IsolateDynamic</a> might help. If you are the Alien author and the package you are alienizing doesn&#39;t have a static option you can use <a href="/pod/Alien/Role/Dino.html" class="podlinkpod"
+>Alien::Role::Dino</a>, but please note the extended set of caveats!</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="599_Internal_Exception_errors_downloading_packages_from_the_internet"
+>599 Internal Exception errors downloading packages from the internet</a></h2>
+
+<pre class="sh_perl"> Alien::Build::Plugin::Fetch::HTTPTiny&#62; 599 Internal Exception fetching http://dist.libuv.org/dist/v1.15.0
+ Alien::Build::Plugin::Fetch::HTTPTiny&#62; exception: IO::Socket::SSL 1.42 must be installed for https support
+ Alien::Build::Plugin::Fetch::HTTPTiny&#62; exception: Net::SSLeay 1.49 must be installed for https support
+ Alien::Build::Plugin::Fetch::HTTPTiny&#62; An attempt at a SSL URL https was made, but your HTTP::Tiny does not appear to be able to use https.
+ Alien::Build::Plugin::Fetch::HTTPTiny&#62; Please see: https://metacpan.org/pod/Alien::Build::Manual::FAQ#599-Internal-Exception-errors-downloading-packages-from-the-internet
+ error fetching http://dist.libuv.org/dist/v1.15.0: 599 Internal Exception at /Users/ollisg/.perlbrew/libs/perl-5.26.0@test1/lib/perl5/Alien/Build/Plugin/Fetch/HTTPTiny.pm line 68.</pre>
+
+<p>(Older versions of <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> produced a less verbose more confusing version of this diagnostic).</p>
+
+<p>TL;DR, instead of this:</p>
+
+<pre class="sh_perl"> share {
+   start_url =&#62; &#39;http://example.org/dist&#39;;
+   ...
+ };</pre>
+
+<p>do this:</p>
+
+<pre class="sh_perl"> share {
+   start_url =&#62; &#39;https://example.org/dist&#39;;
+ };</pre>
+
+<p>If the website is going to redirect to a secure URL anyway.</p>
+
+<p>The &#34;599 Internal Exception&#34; indicates an &#34;internal&#34; exception from <a href="https://metacpan.org/pod/HTTP%3A%3ATiny" class="podlinkpod"
+>HTTP::Tiny</a> and is not a real HTTP status code or error. This could mean a number of different problems, but most frequently indicates that a SSL request was made without the required modules (<a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
+>Net::SSLeay</a> and <a href="https://metacpan.org/pod/IO%3A%3ASocket%3A%3ASSL" class="podlinkpod"
+>IO::Socket::SSL</a>). Normally the <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="podlinkpod"
+>Alien::Build::Plugin::Download::Negotiate</a> and <a href="/pod/Alien/Build/Plugin/Fetch/HTTPTiny.html" class="podlinkpod"
+>Alien::Build::Plugin::Fetch::HTTPTiny</a> will make sure that the appropriate modules are added to your prerequisites for you if you specify a <code>https</code> URL. Some websites allow an initial request from <code>http</code> but then redirect to <code>https</code>. If you can it is better to specify <code>https</code>, if you cannot, then you can instead use the <code>ssl</code> property on either of those two plugins.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Network_fetch_is_turned_off"
+>Network fetch is turned off</a></h2>
+
+<p>If you get an error like this:</p>
+
+<pre class="sh_perl"> Alien::Build&#62; install type share requested or detected, but network fetch is turned off
+ Alien::Build&#62; see see https://metacpan.org/pod/Alien::Build::Manual::FAQ#Network-fetch-is-turned-off</pre>
+
+<p>This is because your environment is setup not to install aliens that require the network. You can turn network fetch back on by setting <code>ALIEN_INSTALL_NETWORK</code> to true, or by unsetting it. This environment variable is designed for environments that don&#39;t ever want to install aliens that require downloading source packages over the internet.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="I_would_really_prefer_you_not_download_stuff_off_the_internet"
+>I would really prefer you not download stuff off the internet</a></h2>
+
+<p>The idea of <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> is to download missing packages and build them automatically to make installing easier. Some people may not like this, or may even have security requirements that they not download random package over the internet (caveat, downloading random stuff off of CPAN may not be any safer, so make sure you audit all of the open source software that you use appropriately). Another reason you may not want to download from the internet is if you are packaging up an alien for an operating system vendor, which will always want to use the system version of a library. In that situation you don&#39;t want <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> to go off and download something from the internet because the probe failed for some reason.</p>
+
+<p>This is easy to take care of, simply set <code>ALIEN_INSTALL_TYPE</code> to <code>system</code> and a build from source code will never be attempted. On systems that do not provide system versions of the library or tool you will get an error, allowing you to install the library, and retry the alien install. You can also set the environment variable on just some aliens.</p>
+
+<pre class="sh_perl"> % export ALIEN_INSTALL_TYPE=system  # for everyone
+ 
+ % env ALIEN_INSTALL_TYPE=system cpanm -v Alien::libfoo</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="For_testing_I_would_like_to_test_both_system_and_share_installs!"
+>For testing I would like to test both system and share installs!</a></h2>
+
+<p>You can use the <code>ALIEN_INSTALL_TYPE</code> environment variable. It will force either a <code>share</code> or <code>system</code> install depending on how it is set. For travis you can do something like this:</p>
+
+<pre class="sh_perl"> env:
+   matrix:
+     - ALIEN_INSTALL_TYPE=share
+     - ALIEN_INSTALL_TYPE=system</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="How_do_I_use_Alien::Build_from_Dist::Zilla?"
+>How do I use Alien::Build from Dist::Zilla?</a></h2>
+
+<p>For creating <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> based dist from <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
+>Dist::Zilla</a> you can use the dzil plugin <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Cannot_find_either_a_share_directory_or_a_ConfigData_module"
+>Cannot find either a share directory or a ConfigData module</a></h2>
+
+<p>If you see an error like this:</p>
+
+<pre class="sh_perl"> Cannot find either a share directory or a ConfigData module for Alien::libfoo.
+ (Alien::libfoo loaded from lib/Alien/libfoo.pm)
+ Please see https://metacpan.org/pod/distribution/Alien-Build/lib/Alien/Build/Manual/FAQ.pod#Cannot-find-either-a-share-directory-or-a-ConfigData-module
+ Can&#39;t locate Alien/libfoo/ConfigData.pm in @INC (you may need to install the Alien::libfoo::ConfigData module) (@INC contains: ...)</pre>
+
+<p>it means you are trying to use an Alien that hasn&#39;t been properly installed. An <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> based Alien needs to have either the share directory build during the install process or for older legacy <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> based Aliens, a ConfigData module generated by <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
+>Module::Build</a>.</p>
+
+<p>This usually happens if you try to use an Alien module from the lib directory as part of the Alien&#39;s distribution. You need to build the alien and use <code>blib/lib</code> instead of <code>lib</code> or install the alien and use the installed path.</p>
+
+<p>It is also possible that your Alien installer is not set up correctly. Make sure your <code>Makefile.PL</code> is using <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
+>Alien::Build::MM</a> correctly.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="I_have_a_question_not_listed_here!"
+>I have a question not listed here!</a></h2>
+
+<p>There are a number of forums available to people working on <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a>, <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> modules:</p>
+
+<dl>
+<dt><a name="#native_on_irc.perl.org"
+><code>#native</code> on irc.perl.org</a></dt>
+
+<dd>
+<p>This is intended for native interfaces in general so is a good place for questions about <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> generally or <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> specifically.</p>
+
+<dt><a name="mailing_list"
+>mailing list</a></dt>
+
+<dd>
+<p>The <code>perl5-alien</code> google group is intended for <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> issues generally, including <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> and <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a>.</p>
+
+<p><a href="https://groups.google.com/forum/#!forum/perl5-alien" class="podlinkurl"
+>https://groups.google.com/forum/#!forum/perl5-alien</a></p>
+
+<dt><a name="Open_a_support_ticket"
+>Open a support ticket</a></dt>
+
+<dd>
+<p>If you have an issue with <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> itself, then please open a support ticket on the project&#39;s GitHub issue tracker.</p>
+
+<p><a href="https://github.com/PerlAlien/Alien-Build/issues" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Build/issues</a></p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Build::Manual"
+><a href="/pod/Alien/Build/Manual.html" class="podlinkpod"
+>Alien::Build::Manual</a></a></dt>
+
+<dd>
+<p>Other <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> manuals.</p>
+</dd>
+</dl>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<p>Florian Weimer</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>
+        [
+            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://alienfile.org">alienfile.org</a> |
+            <a href="https://pl.atypus.org">pl.atypus.org</a> |
+            <a href="https://perlwasm.github.io">perlwasm</a> |
+            <a href="https://uperl.github.io">uperl</a>
+        ]
+        Copyright &copy; 2022 Graham Ollis
+      </p>
+    </div>
+  </body>
+</html>
