@@ -45,6 +45,7 @@
     <li class='indexItem indexItem2'><a href='#The_flags_that_a_plugin_produces_are_wrong!'>The flags that a plugin produces are wrong!</a>
     <li class='indexItem indexItem2'><a href='#%22cannot_open_shared_object_file%22_trying_to_load_XS'>&#34;cannot open shared object file&#34; trying to load XS</a>
     <li class='indexItem indexItem2'><a href='#599_Internal_Exception_errors_downloading_packages_from_the_internet'>599 Internal Exception errors downloading packages from the internet</a>
+    <li class='indexItem indexItem2'><a href='#Does_not_detect_system_package_even_though_it_is_installed'>Does not detect system package even though it is installed</a>
     <li class='indexItem indexItem2'><a href='#Network_fetch_is_turned_off'>Network fetch is turned off</a>
     <li class='indexItem indexItem2'><a href='#I_would_really_prefer_you_not_download_stuff_off_the_internet'>I would really prefer you not download stuff off the internet</a>
     <li class='indexItem indexItem2'><a href='#For_testing_I_would_like_to_test_both_system_and_share_installs!'>For testing I would like to test both system and share installs!</a>
@@ -68,7 +69,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.76</p>
+<p>version 2.77</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -504,6 +505,14 @@ name="599_Internal_Exception_errors_downloading_packages_from_the_internet"
 >IO::Socket::SSL</a>). Normally the <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="podlinkpod"
 >Alien::Build::Plugin::Download::Negotiate</a> and <a href="/pod/Alien/Build/Plugin/Fetch/HTTPTiny.html" class="podlinkpod"
 >Alien::Build::Plugin::Fetch::HTTPTiny</a> will make sure that the appropriate modules are added to your prerequisites for you if you specify a <code>https</code> URL. Some websites allow an initial request from <code>http</code> but then redirect to <code>https</code>. If you can it is better to specify <code>https</code>, if you cannot, then you can instead use the <code>ssl</code> property on either of those two plugins.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="Does_not_detect_system_package_even_though_it_is_installed"
+>Does not detect system package even though it is installed</a></h2>
+
+<p>This could just be because the alien requires a more recent package that what is provided by your operating system.</p>
+
+<p>It could also be because you do not have the development package installed. Many Linux vendors in particular separate packages into runtime and development pages. On RPM based systems these development packages usually have <code>-devel</code> suffix (example runtime: <code>libffi</code> and development: <code>libffi-devel</code>). On Debian based systems these development packages usually have a <code>-dev</code> suffix (example runtime: <code>libffi</code> and development: <code>libffi-dev</code>).</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="Network_fetch_is_turned_off"
