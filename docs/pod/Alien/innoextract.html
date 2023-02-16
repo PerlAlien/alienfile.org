@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::innoextract</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="https://hatch.wdlabs.com/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::innoextract</div>
+    <!--Alien::innoextract--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
+  <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#innoextract'>innoextract</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::innoextract - Find or build innoextract</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SYNOPSIS"
+>SYNOPSIS</a></h1>
+
+<p>Command line tool:</p>
+
+<pre class="sh_perl"> use Alien::innoextract;
+ use Env qw( @PATH );
+
+ unshift @PATH, Alien::innoextract-&#62;bin_dir;
+ system &#34;@{[ Alien::innoextract-&#62;exe ]}&#34;;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="DESCRIPTION"
+>DESCRIPTION</a></h1>
+
+<p>This distribution provides innoextract so that it can be used by other Perl distributions that are on CPAN. It does this by first trying to detect an existing install of innoextract on your system. If found it will use that. If it cannot be found, the source code will be downloaded from the internet and it will be installed in a private share location for the use of other modules.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HELPERS"
+>HELPERS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="innoextract"
+>innoextract</a></h2>
+
+<pre class="sh_perl"> %{innoextract}</pre>
+
+<p>Returns &#39;innoextract&#39;.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien"
+><a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a></a></dt>
+
+<dd>
+<p>Documentation on the Alien concept itself.</p>
+
+<dt><a name="Alien::Base"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a></a></dt>
+
+<dd>
+<p>The base class for this Alien.</p>
+
+<dt><a name="Alien::Build::Manual::AlienUser"
+><a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
+>Alien::Build::Manual::AlienUser</a></a></dt>
+
+<dd>
+<p>Detailed manual for users of Alien classes.</p>
+</dd>
+</dl>
+
+
+    <div class="nx-footer">
+      <p>
+        [
+            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://alienfile.org">alienfile.org</a> |
+            <a href="https://pl.atypus.org">pl.atypus.org</a> |
+            <a href="https://perlwasm.github.io">perlwasm</a> |
+            <a href="https://uperl.github.io">uperl</a>
+        ]
+        Copyright &copy; 2022 Graham Ollis
+      </p>
+    </div>
+  </body>
+</html>

@@ -920,6 +920,15 @@
       ]
    },
    {
+      "name" : "Alien-innoextract",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/innoextract.html",
+            "name" : "Alien::innoextract"
+         }
+      ]
+   },
+   {
       "name" : "Alien-libpcre",
       "pods" : [
          {
