@@ -49,6 +49,28 @@ name="SYNOPSIS"
  unshift @PATH, Alien::Meson-&#62;bin_dir;
  system &#34;@{[ Alien::Meson-&#62;exe ]}&#34;;</pre>
 
+<p>Use in <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a>:</p>
+
+<pre class="sh_perl">  share {
+    requires &#39;Alien::Meson&#39;;
+    requires &#39;Alien::Ninja&#39;;
+    # ...
+    my $build_dir = &#39;_build&#39;;
+    build [
+      sub {
+        my $build = shift;
+        Alien::Build::CommandSequence-&#62;new([
+          Alien::Meson-&#62;exe, &#39;setup&#39;,
+            &#39;--prefix=%{.install.prefix}&#39;,
+            $build_dir,
+        ])-&#62;execute($build);
+      },
+      [ &#39;%{ninja}&#39;, qw(-C), $build_dir, &#34;test&#34; ],
+      [ &#39;%{ninja}&#39;, qw(-C), $build_dir, &#39;install&#39; ],
+    ];
+  }</pre>
+
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
@@ -76,6 +98,8 @@ name="meson"
 >meson</a></h2>
 
 <pre class="sh_perl"> %{meson}</pre>
+
+<p><b>WARNING</b>: This interpolation is deprecated. This will be removed in a future version as some share installs of Meson are not callable as a single executable (they need to be prefixed with the Python interpreter). Instead use <code>Alien::Meson-&#62;exe</code> directly.</p>
 
 <p>Returns &#39;meson&#39;, &#39;meson.py&#39;, or appropriate command for platform.</p>
 
