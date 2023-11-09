@@ -22,6 +22,7 @@
   <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
   <ul   class='indexList indexList2'>
     <li class='indexItem indexItem2'><a href='#exe'>exe</a>
+    <li class='indexItem indexItem2'><a href='#_apply_destdir_prefix_hack'>_apply_destdir_prefix_hack</a>
   </ul>
   <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
   <ul   class='indexList indexList2'>
@@ -88,6 +89,24 @@ name="exe"
 <pre class="sh_perl"> Alien::Meson-&#62;exe</pre>
 
 <p>Returns the command name for running meson.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="_apply_destdir_prefix_hack"
+>_apply_destdir_prefix_hack</a></h2>
+
+<pre class="sh_perl">  use alienfile;
+
+  eval {
+    require Alien::Meson;
+    Alien::Meson-&#62;_apply_destdir_prefix_hack;
+  };
+
+  share { ... }</pre>
+
+<p>Applies a hack to fix how the <code>DESTDIR</code> and prefix are joined to follow the approach that Meson takes. See issue at <a href="https://github.com/PerlAlien/Alien-Build/issues/407" class="podlinkurl"
+>https://github.com/PerlAlien/Alien-Build/issues/407</a> for more information.</p>
+
+<p><b>WARNING</b>: This is a hack. It is not expected to work long-term and if a better solution is possible, it will be deprecated then removed.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="HELPERS"
