@@ -69,6 +69,7 @@ depending on how you need to use M<Alien::Build> and a FAQ.
 
  * 🗣️ The Perl Conference 2022 : [NewFangled - Bringing NewRelic to Perl with Alien and FFI Technology](/slides/newfangled)
  * 🗣️ The Perl Conference 2022 lightning talk : [Bundling Code With FFI::Platypus - How FFI::C::Stat was born](/slides/ffi-stat)
+ * 🗣️ The Perl Conference 204 : Two Big Bindings and a Little Binding: Perl Bindings 201](slides/perl-bindings-201)
 
 ## External Links
 

@@ -875,6 +875,15 @@
       ]
    },
    {
+      "name" : "Alien-cue",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/cue.html",
+            "name" : "Alien::cue"
+         }
+      ]
+   },
+   {
       "name" : "Alien-curl",
       "pods" : [
          {
@@ -997,6 +1006,15 @@
          {
             "href" : "/pod/Alien/unzip.html",
             "name" : "Alien::unzip"
+         }
+      ]
+   },
+   {
+      "name" : "Alien-xz",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/xz.html",
+            "name" : "Alien::xz"
          }
       ]
    },
