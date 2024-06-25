@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Retro Modern</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .remark-slide-content {
+        padding-top: 4em;
+      }
+
+      div.nx-header-title {
+        position: fixed;
+        top: 0px;
+        left: 20px;
+        width: 100%;
+        font-size: 50px;
+        text-align: left;
+      }
+
+      div.nx-header-flag-1 {
+        background-color: #000000;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff),
+                                                                  color-stop(100%,#005bbb) );
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+        text-align: left;
+      }
+
+      div.nx-header-flag-2 {
+        background-color: #000000;
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff),
+                                                                  color-stop(100%,#ffd500) );
+        position: fixed;
+        top: 29px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+        text-align: left;
+      }
+
+
+      div.nx-footer {
+        font-size: 10pt;
+        text-align: center;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        height: 30px;
+        width: 100%;
+      }
+
+      div.nx-footer p {
+        margin-top: 10px;
+        height: 30px;
+      }
+
+      div.nx-footer img {
+        height: 30px;
+        bottom: 0px;
+        left: 0px;
+        position: fixed;
+      }
+
+      div.nx-hide-bullet li {
+        list-style-type: none;
+        margin: 0;
+        white-space: nowrap;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      img.nx-icon {
+        margin: 0;
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+      }
+
+      img.nx-icon-small {
+        margin: 0;
+        max-width: 16px;
+        max-height: 16px;
+        vertical-align: middle;
+      }
+
+      a {
+        text-decoration: none;
+      }
+      a:link {
+        color: #005bbb;
+      }
+      a:visited {
+        color: #005bbb;
+      }
+      strong { color: orange; }
+      em     { color: green;  }
+
+      sup {
+        color: orange;
+        font-size: 65%;
+      }
+
+      h1 em {
+        font-style: normal;
+      }
+      h2 strong {
+        font-weight: normal;
+      }
+
+      .nx-red-link a, .nx-red-link a:visited {
+        color: red;
+      }
+
+      code {
+        overflow-y: auto;
+        max-height: 400px;
+      }
+
+      table.nx {
+        border-collapse: collapse;
+      }
+
+      table.nx tbody tr th {
+        border-right: 1px solid black;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      table.nx tbody tr td.name {
+        padding-right: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-top: 1px solid black;
+        text-align: left;
+      }
+
+      table.nx tbody tr:last-child td.name {
+        border-bottom: 1px solid black;
+      }
+
+      table.nx tbody tr td {
+        //border: 1px solid black;
+        text-align: center;
+      }
+
+      table.nx tbody tr td.yes {
+        background-color: green;
+        color: white;
+      }
+
+      table.nx tbody tr td.no {
+        background-color: red;
+        color: white;
+      }
+
+      table.nx tbody tr td.na {
+        background-color: lightgray;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: initial-layout
+layout: true
+
+<div class="nx-header-flag-1"></div>
+<div class="nx-header-flag-2"></div>
+<div class="nx-footer">
+  <small>
+    <a href="https://alienfile.org/slides/tinynes">alienfile.org/slides/tinynes</a>
+  </small>
+  /
+  <a href="https://mastodon.social/@plicease">@plicease@mastodon.social</a>
+  /
+  <a href="https://sched.co/1dGrX">The Perl Conference</a>
+  /
+  25 June 2024
+</div>
+
+---
+
+name: title
+class: center, middle
+
+<img src="img/tinynes.jpg" width="300">
+
+# *Retro Modern*
+## TinyNES and Perl
+
+???
+
+...
+
+---
+
+template: initial-layout
+layout: true
+
+<div class="nx-header-title">🌻 Retro Modern</div>
+
+---
+
+class: nx-hide-bullet
+
+<img src="img/plicease.jpg" align="right" width="256" style="margin-top: 20px">
+
+# Graham Ollis
+
+* <img src="img/fastly.svg"   class="nx-icon"> Software Engineer at <span class="nx-red-link">[Fastly](https://fastly.com)</span>
+* <img src="img/mastodon.svg" class="nx-icon"> [@plicease@mastodon.social](https://mastodon.social/@plicease)
+* <img src="img/github.svg"   class="nx-icon"> [github.com/plicease](https://github.com/plicease)
+* <img src="img/perl.svg"     class="nx-icon"> cpan: [PLICEASE](https://metacpan.org/author/PLICEASE)
+* <img src="img/irc.svg"      class="nx-icon"> [\#native](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?) on [irc.perl.org](http://irc.perl.org)
+
+???
+
+Hello, my name is Graham Ollis
+
+I’m a retro programmer.
+
+Although to be clear, when I started my career as a programmer … (last century) … Perl wasn’t considered a retro programming language.
+
+---
+
+class: center
+
+# NES
+
+<img src="img/nes.png" width="600">
+
+???
+
+In my dwindling supply of free time I like to play retro video games.
+
+Although to be clear, when I started playing these games … (last century) … they weren’t considered retro.
+
+This is my favorite retro console, the Nintendo Entertainment System or NES.
+
+A lot of retro gamers prefer the 16 bit Super NES as the greatest console ever made, but for my money the original 8 bit Nintendo plays the best games.
+
+---
+
+# NES Problems
+
+* Zero Insertion Force (ZIF) cartridge slot
+* 10NES lockout chip
+
+???
+
+Problem with the original NES is that it has this unreliable ZIF cartridge slot and a lockout chip both of which tend to glitch rendering the console unusable,
+even with officially licensed Nintendo games.
+
+Time for a quick PSA: don’t blow on the cartridge contacts.
+
+Everyone “knows” that fixes it, but most likely ejecting the cartridge and re-inserting is what fixed it.
+
+And blowing your spittle onto the contacts, in the long run, will likely make the problem worse.
+
+---
+
+# NES Alternatives
+
+* Emulation
+* FPGA
+
+???
+
+So I had just gotten myself a new-old stock CRT television for that accurate 1980s retro gaming vibe, and I was spending a lot of time cleaning cartridges …
+(without the spittle mind you) … but it was still super unreliable and I was in the market for a NES alternative.
+
+In 2024 the main  alternatives are a console that emulates a NES in software or uses an FPGA that does the moral equivalent in hardware.
+
+These don’t offer 100% compatibility with the original NES though,
+
+And unfortunately for my needs most of these modern retro consoles output to HDMI for compatibility with modern TVs.
+
+---
+
+class: center
+
+# What is the Tiny Nostalgia Evocation Square?
+
+<img src="img/tinynes-cart.jpg" width="500">
+
+???
+
+Then I ran into this solution, the Tiny Nostalgia Evocation Square
+
+---
+
+class: center
+
+# TinyNES
+
+<img src="img/tinynes-cart.jpg" width="500">
+
+???
+
+… or TinyNES.  Which is a pretty clever name in my opinion.  And if you pronounce it quickly it sounds like “tinyness”.
+
+Anyway, what does this have to do with Perl?  Well nothing really.
+
+… but like Perl it is open source, meaning you can in theory make one of these yourself.
+
+… and like Perl it has a backronym to justify its name after the fact.
+
+---
+
+class: center
+
+# CPU + PPU
+
+<img src="img/tinynes-open.jpg" width="400">
+
+???
+
+… and like Perl it has retro and modern parts.
+
+Here are the guts of the console,
+
+where you can see a for real 6502 processor and the PPU that give the console nearly 100% reproduction of the original NES experience
+
+… minus the blinking red light.
+
+---
+
+class: center
+
+# Composite Out
+
+<img src="img/tinynes-back.jpg" width="500"></center>
+
+???
+
+… and crucially for me, it outputs composite that goes directly into my retro TV.
+
+---
+
+# Details
+
+* NOT Emulation, NOT an FPGA
+* Small modern shell about the same size of a NES cartridge
+* Works with Famicom carts with an adapter
+* Supports Famicom expansion audio
+* I haven't gotten it to work with the Famicom Disk System (FDS)
+
+???
+
+So to review, this is not emulation or an FPGA,
+
+It is contained in a small modern shell about the same size as a NES cartridge,
+
+It works with Famicom games as well, so  if you, like me, want to import Japanese titles you can.
+
+It even supports the Famicom expansion audio (and Castlevania 3 sounds amazing)
+
+Although I haven’t gotten it to work with the Famicom Disk System
+
+---
+
+class: nx-hide-bullet
+
+# Buy One Today
+
+* <img src="img/www.svg" class="nx-icon"> <a href="https://www.crowdsupply.com/tall-dog-electronics/tinynes">www.crowdsupply.com/tall-dog-electronics/tinynes</a>
+
+???
+
+So yeah.
+
+Buy one today!
+
+I think they are still available on this website.
+
+I don’t get any kickbacks or anything like that, I just really love this console.
+
+---
+
+name: questions
+class: nx-hide-bullet
+
+<img src="img/question.png" align="right" width="256">
+
+# Contact
+
+* <img src="img/www.svg"      class="nx-icon"> <a href="https://alienfile.org/slides/tinynes">alienfile.org/slides/tinynes</a>
+* <img src="img/irc.svg"      class="nx-icon"> [\#native](https://kiwiirc.com/nextclient/#irc://irc.perl.org/#native?nick=mc-guest-?) on [irc.perl.org](http://irc.perl.org)
+* <img src="img/mastodon.svg" class="nx-icon"> [@plicease@mastodon.social](https://mastodon.social/@plicease)
+
+???
+
+If you have any questions, track me down while I am here, or ping me on Mastadon.
+
+---
+
+# <img src="img/fastly.svg" class="nx-icon"> We're Hiring!
+
+???
+
+Oh and by the way, I work at Fastly and we are hiring.
+
+In fact we are currently hiring for a slot on my elite team of Perl and Go developers
+
+so if you enjoy working on interesting problems track me down while I am here.
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        ratio: '16:9',
+        navigation: {
+          scroll: false,
+        },
+        highlightLanguage: 'perl',
+        highlightStyle: 'default',
+        highlightLines: true,
+      });
+    </script>
+  </body>
+</html>
