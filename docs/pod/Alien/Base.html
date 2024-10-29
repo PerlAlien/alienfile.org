@@ -34,6 +34,8 @@
     <li class='indexItem indexItem2'><a href='#max_version'>max_version</a>
     <li class='indexItem indexItem2'><a href='#version_cmp'>version_cmp</a>
     <li class='indexItem indexItem2'><a href='#install_type'>install_type</a>
+    <li class='indexItem indexItem2'><a href='#is_system_install'>is_system_install</a>
+    <li class='indexItem indexItem2'><a href='#is_share_install'>is_share_install</a>
     <li class='indexItem indexItem2'><a href='#config'>config</a>
     <li class='indexItem indexItem2'><a href='#dynamic_libs'>dynamic_libs</a>
     <li class='indexItem indexItem2'><a href='#bin_dir'>bin_dir</a>
@@ -63,7 +65,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.83</p>
+<p>version 2.84</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -356,7 +358,11 @@ name="install_type"
 <pre class="sh_perl"> my $install_type = Alien::MyLibrary-&#62;install_type;
  my $bool = Alien::MyLibrary-&#62;install_type($install_type);</pre>
 
-<p>Returns the install type that was used when <code>Alien::MyLibrary</code> was installed. If a type is provided (the second form in the synopsis) returns true if the actual install type matches. Types include:</p>
+<p>Returns the install type that was used when <code>Alien::MyLibrary</code> was installed.</p>
+
+<p>If a type is provided (the second form in the synopsis) returns true if the actual install type matches. For this use case it is recommended to use <code>is_system_install</code> or <code>is_share_install</code> instead as these are less prone to typographical errors.</p>
+
+<p>Types include:</p>
 
 <dl>
 <dt><a name="system"
@@ -372,6 +378,22 @@ name="install_type"
 <p>The library was not available when <code>Alien::MyLibrary</code> was installed, so it was built from source code, either downloaded from the Internet or bundled with <code>Alien::MyLibrary</code>.</p>
 </dd>
 </dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="is_system_install"
+>is_system_install</a></h2>
+
+<pre class="sh_perl"> my $type = $build-&#62;is_system_install;</pre>
+
+<p>Returns true if the alien is a system install type.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="is_share_install"
+>is_share_install</a></h2>
+
+<pre class="sh_perl"> my $type = $build-&#62;is_share_install;</pre>
+
+<p>Returns true if the alien is a share install type.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="config"
