@@ -108,8 +108,8 @@ name="CAVEATS"
 
 <p>None of this applies to a system install where OpenSSL or LibreSSL is already installed.</p>
 
-<p>Retrieving LibreSSL or OpenSSL via the internet when you do not already have an SSL implementation introduces a bootstrapping problem. Newer versions of <a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a> + <a href="/pod/alienfile.html" class="podlinkpod"
+<p>Retrieving LibreSSL or OpenSSL via the internet when you do not already have an SSL implementation introduces a bootstrapping problem. Newer versions of <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+>Alien::Build</a> + <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
 >alienfile</a> prefer the use of <code>curl</code> over <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
 >Net::SSLeay</a> because on some platforms it is more reliable. Further, this Alien will try to use <code>wget</code>. <code>curl</code> and <code>wget</code> will only be used if they support the <code>https</code> protocol. If neither <code>curl</code>, <code>wget</code> are available and <a href="https://metacpan.org/pod/Net%3A%3ASSLeay" class="podlinkpod"
 >Net::SSLeay</a> isn&#39;t <i>already</i> installed, then this Alien will refuse to install because it has no safe way of retrieving LibreSSL from the internet. You can force an insecure install via <code>ftp</code> or <code>http</code> using the <code>ALIEN_OPENSSL_FTP</code> environment variable below, but that is NOT recommended.</p>
