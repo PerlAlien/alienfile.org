@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Base::ModuleBuild</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::ModuleBuild</div>
     <!--Alien::Base::ModuleBuild--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -101,14 +101,14 @@ name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
 <p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a>s that you use <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> and <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
->alienfile</a> instead. Like this module they work with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
->Alien::Base</a>. Unlike this module they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlienAuthor" class="podlinkpod"
+>Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> instead. Like this module they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a>. Unlike this module they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
 >Alien::Build::Manual::AlienAuthor</a>. Although the Alien-Base / Alien-Build team will continue to maintain this module, (we will continue to fix bugs where appropriate), we aren&#39;t adding any new features to this module.</p>
 
 <p>This is a subclass of <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
->Module::Build</a>, that with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Module::Build</a>, that with <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> allows for easy creation of Alien distributions. This module is used during the build step of your distribution. When properly configured it will</p>
 
 <dl>
@@ -146,7 +146,7 @@ name="alien_check_built_version"
 
 <p>This function determines the version of the library after it has been built from source. This function only gets called if the operating system version can not be found and the package is successfully built. The version is returned on success. If the version can&#39;t be detected then it should return empty list. Note that failing to detect a version is considered a failure and the corresponding <code>./Build</code> action will fail!</p>
 
-<p>Any string is valid as a version as far as <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>Any string is valid as a version as far as <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> is concerned. The most useful value would be a number or dotted decimal that most software developers recognize and that software tools can differentiate. In some cases packages will not have a clear version number, in which case the string <code>unknown</code> would be a reasonable choice.</p>
 
 <p>The default implementation relies on <code>pkg-config</code>, and other heuristics, but you will probably want to override this with your own implementation if the package you are building does not use <code>pkg-config</code>.</p>
@@ -248,13 +248,13 @@ name="GUIDE_TO_DOCUMENTATION"
 <p>This is the document you are currently reading.</p>
 
 <dt><a name="Authoring_Reference_(Alien::Base::Authoring)"
->Authoring Reference (<a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AAuthoring" class="podlinkpod"
+>Authoring Reference (<a href="/pod/Alien/Base/Authoring.html" class="podlinkpod"
 >Alien::Base::Authoring</a>)</a></dt>
 
 <dd>
 <p>This document describes the structure and organization of <code>Alien::Base</code> based projects, beyond that contained in <code>Module::Build::Authoring</code>, and the relevant concepts needed by authors who are writing <em>Build.PL</em> scripts for a distribution or controlling <code>Alien::Base::ModuleBuild</code> processes programmatically.</p>
 
-<p>Note that as it contains information both for the build and use phases of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>Note that as it contains information both for the build and use phases of <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> projects, it is located in the upper namespace.</p>
 
 <dt><a name="API_Reference_(Alien::Base::ModuleBuild::API)"
@@ -266,7 +266,7 @@ name="GUIDE_TO_DOCUMENTATION"
 
 <dt><a name="Using_the_resulting_Alien_(Alien::Build::Manual::AlienUser)"
 >Using the resulting <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> (<a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlienUser" class="podlinkpod"
+>Alien</a> (<a href="/pod/Alien/Build/Manual/AlienUser.html" class="podlinkpod"
 >Alien::Build::Manual::AlienUser</a>)</a></dt>
 
 <dd>
@@ -275,14 +275,14 @@ name="GUIDE_TO_DOCUMENTATION"
 >Alien</a>&#39;s POD, but some authors choose to direct their users to this manual instead.</p>
 
 <dt><a name="Using_Alien::Build_instead_(Alien::Build::Manual)"
->Using <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> instead (<a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual" class="podlinkpod"
+>Using <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> instead (<a href="/pod/Alien/Build/Manual.html" class="podlinkpod"
 >Alien::Build::Manual</a>)</a></dt>
 
 <dd>
-<p>As mentioned at the top, you are encouraged to use the <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> and <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
->alienfile</a> system instead. This manual is a starting point for the other <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+<p>As mentioned at the top, you are encouraged to use the <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>alienfile</a> system instead. This manual is a starting point for the other <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> documentation.</p>
 </dd>
 </dl>
@@ -378,17 +378,17 @@ name="SEE_ALSO"
 
 <dl>
 <dt><a name="Alien::Build"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a></a></dt>
 
 <dd>
 <dt><a name="alienfile"
-><a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+><a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a></a></dt>
 
 <dd>
 <dt><a name="Alien::Build::Manual::AlienAuthor"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlienAuthor" class="podlinkpod"
+><a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
 >Alien::Build::Manual::AlienAuthor</a></a></dt>
 
 <dd>

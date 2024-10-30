@@ -84,8 +84,8 @@ name="DESCRIPTION"
 </dd>
 </dl>
 
-<p>These are guidelines, and this module does not provide an implementation or a framework, because of the diverse nature of non-Perl dependencies on CPAN. The more common cases are handled by the <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
->Alien::Base</a> + <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+<p>These are guidelines, and this module does not provide an implementation or a framework, because of the diverse nature of non-Perl dependencies on CPAN. The more common cases are handled by the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> system, which is recommended if you want to avoid reinventing the wheel. See the <a href="#SEE_ALSO" class="podlinkpod"
 >&#34;SEE ALSO&#34;</a> section below for helpful resources.</p>
 
@@ -93,10 +93,10 @@ name="DESCRIPTION"
 name="CAVEATS"
 >CAVEATS</a></h1>
 
-<p>This section contains some recommendations from my own experience in writing Alien modules and from working on the <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
->Alien::Base</a> + <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> team. The <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> FAQ (<a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AFAQ" class="podlinkpod"
+<p>This section contains some recommendations from my own experience in writing Alien modules and from working on the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> team. The <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> FAQ (<a href="/pod/Alien/Build/Manual/FAQ.html" class="podlinkpod"
 >Alien::Build::Manual::FAQ</a>) also addresses a number of implementation specific gotchas.</p>
 
 <dl>
@@ -111,8 +111,8 @@ name="CAVEATS"
 
 <dd>
 <p>Many open source libraries use <code>autoconf</code> and other Unix focused tools that may not be easily available to the native (non-Cygwin) windows Perl. <a href="/pod/Alien/MSYS.html" class="podlinkpod"
->Alien::MSYS</a> provides just enough of these tools for <code>autoconf</code> and may be sufficient for some other build tools. Also, <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> and <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Alien::MSYS</a> provides just enough of these tools for <code>autoconf</code> and may be sufficient for some other build tools. Also, <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> have hooks to detect <code>autoconf</code> and inject <a href="/pod/Alien/MSYS.html" class="podlinkpod"
 >Alien::MSYS</a> as a requirement on Windows when it is needed.</p>
 
@@ -122,13 +122,13 @@ name="CAVEATS"
 <dd>
 <p>The original Alien documentation recommends the use of <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a> (MB), which at the time was recommended over <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
->ExtUtils::MakeMaker</a> (EUMM). Many Alien distributions have been written using MB. Including the original installer that came with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>ExtUtils::MakeMaker</a> (EUMM). Many Alien distributions have been written using MB. Including the original installer that came with <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>, <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a>. I believe this is because it is an easier build system to adapt to the Alien concept. MB is no longer universally recommended over EUMM, and has been removed from Perl&#39;s core, so if you can, this author recommends using EUMM instead. <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
->Alien::Build</a> and <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AMM" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>. I believe this is because it is an easier build system to adapt to the Alien concept. MB is no longer universally recommended over EUMM, and has been removed from Perl&#39;s core, so if you can, this author recommends using EUMM instead. <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Alien::Build</a> and <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
 >Alien::Build::MM</a> provide tools for creating EUMM based Aliens. Another example worth looking at is <a href="/pod/Alien/pkgconf.html" class="podlinkpod"
->Alien::pkgconf</a>, which uses EUMM, but isn&#39;t based on <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
->Alien::Base</a> or <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+>Alien::pkgconf</a>, which uses EUMM, but isn&#39;t based on <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> or <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a>.</p>
 </dd>
 </dl>
@@ -186,34 +186,34 @@ name="SEE_ALSO"
 
 <dl>
 <dt><a name="Alien::Build::Manual::Alien"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlien" class="podlinkpod"
+><a href="/pod/Alien/Build/Manual/Alien.html" class="podlinkpod"
 >Alien::Build::Manual::Alien</a></a></dt>
 
 <dd>
 <p>Documentation for building <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a>s using the <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
->Alien::Base</a> + <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+>Alien</a>s using the <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> system. Intended for as a starting point for Alien users and Alien authors.</p>
 
 <dt><a name="Alien::Build::Manual::FAQ"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AFAQ" class="podlinkpod"
+><a href="/pod/Alien/Build/Manual/FAQ.html" class="podlinkpod"
 >Alien::Build::Manual::FAQ</a></a></dt>
 
 <dd>
 <p>Quick answers (FAQ) for many common Alien issues.</p>
 
 <dt><a name="Alien::Build"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a></a></dt>
 
 <dd>
 <p>A new installer agnostic Alien builder, intended to replace <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a>. See <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlienAuthor" class="podlinkpod"
->Alien::Build::Manual::AlienAuthor</a> for details on how to create your own <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+>Alien::Base::ModuleBuild</a>. See <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+>Alien::Build::Manual::AlienAuthor</a> for details on how to create your own <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> based Alien.</p>
 
 <dt><a name="Alien::Base"
-><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a></a></dt>
 
 <dd>
@@ -224,7 +224,7 @@ name="SEE_ALSO"
 >#native on irc.perl.org</a></a></dt>
 
 <dd>
-<p>This channel on IRC is dedicated to those interested in using native interfaces in Perl. It is specifically geared to Alien, <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>This channel on IRC is dedicated to those interested in using native interfaces in Perl. It is specifically geared to Alien, <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> and FFI.</p>
 
 <dt><a name="Perl5_Alien_mailing_list"
@@ -232,7 +232,7 @@ name="SEE_ALSO"
 >Perl5 Alien mailing list</a></a></dt>
 
 <dd>
-<p>This mailing list is mainly for <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+<p>This mailing list is mainly for <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a>, and announcements for new versions will be posted there, but general Alien inquires are also welcome.</p>
 
 <dt><a name="https://github.com/PerlAlien"
