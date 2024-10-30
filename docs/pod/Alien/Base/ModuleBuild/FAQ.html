@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::FAQ</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Base::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::FAQ</div>
     <!--Alien::Base::ModuleBuild::FAQ--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -69,15 +69,15 @@ name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
 <p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>Alien</a>s that you use <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+>Alien::Build</a> and <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
 >alienfile</a> instead. Like <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> they work with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>. Unlike <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> they are more easily customized and handle a number of corner cases better. For a good place to start, please see <a href="/pod/Alien/Base/ModuleBuild/API.html" class="podlinkpod"
 >Alien::Base::ModuleBuild::API</a>. Although the Alien-Base / Alien-Build team will continue to maintain this module, (we will continue to fix bugs where appropriate), we aren&#39;t adding any new features to this module.</p>
 
-<p>This document serves to answer the most frequently asked questions made by <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>This document serves to answer the most frequently asked questions made by <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> authors.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -85,7 +85,7 @@ name="What_is_Alien_and_Alien::Base?"
 >What is Alien and Alien::Base?</a></h2>
 
 <p>Alien is a Perl namespace for defining dependencies in CPAN for libraries and tools which are not &#34;native&#34; to CPAN. For a manifesto style description of the Why, and How see <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a>. <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien</a>. <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> is a base class and framework for creating Alien distributions. The idea is to address as many of the common challenges to developing Alien modules in the base class to simplify the process.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -113,7 +113,7 @@ name="How_do_I_specify_a_minimum_or_exact_version_requirement_for_packages_that_
 name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?"
 >How to create an Alien module for packages that do not support pkg-config?</a></h2>
 
-<p>Although <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>Although <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> and <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> assume packages come with a <code>pkg-config</code> <code>.pc</code> file to determine compiler and linker flags by default, you can implement an Alien module for packages that do use <code>pkg-config</code> by following these tasks:</p>
 
@@ -203,10 +203,10 @@ name="How_to_create_an_Alien_module_for_packages_that_do_not_support_pkg-config?
 name="How_do_I_test_my_package_once_it_is_built_(before_it_is_installed)?"
 >How do I test my package once it is built (before it is installed)?</a></h2>
 
-<p>There are many ways to test Alien modules before (or after) they are installed, but instead of rolling your own, consider using <a href="/pod/Test/Alien.html" class="podlinkpod"
+<p>There are many ways to test Alien modules before (or after) they are installed, but instead of rolling your own, consider using <a href="https://metacpan.org/pod/Test%3A%3AAlien" class="podlinkpod"
 >Test::Alien</a> which is light on dependencies and will test your module very closely to the way that it will actually be used. That is to say by building a mini XS or FFI extension and using it. It even has tests for tool oriented Alien distributions (like <a href="/pod/Alien/gmake.html" class="podlinkpod"
 >Alien::gmake</a> and <a href="/pod/Alien/patch.html" class="podlinkpod"
->Alien::patch</a>). Here is a short example, there are many others included with the <a href="/pod/Test/Alien.html" class="podlinkpod"
+>Alien::patch</a>). Here is a short example, there are many others included with the <a href="https://metacpan.org/pod/Test%3A%3AAlien" class="podlinkpod"
 >Test::Alien</a> documentation:</p>
 
 <pre class="sh_perl"> use Test2::V0;
@@ -491,7 +491,7 @@ name="Can/Should_I_write_a_tool_oriented_Alien_module_using_Alien::Base_that_pro
  
  1;</pre>
 
-<p>As usual your <code>Alien::MyTool</code> class will simply be a subclass of <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>As usual your <code>Alien::MyTool</code> class will simply be a subclass of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>. If you tool is installed in a <code>bin</code> directory, you are done, the default <code>bin_dir</code> implementation should work for you. Otherwise you may need to provide an alternate implementation:</p>
 
 <pre class="sh_perl"> package Alien::MyTool;
@@ -531,7 +531,7 @@ name="Can/Should_I_write_a_tool_oriented_Alien_module_using_Alien::Base_that_pro
 name="How_do_I_use_Alien::Base_from_Dist::Zilla"
 >How do I use <code>Alien::Base</code> from <code>Dist::Zilla</code></a></h2>
 
-<p>For creating <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>For creating <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> based dists from <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
 >Dist::Zilla</a> you can use the plugin <a href="/pod/Dist/Zilla/Plugin/Alien.html" class="podlinkpod"
 >Dist::Zilla::Plugin::Alien</a>.</p>
@@ -566,9 +566,9 @@ name="How_do_I_check_the_built_version_if_my_library_doesn&#39;t_provide_a_.pc_f
  1;</pre>
 
 <p>Using <a href="https://metacpan.org/pod/File%3A%3Achdir" class="podlinkpod"
->File::chdir</a> and <code>@CWD</code> is a common idiom in <a href="/pod/Alien/Base.html" class="podlinkpod"
+>File::chdir</a> and <code>@CWD</code> is a common idiom in <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>, because <a href="https://metacpan.org/pod/File%3A%3Achdir" class="podlinkpod"
->File::chdir</a> is already a dependency of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>File::chdir</a> is already a dependency of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>. For packages that do not provide a version number in the extracted directory, you may require some creativity.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -576,7 +576,7 @@ name="I_have_question_not_listed_here!"
 >I have question not listed here!</a></h2>
 
 <p>There are a number of forums available to people working on <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> and <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien</a> and <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> modules:</p>
 
 <dl>
@@ -585,7 +585,7 @@ name="I_have_question_not_listed_here!"
 
 <dd>
 <p>This is intended for native interfaces in general and so is a good place for questions about <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> generally or <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien</a> generally or <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> specifically.</p>
 
 <dt><a name="mailing_list"
@@ -593,7 +593,7 @@ name="I_have_question_not_listed_here!"
 
 <dd>
 <p>The <code>perl5-alien</code> google group is intended for <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a> issues generally, including <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien</a> issues generally, including <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>.</p>
 
 <p><a href="https://groups.google.com/forum/#!forum/perl5-alien" class="podlinkurl"
@@ -603,7 +603,7 @@ name="I_have_question_not_listed_here!"
 >Open a support ticket</a></dt>
 
 <dd>
-<p>If you have an issue with <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>If you have an issue with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> itself, then please open a support ticket on the project&#39;s GitHub issue tracker.</p>
 
 <p><a href="https://github.com/PerlAlien/Alien-Base-ModuleBuild/issues" class="podlinkurl"
@@ -616,7 +616,7 @@ name="SEE_ALSO"
 >SEE ALSO</a></h1>
 
 <ul>
-<li><a href="/pod/Alien/Base.html" class="podlinkpod"
+<li><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a></li>
 
 <li><a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"

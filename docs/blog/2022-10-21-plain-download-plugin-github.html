@@ -16,7 +16,7 @@
 
 <p>Recently, GitHub changed their release pages such that the download
 links are no longer parseable without JavaScript.  This unfortunately
-breaks the use of the plain <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="module">Download negotiation plugin</a>
+breaks the use of the plain <a href="https://metacpan.org/pod/Alien::Build::Plugin::Download::Negotiate" class="module">Download negotiation plugin</a>
 which picks the best plugins to download and parse the HTML to get the
 download links.  The symptom is that your <a href="/pod/Alien.html" class="module">Alien</a> which was previously
 working dies on a diagnostic like this:</p>
@@ -52,7 +52,7 @@ something like this:</p>
 </pre></p>
 
 <p>Note that you no longer need to specify a <code>start_url</code> or the
-<a href="/pod/Alien/Build/Plugin/Extract/Negotiate.html" class="module">Extract negotiation plugin</a>,
+<a href="https://metacpan.org/pod/Alien::Build::Plugin::Extract::Negotiate" class="module">Extract negotiation plugin</a>,
 because the <a href="/pod/Alien/Build/Plugin/Download/GitHub.html" class="module">Download::GitHub plugin</a>
 does that for you.</p>
 
