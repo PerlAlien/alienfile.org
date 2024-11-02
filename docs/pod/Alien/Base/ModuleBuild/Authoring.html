@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Base.html">Base</a>::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::Authoring</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Base::<a href="/pod/Alien/Base/ModuleBuild.html">ModuleBuild</a>::Authoring</div>
     <!--Alien::Base::ModuleBuild::Authoring--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -53,16 +53,16 @@ name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
 <p><b>NOTE</b>: Please consider for new development of <a href="/pod/Alien.html" class="podlinkpod"
->Alien</a>s that you use <a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a> and <a href="/pod/alienfile.html" class="podlinkpod"
+>Alien</a>s that you use <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+>Alien::Build</a> and <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
 >alienfile</a> instead.
 Like <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a> they work with <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::Base::ModuleBuild</a> they work with <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>.
 Unlike <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
 >Alien::Base::ModuleBuild</a> they are more easily customized and handle a number of corner cases better.
 For a good place to start,
-please see <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="podlinkpod"
+please see <a href="https://metacpan.org/pod/Alien%3A%3ABuild%3A%3AManual%3A%3AAlienAuthor" class="podlinkpod"
 >Alien::Build::Manual::AlienAuthor</a>.
 Although the Alien-Base / Alien-Build team will continue to maintain this module,
 (we will continue to fix bugs where appropriate),
@@ -73,14 +73,14 @@ You have made the decision to help the Perl community by providing a C library v
 The <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a> namespace has been instrumental in providing C libraries for many years,
 but authoring those modules has been a commitment that most authors weren&#39;t willing to take on.
-<a href="/pod/Alien/Base.html" class="podlinkpod"
+<a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> tries to ease that pain by providing most of the needed functionality; usually authors should only need a little boilerplate and configuration!</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="STATUS"
 >STATUS</a></h1>
 
-<p><a href="/pod/Alien/Base.html" class="podlinkpod"
+<p><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> is under active development.
 The API is relatively stable,
 although breaking changes may be introduced if the rewards are deemed greater than the pains that they produce.</p>
@@ -89,7 +89,7 @@ although breaking changes may be introduced if the rewards are deemed greater th
 name="ECOSYSTEM"
 >ECOSYSTEM</a></h1>
 
-<p>The <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>The <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> ecosystem is made up of several elements.
 Some of these elements are the base classes in the distribution itself.
 Of course,
@@ -131,8 +131,8 @@ which is what supports the building and installing of the surrounding <code>Alie
 name="Alien::Base"
 >Alien::Base</a></h2>
 
-<p><a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> is the base class of <code>Alien::MyLibrary</code>. In this context, <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Alien::Base</a> is the base class of <code>Alien::MyLibrary</code>. In this context, <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> has two distinct uses. First it is used by <code>Alien::MyLibrary</code> to provide the build information/flags for building <code>Some::Module::MyLibrary</code>. Secondly it is used (again through <code>Alien::MyLibrary</code>) to provide run-time access to <em>libmylibrary.so</em> to <code>Some::Module::MyLibrary</code>.</p>
 
 <h3><a class='u' href='#___top' title='click to go to top of document'
@@ -159,7 +159,7 @@ name="Alien::Base_for_Building"
 name="Alien::Base_for_Run-Time_Provision"
 >Alien::Base for Run-Time Provision</a></h3>
 
-<p><code>Alien::MyLibrary</code> must be a subclass of <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p><code>Alien::MyLibrary</code> must be a subclass of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>. This provides the <code>import</code> method, which does the run-time provisioning so that when the XS file is loaded, it can find <em>libmylibrary.so</em>. The <code>import</code> method does this by pre-loading the library via <code>DynaLoader::dl_load_file</code> which is a platform-independent wrapper for <code>dlopen</code> or your system&#39;s equivalent. It no longer appends to <code>$ENV{LD_RUN_PATH}</code>.</p>
 
 <pre class="sh_perl"> # file: Alien-MyLibrary/lib/Alien/MyLibrary.pm
@@ -199,7 +199,7 @@ name="EXAMPLES"
 >Acme::Alien::DontPanic</a> to locate/load it.</li>
 </ul>
 
-<p>Additionally, there exist in-production <code>Alien::</code> distributions that serve as de-facto tests of <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>Additionally, there exist in-production <code>Alien::</code> distributions that serve as de-facto tests of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>&#39;s networking components:</p>
 
 <ul>
@@ -210,7 +210,7 @@ name="EXAMPLES"
 >Alien::GSL</a> -- Builds and installs <em>libgsl</em>, acquiring the library source archive via <code>Alien::Base::Repository::FTP</code>.</li>
 
 <li><a href="/pod/Alien/gmake.html" class="podlinkpod"
->Alien::gmake</a> -- Builds and installs GNU make. Rather than being a library, this is a tool used to build other tools and libraries. It is useful for other Alien modules that require the GNU version of make. It also demonstrates the use of <a href="/pod/Alien/Base.html" class="podlinkpod"
+>Alien::gmake</a> -- Builds and installs GNU make. Rather than being a library, this is a tool used to build other tools and libraries. It is useful for other Alien modules that require the GNU version of make. It also demonstrates the use of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> for providing tools rather than libraries.</li>
 </ul>
 
@@ -225,10 +225,10 @@ name="SEE_ALSO"
 <li><a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a></li>
 
-<li><a href="/pod/Alien/Base.html" class="podlinkpod"
+<li><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a></li>
 
-<li><a href="/pod/Alien/Base/FAQ.html" class="podlinkpod"
+<li><a href="https://metacpan.org/pod/Alien%3A%3ABase%3A%3AFAQ" class="podlinkpod"
 >Alien::Base::FAQ</a></li>
 </ul>
 

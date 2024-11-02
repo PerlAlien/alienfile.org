@@ -29,7 +29,7 @@
 
 <p>Recently, GitHub changed their release pages such that the download
 links are no longer parseable without JavaScript.  This unfortunately
-breaks the use of the plain <a href="/pod/Alien/Build/Plugin/Download/Negotiate.html" class="module">Download negotiation plugin</a>
+breaks the use of the plain <a href="https://metacpan.org/pod/Alien::Build::Plugin::Download::Negotiate" class="module">Download negotiation plugin</a>
 which picks the best plugins to download and parse the HTML to get the
 download links.  The symptom is that your <a href="/pod/Alien.html" class="module">Alien</a> which was previously
 working dies on a diagnostic like this:</p>
@@ -54,7 +54,7 @@ something like this:</p>
 <p>By <b>Graham Ollis</b> on 13 June 2017</p>
 
 <p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">A while back</a> I introduced
-the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context
+the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides in a CPAN context
 the tool <code>xz</code> and the library <code>liblzma</code>.  I also went over how to test it with <a href="/pod/App/af.html" class="module">App::af</a>.
 <a href="http://blogs.perl.org/users/graham_ollis/2017/04/integrating-alienfile.html">The week after that</a>
 I showed how to integrate that alienfile into a fully functioning <a href="/pod/Alien.html" class="module">Alien</a> called <a href="/pod/Alien/xz.html" class="module">Alien::xz</a>
@@ -81,19 +81,19 @@ need real LZMA support you should probably use <a href="https://metacpan.org/pod
 <p>By <b>Graham Ollis</b> on 4 April 2017</p>
 
 <p><a href="http://blogs.perl.org/users/graham_ollis/2017/03/alienfile.html">Last week</a> I
-introduced the <a href="/pod/alienfile.html" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the
+introduced the <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> recipe system and we wrote a simple alienfile that provides the
 tool <code>xz</code> and the library <code>liblzma</code>.  I also showed how to test it using <a href="/pod/App/af.html" class="module">App::af</a>. Today we
 are going to take that alienfile and integrate it into a fully functional <a href="/pod/Alien.html" class="module">Alien</a>
 distribution.</p>
 
-<p>The main motiviation for <a href="/pod/alienfile.html" class="module">alienfile</a> + <a href="/pod/Alien/Build.html" class="module">Alien::Build</a> was to separate the alien detection
+<p>The main motiviation for <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> + <a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a> was to separate the alien detection
 and installer code from the perl installer code.  (In fact your alienfile is fully usable
 without any Perl installer at all; you can use your alienfile from a Perl script or Perl
 module using Alien::Build directly).</p>
 
-<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="/pod/Alien/Build/MM.html" class="module">Alien::Build::MM</a> to provide
+<p>For our Alien, we will be creating <code>Alien-xz</code>, and we will use <a href="https://metacpan.org/pod/Alien::Build::MM" class="module">Alien::Build::MM</a> to provide
 the thin layer of functionality needed between <a href="https://metacpan.org/pod/ExtUtils::MakeMaker" class="module">ExtUtils::MakeMaker</a> (EUMM) and
-<a href="/pod/Alien/Build.html" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
+<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  This is what our <code>Makefile.PL</code> should look like:</p>
 
 <pre class="sh_perl">
 use strict;
@@ -140,8 +140,8 @@ sub MY::postamble {
 
 <p>By <b>Graham Ollis</b> on 28 March 2017</p>
 
-<p><a href="/pod/Alien/Base.html" class="module">Alien::Base</a> was first released in alpha form five years ago this month!  The good things
-that <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> (runtime) and <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> (its installer ABMB) did when
+<p><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> was first released in alpha form five years ago this month!  The good things
+that <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> (runtime) and <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> (its installer ABMB) did when
 it was unleashed on the world are many, but chiefly:</p>
 
 <ol>
@@ -171,18 +171,18 @@ world).</p></li>
 
 <p>By <b>Graham Ollis</b> on 23 March 2017</p>
 
-<p>I have been working on the next generation of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> installer which is called
-<a href="/pod/Alien/Build.html" class="module">Alien::Build</a>.  It is already quite usable, and I encourage it's use for anyone who is
+<p>I have been working on the next generation of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> installer which is called
+<a href="https://metacpan.org/pod/Alien::Build" class="module">Alien::Build</a>.  It is already quite usable, and I encourage it's use for anyone who is
 considering building a new Alien modules.  It may also be useful to migrate existing Aliens,
 if they have requirements that can utilize its unique features.  The main idea is to
-concentrate the recipe for discovery and building of a library into an <a href="/pod/alienfile.html" class="module">alienfile</a> which is
+concentrate the recipe for discovery and building of a library into an <a href="https://metacpan.org/pod/alienfile" class="module">alienfile</a> which is
 separate from the Perl installer (usually ExtUtils::MakeMaker or Module::Build).  Over the
 next few weeks I intend on writing a little about some of the new features of Alien::Build.
-In the meantime, if you are interested, <a href="/pod/Alien/Build/Manual/AlienAuthor.html" class="module">Alien::Build::Manual::AlienAuthor</a> may help you get
+In the meantime, if you are interested, <a href="https://metacpan.org/pod/Alien::Build::Manual::AlienAuthor" class="module">Alien::Build::Manual::AlienAuthor</a> may help you get
 started.</p>
 
 <p>A year ago I mentioned that we were planning on spinning <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> (AB::MB)
-off from the main <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> distribution.  Now that we have a viable alternative, we
+off from the main <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> distribution.  Now that we have a viable alternative, we
 plan to split AB::MB off into its own distribution next week.  Alien::Base will specify
 AB::MB as a prerequisite, until the first of October 2017.  At that time it will be removed
 as a prerequisite and if you are using AB::MB you will need to specify it as a
@@ -202,19 +202,19 @@ been fixed, you will receive an error message like this:</p>
 
 <p>By <b>Graham Ollis</b> on 1 March 2016</p>
 
-<p>TL;DR - if you have an <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> module, please
+<p>TL;DR - if you have an <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based <a href="/pod/Alien.html" class="module">Alien</a> module, please
 update configure_requires so that it depends on
-<a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> instead of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>, and (this part is
+<a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a> instead of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>, and (this part is
 key) make a release.</p>
 
 <p>This is technically more correct, and it will also future proof your
 module in the event that <a href="/pod/Alien/Base/ModuleBuild.html" class="module">Alien::Base::ModuleBuild</a>
-gets spun off from the rest of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.  There are
+gets spun off from the rest of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.  There are
 a number of motivations making such a move.  Please join us on
 <a href="https://github.com/Perl5-Alien/Alien-Base/issues/157">GitHub</a>
 or the
 <a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native IRC channel</a>
-if are interested in working on the next generation of of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>.</p>
+if are interested in working on the next generation of of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>.</p>
 
 <p><a href="2016-03-01-alien-base-and-module-build.html">... read more</a></p>
 
@@ -252,7 +252,7 @@ what is great about Open Source when it works.</p>
 
 <p>By <b>Graham Ollis</b> on 29 July 2015</p>
 
-<p>The <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> (AB) team has done a number of things over the past
+<p>The <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> (AB) team has done a number of things over the past
 year with AB to make the installing packages more reliable.  For AB
 based Alien developers who have created their own Alien::Libfoo this is
 great because they get the benefit of more reliable installs when users
@@ -292,15 +292,15 @@ your AB based Alien distribution may be as simple replacing
 <p>By <b>Graham Ollis</b> on 22 July 2015</p>
 
 <p>Last week I promised (or threatened depending on your outlook) to talk
-about <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> in the context of system integration and
+about <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> in the context of system integration and
 distribution packagers.</p>
 
 <h3>Philosophy:</h3>
 
-<p>The philosophy for <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> has always been that the system
+<p>The philosophy for <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> has always been that the system
 library should be used when it is available, and if not, the source code
 for that library can be downloaded and installed for you.  My own
-<a href="https://pl.atypus.org/pod/Alien/FFI.html" class="module">Alien::FFI</a> (isa <a href="/pod/Alien/Base.html" class="module">Alien::Base</a>) which provides
+<a href="https://pl.atypus.org/pod/Alien/FFI.html" class="module">Alien::FFI</a> (isa <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a>) which provides
 <a href="https://sourceware.org/libffi/">libffi</a>, and <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> which
 uses it is a good example of the success of this approach as you can see
 from their respective
@@ -318,7 +318,7 @@ from their respective
 
 <p>By <b>Graham Ollis</b> on 15 July 2015</p>
 
-<p>This week we rolled out the latest version of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> which
+<p>This week we rolled out the latest version of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> which
 includes a new feature and a bug fix.  The most important change in this
 version are the two new avenues of communication that we have adopted,
 so I will discuss that first.</p>
@@ -326,7 +326,7 @@ so I will discuss that first.</p>
 <p>The first is that we have established the
 <a href="https://chat.mibbit.com/?channel=%23native&amp;server=irc.perl.org">#native</a>
 channel on irc.perl.org to discuss interactions with native interfaces.
-This includes <a href="/pod/Alien.html" class="module">Alien</a> in general, <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> specifically, and we
+This includes <a href="/pod/Alien.html" class="module">Alien</a> in general, <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> specifically, and we
 also intend it to be a place to discuss <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> (Foreign
 Function Interface or <a href="https://metacpan.org/pod/NativeCall" class="module">NativeCall</a>), as there is a degree of overlap
 for the people involved.  You can now click on a big red button from the
@@ -335,10 +335,10 @@ to start asking questions (or complain at us if that is what needs
 doing).</p>
 
 <p>The second communication improvement is the creation of an Alien::Base
-FAQ (see <a href="/pod/Alien/Base/FAQ.html" class="module">Alien::Base::FAQ</a>).  I promised this last year but only
+FAQ (see <a href="https://metacpan.org/pod/Alien::Base::FAQ" class="module">Alien::Base::FAQ</a>).  I promised this last year but only
 recently got around to writing it.  It consists of a number of questions
 (and corresponding answers) that I personally had when I was trying to
-figure out how to develop my own <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> based Alien
+figure out how to develop my own <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> based Alien
 distributions.  I’m hoping this guide will help those that are getting
 started now.</p>
 
@@ -353,16 +353,16 @@ started now.</p>
 
 <p>By <b>Graham Ollis</b> on 22 April 2015.</p>
 
-<p><a href="/pod/Alien/Base.html" class="module">Alien::Base</a> has made a great deal of progress since last September when
+<p><a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> has made a great deal of progress since last September when
 Joel Berger turned over day to day development for the project to the
-then newly created <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> team.  We’ve closed most of the major
+then newly created <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> team.  We’ve closed most of the major
 issues and pull requests.  One remaining important issue will hopefully
-be solved soon (I will get to that later; if you are an <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> user
+be solved soon (I will get to that later; if you are an <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> user
 you may want to skip to <b>The Future</b> below).  Stability and
 reliability has improved to the point where it is good enough to be used
-by real projects.  My own <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> depends on <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> tech to
+by real projects.  My own <a href="https://pl.atypus.org/pod/FFI/Platypus.html" class="module">FFI::Platypus</a> depends on <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> tech to
 provide libffi, as an example.  I’d like to see some other projects take
-advantage of <a href="/pod/Alien/Base.html" class="module">Alien::Base</a> as well.</p>
+advantage of <a href="https://metacpan.org/pod/Alien::Base" class="module">Alien::Base</a> as well.</p>
 
 <p>What have we fixed?  A number of things:</p>
 
