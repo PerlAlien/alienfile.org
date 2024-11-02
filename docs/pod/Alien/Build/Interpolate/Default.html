@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Alien::Build::Interpolate::Default</title>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
+    <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
+    <link type="text/css" rel="stylesheet" href="https://hatch.wdlabs.com/css/default.css">
+  </head>
+  <body onload="sh_highlightDocument();">
+    <div class="nx-header-flag-1"></div>
+    <div class="nx-header-flag-2"></div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Interpolate.html">Interpolate</a>::Default</div>
+    <!--Alien::Build::Interpolate::Default--><a name='___top' class='dummyTopAnchor' ></a>
+
+<div class='indexgroup'>
+<ul   class='indexList indexList1'>
+  <li class='indexItem indexItem1'><a href='#NAME'>NAME</a>
+  <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
+  <li class='indexItem indexItem1'><a href='#CONSTRUCTOR'>CONSTRUCTOR</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#new'>new</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#ar'>ar</a>
+    <li class='indexItem indexItem2'><a href='#bison'>bison</a>
+    <li class='indexItem indexItem2'><a href='#bzip2'>bzip2</a>
+    <li class='indexItem indexItem2'><a href='#cc'>cc</a>
+    <li class='indexItem indexItem2'><a href='#cmake'>cmake</a>
+    <li class='indexItem indexItem2'><a href='#cp'>cp</a>
+    <li class='indexItem indexItem2'><a href='#devnull'>devnull</a>
+    <li class='indexItem indexItem2'><a href='#flex'>flex</a>
+    <li class='indexItem indexItem2'><a href='#gmake'>gmake</a>
+    <li class='indexItem indexItem2'><a href='#install'>install</a>
+    <li class='indexItem indexItem2'><a href='#ld'>ld</a>
+    <li class='indexItem indexItem2'><a href='#m4'>m4</a>
+    <li class='indexItem indexItem2'><a href='#make'>make</a>
+    <li class='indexItem indexItem2'><a href='#make_path'>make_path</a>
+    <li class='indexItem indexItem2'><a href='#nasm'>nasm</a>
+    <li class='indexItem indexItem2'><a href='#patch'>patch</a>
+    <li class='indexItem indexItem2'><a href='#perl'>perl</a>
+    <li class='indexItem indexItem2'><a href='#pkgconf'>pkgconf</a>
+    <li class='indexItem indexItem2'><a href='#cwd'>cwd</a>
+    <li class='indexItem indexItem2'><a href='#sh'>sh</a>
+    <li class='indexItem indexItem2'><a href='#rm'>rm</a>
+    <li class='indexItem indexItem2'><a href='#xz'>xz</a>
+  </ul>
+  <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
+  <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
+</ul>
+</div>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NAME"
+>NAME</a></h1>
+
+<p>Alien::Build::Interpolate::Default - Default interpolator for Alien::Build</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="VERSION"
+>VERSION</a></h1>
+
+<p>version 2.84</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="CONSTRUCTOR"
+>CONSTRUCTOR</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="new"
+>new</a></h2>
+
+<pre class="sh_perl"> my $intr = Alien::Build::Interpolate::Default-&#62;new;</pre>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="HELPERS"
+>HELPERS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="ar"
+>ar</a></h2>
+
+<pre class="sh_perl"> %{ar}</pre>
+
+<p>The ar command.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bison"
+>bison</a></h2>
+
+<pre class="sh_perl"> %{bison}</pre>
+
+<p>Requires: <a href="/pod/Alien/bison.html" class="podlinkpod"
+>Alien::bison</a> 0.17 if not already in <code>PATH</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bzip2"
+>bzip2</a></h2>
+
+<pre class="sh_perl"> %{bzip2}</pre>
+
+<p>Requires: <a href="/pod/Alien/Libbz2.html" class="podlinkpod"
+>Alien::Libbz2</a> 0.04 if not already in <code>PATH</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cc"
+>cc</a></h2>
+
+<pre class="sh_perl"> %{cc}</pre>
+
+<p>The C Compiler used to build Perl</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cmake"
+>cmake</a></h2>
+
+<pre class="sh_perl"> %{cmake}</pre>
+
+<p>Requires: <a href="https://metacpan.org/pod/Alien%3A%3ACMake" class="podlinkpod"
+>Alien::CMake</a> 0.07 if cmake is not already in <code>PATH</code>.</p>
+
+<p>Deprecated: Use the <a href="/pod/Alien/Build/Plugin/Build/CMake.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::CMake</a> plugin instead (which will replace this helper with one that works with <a href="/pod/Alien/cmake3.html" class="podlinkpod"
+>Alien::cmake3</a> that works better).</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cp"
+>cp</a></h2>
+
+<pre class="sh_perl"> %{cp}</pre>
+
+<p>The copy command.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="devnull"
+>devnull</a></h2>
+
+<pre class="sh_perl"> %{devnull}</pre>
+
+<p>The null device, if available. On Unix style operating systems this will be <code>/dev/null</code> on Windows it is <code>NUL</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="flex"
+>flex</a></h2>
+
+<pre class="sh_perl"> %{flex}</pre>
+
+<p>Requires: <a href="/pod/Alien/flex.html" class="podlinkpod"
+>Alien::flex</a> 0.08 if not already in <code>PATH</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="gmake"
+>gmake</a></h2>
+
+<pre class="sh_perl"> %{gmake}</pre>
+
+<p>Requires: <a href="/pod/Alien/gmake.html" class="podlinkpod"
+>Alien::gmake</a> 0.11</p>
+
+<p>Deprecated: use <a href="/pod/Alien/Build/Plugin/Build/Make.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::Make</a> instead.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install"
+>install</a></h2>
+
+<pre class="sh_perl"> %{install}</pre>
+
+<p>The Unix <code>install</code> command. Not normally available on Windows.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="ld"
+>ld</a></h2>
+
+<pre class="sh_perl"> %{ld}</pre>
+
+<p>The linker used to build Perl</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="m4"
+>m4</a></h2>
+
+<pre class="sh_perl"> %{m4}</pre>
+
+<p>Requires: <a href="/pod/Alien/m4.html" class="podlinkpod"
+>Alien::m4</a> 0.08</p>
+
+<p><a href="/pod/Alien/m4.html" class="podlinkpod"
+>Alien::m4</a> should pull in a version of <code>m4</code> that will work with Autotools.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="make"
+>make</a></h2>
+
+<pre class="sh_perl"> %{make}</pre>
+
+<p>Make. On Unix this will be the same make used by Perl. On Windows this will be <code>gmake</code> or <code>nmake</code> if those are available, and only <code>dmake</code> if the first two are not available.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="make_path"
+>make_path</a></h2>
+
+<pre class="sh_perl"> %{make_path}</pre>
+
+<p>Make directory, including all parent directories as needed. This is usually <code>mkdir -p</code> on Unix and simply <code>md</code> on windows.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="nasm"
+>nasm</a></h2>
+
+<pre class="sh_perl"> %{nasm}</pre>
+
+<p>Requires: <a href="/pod/Alien/nasm.html" class="podlinkpod"
+>Alien::nasm</a> 0.11 if not already in the <code>PATH</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="patch"
+>patch</a></h2>
+
+<pre class="sh_perl"> %{patch}</pre>
+
+<p>Requires: <a href="/pod/Alien/patch.html" class="podlinkpod"
+>Alien::patch</a> 0.09 if not already in the <code>PATH</code>.</p>
+
+<p>On Windows this will normally render <code>patch --binary</code>, which makes patch work like it does on Unix.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="perl"
+>perl</a></h2>
+
+<pre class="sh_perl"> %{perl}</pre>
+
+<p>Requires: <a href="https://metacpan.org/pod/Devel%3A%3AFindPerl" class="podlinkpod"
+>Devel::FindPerl</a></p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="pkgconf"
+>pkgconf</a></h2>
+
+<pre class="sh_perl"> %{pkgconf}</pre>
+
+<p>Requires: <a href="/pod/Alien/pkgconf.html" class="podlinkpod"
+>Alien::pkgconf</a> 0.06.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="cwd"
+>cwd</a></h2>
+
+<pre class="sh_perl"> %{cwd}</pre>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="sh"
+>sh</a></h2>
+
+<pre class="sh_perl"> %{sh}</pre>
+
+<p>Unix style command interpreter (/bin/sh).</p>
+
+<p>Deprecated: use the <a href="/pod/Alien/Build/Plugin/Build/MSYS.html" class="podlinkpod"
+>Alien::Build::Plugin::Build::MSYS</a> plugin instead.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="rm"
+>rm</a></h2>
+
+<pre class="sh_perl"> %{rm}</pre>
+
+<p>The remove command</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="xz"
+>xz</a></h2>
+
+<pre class="sh_perl"> %{xz}</pre>
+
+<p>Requires: <a href="/pod/Alien/xz.html" class="podlinkpod"
+>Alien::xz</a> 0.02 if not already in the <code>PATH</code>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="AUTHOR"
+>AUTHOR</a></h1>
+
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Diab Jerius (DJERIUS)</p>
+
+<p>Roy Storey (KIWIROY)</p>
+
+<p>Ilya Pavlov</p>
+
+<p>David Mertens (run4flat)</p>
+
+<p>Mark Nunberg (mordy, mnunberg)</p>
+
+<p>Christian Walde (Mithaldu)</p>
+
+<p>Brian Wightman (MidLifeXis)</p>
+
+<p>Zaki Mughal (zmughal)</p>
+
+<p>mohawk (mohawk2, ETJ)</p>
+
+<p>Vikas N Kumar (vikasnkumar)</p>
+
+<p>Flavio Poletti (polettix)</p>
+
+<p>Salvador Fandi&#241;o (salva)</p>
+
+<p>Gianni Ceccarelli (dakkar)</p>
+
+<p>Pavel Shaydo (zwon, trinitum)</p>
+
+<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
+
+<p>Nicholas Shipp (nshp)</p>
+
+<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
+
+<p>Joel Berger (JBERGER)</p>
+
+<p>Petr P&#237;sa&#345; (ppisar)</p>
+
+<p>Lance Wicks (LANCEW)</p>
+
+<p>Ahmad Fatoum (a3f, ATHREEF)</p>
+
+<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
+
+<p>Duke Leto (LETO)</p>
+
+<p>Shoichi Kaji (SKAJI)</p>
+
+<p>Shawn Laffan (SLAFFAN)</p>
+
+<p>Paul Evans (leonerd, PEVANS)</p>
+
+<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
+
+<p>nick nauwelaerts (INPHOBIA)</p>
+
+<p>Florian Weimer</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="COPYRIGHT_AND_LICENSE"
+>COPYRIGHT AND LICENSE</a></h1>
+
+<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+
+    <div class="nx-footer">
+      <p>
+        [
+            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://alienfile.org">alienfile.org</a> |
+            <a href="https://pl.atypus.org">pl.atypus.org</a> |
+            <a href="https://perlwasm.github.io">perlwasm</a> |
+            <a href="https://uperl.github.io">uperl</a>
+        ]
+        Copyright &copy; 2022 Graham Ollis
+      </p>
+    </div>
+  </body>
+</html>
