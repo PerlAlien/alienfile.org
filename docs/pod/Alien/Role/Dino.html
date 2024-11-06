@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Role::Dino</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Role.html">Role</a>::Dino</div>
     <!--Alien::Role::Dino--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -50,7 +50,7 @@ name="VERSION"
 name="SYNOPSIS"
 >SYNOPSIS</a></h1>
 
-<p>In your <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+<p>In your <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a>:</p>
 
 <pre class="sh_perl"> use alienfile;
@@ -61,7 +61,7 @@ name="SYNOPSIS"
  }</pre>
 
 <p>Apply <a href="/pod/Alien/Role/Dino.html" class="podlinkpod"
->Alien::Role::Dino</a> to your <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Alien::Role::Dino</a> to your <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> subclass:</p>
 
 <pre class="sh_perl"> package Alien::libfoo;
@@ -106,7 +106,7 @@ name="DESCRIPTION"
 <dd>
 <p>When you link your <code>Foo::XS</code> module with a static library from <code>Alien::libfoo</code> it gets added into the DLL or <code>.so</code> file that the Perl toolchain produces. That means when you later use it, it doesn&#39;t need anything else. When you try to do the same thing with a dynamic library, you need that dynamic library, which is stored in a share directory of <code>Alien::libfoo</code>.</p>
 
-<p>For people who install out of CPAN this is probably not a big deal, but for operating system vendors (the people who integrate Perl modules into their operating system), it is a hassle because now you need this big build tool <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+<p>For people who install out of CPAN this is probably not a big deal, but for operating system vendors (the people who integrate Perl modules into their operating system), it is a hassle because now you need this big build tool <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a> and the alien <code>Alien::libfoo</code> with extra dependencies during runtime. Normally you wouldn&#39;t need those packages installed for end-user use.</p>
 
 <dt><a name="Upgrades_can_and_will_break_your_XS_module."
@@ -129,7 +129,7 @@ name="DESCRIPTION"
 
 <p>So all that said, why have I written this module, which provides support for dynamic libraries? Well, maybe I am wrong, maybe it isn&#39;t that hard. Also, maybe you don&#39;t have a choice, maybe you have found a library that can ONLY be built using a dynamic library.</p>
 
-<p>What about you? Should you use this module? It has the worked <b>Experimental</b> in the description. The experimental aspect of this module should not worry you, because in the situation that your Alien finds the library from the system, nothing is different from the core <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+<p>What about you? Should you use this module? It has the worked <b>Experimental</b> in the description. The experimental aspect of this module should not worry you, because in the situation that your Alien finds the library from the system, nothing is different from the core <a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a>. The only place it is different is if you have to do a share install, and hopefully you are only using it because you really can&#39;t build a static library. Thus you haven&#39;t really lost anything in stability, and at worst your Alien may work in places where it wouldn&#39;t otherwise.</p>
 
 <p>So in summary, the experimental aspect shouldn&#39;t worry you, the caveats above should!</p>
@@ -138,9 +138,9 @@ name="DESCRIPTION"
 name="HOW"
 >HOW</a></h1>
 
-<p>How does it work? Use the bundled <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+<p>How does it work? Use the bundled <a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a> plugin <a href="/pod/Alien/Build/Plugin/Gather/Dino.html" class="podlinkpod"
->Alien::Build::Plugin::Gather::Dino</a>. That will find any dynamic library paths in your share directory in case they are needed at runtime. Then apply this role to you <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Alien::Build::Plugin::Gather::Dino</a>. That will find any dynamic library paths in your share directory in case they are needed at runtime. Then apply this role to you <a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a> subclass using <a href="https://metacpan.org/pod/Role%3A%3ATiny%3A%3AWith" class="podlinkpod"
 >Role::Tiny::With</a>. Instead of using <a href="https://metacpan.org/pod/XSLoader" class="podlinkpod"
 >XSLoader</a> or <a href="https://metacpan.org/pod/DynaLoader" class="podlinkpod"
@@ -205,17 +205,17 @@ name="SEE_ALSO"
 
 <dl>
 <dt><a name="alienfile"
-><a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+><a href="/pod/alienfile.html" class="podlinkpod"
 >alienfile</a></a></dt>
 
 <dd>
 <dt><a name="Alien::Base"
-><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+><a href="/pod/Alien/Base.html" class="podlinkpod"
 >Alien::Base</a></a></dt>
 
 <dd>
 <dt><a name="Alien::Build"
-><a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
+><a href="/pod/Alien/Build.html" class="podlinkpod"
 >Alien::Build</a></a></dt>
 
 <dd>
