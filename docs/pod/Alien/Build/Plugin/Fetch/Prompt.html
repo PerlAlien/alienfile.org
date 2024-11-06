@@ -11,7 +11,7 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Fetch.html">Fetch</a>::Prompt</div>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::Build::Plugin::Fetch::Prompt</div>
     <!--Alien::Build::Plugin::Fetch::Prompt--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
@@ -56,7 +56,7 @@ name="SYNOPSIS"
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This plugin allows you to force <a href="/pod/Alien/Build.html" class="podlinkpod"
+<p>This plugin allows you to force <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
 >Alien::Build</a> to prompt the user and ask for permission before downloading anything from the internet. It uses the <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
 >ExtUtils::MakeMaker</a> <code>prompt</code> function, so that it will do the sensible thing, like not infinitely halt install on non-interactive installs. The default response is <code>yes</code>, which is usually reasonable (and the default if you do not use this plugin at all), but you may change this by using the <code>ALIEN_DOWNLOAD</code> environment variable (see below).</p>
 
@@ -74,8 +74,8 @@ name="ALIEN_DOWNLOAD"
 name="CAVEATS"
 >CAVEATS</a></h1>
 
-<p>This plugin depends on the <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> using the appropriate channels for downloading external libraries. It is perfectly legal to write a <a href="/pod/alienfile.html" class="podlinkpod"
+<p>This plugin depends on the <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+>alienfile</a> using the appropriate channels for downloading external libraries. It is perfectly legal to write a <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
 >alienfile</a> that downloads using an external program like <code>wget</code> or <code>curl</code>, or not go through the normal fetch plugin. There is also nothing stopping someone from doing something nefarious when installing a cpan module. If you have strict security requirements you really should audit the alienfile and other Perl code that you are using.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -84,7 +84,7 @@ name="SEE_ALSO"
 
 <dl>
 <dt><a name="Alien::Build"
-><a href="/pod/Alien/Build.html" class="podlinkpod"
+><a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
 >Alien::Build</a></a></dt>
 </dl>
 

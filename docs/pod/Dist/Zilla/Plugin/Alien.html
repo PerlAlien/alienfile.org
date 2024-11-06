@@ -96,11 +96,11 @@ name="DESCRIPTION"
 >Dist::Zilla::Plugin::AlienBuild</a> for new <a href="/pod/Alien.html" class="podlinkpod"
 >Alien</a>s, and consider migration for older code as well.</p>
 
-<p>This is a simple wrapper around Alien::Base, to make it very simple to generate a distribution that uses it. You only need to make a module like in this case Alien::myapp which extends Alien::Base and additionally a url that points to the path where the downloadable .tar.gz of the application or library can be found. For more informations about the parameter, please checkout also the <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a> documentation. The <i>repo</i> paramter is automatically taken apart to supply the procotol, host and other parameters for <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>This is a simple wrapper around Alien::Base, to make it very simple to generate a distribution that uses it. You only need to make a module like in this case Alien::myapp which extends Alien::Base and additionally a url that points to the path where the downloadable .tar.gz of the application or library can be found. For more informations about the parameter, please checkout also the <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
+>Alien::Base</a> documentation. The <i>repo</i> paramter is automatically taken apart to supply the procotol, host and other parameters for <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a>.</p>
 
-<p><b>Warning</b>: Please be aware that <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p><b>Warning</b>: Please be aware that <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> uses <a href="https://metacpan.org/pod/Module%3A%3ABuild" class="podlinkpod"
 >Module::Build</a>, which means you shouldn&#39;t have <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AMakeMaker" class="podlinkpod"
 >Dist::Zilla::Plugin::MakeMaker</a> loaded. For our case, this means, you can&#39;t just easily use it together with the common <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APluginBundle%3A%3ABasic" class="podlinkpod"
@@ -108,8 +108,8 @@ name="DESCRIPTION"
 >Dist::Zilla::PluginBundle::Alien</a> which is also included in this distribution.</p>
 
 <p>You should also consider using <a href="/pod/Dist/Zilla/Plugin/AlienBuild.html" class="podlinkpod"
->Dist::Zilla::Plugin::AlienBuild</a> for new development, as it uses the more modern flexible installer <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Dist::Zilla::Plugin::AlienBuild</a> for new development, as it uses the more modern flexible installer <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+>alienfile</a> + <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
 >Alien::Build</a>.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
@@ -192,7 +192,7 @@ name="isolate_dynamic"
 
 <pre class="sh_perl">  isolate_dynamic = 1</pre>
 
-<p>Usage of this attribute will bump the requirement of <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>Usage of this attribute will bump the requirement of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> up to 0.005 for your distribution.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -204,7 +204,7 @@ name="autoconf_with_pic"
 <pre class="sh_perl">  ; only if you know configure will die with --with-pic
   autoconf_with_pic = 0</pre>
 
-<p>Usage of this attribute will bump the requirement of <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>Usage of this attribute will bump the requirement of <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> up to 0.005 for your distribution.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
@@ -302,7 +302,7 @@ name="env"
 name="InstallRelease"
 >InstallRelease</a></h1>
 
-<p>The method <a href="/pod/Alien/Base.html" class="podlinkpod"
+<p>The method <a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a> is using would compile the complete Alien 2 times, if you use it in combination with <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AInstallRelease" class="podlinkpod"
 >Dist::Zilla::Plugin::InstallRelease</a>. One time at the test, and then again after release. With a small trick, you can avoid this. You can use <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3ARun" class="podlinkpod"
 >Dist::Zilla::Plugin::Run</a> to add an additional test which installs out of the unpacked distribution for the testing:</p>
@@ -319,7 +319,7 @@ name="SEE_ALSO"
 
 <dl>
 <dt><a name="Alien::Base"
-><a href="/pod/Alien/Base.html" class="podlinkpod"
+><a href="https://metacpan.org/pod/Alien%3A%3ABase" class="podlinkpod"
 >Alien::Base</a></a></dt>
 
 <dd>
@@ -334,8 +334,8 @@ name="SEE_ALSO"
 >Alien</a>s.</p>
 
 <dt><a name="alienfile_+_Alien::Build"
-><a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+><a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+>alienfile</a> + <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
 >Alien::Build</a></a></dt>
 
 <dd>
@@ -348,8 +348,8 @@ name="SEE_ALSO"
 
 <dd>
 <p>Alternative <a href="https://metacpan.org/pod/Dist%3A%3AZilla" class="podlinkpod"
->Dist::Zilla</a> plugin that uses <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a> + <a href="/pod/Alien/Build.html" class="podlinkpod"
+>Dist::Zilla</a> plugin that uses <a href="https://metacpan.org/pod/alienfile" class="podlinkpod"
+>alienfile</a> + <a href="https://metacpan.org/pod/Alien%3A%3ABuild" class="podlinkpod"
 >Alien::Build</a>.</p>
 </dd>
 </dl>
