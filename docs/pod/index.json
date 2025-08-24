@@ -866,6 +866,33 @@
       ]
    },
    {
+      "name" : "Alien-cargo",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/cargo.html",
+            "name" : "Alien::cargo"
+         }
+      ]
+   },
+   {
+      "name" : "Alien-cargo-capi",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/cargo/capi.html",
+            "name" : "Alien::cargo::capi"
+         }
+      ]
+   },
+   {
+      "name" : "Alien-cargo-clone",
+      "pods" : [
+         {
+            "href" : "/pod/Alien/cargo/clone.html",
+            "name" : "Alien::cargo::clone"
+         }
+      ]
+   },
+   {
       "name" : "Alien-cmake3",
       "pods" : [
          {

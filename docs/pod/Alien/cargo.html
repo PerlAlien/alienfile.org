@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Alien::nasm</title>
+    <title>Alien::cargo</title>
     <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
     <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
     <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
@@ -11,8 +11,8 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::nasm</div>
-    <!--Alien::nasm--><a name='___top' class='dummyTopAnchor' ></a>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::cargo</div>
+    <!--Alien::cargo--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
 <ul   class='indexList indexList1'>
@@ -20,11 +20,13 @@
   <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
   <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
   <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
-  <li class='indexItem indexItem1'><a href='#HELPERS'>HELPERS</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
   <ul   class='indexList indexList2'>
-    <li class='indexItem indexItem2'><a href='#nasm'>nasm</a>
-    <li class='indexItem indexItem2'><a href='#ndisasm'>ndisasm</a>
+    <li class='indexItem indexItem2'><a href='#bin_dir'>bin_dir</a>
+    <li class='indexItem indexItem2'><a href='#version'>version</a>
+    <li class='indexItem indexItem2'><a href='#install_type'>install_type</a>
   </ul>
+  <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
 </ul>
@@ -34,67 +36,79 @@
 name="NAME"
 >NAME</a></h1>
 
-<p>Alien::nasm - Find or build nasm,
-the netwide assembler</p>
+<p>Alien::cargo - Find or download the cargo command (build system and package manager for Rust)</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 0.23</p>
+<p>version 0.03</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
 >SYNOPSIS</a></h1>
 
-<p>From your Perl script:</p>
-
-<pre class="sh_perl"> use Alien::nasm ();
+<pre class="sh_perl"> use Alien::cargo;
  use Env qw( @PATH );
  
- unshift @ENV, Alien::nasm-&#62;bin_dir;
- system &#39;nasm&#39;, ...;</pre>
-
-<p>From <a href="/pod/alienfile.html" class="podlinkpod"
->alienfile</a>:</p>
-
-<pre class="sh_perl"> use alienfile;
- 
- share {
-   requires &#39;Alien::nasm&#39;;
-   build [
-     &#39;%{nasm} ...&#39;,
-   ];
- };</pre>
+ unshift @PATH, Alien::cargo-&#62;bind_dir;</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This Alien module provides Netwide Assembler (NASM).</p>
-
-<p>This class is a subclass of <a href="/pod/Alien/Base.html" class="podlinkpod"
->Alien::Base</a>, so all of the methods documented there should work with this class.</p>
+<p>This <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> provides the Rust <a href="https://doc.rust-lang.org/cargo/" class="podlinkurl"
+>Cargo</a> command.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
-name="HELPERS"
->HELPERS</a></h1>
+name="METHODS"
+>METHODS</a></h1>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
-name="nasm"
->nasm</a></h2>
+name="bin_dir"
+>bin_dir</a></h2>
 
-<pre class="sh_perl"> %{nasm}</pre>
+<pre class="sh_perl"> my @dir = Alien::cargo-&#62;bin_dir;</pre>
 
-<p>Returns the name of the nasm executable.</p>
+<p>Provides the list of directories (if any) that are needed to add to the <code>PATH</code> in order to run <code>cargo</code>.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
-name="ndisasm"
->ndisasm</a></h2>
+name="version"
+>version</a></h2>
 
-<pre class="sh_perl"> %{ndisasm}</pre>
+<pre class="sh_perl"> my $version = Alien::cargo-&#62;version;</pre>
 
-<p>Returns the name of the ndisasm executable.</p>
+<p>Returns the version of <code>cargo</code>.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="install_type"
+>install_type</a></h2>
+
+<pre class="sh_perl"> my $install_type = Alien::cargo-&#62;install_type;
+ my $bool = Alien::cargo-&#62;install_type($install_type);</pre>
+
+<p>Returns the install type.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="SEE_ALSO"
+>SEE ALSO</a></h1>
+
+<dl>
+<dt><a name="Alien::Rust"
+><a href="https://metacpan.org/pod/Alien%3A%3ARust" class="podlinkpod"
+>Alien::Rust</a></a></dt>
+
+<dd>
+<dt><a name="Alien::cargo::clone"
+><a href="/pod/Alien/cargo/clone.html" class="podlinkpod"
+>Alien::cargo::clone</a></a></dt>
+
+<dd>
+<dt><a name="FFI::Build::File::Cargo&#62;"
+><a href="https://pl.atypus.org/pod/FFI/Build/File/Cargo.html" class="podlinkpod"
+>FFI::Build::File::Cargo</a>&#62;</a></dt>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"
@@ -106,7 +120,7 @@ name="AUTHOR"
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2017-2022 by Graham Ollis.</p>
+<p>This software is copyright (c) 2024 by Graham Ollis.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 

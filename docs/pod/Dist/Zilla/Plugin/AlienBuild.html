@@ -24,7 +24,9 @@
   <ul   class='indexList indexList2'>
     <li class='indexItem indexItem2'><a href='#alienfile_meta'>alienfile_meta</a>
     <li class='indexItem indexItem2'><a href='#clean_install'>clean_install</a>
+    <li class='indexItem indexItem2'><a href='#eumm_hash_var'>eumm_hash_var</a>
   </ul>
+  <li class='indexItem indexItem1'><a href='#NOTES'>NOTES</a>
   <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
@@ -41,7 +43,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 0.32</p>
+<p>version 0.33</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -123,6 +125,44 @@ name="clean_install"
 <p>Sets the clean_install property on <a href="/pod/Alien/Build/MM.html" class="podlinkpod"
 >Alien::Build::MM</a>.</p>
 
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="eumm_hash_var"
+>eumm_hash_var</a></h2>
+
+<p>Sets the variable name that is used in the Makefile.PL for its arguments. Defaults to <code>%WriteMakefileArgs</code>, and is required to begin with <code>%</code> or <code>$</code>. This is useful when defining your own Makefile template with <a href="https://metacpan.org/pod/Dist%3A%3AZilla%3A%3APlugin%3A%3AMakeMaker%3A%3ACustom" class="podlinkpod"
+>Dist::Zilla::Plugin::MakeMaker::Custom</a>.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="NOTES"
+>NOTES</a></h1>
+
+<p>When defining your own Makefile.PL template (to use with Dist::Zilla::Plugin::MakeMaker::Custom, for example,) you can specify where you want this module to insert its code by having this line in the template:</p>
+
+<pre class="sh_perl">  # ALIEN BUILD MM</pre>
+
+<p>An example template to use would be this:</p>
+
+<pre class="sh_perl">  use ExtUtils::MakeMaker ##{ $eumm_version ##};
+  
+  my %args = (
+    NAME =&#62; &#34;My::Alien::Module&#34;,
+  ##{ $plugin-&#62;get_default(qw(ABSTRACT AUTHOR LICENSE VERSION)) ##}
+  ##{ $plugin-&#62;get_prereqs(1) ##}
+  );
+  
+  # ALIEN BUILD MM
+  
+  WriteMakefile(%args);</pre>
+
+<p>and a dist.ini using this template would include this:</p>
+
+<pre class="sh_perl">  [MakeMaker::Custom]
+  # We need to manipulate %args on-the-fly if we set the version of ExtUtils::MakeMaker any lower.
+  eumm_version: 6.64
+
+  [AlienBuild]
+  eumm_hash_var: %args</pre>
+
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SEE_ALSO"
 >SEE ALSO</a></h1>
@@ -139,13 +179,17 @@ name="SEE_ALSO"
 name="AUTHOR"
 >AUTHOR</a></h1>
 
-<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
+<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
+
+<p>Contributors:</p>
+
+<p>Curtis Jewell (CSJEWELL)</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2017 by Graham Ollis.</p>
+<p>This software is copyright (c) 2017-2025 by Graham Ollis.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 
@@ -153,7 +197,7 @@ name="COPYRIGHT_AND_LICENSE"
     <div class="nx-footer">
       <p>
         [
-            <a href="https://wdlabs.com">wdlabs.com</a> |
+            <a href="https://www.wdlabs.com">www.wdlabs.com</a> |
             <a href="https://alienfile.org">alienfile.org</a> |
             <a href="https://pl.atypus.org">pl.atypus.org</a> |
             <a href="https://perlwasm.github.io">perlwasm</a> |

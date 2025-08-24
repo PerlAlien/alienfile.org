@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Alien::Build::Plugin::Core::Download</title>
+    <title>Alien::cargo::clone</title>
     <script type="text/javascript" src="https://shjs.wdlabs.com/sh_main.min.js"></script>
     <script type="text/javascript" src="https://shjs.wdlabs.com/lang/sh_perl.min.js"></script>
     <link type="text/css" rel="stylesheet" href="https://shjs.wdlabs.com/css/sh_acid.css">
@@ -11,8 +11,8 @@
   <body onload="sh_highlightDocument();">
     <div class="nx-header-flag-1"></div>
     <div class="nx-header-flag-2"></div>
-    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/Build.html">Build</a>::<a href="/pod/Alien/Build/Plugin.html">Plugin</a>::<a href="/pod/Alien/Build/Plugin/Core.html">Core</a>::Download</div>
-    <!--Alien::Build::Plugin::Core::Download--><a name='___top' class='dummyTopAnchor' ></a>
+    <div class="nx-header-title"><a href="/">🌻</a> <a href="/pod/">📖</a> <a href="/pod/Alien.html">Alien</a>::<a href="/pod/Alien/cargo.html">cargo</a>::clone</div>
+    <!--Alien::cargo::clone--><a name='___top' class='dummyTopAnchor' ></a>
 
 <div class='indexgroup'>
 <ul   class='indexList indexList1'>
@@ -20,6 +20,10 @@
   <li class='indexItem indexItem1'><a href='#VERSION'>VERSION</a>
   <li class='indexItem indexItem1'><a href='#SYNOPSIS'>SYNOPSIS</a>
   <li class='indexItem indexItem1'><a href='#DESCRIPTION'>DESCRIPTION</a>
+  <li class='indexItem indexItem1'><a href='#METHODS'>METHODS</a>
+  <ul   class='indexList indexList2'>
+    <li class='indexItem indexItem2'><a href='#bin_dir'>bin_dir</a>
+  </ul>
   <li class='indexItem indexItem1'><a href='#SEE_ALSO'>SEE ALSO</a>
   <li class='indexItem indexItem1'><a href='#AUTHOR'>AUTHOR</a>
   <li class='indexItem indexItem1'><a href='#COPYRIGHT_AND_LICENSE'>COPYRIGHT AND LICENSE</a>
@@ -30,106 +34,75 @@
 name="NAME"
 >NAME</a></h1>
 
-<p>Alien::Build::Plugin::Core::Download - Core download plugin</p>
+<p>Alien::cargo::clone - Find or build the cargo clone command</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.84</p>
+<p>version 0.02</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
 >SYNOPSIS</a></h1>
 
-<pre class="sh_perl"> use alienfile;
- # already loaded</pre>
+<pre class="sh_perl"> use Alien::cargo::clone;
+ use Env qw( @PATH );
+ 
+ unshift @PATH, Alien::cargo::clone-&#62;bin_dir;
+ system &#39;cargo&#39;, &#39;clone&#39;, &#39;foo-bar&#39;;</pre>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="DESCRIPTION"
 >DESCRIPTION</a></h1>
 
-<p>This plugin does some core download logic.</p>
+<p>This <a href="/pod/Alien.html" class="podlinkpod"
+>Alien</a> provides the <a href="https://crates.io/crates/cargo-clone" class="podlinkurl"
+>cargo clone</a> command.</p>
+
+<h1><a class='u' href='#___top' title='click to go to top of document'
+name="METHODS"
+>METHODS</a></h1>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="bin_dir"
+>bin_dir</a></h2>
+
+<pre class="sh_perl"> my @dir = Alien::cargo::clone-&#62;bin_dir;</pre>
+
+<p>Returns the list of directories (if any) that need to be added to the <code>PATH</code> to use <code>cargo clone</code>.</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SEE_ALSO"
 >SEE ALSO</a></h1>
 
-<p><a href="/pod/Alien/Build.html" class="podlinkpod"
->Alien::Build</a>, <a href="/pod/Alien/Base/ModuleBuild.html" class="podlinkpod"
->Alien::Base::ModuleBuild</a></p>
+<dl>
+<dt><a name="Alien::Rust"
+><a href="https://metacpan.org/pod/Alien%3A%3ARust" class="podlinkpod"
+>Alien::Rust</a></a></dt>
+
+<dd>
+<dt><a name="Alien::cargo"
+><a href="/pod/Alien/cargo.html" class="podlinkpod"
+>Alien::cargo</a></a></dt>
+
+<dd>
+<dt><a name="FFI::Build::File::Cargo"
+><a href="https://pl.atypus.org/pod/FFI/Build/File/Cargo.html" class="podlinkpod"
+>FFI::Build::File::Cargo</a></a></dt>
+</dl>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="AUTHOR"
 >AUTHOR</a></h1>
 
-<p>Author: Graham Ollis &#60;plicease@cpan.org&#62;</p>
-
-<p>Contributors:</p>
-
-<p>Diab Jerius (DJERIUS)</p>
-
-<p>Roy Storey (KIWIROY)</p>
-
-<p>Ilya Pavlov</p>
-
-<p>David Mertens (run4flat)</p>
-
-<p>Mark Nunberg (mordy, mnunberg)</p>
-
-<p>Christian Walde (Mithaldu)</p>
-
-<p>Brian Wightman (MidLifeXis)</p>
-
-<p>Zaki Mughal (zmughal)</p>
-
-<p>mohawk (mohawk2, ETJ)</p>
-
-<p>Vikas N Kumar (vikasnkumar)</p>
-
-<p>Flavio Poletti (polettix)</p>
-
-<p>Salvador Fandi&#241;o (salva)</p>
-
-<p>Gianni Ceccarelli (dakkar)</p>
-
-<p>Pavel Shaydo (zwon, trinitum)</p>
-
-<p>Kang-min Liu (&#21129;&#24247;&#27665;, gugod)</p>
-
-<p>Nicholas Shipp (nshp)</p>
-
-<p>Juan Juli&#225;n Merelo Guerv&#243;s (JJ)</p>
-
-<p>Joel Berger (JBERGER)</p>
-
-<p>Petr P&#237;sa&#345; (ppisar)</p>
-
-<p>Lance Wicks (LANCEW)</p>
-
-<p>Ahmad Fatoum (a3f, ATHREEF)</p>
-
-<p>Jos&#233; Joaqu&#237;n Atria (JJATRIA)</p>
-
-<p>Duke Leto (LETO)</p>
-
-<p>Shoichi Kaji (SKAJI)</p>
-
-<p>Shawn Laffan (SLAFFAN)</p>
-
-<p>Paul Evans (leonerd, PEVANS)</p>
-
-<p>H&#229;kon H&#230;gland (hakonhagland, HAKONH)</p>
-
-<p>nick nauwelaerts (INPHOBIA)</p>
-
-<p>Florian Weimer</p>
+<p>Graham Ollis &#60;plicease@cpan.org&#62;</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="COPYRIGHT_AND_LICENSE"
 >COPYRIGHT AND LICENSE</a></h1>
 
-<p>This software is copyright (c) 2011-2022 by Graham Ollis.</p>
+<p>This software is copyright (c) 2024 by Graham Ollis.</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
 
