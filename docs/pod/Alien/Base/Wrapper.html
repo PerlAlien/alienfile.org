@@ -30,6 +30,7 @@
     <li class='indexItem indexItem2'><a href='#ld'>ld</a>
     <li class='indexItem indexItem2'><a href='#mm_args'>mm_args</a>
     <li class='indexItem indexItem2'><a href='#mm_args2'>mm_args2</a>
+    <li class='indexItem indexItem2'><a href='#checklib_args2'>checklib_args2</a>
     <li class='indexItem indexItem2'><a href='#mb_args'>mb_args</a>
     <li class='indexItem indexItem2'><a href='#WriteMakefile'>WriteMakefile</a>
   </ul>
@@ -50,7 +51,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.84</p>
+<p>version 2.88</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -190,6 +191,39 @@ name="mm_args2"
 
 <p>Returns arguments that you can pass into <code>WriteMakefile</code> to compile/link against. It works a little differently from <code>mm_args</code> above in that you can pass in arguments. It also adds the appropriate <code>CONFIGURE_REQUIRES</code> for you so you do not have to do that explicitly.</p>
 
+<p>[version 2.87]</p>
+
+<p>If you pass in your own <code>CONFIGURE_REQUIRES</code> with a version for a module that this class also requires (currently <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> and <code>Alien::Base::Wrapper</code> itself, plus any Alien that you specify a minimum version for), then the newer of the two version numbers will be used, so that neither requirement is weakened. Version numbers may be given in either decimal (<code>1.23</code>) or dotted-decimal (<code>1.2.3</code>) form.</p>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="checklib_args2"
+>checklib_args2</a></h2>
+
+<pre class="sh_perl"> my %args = $abw-&#62;checklib_args2(%args);
+ my %args = Alien::Base::Wrapper-&#62;checklib_args2(%args);</pre>
+
+<p>Returns arguments that you can pass into <code>assert_lib</code>, <code>check_lib</code> or <code>check_lib_or_exit</code> from <a href="https://metacpan.org/pod/Devel%3A%3ACheckLib" class="podlinkpod"
+>Devel::CheckLib</a> in order to compile/link against the Aliens specified. It works a little like <code>mm_args2</code> above, except that instead of being applied to a hash of <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> arguments, it is applied to a hash of <a href="https://metacpan.org/pod/Devel%3A%3ACheckLib" class="podlinkpod"
+>Devel::CheckLib</a> arguments.</p>
+
+<pre class="sh_perl"> use Devel::CheckLib qw( check_lib_or_exit );
+ use Alien::Base::Wrapper ();
+
+ check_lib_or_exit(
+   Alien::Base::Wrapper-&#62;new(&#39;Alien::Foo&#39;)-&#62;checklib_args2(
+     lib    =&#62; &#39;foo&#39;,
+     header =&#62; &#39;foo.h&#39;,
+   ),
+ );</pre>
+
+<p>The Alien&#39;s include paths are merged into <code>incpath</code>, its other compiler flags (such as <code>-D</code> defines) are merged into <code>ccflags</code>, its library paths are merged into <code>libpath</code>, and its libraries and other linker flags are merged into <code>ldflags</code>, so that the <code>lib</code> and <code>header</code> that you are checking for can be found using the environment provided by the Alien.</p>
+
+<p>Since <a href="https://metacpan.org/pod/Devel%3A%3ACheckLib" class="podlinkpod"
+>Devel::CheckLib</a> also allows you to specify <code>INC</code> and <code>LIBS</code> in the <a href="https://metacpan.org/pod/ExtUtils%3A%3AMakeMaker" class="podlinkpod"
+>ExtUtils::MakeMaker</a> style, and merging those styles with the Alien flags is ambiguous, <code>checklib_args2</code> will throw an exception if you attempt to specify either of those. Use <code>incpath</code> / <code>ccflags</code> and <code>libpath</code> / <code>ldflags</code> instead.</p>
+
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="mb_args"
 >mb_args</a></h2>
@@ -309,6 +343,8 @@ name="AUTHOR"
 <p>nick nauwelaerts (INPHOBIA)</p>
 
 <p>Florian Weimer</p>
+
+<p>Marcel Telka (mtelka)</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="COPYRIGHT_AND_LICENSE"

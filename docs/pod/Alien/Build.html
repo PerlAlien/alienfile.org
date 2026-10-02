@@ -64,6 +64,7 @@
   <ul   class='indexList indexList2'>
     <li class='indexItem indexItem2'><a href='#prop'>prop</a>
     <li class='indexItem indexItem2'><a href='#add_requires'>add_requires</a>
+    <li class='indexItem indexItem2'><a href='#has_requires'>has_requires</a>
     <li class='indexItem indexItem2'><a href='#interpolator'>interpolator</a>
     <li class='indexItem indexItem2'><a href='#has_hook'>has_hook</a>
     <li class='indexItem indexItem2'><a href='#register_hook'>register_hook</a>
@@ -92,7 +93,7 @@ name="NAME"
 name="VERSION"
 >VERSION</a></h1>
 
-<p>version 2.84</p>
+<p>version 2.88</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="SYNOPSIS"
@@ -1129,8 +1130,6 @@ name="clean_install"
 
 <p>Clean files from the final install location. The default implementation removes all files recursively except for the <code>_alien</code> directory. This is helpful when you have an old install with files that may break the new build.</p>
 
-<p>For a non-share install this doesn&#39;t do anything.</p>
-
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="system"
 >system</a></h2>
@@ -1195,6 +1194,15 @@ name="add_requires"
 <dt><a name="system"
 >system</a></dt>
 </dl>
+
+<h2><a class='u' href='#___top' title='click to go to top of document'
+name="has_requires"
+>has_requires</a></h2>
+
+<pre class="sh_perl"> if (Alien::Build-&#62;meta-&#62;has_requires($phase, $module_pat, ...)) {...}</pre>
+
+<p>Tests to see if the given phase has any of the given substrings as a requirement. Phase as <a href="#add_requires" class="podlinkpod"
+>&#34;add_requires&#34;</a>.</p>
 
 <h2><a class='u' href='#___top' title='click to go to top of document'
 name="interpolator"
@@ -1534,6 +1542,8 @@ name="AUTHOR"
 <p>nick nauwelaerts (INPHOBIA)</p>
 
 <p>Florian Weimer</p>
+
+<p>Marcel Telka (mtelka)</p>
 
 <h1><a class='u' href='#___top' title='click to go to top of document'
 name="COPYRIGHT_AND_LICENSE"
