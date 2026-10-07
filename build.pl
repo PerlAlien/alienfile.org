@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use XOR 0.09;
+use XOR 0.10;
 
 my $xor = XOR->new(
   root => '.',
